@@ -1,5 +1,5 @@
 {
-  "name": "reversi",
+  "name": "geoboard",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,7 +9,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "contributors": [
+    "luuk777w",
+    "matthijs110"
+  ],
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -26,6 +29,6 @@
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-order": "^1.2.0",
-    "handlebars": "^4.7.3"
+    "handlebars": "^4.7.6"
   }
 }
