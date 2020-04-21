@@ -1,16 +1,27 @@
-<div class="container">
-    <h1>login!</h1>
+<div class="login-container">
+    <div class="panel-header">Login</div>
 
-    <label for="username">Username or email:</label>
-    <input type="text" id="username"><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password">
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="username">Username or email</label>
+            <input type="text" id="username"><br>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password">
+        </div>
 
-    <p class="login-forgot-password">Forgot password?</p>
+        <p class="login-status" style="margin: 0;"></p>
+    </div>
 
-    <p class="login-status"></p>
-
-    <button class="button button-blue button-pd-2 login-button">Login</button>
-    <button class="button button-green-border button-pd-2" data-target="register">Register</button>
+    <div class="panel-footer">
+        <div class="button-group">
+            <button class="button button-green button-pd-2 login-button">Login</button>
+            <button class="button button-link button-pd-2" data-target="register">Reset password</button>
+        </div>
+        
+        <p class="register-information">No account yet? <span data-target="register">Create one here</span></p>
+    </div>
 
 </div>
