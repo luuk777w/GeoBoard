@@ -1,10 +1,12 @@
+@import "css/colors";
+
 .button {
     border: none;
     color: white;
     padding: 0.9rem 1rem;
     text-align: center;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
     border-radius: 0.2rem;
     outline: none;
@@ -22,7 +24,6 @@ a.button {
 
 .button-blue {
     background-color: #2196F3;
-    box-shadow: 0 1px 3px #1E88E5;
 }
 
 .button-blue:hover {
@@ -42,7 +43,6 @@ a.button {
 
 .button[disabled] {
     background-color: #BDBDBD;
-    box-shadow: 0 1px 3px #424242;
 }
 
 .button[disabled]:hover {
@@ -55,7 +55,6 @@ a.button {
 
 .button-green {
     background-color: #4CAF50;
-    box-shadow: 0 1px 3px #388E3C;
 }
 
 .button-green:hover {
@@ -79,7 +78,6 @@ a.button {
 
 .button-red {
     background-color: #E53935;
-    box-shadow: 0 1px 3px #D32F2F;
 }
 
 .button-red:hover {
@@ -121,4 +119,37 @@ a.button {
 
 .button-text-black {
     color: #212121;
+}
+
+/**
+ * Link button
+ */
+.button-link {
+    background-color: transparent;
+    color: $blue700;
+
+    &:hover, &:focus {
+        color: $blue900;
+    }
+}
+
+/**
+ * Grouped buttons
+ */
+.button-group {
+    display: flex;
+
+    .button {
+        flex: 1;
+
+        &:not(.btn-link) &:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &:not(.btn-link) :not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
 }
