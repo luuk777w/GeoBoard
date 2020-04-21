@@ -24,6 +24,16 @@ $sizes: 0, 0.25rem, 0.5rem, 0.75rem, 1rem, 1.25rem, 1.5rem, 1.75rem, 2rem, 2.25r
     padding-right: $size;
   }
 
+  .px-#{index($sizes, $size) - 1} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+
+  .py-#{index($sizes, $size) - 1} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+
     /* Margin */
 
   .m-#{index($sizes, $size) - 1} {
@@ -42,7 +52,17 @@ $sizes: 0, 0.25rem, 0.5rem, 0.75rem, 1rem, 1.25rem, 1.5rem, 1.75rem, 2rem, 2.25r
     margin-left: $size;
   }
 
-  .ml-#{index($sizes, $size) - 1} {
+  .mr-#{index($sizes, $size) - 1} {
     margin-right: $size;
+  }
+
+  .mx-#{index($sizes, $size) - 1} {
+    margin-left: $size;
+    margin-right: $size;
+  }
+
+  .my-#{index($sizes, $size) - 1} {
+    margin-top: $size;
+    margin-bottom: $size;
   }
 }
