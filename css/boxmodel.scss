@@ -1,0 +1,48 @@
+$sizes: 0, 0.25rem, 0.5rem, 0.75rem, 1rem, 1.25rem, 1.5rem, 1.75rem, 2rem, 2.25rem, 2.5rem, 2.75rem, 3rem;
+
+@each $size in $sizes {
+
+    /* Padding */
+
+  .p-#{index($sizes, $size) - 1} {
+    padding: $size;
+  }
+
+  .pt-#{index($sizes, $size) - 1} {
+    padding-top: $size;
+  }
+
+  .pb-#{index($sizes, $size) - 1} {
+    padding-bottom: $size;
+  }
+
+  .pl-#{index($sizes, $size) - 1} {
+    padding-left: $size;
+  }
+
+  .pr-#{index($sizes, $size) - 1} {
+    padding-right: $size;
+  }
+
+    /* Margin */
+
+  .m-#{index($sizes, $size) - 1} {
+    margin: $size;
+  }
+
+  .mt-#{index($sizes, $size) - 1} {
+    margin-top: $size;
+  }
+
+  .mb-#{index($sizes, $size) - 1} {
+    margin-bottom: $size;
+  }
+
+  .ml-#{index($sizes, $size) - 1} {
+    margin-left: $size;
+  }
+
+  .ml-#{index($sizes, $size) - 1} {
+    margin-right: $size;
+  }
+}
