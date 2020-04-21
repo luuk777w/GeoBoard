@@ -8,15 +8,6 @@ App.Authorize = (function () {
         console.log("Authorize");
     }
 
-    const RequestOTP = function (username, password) {
-        return $.ajax({
-            type: "post",
-            url: `${App.configMap.apiUrl}/account/requestOTP/`,
-            data: `{"username": "${username}", "password": "${password}"}`,
-            contentType: "application/json",
-        });
-    }
-
     const Login = function (username, password, OTP) {
         return $.ajax({
             type: "post",
@@ -73,7 +64,6 @@ App.Authorize = (function () {
 
     return {
         init: _init,
-        RequestOTP,
         Login,
         HasRole,
         IsLoggedIn,
