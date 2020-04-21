@@ -5,20 +5,11 @@ module.exports = {
             'js/*.js',
             'pages/**/*.js'
         ],
-        sass: {
-            watch: [
-                'css/**/*.sccs',
-                'css/*.scss',
-                'pages/**/*.scss'
-            ],
-            pages: [
-                './pages/{*,}/'
-            ],
-            sass: [
-                'css/**/*.sccs',
-                'css/*.scss'
-            ]
-        },
+        sass: [
+            'css/**/*.sccs',
+            'css/*.scss',
+            'pages/**/*.scss'
+        ],
         vendor: [
             'vendor/*.js'
         ],
