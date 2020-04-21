@@ -4,7 +4,7 @@ const concat = require("gulp-concat");
 const babel = require("gulp-babel");
 const uglify = require("gulp-uglifyjs")
 
-const fn = function (filesJs, filesJsOrder, backendPath) {
+const fn = function (filesJs, filesJsOrder) {
     return function () {
 
         return src(filesJs)
@@ -15,7 +15,6 @@ const fn = function (filesJs, filesJsOrder, backendPath) {
             }))
             .pipe(uglify({ compress: true }))
             .pipe(dest('./dist/js'))
-            .pipe(dest(backendPath + 'js'));
     }
 };
 

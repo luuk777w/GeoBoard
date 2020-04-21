@@ -1,10 +1,10 @@
-App.Home = (function () {
+App.Register = (function () {
 
     // init
     const _init = function () {
-        console.log("home");
+        console.log("register");
         App.Template.setLayout("base_layout");
-        App.Template.loadhtml("home");
+        App.Template.loadhtml("register");
     }
 
     return {

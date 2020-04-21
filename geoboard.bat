@@ -46,7 +46,7 @@ IF NOT DEFINED arg2 (
 		) > pages\%arg2%\%arg2%.js
 		
 		(
-			echo ^<div class^="%arg2%-container"^>
+			echo ^<div class^="container"^>
 			echo     ^<h1^>%arg2%!^</h1^>
 			echo ^</div^>
 		) > pages\%arg2%\%arg2%.hbs

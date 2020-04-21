@@ -19,6 +19,7 @@
     "@babel/preset-env": "^7.8.7",
     "gulp": "^4.0.2",
     "gulp-declare": "^0.3.0",
+    "gulp-flatmap": "^1.0.2",
     "gulp-handlebars": "^5.0.2",
     "gulp-sass": "^4.0.2",
     "gulp-uglifyjs": "^0.6.2",

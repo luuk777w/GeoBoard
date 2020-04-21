@@ -26,13 +26,27 @@ App.Template = (function () {
 
     const loadhtml = function (templateName, data) {
         if (typeof App.Templates[templateName] === "function") {
-            Handlebars.registerPartial('body', App.Templates[templateName](data));
-            document.getElementById('view').innerHTML = App.Templates[configMap.layout]();
-            $("#view").removeClass();
-            $("#view").addClass(`${templateName}-view`);
+
+            $("#page_css").remove();
+
+            var link = document.createElement('link');
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("id", "page_css");
+            link.onload = function () { cssDone(templateName, data); }
+            link.setAttribute("href", `/dist/css/pages/${templateName}/style.css`);
+            document.getElementsByTagName("head")[0].appendChild(link);
+
         } else {
             throw new Error("Template does not exist.")
         }
+    }
+
+    const cssDone = function (templateName, data) {
+        Handlebars.registerPartial('body', App.Templates[templateName](data));
+        document.getElementById('view').innerHTML = App.Templates[configMap.layout]();
+        $("#view").removeClass();
+        $("#view").addClass(`${templateName}-view`);
     }
 
     return {
@@ -40,6 +54,7 @@ App.Template = (function () {
         getTemplate,
         parse,
         loadhtml,
-        setLayout
+        setLayout,
+        cssDone
     }
 })();

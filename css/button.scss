@@ -20,22 +20,22 @@ a.button {
 * Blue button
 */
 
-.button-solid-blue {
+.button-blue {
     background-color: #2196F3;
     box-shadow: 0 1px 3px #1E88E5;
 }
 
-.button-solid-blue:hover {
+.button-blue:hover {
     background-color: #1976D2;
 }
 
-.button-blue {
+.button-blue-border {
     border: #2196F3 solid 1px;
     background-color: transparent;
     color: #2196F3;
 }
 
-.button-blue:hover {
+.button-blue-border:hover {
     background-color: #2196F3;
     color: white;
 }
@@ -53,22 +53,22 @@ a.button {
 * Green button
 */
 
-.button-solid-green {
+.button-green {
     background-color: #4CAF50;
     box-shadow: 0 1px 3px #388E3C;
 }
 
-.button-solid-green:hover {
+.button-green:hover {
     background-color: #388E3C;
 }
 
-.button-green {
+.button-green-border {
     border: #4CAF50 solid 1px;
     background-color: transparent;
     color: #4CAF50;
 }
 
-.button-green:hover {
+.button-green-border:hover {
     background-color: #4CAF50;
     color: white;
 }
@@ -77,22 +77,22 @@ a.button {
 * Red button
 */
 
-.button-solid-red {
+.button-red {
     background-color: #E53935;
     box-shadow: 0 1px 3px #D32F2F;
 }
 
-.button-solid-red:hover {
+.button-red:hover {
     background-color: #C62828;
 }
 
-.button-red {
+.button-red-border {
     border: #E53935 solid 1px;
     background-color: transparent;
     color: #E53935;
 }
 
-.button-red:hover {
+.button-red-border:hover {
     background-color: #D32F2F;
     color: white;
 }

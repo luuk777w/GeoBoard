@@ -1,15 +1,24 @@
 module.exports = {
-    localServerProjectPath: 'C:\\Users\\luukw\\OneDrive\\!School\\Windesheim\\2019 - 2020\\Semester 2\\Reversi\\ReversiRestApi\\ReversiRestApi\\wwwroot',
     files: {
         js: [
             'js/**/*.js',
             'js/*.js',
             'pages/**/*.js'
         ],
-        sass: [
-            'css/**/*.sccs',
-            'css/*.scss',
-        ],
+        sass: {
+            watch: [
+                'css/**/*.sccs',
+                'css/*.scss',
+                'pages/**/*.scss'
+            ],
+            pages: [
+                './pages/{*,}/'
+            ],
+            sass: [
+                'css/**/*.sccs',
+                'css/*.scss'
+            ]
+        },
         vendor: [
             'vendor/*.js'
         ],
@@ -34,8 +43,7 @@ module.exports = {
             'css/main.scss',
             'css/**/*.sccs',
             'css/*.scss',
+            'pages/**/*.scss'
         ]
     },
-
-    voornaam: 'Luuk'
 };
