@@ -22,6 +22,10 @@ module.exports = {
         handlebars_partials: [
             'partials/includes/*.hbs',
             'partials/includes/**/*.hbs',
+        ],
+        assets: [
+            'assets/**/*.*',
+            'assets/*.*'
         ]
     },
     order: {

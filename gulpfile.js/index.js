@@ -13,12 +13,16 @@ vendor.displayName = 'vendor';
 const handlebars = require('./tasks/handlebars').handlebars(config.files.handlebars, config.files.handlebars_partials);
 handlebars.displayName = 'handlebars';
 
+const assets = require('./tasks/assets').assets(config.files.assets);
+assets.displayName = 'assets';
+
 const watchFiles = () => {
 
     watch(config.files.sass, series(sass));
     watch(config.files.js, series(js));
     watch(config.files.handlebars, series(handlebars));
     watch(config.files.handlebars_partials, series(handlebars));
+    watch(config.files.assets, series(assets));
 
 };
 
@@ -27,6 +31,7 @@ const build = (done) => {
     sass();
     vendor();
     handlebars();
+    assets();
     done();
 }
 
@@ -37,3 +42,4 @@ exports.sass = sass;
 exports.watch = watchFiles;
 exports.vendor = vendor;
 exports.handlebars = handlebars;
+exports.assets = assets;
