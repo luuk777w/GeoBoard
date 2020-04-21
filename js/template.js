@@ -35,15 +35,11 @@ App.Template = (function () {
         }
     }
 
-    const cssDone = function (templateName, data) {
-    }
-
     return {
         init: _init,
         getTemplate,
         parse,
         loadhtml,
-        setLayout,
-        cssDone
+        setLayout
     }
 })();

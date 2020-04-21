@@ -1,27 +1,14 @@
 App.Authorize = (function () {
 
-    let configMap = {
-
-    }
-
     const _init = function () {
         console.log("Authorize");
     }
 
-    const RequestOTP = function (username, password) {
-        return $.ajax({
-            type: "post",
-            url: `${App.configMap.apiUrl}/account/requestOTP/`,
-            data: `{"username": "${username}", "password": "${password}"}`,
-            contentType: "application/json",
-        });
-    }
-
-    const Login = function (username, password, OTP) {
+    const Login = function (username, password) {
         return $.ajax({
             type: "post",
             url: `${App.configMap.apiUrl}/account/authorize/`,
-            data: `{"username": "${username}", "password": "${password}", "OTP": ${OTP}}`,
+            data: `{"username": "${username}", "password": "${password}"}`,
             contentType: "application/json",
         });
     }
@@ -73,7 +60,6 @@ App.Authorize = (function () {
 
     return {
         init: _init,
-        RequestOTP,
         Login,
         HasRole,
         IsLoggedIn,
@@ -82,3 +68,4 @@ App.Authorize = (function () {
         ResetPassword
     }
 })();
+
