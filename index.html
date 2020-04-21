@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GeoBoard</title>
+
+    <link rel="stylesheet" href="/dist/css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="" id="page_css">
+
+    <script src="/dist/js/vendor.js"></script>
+    <script src="https://kit.fontawesome.com/bea66b448c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+</head>
+
+<body>
+
+    <div id="view"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="/dist/js/app.js"></script>
+    <script src="/dist/js/templates.js"></script>
+    <script>
+        App.init(afterInit);
+
+        window.addEventListener('popstate', function () {
+            App.Router.resolveRoute();
+        });
+
+        window.addEventListener('load', App.Router.resolveRoute());
+    </script>
+</body>
+
+</html>
