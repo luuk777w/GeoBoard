@@ -30,9 +30,10 @@ const build = (done) => {
     done();
 }
 
+exports.default = build;
+exports.build = build
 exports.js = js;
 exports.sass = sass;
 exports.watch = watchFiles;
 exports.vendor = vendor;
 exports.handlebars = handlebars;
-exports.build = task(build);
