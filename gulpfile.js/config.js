@@ -8,7 +8,8 @@ module.exports = {
         sass: [
             'css/**/*.sccs',
             'css/*.scss',
-            'pages/**/*.scss'
+            'pages/**/*.scss',
+            'partials/**/*.scss'
         ],
         vendor: [
             'vendor/*.js'
