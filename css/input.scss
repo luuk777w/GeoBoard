@@ -18,6 +18,9 @@ input[type=text], input[type=password], input[type=email] {
     }
 }
 
+/*
+ * Form group
+ */
 .form-group {
     &:not(:first-child) {
         margin-top: .6rem;
@@ -28,6 +31,9 @@ input[type=text], input[type=password], input[type=email] {
     }
 }
 
+/*
+ * Input group
+ */
 .input-group {
     display: flex;
     align-items: center;
@@ -43,3 +49,7 @@ input[type=text], input[type=password], input[type=email] {
         padding-left: 3rem;
     }
 }
+
+/*
+ * Checkbox
+ */

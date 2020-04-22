@@ -15,10 +15,6 @@ $login-panel-border-radius: 5px;
 
         box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.05);
 
-        h1 {
-            margin: 0;
-        }
-
         .panel-header {
             padding: 1rem 2rem;
             font-weight: bold;
@@ -34,6 +30,10 @@ $login-panel-border-radius: 5px;
             label {
                 font-weight: 600;
             }
+
+            + .panel-body {
+                border-top: 1px solid $gray100;
+            }
         }
 
         .panel-footer {
@@ -42,6 +42,12 @@ $login-panel-border-radius: 5px;
 
             border-bottom-left-radius: $login-panel-border-radius;
             border-bottom-right-radius: $login-panel-border-radius;
+        }
+
+        .terms {
+            label {
+                font-weight: normal;
+            }
         }
     }
 }

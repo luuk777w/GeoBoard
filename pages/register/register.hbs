@@ -1,5 +1,5 @@
 <div class="register-container animated fadeInDown">
-    <div class="panel-header">Register</div>
+    <div class="panel-header">Create a GeoBoard account</div>
 
     <div class="panel-body">
         <div class="form-group">
@@ -11,9 +11,9 @@
             <label for="email">Email Address</label>
             <input type="email" id="email" placeholder="name@domain.com">
         </div>
+    </div>
 
-        <hr>
-
+    <div class="panel-body">
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Choose a strong password">
@@ -25,10 +25,17 @@
         </div>
     </div>
 
+    <div class="panel-body">
+        <div class="terms">
+            <input id="terms" type="checkbox">
+            <label for="terms">I agree to the <span class="link" data-target="terms">terms of service</span>.</label>
+        </div>
+    </div>
+
     <div class="panel-footer">
         <div class="button-group">
             <button class="button button-green button-pd-2 login-button">Create account</button>
-            <button class="button button-link button-pd-2" data-target="login">I have an account already</button>
+            <button class="button button-link button-pd-2" data-target="login">I have an account</button>
         </div>
     </div>
 
