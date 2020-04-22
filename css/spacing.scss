@@ -3,7 +3,7 @@ $sizes: 0, $spacer * .25, $spacer * .5, $spacer, $spacer * 1.5, $spacer * 3;
 
 @each $size in $sizes {
 
-    /* Padding */
+    /* Padding #{index($sizes, $size) - 1} (#{$size} rem) */
 
   .p-#{index($sizes, $size) - 1} {
     padding: $size;
@@ -35,7 +35,7 @@ $sizes: 0, $spacer * .25, $spacer * .5, $spacer, $spacer * 1.5, $spacer * 3;
     padding-bottom: $size;
   }
 
-    /* Margin */
+    /* Margin #{index($sizes, $size) - 1} (#{$size} rem) */
 
   .m-#{index($sizes, $size) - 1} {
     margin: $size;
