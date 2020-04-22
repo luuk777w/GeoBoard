@@ -1,6 +1,53 @@
-.register-view{
-    .container{
-        background-color: red;
-    } 
+@import "css/colors";
+
+$login-panel-border-radius: 5px;
+
+.register-view {
+
+    height: 100%;
+
+    .register-container {
+        background: white;
+        width: 500px;
+        margin-top: 200px;
+        border-radius: $login-panel-border-radius;
+
+        border-bottom-left-radius: $login-panel-border-radius;
+        border-bottom-right-radius: $login-panel-border-radius;
+
+        -webkit-box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.05);
+        -moz-box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.05);
+        box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.05);
+
+        h1 {
+            margin: 0;
+        }
+
+        .panel-header {
+            padding: 1rem 2rem;
+            font-weight: bold;
+            background-color: $gray100;
+
+            border-top-left-radius: $login-panel-border-radius;
+            border-top-right-radius: $login-panel-border-radius;
+        }
+
+        .panel-body {
+            padding: 2rem;
+
+            label {
+                font-weight: 600;
+            }
+        }
+
+        .panel-footer {
+            padding: 1rem 2rem;
+            background-color: $gray100;
+
+            border-bottom-left-radius: $login-panel-border-radius;
+            border-bottom-right-radius: $login-panel-border-radius;
+        }
+    }
 }
+
 

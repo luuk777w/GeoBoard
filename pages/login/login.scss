@@ -3,11 +3,7 @@
 $login-panel-border-radius: 5px;
 
 .login-view {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background: url('https://geoboard.luukwuijster.dev/images/bi10.jpg');
-    background-size: cover;
+
     height: 100%;
 
     .login-container {
@@ -30,7 +26,7 @@ $login-panel-border-radius: 5px;
         .panel-header {
             padding: 1rem 2rem;
             font-weight: bold;
-            background-color: #eee;
+            background-color: $gray100;
 
             border-top-left-radius: $login-panel-border-radius;
             border-top-right-radius: $login-panel-border-radius;
@@ -46,7 +42,7 @@ $login-panel-border-radius: 5px;
 
         .panel-footer {
             padding: 1rem 2rem;
-            background-color: #eee;
+            background-color: $gray100;
 
             border-bottom-left-radius: $login-panel-border-radius;
             border-bottom-right-radius: $login-panel-border-radius;

@@ -3,7 +3,7 @@ App.Login = (function () {
     // init
     const _init = function () {
         console.log("login");
-        App.Template.setLayout("base_layout");
+        App.Template.setLayout("auth_layout");
         App.Template.loadhtml("login");
     }
 

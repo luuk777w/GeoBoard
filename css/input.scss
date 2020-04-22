@@ -1,3 +1,5 @@
+@import "css/colors";
+
 input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 8px 14px;
@@ -5,10 +7,22 @@ input[type=text], input[type=password], input[type=email] {
     box-sizing: border-box;
     font-size: 1rem;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid $gray200;
     border-radius: 4px;
-  }  
+    transition: all 100ms ease-in-out;
 
-.form-group:not(:first-child) {
-  margin-top: .6rem;
+    &:focus, &:active {
+        outline: none;
+        border-color: $blue200;
+    }
+}  
+
+.form-group {
+    &:not(:first-child) {
+        margin-top: .6rem;
+    }
+
+    label {
+        font-size: .9rem;
+    }
 }
