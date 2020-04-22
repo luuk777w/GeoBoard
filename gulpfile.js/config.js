@@ -5,20 +5,11 @@ module.exports = {
             'js/*.js',
             'pages/**/*.js'
         ],
-        sass: {
-            watch: [
-                'css/**/*.sccs',
-                'css/*.scss',
-                'pages/**/*.scss'
-            ],
-            pages: [
-                './pages/{*,}/'
-            ],
-            sass: [
-                'css/**/*.sccs',
-                'css/*.scss'
-            ]
-        },
+        sass: [
+            'css/**/*.sccs',
+            'css/*.scss',
+            'pages/**/*.scss'
+        ],
         vendor: [
             'vendor/*.js'
         ],
@@ -31,6 +22,10 @@ module.exports = {
         handlebars_partials: [
             'partials/includes/*.hbs',
             'partials/includes/**/*.hbs',
+        ],
+        assets: [
+            'assets/**/*.*',
+            'assets/*.*'
         ]
     },
     order: {

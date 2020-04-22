@@ -1,18 +1,14 @@
 App.Authorize = (function () {
 
-    let configMap = {
-
-    }
-
     const _init = function () {
         console.log("Authorize");
     }
 
-    const Login = function (username, password, OTP) {
+    const Login = function (username, password) {
         return $.ajax({
             type: "post",
             url: `${App.configMap.apiUrl}/account/authorize/`,
-            data: `{"username": "${username}", "password": "${password}", "OTP": ${OTP}}`,
+            data: `{"username": "${username}", "password": "${password}"}`,
             contentType: "application/json",
         });
     }
@@ -72,3 +68,4 @@ App.Authorize = (function () {
         ResetPassword
     }
 })();
+

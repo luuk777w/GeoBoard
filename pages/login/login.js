@@ -8,7 +8,7 @@ App.Login = (function () {
     }
 
     const goToRegister = function () {
-        App.Helpers.redirect("/register")
+        App.Helpers.redirect("/register");
     }
 
     return {
@@ -17,4 +17,4 @@ App.Login = (function () {
     }
 })();
 
-$('#view').on('click', '.goToRegister-button', App.Login.goToRegister);
+$('#view').on('click', '[data-target="register"]', App.Login.goToRegister);
