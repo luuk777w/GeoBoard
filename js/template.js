@@ -30,7 +30,7 @@ App.Template = (function () {
             document.getElementById('view').innerHTML = App.Templates[configMap.layout]();
             $("#view").removeClass();
             $("#view").addClass(`${templateName}-view`);
-            $("#view").addClass(`${configMap.layout}`);
+            $("#view").addClass(configMap.layout.replace('_', '-'));
         } else {
             throw new Error("Template does not exist.")
         }
