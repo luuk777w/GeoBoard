@@ -10,6 +10,7 @@ input[type=text], input[type=password], input[type=email] {
     border: 1px solid $gray200;
     border-radius: 4px;
     transition: all 100ms ease-in-out;
+    color: $gray900;
 
     color: $gray900;
 
@@ -19,6 +20,9 @@ input[type=text], input[type=password], input[type=email] {
     }
 }
 
+/*
+ * Form group
+ */
 .form-group {
     &:not(:first-child) {
         margin-top: .6rem;
@@ -28,3 +32,26 @@ input[type=text], input[type=password], input[type=email] {
         font-size: .9rem;
     }
 }
+
+/*
+ * Input group
+ */
+.input-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .input-prefix {
+        position: absolute;
+        padding: 0 1rem;
+        color: $gray900;
+    }
+
+    input[type=text], input[type=password], input[type=email] {
+        padding-left: 3rem;
+    }
+}
+
+/*
+ * Checkbox
+ */

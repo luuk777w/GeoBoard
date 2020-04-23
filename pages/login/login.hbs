@@ -2,14 +2,18 @@
     <div class="panel-header">Login to GeoBoard</div>
 
     <div class="panel-body">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username"><br>
+        <div class="input-group">
+            <div class="input-prefix">
+                <i class="fa fa-user"></i>
+            </div>
+            <input type="text" id="username" placeholder="Username" autofocus>
         </div>
-        
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password">
+
+        <div class="input-group">
+            <div class="input-prefix">
+                <i class="fa fa-lock"></i>
+            </div>
+            <input type="password" id="password" placeholder="Password">
         </div>
 
         <p class="login-status" style="margin: 0;"></p>
@@ -20,8 +24,8 @@
             <button class="button button-green button-pd-2 login-button">Login</button>
             <button class="button button-link button-pd-2" data-target="recover-password">Reset password</button>
         </div>
-        
-        <p class="register-information">No account yet? <span data-target="register">Create one here</span></p>
+
+        <p class="register-information pt-1">No account yet? <span data-target="register">Create one here</span></p>
     </div>
 
 </div>

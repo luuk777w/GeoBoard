@@ -24,3 +24,12 @@ hr {
     border-style: solid;
     border-color: $gray100;
 }
+
+.link {
+    color: $blue700;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        color: $blue900;
+    }
+}
