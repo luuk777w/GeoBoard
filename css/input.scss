@@ -11,11 +11,13 @@ input[type=text], input[type=password], input[type=email] {
     border-radius: 4px;
     transition: all 100ms ease-in-out;
 
+    color: $gray900;
+
     &:focus, &:active {
         outline: none;
         border-color: $blue200;
     }
-}  
+}
 
 .form-group {
     &:not(:first-child) {

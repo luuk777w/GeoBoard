@@ -1,10 +1,10 @@
 const config = require('./config');
 const { watch, series, task } = require('gulp');
 
-const js = require('./tasks/js').js(config.files.js, config.order.js);
+const js = require('./tasks/js').js(config.files.js, config.order.js, config.production);
 js.displayName = 'js';
 
-const sass = require('./tasks/sass').sass(config.files.sass, config.order.sass);
+const sass = require('./tasks/sass').sass(config.files.sass, config.order.sass, config.production);
 sass.displayName = 'sass';
 
 const vendor = require('./tasks/vendor').vendor(config.files.vendor);
@@ -27,6 +27,7 @@ const watchFiles = () => {
 };
 
 const build = (done) => {
+
     js();
     sass();
     vendor();

@@ -3,8 +3,9 @@ const order = require("gulp-order");
 const concat = require("gulp-concat");
 const babel = require("gulp-babel");
 const uglify = require("gulp-uglifyjs")
+const gulpif = require('gulp-if');
 
-const fn = function (filesJs, filesJsOrder) {
+const fn = function (filesJs, filesJsOrder, production) {
     return function () {
 
         return src(filesJs)
@@ -13,7 +14,7 @@ const fn = function (filesJs, filesJsOrder) {
             .pipe(babel({
                 presets: ['@babel/preset-env']
             }))
-            .pipe(uglify({ compress: true }))
+            .pipe(gulpif(production, uglify({ compress: true })))
             .pipe(dest('./dist/js'))
     }
 };

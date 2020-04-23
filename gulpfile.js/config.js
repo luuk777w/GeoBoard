@@ -1,4 +1,5 @@
 module.exports = {
+    production: false,
     files: {
         js: [
             'js/**/*.js',
