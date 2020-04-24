@@ -55,3 +55,63 @@ input[type=text], input[type=password], input[type=email] {
 /*
  * Checkbox
  */
+ .checkbox input {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+
+    & + label {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    // Box.
+    & + label:before {
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: text-top;
+        width: 18px;
+        height: 18px;
+        background: transparent;
+        border: 1px solid $gray200;
+        border-radius: .25rem;
+        transition: background 200ms, border-color 200ms;
+    }
+
+    // Box checked
+    &:checked + label:before {
+      background: $blue600;
+      border-color: $blue600;
+    }
+
+    // Disabled state label.
+    &:disabled + label {
+      color: $gray200;
+      cursor: auto;
+    }
+
+    // Disabled box.
+    &:disabled + label:before {
+      box-shadow: none;
+      background: $gray200;
+    }
+
+    // Checkmark. Could be replaced with an image
+    &:checked + label:after {
+        content: '\f00c';
+        color: white;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-size: .8em;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        left: 4px;
+        top: 4px;
+    }
+  }
