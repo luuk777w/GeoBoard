@@ -1,4 +1,5 @@
 @import "css/colors";
+@import "css/spacing";
 
 $login-panel-border-radius: 5px;
 
@@ -13,6 +14,7 @@ $login-panel-border-radius: 5px;
         border-bottom-left-radius: $login-panel-border-radius;
         border-bottom-right-radius: $login-panel-border-radius;
 
+        box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.05);
 
         .panel-header {
             color: $gray900;
@@ -26,10 +28,6 @@ $login-panel-border-radius: 5px;
 
         .panel-body {
             padding: 2rem;
-
-            label {
-                font-weight: 600;
-            }
         }
 
         .panel-footer {
@@ -38,6 +36,14 @@ $login-panel-border-radius: 5px;
 
             border-bottom-left-radius: $login-panel-border-radius;
             border-bottom-right-radius: $login-panel-border-radius;
+        }
+    }
+
+    .remember {
+        @extend .pt-3;
+
+        label {
+            font-weight: normal;
         }
     }
 
