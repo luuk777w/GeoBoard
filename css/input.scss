@@ -89,7 +89,7 @@ input[type=text], input[type=password], input[type=email] {
 
     // Disabled state label.
     &:disabled + label {
-      color: $gray200;
+      color: $gray400;
       cursor: auto;
     }
 
