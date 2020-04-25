@@ -2,28 +2,28 @@ module.exports = {
     production: false,
     files: {
         js: [
-            'js/**/*.js',
-            'js/*.js',
-            'pages/**/*.js'
+            'src/js/**/*.js',
+            'src/js/*.js',
+            'src/pages/**/*.js'
         ],
         sass: [
-            'css/**/*.sccs',
-            'css/*.scss',
-            'pages/**/*.scss',
-            'partials/**/*.scss'
+            'src/css/**/*.sccs',
+            'src/css/*.scss',
+            'src/pages/**/*.scss',
+            'src/partials/**/*.scss'
         ],
         vendor: [
             'vendor/*.js'
         ],
         handlebars: [
-            'pages/*.hbs',
-            'pages/**/*.hbs',
-            'partials/layouts/*.hbs',
-            'partials/layouts/**/*.hbs',
+            'src/pages/*.hbs',
+            'src/pages/**/*.hbs',
+            'src/partials/layouts/*.hbs',
+            'src/partials/layouts/**/*.hbs',
         ],
         handlebars_partials: [
-            'partials/includes/*.hbs',
-            'partials/includes/**/*.hbs',
+            'src/partials/includes/*.hbs',
+            'src/partials/includes/**/*.hbs',
         ],
         assets: [
             'assets/**/*.*',
@@ -32,15 +32,15 @@ module.exports = {
     },
     order: {
         js: [
-            'js/**/*.js',
-            'js/*.js',
-            'pages/**/*.js'
+            'src/js/**/*.js',
+            'src/js/*.js',
+            'src/pages/**/*.js'
         ],
         sass: [
-            'css/main.scss',
-            'css/**/*.sccs',
-            'css/*.scss',
-            'pages/**/*.scss'
+            'src/css/main.scss',
+            'src/css/**/*.sccs',
+            'src/css/*.scss',
+            'src/pages/**/*.scss'
         ]
     },
 };

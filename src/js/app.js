@@ -1,7 +1,8 @@
 const App = (function () {
 
     let configMap = {
-        apiUrl: "URL"
+        //API url without trailing slash
+        apiUrl: "https://localhost:5001"
     }
 
     // init
