@@ -23,6 +23,10 @@
 
     .panel-body {
         padding: 2rem;
+
+        + .panel-body {
+            border-top: 1px solid $gray100;
+        }
     }
 
     .panel-footer {
