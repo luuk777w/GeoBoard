@@ -3,7 +3,8 @@
 
 // Alert construction
 .alert {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 1em 1.5em;
     color: $gray900;
     background-color: $gray300;
