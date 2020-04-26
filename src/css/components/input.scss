@@ -1,4 +1,5 @@
-@import "colors";
+@import "../variables";
+@import "../colors";
 
 input[type=text], input[type=password], input[type=email] {
     width: 100%;
@@ -8,7 +9,7 @@ input[type=text], input[type=password], input[type=email] {
     font-size: 1rem;
     display: inline-block;
     border: 1px solid $gray200;
-    border-radius: 4px;
+    border-radius: $border-radius;
     transition: all 100ms ease-in-out;
     color: $gray900;
 
@@ -76,7 +77,7 @@ input[type=text], input[type=password], input[type=email] {
             height: 18px;
             background: transparent;
             border: 1px solid $gray200;
-            border-radius: .25rem;
+            border-radius: $border-radius;
             transition: background 200ms, border-color 200ms;
         }
     }

@@ -1,4 +1,5 @@
-@import "colors";
+@import "../variables";
+@import "../colors";
 
 .button {
     border: none;
@@ -8,7 +9,7 @@
     text-decoration: none;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 0.2rem;
+    border-radius: $border-radius;
     outline: none;
 }
 
