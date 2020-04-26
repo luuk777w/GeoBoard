@@ -7,7 +7,7 @@ module.exports = {
             'src/pages/**/*.js'
         ],
         sass: [
-            'src/css/**/*.sccs',
+            'src/css/**/*.scss',
             'src/css/*.scss',
             'src/pages/**/*.scss',
             'src/partials/**/*.scss'
@@ -37,8 +37,8 @@ module.exports = {
             'src/pages/**/*.js'
         ],
         sass: [
-            'src/css/main.scss',
             'src/css/**/*.sccs',
+            'src/css/main.scss',
             'src/css/*.scss',
             'src/pages/**/*.scss'
         ]
