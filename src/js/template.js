@@ -31,8 +31,19 @@ App.Template = (function () {
             $("#view").removeClass();
             $("#view").addClass(`${templateName}-view`);
             $("#view").addClass(configMap.layout.replace('_', '-'));
+
+            setPageTitle(App.configMap.siteName, true);
         } else {
             throw new Error("Template does not exist.")
+        }
+    }
+
+    const setPageTitle = function (title, withoutPrefix = false) {
+        if (withoutPrefix) {
+            document.title = title;
+        }
+        else {
+            document.title = `${App.configMap.siteName} | ${title}`;
         }
     }
 
@@ -41,6 +52,7 @@ App.Template = (function () {
         getTemplate,
         parse,
         loadhtml,
-        setLayout
+        setLayout,
+        setPageTitle
     }
 })();

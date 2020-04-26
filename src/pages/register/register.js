@@ -5,6 +5,7 @@ App.Register = (function () {
         console.log("register");
         App.Template.setLayout("auth_layout");
         App.Template.loadhtml("register");
+        App.Template.setPageTitle("Create an account");
     }
 
     const goToLogin = function () {

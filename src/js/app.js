@@ -1,7 +1,9 @@
 const App = (function () {
 
     let configMap = {
-        //API url without trailing slash
+        siteName: "GeoBoard",
+
+        // API url without trailing slash
         apiUrl: "https://localhost:5001"
     }
 
