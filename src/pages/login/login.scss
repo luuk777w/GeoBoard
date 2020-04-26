@@ -1,5 +1,4 @@
 @import "src/css/colors";
-@import "src/css/spacing";
 
 .login-view {
     .login-container {
@@ -7,7 +6,7 @@
     }
 
     .remember {
-        @extend .pt-3;
+        padding-top: 1.25rem;
 
         label {
             font-weight: normal;
