@@ -6,64 +6,64 @@ $sizes: 0, $spacer * .25, $spacer * .5, $spacer, $spacer * 1.5, $spacer * 3;
     /* Padding #{index($sizes, $size) - 1} (#{$size} rem) */
 
   .p-#{index($sizes, $size) - 1} {
-    padding: $size;
+    padding: $size !important;
   }
 
   .pt-#{index($sizes, $size) - 1} {
-    padding-top: $size;
+    padding-top: $size !important;
   }
 
   .pb-#{index($sizes, $size) - 1} {
-    padding-bottom: $size;
+    padding-bottom: $size !important;
   }
 
   .pl-#{index($sizes, $size) - 1} {
-    padding-left: $size;
+    padding-left: $size !important;
   }
 
   .pr-#{index($sizes, $size) - 1} {
-    padding-right: $size;
+    padding-right: $size !important;
   }
 
   .px-#{index($sizes, $size) - 1} {
-    padding-left: $size;
-    padding-right: $size;
+    padding-left: $size !important;
+    padding-right: $size !important;
   }
 
   .py-#{index($sizes, $size) - 1} {
-    padding-top: $size;
-    padding-bottom: $size;
+    padding-top: $size !important;
+    padding-bottom: $size !important;
   }
 
     /* Margin #{index($sizes, $size) - 1} (#{$size} rem) */
 
   .m-#{index($sizes, $size) - 1} {
-    margin: $size;
+    margin: $size !important;
   }
 
   .mt-#{index($sizes, $size) - 1} {
-    margin-top: $size;
+    margin-top: $size !important;
   }
 
   .mb-#{index($sizes, $size) - 1} {
-    margin-bottom: $size;
+    margin-bottom: $size !important;
   }
 
   .ml-#{index($sizes, $size) - 1} {
-    margin-left: $size;
+    margin-left: $size !important;
   }
 
   .mr-#{index($sizes, $size) - 1} {
-    margin-right: $size;
+    margin-right: $size !important;
   }
 
   .mx-#{index($sizes, $size) - 1} {
-    margin-left: $size;
-    margin-right: $size;
+    margin-left: $size !important;
+    margin-right: $size !important;
   }
 
   .my-#{index($sizes, $size) - 1} {
-    margin-top: $size;
-    margin-bottom: $size;
+    margin-top: $size !important;
+    margin-bottom: $size !important;
   }
 }
