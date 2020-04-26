@@ -7,46 +7,6 @@ $login-panel-border-radius: 5px;
     .register-container {
         width: 500px;
 
-        .panel {
-            background: white;
-            margin-top: 200px;
-            border-radius: $login-panel-border-radius;
-
-            border-bottom-left-radius: $login-panel-border-radius;
-            border-bottom-right-radius: $login-panel-border-radius;
-
-            box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.05);
-
-            .panel-header {
-                padding: 1rem 2rem;
-                font-weight: bold;
-                background-color: $gray100;
-
-                border-top-left-radius: $login-panel-border-radius;
-                border-top-right-radius: $login-panel-border-radius;
-            }
-
-            .panel-body {
-                padding: 2rem;
-
-                label {
-                    font-weight: 600;
-                }
-
-                + .panel-body {
-                    border-top: 1px solid $gray100;
-                }
-            }
-
-            .panel-footer {
-                padding: 1rem 2rem;
-                background-color: $gray100;
-
-                border-bottom-left-radius: $login-panel-border-radius;
-                border-bottom-right-radius: $login-panel-border-radius;
-            }
-        }
-
         .terms {
             label {
                 font-weight: normal;
