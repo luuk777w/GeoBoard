@@ -11,3 +11,9 @@ App.Home = (function () {
         init: _init
     }
 })();
+
+$('#view').on('click', '[data-target="logout"]', function () {
+    App.JWT.clear();
+
+    App.Helpers.redirect("/login");
+});
