@@ -20,15 +20,17 @@ App.Register = (function () {
         let agreedToTerms = $("#terms").prop('checked');
 
         if (! agreedToTerms) {
-            showError('.terms label', 'Please accept the terms of service to continu.')
+            showError('.terms label', 'Please accept the terms of service to continue.')
 
             return;
         }
 
-        App.Authorize.Register(username, email, password).done((result) => {
-            //
-        }).fail((error) => {
-            console.log(error);
+        App.Authorize.Register(username, email, password).then((result) => {
+
+            goToLogin();
+
+        }, (error) => {
+            // Remove old messages.
             $('.validation-error').remove();
 
             if (error.responseJSON) {
