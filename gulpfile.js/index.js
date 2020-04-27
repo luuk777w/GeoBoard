@@ -16,6 +16,9 @@ handlebars.displayName = 'handlebars';
 const assets = require('./tasks/assets').assets(config.files.assets);
 assets.displayName = 'assets';
 
+const indexHtml = require('./tasks/index').index();
+indexHtml.displayName = 'index.html';
+
 const watchFiles = () => {
 
     watch(config.files.sass, series(sass));
@@ -24,6 +27,7 @@ const watchFiles = () => {
     watch(config.files.handlebars_partials, series(handlebars));
     watch(config.files.assets, series(assets));
 
+    watch("index.html", series(indexHtml));
 };
 
 const build = (done) => {
@@ -33,6 +37,7 @@ const build = (done) => {
     vendor();
     handlebars();
     assets();
+    indexHtml();
     done();
 }
 
@@ -44,3 +49,4 @@ exports.watch = watchFiles;
 exports.vendor = vendor;
 exports.handlebars = handlebars;
 exports.assets = assets;
+exports.indexHtml = indexHtml;
