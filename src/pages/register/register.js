@@ -13,39 +13,48 @@ App.Register = (function () {
     }
 
     const register = function () {
-        let username = $("#username").val();
-        let email = $("#email").val();
-        let password = $("#password").val();
 
-        let agreedToTerms = $("#terms").prop('checked');
+        let formData = App.FormHelper.getFormData("#registerForm");
 
-        if (! agreedToTerms) {
-            showError('.terms label', 'Please accept the terms of service to continue.')
+        formData.notCompletedFields.forEach(field => {
+            App.FormHelper.highlightField(`#${field}`);
+        });
 
+        if (formData.formCompleted == false) {
+            App.FormHelper.showError("Please fill in every field.");
             return;
         }
 
-        App.Authorize.Register(username, email, password).then((result) => {
+        if (formData.fields.password != formData.fields["password-confirm"]) {
+            App.FormHelper.showError("Please make sure the passwords match.");
+            App.FormHelper.highlightField("#password");
+            App.FormHelper.highlightField("#password-confirm");
+            return;
+        }
+
+        if (!formData.fields.terms) {
+            App.FormHelper.showError('Please accept the terms of service to continue.');
+            return;
+        }
+
+        App.Authorize.Register(formData.fields.username, formData.fields.email, formData.fields.password).then((result) => {
 
             goToLogin();
 
         }, (error) => {
-            // Remove old messages.
-            $('.validation-error').remove();
 
-            if (error.responseJSON) {
+            if (error.responseJSON != null) {
+                let errorMessage = "";
+                error.responseJSON.forEach(element => {
+                    errorMessage += element.description + "<br>";
+                });
 
-                for (let m in error.responseJSON) {
-                    showError(`#${m.toLowerCase()}`, error.responseJSON[m][0]);
-                }
+                App.FormHelper.showError(errorMessage);
+            } else {
+                App.FormHelper.showError(error.responseText);
             }
+
         });
-    }
-
-    const showError = function (field, message) {
-        $(field).after(`<span class="validation-error">${message}</span>`);
-
-        console.log($(`input${field}`), message);
     }
 
     return {

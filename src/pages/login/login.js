@@ -12,10 +12,22 @@ App.Login = (function () {
     }
 
     const login = function () {
-        let username = $("#username").val();
-        let password = $("#password").val();
 
-        App.Authorize.Login(username, password).then(result => {
+        let formData = App.FormHelper.getFormData("#loginForm");
+
+        formData.notCompletedFields.forEach(field => {
+            App.FormHelper.highlightField(`#${field}`);
+        });
+
+        if (formData.formCompleted == false) {
+            App.FormHelper.showError("Username or password not filled in.");
+            return;
+        }
+
+        console.log(formData.fields.username);
+        console.log(formData.fields.password);
+
+        App.Authorize.Login(formData.fields.username, formData.fields.password, formData.fields.remember).then(result => {
 
             if (result.token != null && result.token != "") {
                 App.JWT.set(result.token);
@@ -24,18 +36,18 @@ App.Login = (function () {
 
                     App.Helpers.redirect("/home");
                 }, error => {
-                    //loginError("An unknown error occurred. Please try again.");
+                    App.FormHelper.showError("An unknown error occurred. Please try again.");
                 });
 
             } else {
-                //loginError("An unknown error occurred. Please try again.");
+                App.FormHelper.showError("An unknown error occurred. Please try again.");
             }
 
         }, error => {
             if (error.responseJSON.errors != null) {
-                loginError(error.responseJSON.errors[0]);
+                App.FormHelper.showError(error.responseJSON.errors[0]);
             } else {
-                //loginError("An unknown error occurred. Please try again.");
+                App.FormHelper.showError("An unknown error occurred. Please try again.");
             }
         });
     }

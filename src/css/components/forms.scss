@@ -56,16 +56,20 @@ input[type=text], input[type=password], input[type=email] {
 /*
  * Validation error
  */
-.form-group .validation-error,
-.input-group .validation-error,
-.checkbox .validation-error {
+.validation-error {
     color: $red600;
-    font-size: .9rem;
-    padding-left: 14px;
+    font-size: .8rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    min-height: .8rem;
 }
 
 .checkbox .validation-error {
     padding-left: 2rem;
+}
+
+.field-error-border{
+    border: 1.25px solid $red600 !important;
 }
 
 /*

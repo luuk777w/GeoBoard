@@ -4,11 +4,11 @@ App.Authorize = (function () {
         console.log("Authorize");
     }
 
-    const Login = function (username, password) {
+    const Login = function (username, password, remember) {
         return $.ajax({
             type: "post",
             url: `${App.configMap.apiUrl}/account/authorize/`,
-            data: `{"username": "${username}", "password": "${password}"}`,
+            data: `{"username": "${username}", "password": "${password}", "RememberMe": ${remember}}`,
             contentType: "application/json",
         });
     }
