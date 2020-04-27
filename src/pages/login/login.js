@@ -47,5 +47,10 @@ App.Login = (function () {
     }
 })();
 
-$('#view').on('click', '[data-target="login"]', App.Login.login);
+$(document).on('submit', '#loginForm', function (event) {
+    event.preventDefault();
+
+    App.Login.login();
+});
+
 $('#view').on('click', '[data-target="register"]', App.Login.goToRegister);

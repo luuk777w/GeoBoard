@@ -3,37 +3,39 @@
     <div class="panel animated fadeInDown">
         <div class="panel-header">Login to GeoBoard</div>
 
-        <div class="panel-body">
-            <div class="input-group">
-                <div class="input-prefix">
-                    <i class="fa fa-user"></i>
+        <form id="loginForm">
+            <div class="panel-body">
+                <div class="input-group">
+                    <div class="input-prefix">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" id="username" placeholder="Username" autofocus>
                 </div>
-                <input type="text" id="username" placeholder="Username" autofocus>
-            </div>
 
-            <div class="input-group">
-                <div class="input-prefix">
-                    <i class="fa fa-lock"></i>
+                <div class="input-group">
+                    <div class="input-prefix">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <input type="password" id="password" placeholder="Password">
                 </div>
-                <input type="password" id="password" placeholder="Password">
+
+                <div class="remember checkbox">
+                    <input id="remember" type="checkbox">
+                    <label for="remember">Remember login</label>
+                </div>
+
+                <p class="login-status" style="margin: 0;"></p>
             </div>
 
-            <div class="remember checkbox">
-                <input id="remember" type="checkbox">
-                <label for="remember">Remember login</label>
+            <div class="panel-footer">
+                <div class="button-group">
+                    <button type="submit" class="button button-green button-pd-2 login-button">Login</button>
+                    <button class="button button-link button-pd-2" data-target="recover-password">Reset password</button>
+                </div>
+
+                <p class="register-information pt-1">No account yet? <span data-target="register">Create one here</span></p>
             </div>
-
-            <p class="login-status" style="margin: 0;"></p>
-        </div>
-
-        <div class="panel-footer">
-            <div class="button-group">
-                <button class="button button-green button-pd-2 login-button" data-target="login">Login</button>
-                <button class="button button-link button-pd-2" data-target="recover-password">Reset password</button>
-            </div>
-
-            <p class="register-information pt-1">No account yet? <span data-target="register">Create one here</span></p>
-        </div>
+        </form>
     </div>
 
 </div>
