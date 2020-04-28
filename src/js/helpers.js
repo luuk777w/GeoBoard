@@ -37,10 +37,31 @@ App.Helpers = (function () {
         return decodedString;
     }
 
+    const constructAlert = function (message, type = '', title = '') {
+        if (type != '') {
+            if (title != '') {
+                return `
+                    <div class="alert alert-${type}">
+                        <div class="alert-title">${title}</div>${message}
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="alert alert-${type}">${message}</div>
+            `;
+        }
+
+        return `
+            <div class="alert">${message}</div>
+        `;
+    }
+
     return {
         init: _init,
         redirect,
         sanitize,
-        decode
+        decode,
+        constructAlert
     }
 })();

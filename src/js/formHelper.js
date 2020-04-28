@@ -2,14 +2,33 @@ App.FormHelper = (function () {
 
     const _init = function () {
         console.log("FormHelper");
+
+        // Clear the validaton errors.
+        clearErrors();
     }
 
-    const showError = function (error) {
-        $(".validation-error").html(error);
+    const showError = function (field, error) {
+        const element = $(`.validation-error[data-field="${field.toLowerCase()}"]`);
+
+        element.text(error);
+        element.show();
+    }
+
+    const clearErrors = function () {
+        $('.validation-error').toArray().forEach(element => {
+            // Clear the validation error text.
+            $(element).text('');
+
+            // Hide the element.
+            $(element).hide();
+        });
+
+        // Remove the red borders from inputs.
+        $('.has-error').toArray().forEach(element => $(element).removeClass('has-error'));
     }
 
     const highlightField = function (field) {
-        $(field).addClass("field-error-border");
+        $(field).addClass("has-error");
     }
 
     const getFormData = function (selector) {
@@ -22,12 +41,12 @@ App.FormHelper = (function () {
 
         $(selector).find("input").toArray().forEach(input => {
             if ($(input).is(`[type="checkbox"]`)) {
-                formData.fields[input.id] = input.checked;
+                formData.fields[input.name] = input.checked;
             } else {
-                formData.fields[input.id] = input.value;
+                formData.fields[input.name] = input.value;
 
                 if (input.value == "") {
-                    formData.notCompletedFields.push(input.id);
+                    formData.notCompletedFields.push(input.name);
                 }
             }
         });
@@ -43,6 +62,7 @@ App.FormHelper = (function () {
         init: _init,
         getFormData,
         showError,
+        clearErrors,
         highlightField
     }
 })();

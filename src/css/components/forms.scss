@@ -58,17 +58,17 @@ input[type=text], input[type=password], input[type=email] {
  */
 .validation-error {
     color: $red600;
-    font-size: .8rem;
-    margin-top: 0.6rem;
-    margin-bottom: 0.6rem;
-    min-height: .8rem;
+    font-size: .9rem;
+    margin-bottom: .5rem;
+    padding-left: 1rem;
 }
 
-.checkbox .validation-error {
+.checkbox + .validation-error {
+    margin-top: .25rem;
     padding-left: 2rem;
 }
 
-.field-error-border{
+.has-error {
     border: 1.25px solid $red600 !important;
 }
 

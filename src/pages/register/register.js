@@ -6,6 +6,8 @@ App.Register = (function () {
         App.Template.setLayout("auth_layout");
         App.Template.loadhtml("register");
         App.Template.setPageTitle("Create an account");
+
+        App.FormHelper.init();
     }
 
     const goToLogin = function () {
@@ -13,27 +15,31 @@ App.Register = (function () {
     }
 
     const register = function () {
-
         let formData = App.FormHelper.getFormData("#registerForm");
+
+        App.FormHelper.clearErrors();
+
+        console.log(formData);
+
+        if (!formData.fields.terms) {
+            App.FormHelper.showError('terms', 'Please accept the terms of service to continue.');
+            return;
+        }
 
         formData.notCompletedFields.forEach(field => {
             App.FormHelper.highlightField(`#${field}`);
         });
 
-        if (formData.formCompleted == false) {
-            App.FormHelper.showError("Please fill in every field.");
-            return;
-        }
+        // if (formData.formCompleted == false) {
+        //     App.FormHelper.showError("Please fill in every field.");
+        //     return;
+        // }
 
         if (formData.fields.password != formData.fields["password-confirm"]) {
-            App.FormHelper.showError("Please make sure the passwords match.");
+            App.FormHelper.showError('password-confirm', 'Please make sure the passwords match.');
             App.FormHelper.highlightField("#password");
             App.FormHelper.highlightField("#password-confirm");
-            return;
-        }
 
-        if (!formData.fields.terms) {
-            App.FormHelper.showError('Please accept the terms of service to continue.');
             return;
         }
 
@@ -43,15 +49,17 @@ App.Register = (function () {
 
         }, (error) => {
 
-            if (error.responseJSON != null) {
-                let errorMessage = "";
-                error.responseJSON.forEach(element => {
-                    errorMessage += element.description + "<br>";
+            console.log(error);
+
+            if (error.responseJSON.errors != null) {
+
+                $.each(error.responseJSON.errors, function (element, errors) {
+                    App.FormHelper.showError(element.toLowerCase(), errors[0]);
                 });
 
-                App.FormHelper.showError(errorMessage);
             } else {
                 App.FormHelper.showError(error.responseText);
+                console.warn(error);
             }
 
         });
