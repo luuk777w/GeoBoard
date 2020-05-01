@@ -21,11 +21,6 @@ App.Register = (function () {
 
         console.log(formData);
 
-        if (!formData.fields.terms) {
-            App.FormHelper.showError('terms', 'Please accept the terms of service to continue.');
-            return;
-        }
-
         formData.notCompletedFields.forEach(field => {
             App.FormHelper.highlightField(`#${field}`);
         });
@@ -40,6 +35,11 @@ App.Register = (function () {
             App.FormHelper.highlightField("#password");
             App.FormHelper.highlightField("#password-confirm");
 
+            return;
+        }
+
+        if (!formData.fields.terms) {
+            App.FormHelper.showError('terms', 'Please accept the terms of service to continue.');
             return;
         }
 

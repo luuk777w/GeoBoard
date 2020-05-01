@@ -1,1 +1,22 @@
- 
+@import "src/css/colors";
+
+.home-view {
+
+    .home-container {
+        overflow: auto;
+        display: flex;
+    }
+
+    .side-nav {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 10;
+        background-color: $gray100;
+        width: 29rem;
+        height: calc(100% - 1rem);
+        box-shadow: -2px 0px 6px 1px $gray500;
+        padding: 0.5rem;
+        animation-duration: 0.3s;
+    }
+}

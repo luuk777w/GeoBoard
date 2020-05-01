@@ -7,13 +7,38 @@ App.Home = (function () {
         App.Template.loadhtml("home");
     }
 
+    const goaway = function () {
+        console.log("Hoi");
+        $(".side-nav").removeClass("slideInRight");
+        $(".side-nav").addClass("slideOutRight");
+
+        setTimeout(function () {
+            $(".side-nav").hide();
+        }, 300);
+    }
+
+    const comeHere = function () {
+        console.log("Hoi");
+        $(".side-nav").show();
+        $(".side-nav").removeClass("slideOutRight");
+        $(".side-nav").addClass("slideInRight");
+    }
+
+    const logout = function () {
+        App.JWT.clear();
+
+        App.Helpers.redirect("/login");
+    }
+
     return {
-        init: _init
+        init: _init,
+        goaway,
+        logout,
+        comeHere
     }
 })();
 
-$('#view').on('click', '[data-target="logout"]', function () {
-    App.JWT.clear();
+$('#view').on('click', '[data-target="logout"]', App.Home.logout);
 
-    App.Helpers.redirect("/login");
-});
+$('#view').on('click', '[data-target="goaway"]', App.Home.goaway);
+$('#view').on('click', '[data-target="comehere"]', App.Home.comeHere);

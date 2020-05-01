@@ -21,12 +21,9 @@ App.Login = (function () {
         });
 
         if (formData.formCompleted == false) {
-            App.FormHelper.showError("Username or password not filled in.");
+            App.Alert.show("alert-error", "Username or password not filled in.")
             return;
         }
-
-        console.log(formData.fields.username);
-        console.log(formData.fields.password);
 
         App.Authorize.Login(formData.fields.username, formData.fields.password, formData.fields.remember).then(result => {
 
@@ -37,18 +34,21 @@ App.Login = (function () {
 
                     App.Helpers.redirect("/home");
                 }, error => {
-                    App.FormHelper.showError("An unknown error occurred. Please try again.");
+                    App.Alert.show("An unknown error occurred. Please try again.");
                 });
 
             } else {
-                App.FormHelper.showError("An unknown error occurred. Please try again.");
+                App.Alert.show("An unknown error occurred. Please try again.");
             }
 
         }, error => {
+
             if (error.responseJSON.errors != null) {
-                App.FormHelper.showError(error.responseJSON.errors[0]);
+                //TODO: Laat errors onder betrevend veld zien.
+            } else if (error.responseJSON.message != null) {
+                App.Alert.show("alert-error", error.responseJSON.message);
             } else {
-                App.FormHelper.showError("An unknown error occurred. Please try again.");
+                App.Alert.show("alert-error", "An unknown error occurred. Please try again.");
             }
         });
     }

@@ -32,6 +32,7 @@ module.exports = {
     },
     order: {
         js: [
+            'src/js/app.js',
             'src/js/**/*.js',
             'src/js/*.js',
             'src/pages/**/*.js'
