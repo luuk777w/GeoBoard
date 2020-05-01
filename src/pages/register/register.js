@@ -11,7 +11,7 @@ App.Register = (function () {
     }
 
     const goToLogin = function () {
-        App.Helpers.redirect("/login");
+        App.Helpers.redirect("/register/email-confirmation");
     }
 
     const register = function () {

@@ -24,10 +24,10 @@ IF NOT DEFINED arg1 (
 IF NOT DEFINED arg2 (
 	echo Please enter a name
 ) ELSE (
-	IF EXIST pages\%arg2% (
+	IF EXIST src\pages\%arg2% (
 		echo This page already exists
 	) ELSE (
-		mkdir pages\%arg2%
+		mkdir src\pages\%arg2%
 		
 		(
 			echo App.%arg2% = ^(function ^(^) ^{
@@ -43,15 +43,15 @@ IF NOT DEFINED arg2 (
 			echo         init: _init
 			echo     ^}
 			echo ^}^)^(^);
-		) > pages\%arg2%\%arg2%.js
+		) > src\pages\%arg2%\%arg2%.js
 		
 		(
 			echo ^<div class^="container"^>
 			echo     ^<h1^>%arg2%!^</h1^>
 			echo ^</div^>
-		) > pages\%arg2%\%arg2%.hbs
+		) > src\pages\%arg2%\%arg2%.hbs
 		
-		echo: > pages\%arg2%\%arg2%.scss
+		echo: > src\pages\%arg2%\%arg2%.scss
 		
 		echo Created %arg2%
 	)
