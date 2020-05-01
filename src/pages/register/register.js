@@ -16,7 +16,6 @@ App.Register = (function () {
 
     const register = function () {
         let formData = App.FormHelper.getFormData("#registerForm");
-
         App.FormHelper.clearErrors();
 
         console.log(formData);

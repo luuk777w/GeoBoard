@@ -15,6 +15,7 @@ App.Login = (function () {
     const login = function () {
 
         let formData = App.FormHelper.getFormData("#loginForm");
+        App.FormHelper.clearErrors();
 
         formData.notCompletedFields.forEach(field => {
             App.FormHelper.highlightField(`#${field}`);
@@ -44,7 +45,11 @@ App.Login = (function () {
         }, error => {
 
             if (error.responseJSON.errors != null) {
-                //TODO: Laat errors onder betrevend veld zien.
+
+                $.each(error.responseJSON.errors, function (element, errors) {
+                    App.FormHelper.showError(element.toLowerCase(), errors[0]);
+                });
+
             } else if (error.responseJSON.message != null) {
                 App.Alert.show("alert-error", error.responseJSON.message);
             } else {
