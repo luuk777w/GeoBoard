@@ -18,27 +18,25 @@ App.Register = (function () {
         let formData = App.FormHelper.getFormData("#registerForm");
         App.FormHelper.clearErrors();
 
-        console.log(formData);
-
-        formData.notCompletedFields.forEach(field => {
-            App.FormHelper.highlightField(`#${field}`);
-        });
-
         // if (formData.formCompleted == false) {
         //     App.FormHelper.showError("Please fill in every field.");
         //     return;
         // }
+
+        if (!formData.fields.terms) {
+            App.FormHelper.showError('terms', 'Please accept the terms of service to continue.');
+            return;
+        }
+
+        formData.notCompletedFields.forEach(field => {
+            App.FormHelper.highlightField(`#${field}`);
+        });
 
         if (formData.fields.password != formData.fields["password-confirm"]) {
             App.FormHelper.showError('password-confirm', 'Please make sure the passwords match.');
             App.FormHelper.highlightField("#password");
             App.FormHelper.highlightField("#password-confirm");
 
-            return;
-        }
-
-        if (!formData.fields.terms) {
-            App.FormHelper.showError('terms', 'Please accept the terms of service to continue.');
             return;
         }
 
