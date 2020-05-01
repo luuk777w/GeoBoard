@@ -5,22 +5,28 @@
 
         <form id="loginForm">
             <div class="panel-body pb-0">
-                <div class="input-group">
-                    <div class="input-prefix">
-                        <i class="fa fa-user"></i>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-prefix">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" id="username" name="username" placeholder="Username" autofocus>
                     </div>
-                    <input type="text" id="username" placeholder="Username" autofocus>
+                    <div class="validation-error" data-field="username"></div>
                 </div>
 
-                <div class="input-group">
-                    <div class="input-prefix">
-                        <i class="fa fa-lock"></i>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-prefix">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <input type="password" id="password" name="password" placeholder="Password">
                     </div>
-                    <input type="password" id="password" placeholder="Password">
+                    <div class="validation-error" data-field="password"></div>
                 </div>
 
                 <div class="remember checkbox">
-                    <input id="remember" type="checkbox">
+                    <input id="remember" name="remember" type="checkbox">
                     <label for="remember">Remember login</label>
                 </div>
 
@@ -30,8 +36,7 @@
             <div class="panel-footer">
                 <div class="button-group">
                     <button type="submit" class="button button-green button-pd-2 login-button">Login</button>
-                    <button class="button button-link button-pd-2" data-target="recover-password">Reset
-                        password</button>
+                    <button class="button button-link button-pd-2" data-target="recover-password">Reset password</button>
                 </div>
 
                 <p class="register-information pt-1">No account yet? <span data-target="register">Create one here</span>
