@@ -10,8 +10,12 @@ App.Register = (function () {
         App.FormHelper.init();
     }
 
-    const goToLogin = function () {
+    const showRegistrationSuccesful = function () {
         App.Helpers.redirect("/register/email-confirmation");
+    }
+
+    const goToLogin = function () {
+        App.Helpers.redirect("/login");
     }
 
     const register = function () {
@@ -42,7 +46,7 @@ App.Register = (function () {
 
         App.Authorize.Register(formData.fields.username, formData.fields.email, formData.fields.password).then((result) => {
 
-            goToLogin();
+            showRegistrationSuccesful();
 
         }, (error) => {
 
@@ -65,6 +69,7 @@ App.Register = (function () {
 
     return {
         init: _init,
+        showRegistrationSuccesful,
         goToLogin,
         register
     }
