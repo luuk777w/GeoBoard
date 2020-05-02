@@ -50,7 +50,10 @@ App.Register = (function () {
 
         }, (error) => {
 
-            console.log(error);
+            if (error.status == 0) {
+                App.Alert.show("alert-error", "Could not reach the server. Please try again later.");
+                return;
+            }
 
             if (error.responseJSON.errors != null) {
 
