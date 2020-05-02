@@ -61,6 +61,11 @@ input[type=text], input[type=password], input[type=email] {
     font-size: .9rem;
     margin-bottom: .5rem;
     padding-left: 1rem;
+
+    > ul {
+        padding-left: 1.4em;
+        list-style-type: square;
+    }
 }
 
 .checkbox + .validation-error {

@@ -47,7 +47,7 @@ App.Login = (function () {
             if (error.responseJSON.errors != null) {
 
                 $.each(error.responseJSON.errors, function (element, errors) {
-                    App.FormHelper.showError(element.toLowerCase(), errors[0]);
+                    App.FormHelper.showError(element.toLowerCase(), errors);
                 });
 
             } else if (error.responseJSON.message != null) {

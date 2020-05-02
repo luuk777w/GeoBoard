@@ -7,10 +7,25 @@ App.FormHelper = (function () {
         clearErrors();
     }
 
-    const showError = function (field, error) {
+    const showError = function (field, errors) {
         const element = $(`.validation-error[data-field="${field.toLowerCase()}"]`);
 
-        element.text(error);
+        if (! (errors instanceof Array) || errors.length == 1) {
+            element.text(errors);
+        }
+        else
+        {
+            const errorList = $('<ul/>');
+
+            for (let error in errors) {
+                $('<li/>')
+                    .text(errors[error])
+                    .appendTo(errorList);
+            }
+
+            element.html(errorList);
+        }
+
         element.show();
     }
 
