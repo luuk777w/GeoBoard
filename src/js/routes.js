@@ -1,5 +1,5 @@
-App.Router.route('/login', 'Login', 'anonymous');
-App.Router.route('/register', 'Register', 'anonymous');
-App.Router.route('/register/email-confirmation', 'EmailConfirmation', 'anonymous');
+App.Router.route('/login', 'Login', 'guest');
+App.Router.route('/register', 'Register', 'guest');
+App.Router.route('/register/email-confirmation', 'EmailConfirmation', 'guest');
 App.Router.route('/', 'Home', 'User');
 App.Router.route('/home', 'Home', 'User');

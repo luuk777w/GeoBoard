@@ -21,13 +21,13 @@ App.Router = (function () {
         var route = routes[url];
         if (element && route) {
 
-            if (route.role == "anonymous" && App.Authorize.IsLoggedIn() == false) {
+            if (route.role == "guest" && App.Authorize.IsLoggedIn() == false) {
                 App[route.controller].init();
-            } else if ((App.Authorize.HasRole(route.role) || route.role == null) && route.role != "anonymous") {
+            } else if ((App.Authorize.HasRole(route.role) || route.role == null) && route.role != "guest") {
                 App[route.controller].init();
             } else if (App.Authorize.IsLoggedIn() == false) {
                 App.Helpers.redirect('/login');
-            } else if (route.role == "anonymous" && App.Authorize.IsLoggedIn()) {
+            } else if (route.role == "guest" && App.Authorize.IsLoggedIn()) {
                 App.Helpers.redirect('/home');
             } else {
                 App.Error.init("401", "Unauthorized.");
