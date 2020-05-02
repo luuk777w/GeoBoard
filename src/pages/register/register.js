@@ -44,11 +44,15 @@ App.Register = (function () {
             return;
         }
 
+        App.Helpers.toggleLoadingButton(`button[data-target="register"]`, true);
+
         App.Authorize.Register(formData.fields.username, formData.fields.email, formData.fields.password).then((result) => {
 
             showRegistrationSuccesful();
 
         }, (error) => {
+
+            App.Helpers.toggleLoadingButton(`button[data-target="register"]`, false);
 
             if (error.status == 0) {
                 App.Alert.show("alert-error", "Could not reach the server. Please try again later.");
@@ -66,7 +70,6 @@ App.Register = (function () {
             } else {
                 App.Alert.show("alert-error", "An unknown error occurred. Please try again.");
             }
-
         });
     }
 

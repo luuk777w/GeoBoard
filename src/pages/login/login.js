@@ -26,6 +26,8 @@ App.Login = (function () {
             return;
         }
 
+        App.Helpers.toggleLoadingButton(`button[type="submit"]`, true);
+
         App.Authorize.Login(formData.fields.username, formData.fields.password, formData.fields.remember).then(result => {
 
             if (result.token != null && result.token != "") {
@@ -36,13 +38,17 @@ App.Login = (function () {
                     App.Helpers.redirect("/home");
                 }, error => {
                     App.Alert.show("An unknown error occurred. Please try again.");
+                    App.Helpers.toggleLoadingButton(`button[type="submit"]`, false);
                 });
 
             } else {
                 App.Alert.show("An unknown error occurred. Please try again.");
+                App.Helpers.toggleLoadingButton(`button[type="submit"]`, false);
             }
 
         }, error => {
+
+            App.Helpers.toggleLoadingButton(`button[type="submit"]`, false);
 
             if (error.status == 0) {
                 App.Alert.show("alert-error", "Could not reach the server. Please try again later.");

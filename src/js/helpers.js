@@ -37,10 +37,32 @@ App.Helpers = (function () {
         return decodedString;
     }
 
+    /**
+     * Toggle the loading state of the button.
+     *
+     * @param {*} element The button element name.
+     * @param {*} show Whether or not the loading state should be shown.
+     */
+    const toggleLoadingButton = function (element, show = true) {
+        if (show) {
+            $(element).data('value', $(element).text());
+
+            $(element).prop('disabled', true);
+            $(element).html(`<i class="fas fa-spinner fa-spin"></i>`);
+        }
+        else {
+            if ($(element).data('value') != undefined) {
+                $(element).html($(element).data('value'));
+                $(element).prop('disabled', false);
+            }
+        }
+    }
+
     return {
         init: _init,
         redirect,
         sanitize,
-        decode
+        decode,
+        toggleLoadingButton
     }
 })();
