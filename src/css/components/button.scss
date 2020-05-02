@@ -11,6 +11,7 @@
     cursor: pointer;
     border-radius: $border-radius;
     outline: none;
+    transition: background-color 150ms;
 }
 
 a.button {
@@ -24,30 +25,31 @@ a.button {
 */
 
 .button-blue {
-    background-color: #2196F3;
+    background-color: $blue500;
 }
 
 .button-blue:hover {
-    background-color: #1976D2;
+    background-color: $blue700;
 }
 
 .button-blue-border {
-    border: #2196F3 solid 1px;
+    border: $blue500 solid 1px;
     background-color: transparent;
-    color: #2196F3;
+    color: $blue500;
 }
 
 .button-blue-border:hover {
-    background-color: #2196F3;
+    background-color: $blue500;
     color: white;
 }
 
 .button[disabled] {
-    background-color: #BDBDBD;
+    background-color: $gray400;
 }
 
 .button[disabled]:hover {
-    background-color: #BDBDBD !important;
+    background-color: $gray400 !important;
+    cursor: default;
 }
 
 /*
@@ -55,21 +57,21 @@ a.button {
 */
 
 .button-green {
-    background-color: #4CAF50;
+    background-color: $green500;
 }
 
 .button-green:hover {
-    background-color: #388E3C;
+    background-color: $green700;
 }
 
 .button-green-border {
-    border: #4CAF50 solid 1px;
+    border: $green500 solid 1px;
     background-color: transparent;
-    color: #4CAF50;
+    color: $green500;
 }
 
 .button-green-border:hover {
-    background-color: #4CAF50;
+    background-color: $green500;
     color: white;
 }
 
@@ -78,21 +80,21 @@ a.button {
 */
 
 .button-red {
-    background-color: #E53935;
+    background-color: $red500;
 }
 
 .button-red:hover {
-    background-color: #C62828;
+    background-color: $red700;
 }
 
 .button-red-border {
-    border: #E53935 solid 1px;
+    border: $red600 solid 1px;
     background-color: transparent;
-    color: #E53935;
+    color: $red600;
 }
 
 .button-red-border:hover {
-    background-color: #D32F2F;
+    background-color: $red700;
     color: white;
 }
 
@@ -119,7 +121,7 @@ a.button {
 }
 
 .button-text-black {
-    color: #212121;
+    color: $gray900;
 }
 
 /**
