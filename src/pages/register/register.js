@@ -54,9 +54,10 @@ App.Register = (function () {
                     App.FormHelper.showError(element.toLowerCase(), errors[0]);
                 });
 
+            } else if (error.responseJSON.message != null) {
+                App.Alert.show("alert-error", error.responseJSON.message);
             } else {
-                App.FormHelper.showError(error.responseText);
-                console.warn(error);
+                App.Alert.show("alert-error", "An unknown error occurred. Please try again.");
             }
 
         });
