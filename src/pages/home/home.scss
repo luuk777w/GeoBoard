@@ -1,4 +1,5 @@
 @import "src/css/colors";
+@import "src/css/variables";
 
 .home-view {
 
@@ -8,6 +9,7 @@
     }
 
     .side-nav {
+        display: none;
         position: absolute;
         right: 0;
         top: 0;
@@ -15,8 +17,86 @@
         background-color: $gray100;
         width: 25rem;
         height: calc(100% - 1rem);
-        box-shadow: -2px 0px 6px 1px $gray300;
+        box-shadow: -2px 0px 6px 1px $gray900;
         padding: 0.5rem;
         animation-duration: 0.3s;
+    }
+
+    .create-board-element {
+        outline: none;
+        background: none;
+        border: 0;
+        margin-right: 2rem;
+        color: $blue500;
+    }
+}
+
+.board-element {
+    width: 24rem;
+    flex-direction: column;
+    margin: 1rem;
+    overflow: hidden;
+
+    .board-element-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: .5rem 1rem;
+
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+
+        .board-element-number {
+            display: block;
+            background-color: $blue500;
+            color: white;
+            border-radius: 50%;
+            width: 1rem;
+            height: 1rem;
+            padding: .25rem;
+            margin-right: .5rem;
+            text-align: center;
+            line-height: 1;
+            font-weight: 600;
+        }
+
+        .board-element-creator {
+            font-weight: 600;
+        }
+    }
+
+    .board-element-body {
+        background: white;
+
+        .board-element-message {
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .board-element-image {
+            display: block;
+            width: 24rem;
+            object-fit: cover;
+            background-repeat: no-repeat;
+            max-height: 25rem;
+            margin: 0;
+        }
+    }
+
+    .board-element-footer {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: .5rem 1rem;
+
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+
+        .board-element-timestamp {
+            font-size: .9rem;
+            font-family: Consolas, sans-serif;
+            margin-left: auto;
+        }
     }
 }

@@ -2,12 +2,95 @@
     <h1>home!</h1>
     <button class="button button-red" data-target="logout">Logout</button>
     <button class="button button-blue" data-target="comehere" style="margin-left:auto;">Come here</button>
-</div>
+</div> --}}
+
+<nav class="navbar">
+    <div class="branding">
+        <img src="/dist/assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard">
+    </div>
+
+    <button class="create-board-element">
+        <i class="fas fa-plus-circle fa-3x"></i>
+    </button>
+
+    <ul class="nav-links">
+        <li class="nav-link active">Home</li>
+        <li class="nav-link">Page</li>
+    </ul>
+
+    <ul class="nav-links" style="margin-left: auto;">
+        <li class="nav-link" data-target="logout">Log out</li>
+        <li class="nav-link" data-target="comehere">Sidebar</li>
+    </ul>
+</nav>
 
 <div class="side-nav animated">
     <button class="button button-blue" style="float: right;" data-target="goaway">Go away</button>
-</div> --}}
+</div>
 
 <div class="home-container">
+
+    <div class="board-elements">
+
+        {{!-- Element 1 --}}
+        <div class="board-element">
+            <div class="board-element-header">
+                <span class="board-element-number">1</span>
+                <span class="board-element-creator">Matthijs</span>
+                <i class="fas fa-trash ml-auto"></i>
+            </div>
+            <div class="board-element-body">
+                <img class="board-element-image" src="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T21.49.58.975.jpg">
+            </div>
+            <div class="board-element-footer">
+                <time class="board-element-timestamp" datetime="25-04-2020 21:49:58">25-04-2020 21:49:58</time>
+            </div>
+        </div>
+
+        {{!-- Element 2 --}}
+        <div class="board-element">
+            <div class="board-element-header">
+                <span class="board-element-number">2</span>
+                <span class="board-element-creator">Server</span>
+                <i class="fas fa-trash ml-auto"></i>
+            </div>
+            <div class="board-element-body">
+                <img class="board-element-image" src="https://thumbs.werkaandemuur.nl/1/63a35ed28f9a5897e2e880e542015ca6/817x600/thumbnail/fit.jpg">
+            </div>
+            <div class="board-element-footer">
+                <time class="board-element-timestamp" datetime="03-05-2020 16:09:00">03-05-2020 16:09:00</time>
+            </div>
+        </div>
+
+        {{!-- Element 3 --}}
+        <div class="board-element">
+            <div class="board-element-header">
+                <span class="board-element-number">3</span>
+                <span class="board-element-creator">Server</span>
+                <i class="fas fa-trash ml-auto"></i>
+            </div>
+            <div class="board-element-body">
+                <p class="board-element-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, velit debitis. Rerum quae quo aperiam, numquam hic, id cum veritatis libero veniam cupiditate nobis magni molestias! Eligendi distinctio hic esse?</p>
+            </div>
+            <div class="board-element-footer">
+                <time class="board-element-timestamp" datetime="03-05-2020 16:09:00">03-05-2020 16:09:00</time>
+            </div>
+        </div>
+
+        {{!-- Element 4 --}}
+        <div class="board-element">
+            <div class="board-element-header">
+                <span class="board-element-number">4</span>
+                <span class="board-element-creator">Server</span>
+                <i class="fas fa-trash ml-auto"></i>
+            </div>
+            <div class="board-element-body">
+                <p class="board-element-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, velit debitis. Rerum quae quo aperiam, numquam hic, id cum veritatis libero veniam cupiditate nobis magni molestias! Eligendi distinctio hic esse?</p>
+            </div>
+            <div class="board-element-footer">
+                <time class="board-element-timestamp" datetime="03-05-2020 16:09:00">03-05-2020 16:09:00</time>
+            </div>
+        </div>
+    </div>
 
 </div>
