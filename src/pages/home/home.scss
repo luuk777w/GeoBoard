@@ -3,6 +3,41 @@
 
 .home-view {
 
+    &.dark-theme {
+
+        .navbar {
+            color: white;
+            background: $geoboard-dark;
+        }
+
+        .board-element-header,
+        .board-element-body,
+        .board-element-footer {
+            background: $geoboard-dark;
+            color: white;
+        }
+
+        .board-element-body {
+            .board-element-message {
+                border-color: darken($geoboard-dark, 5%);
+            }
+
+            textarea {
+                background: $geoboard-dark;
+                color: white;
+                border-color: darken($geoboard-dark, 5%);
+            }
+        }
+
+        .board-element-footer {
+            border-color: darken($geoboard-dark, 5%);
+
+            .board-element-timestamp {
+                background-color: darken($geoboard-dark, 5%);
+            }
+        }
+    }
+
     .home-container {
         overflow: auto;
         display: flex;
@@ -112,6 +147,7 @@
             margin: 0;
             padding: 1rem;
             border-top: 1px solid $gray100;
+            border-bottom: 1px solid $gray100;
         }
 
         .board-element-image {
@@ -174,6 +210,24 @@
             box-sizing: border-box;
             border-top: 1px solid $gray100;
             font: inherit;
+        }
+    }
+
+    .board-element-footer {
+        align-items: center;
+        border-top: 1px solid $gray100;
+
+        label {
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        select {
+            width: 100%;
+            padding: .25rem;
+            font-size: inherit;
+            border-color: $gray100;
+            border-radius: $border-radius;
         }
     }
 }

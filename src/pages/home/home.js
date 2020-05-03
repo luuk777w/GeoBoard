@@ -43,5 +43,21 @@ App.Home = (function () {
 
 $('#view').on('click', '[data-target="logout"]', App.Home.logout);
 
+$('#view').on('click', '[data-target="theme"]', function () {
+    const view = $('.home-view');
+
+    if (view.hasClass('dark-theme')) {
+        view.removeClass('dark-theme');
+        $('.logo-light').hide();
+        $('.logo-dark').show();
+    }
+    else
+    {
+        view.addClass('dark-theme');
+        $('.logo-dark').hide();
+        $('.logo-light').show();
+    }
+});
+
 $('#view').on('click', '[data-target="goaway"]', App.Home.goaway);
 $('#view').on('click', '[data-target="comehere"]', App.Home.comeHere);

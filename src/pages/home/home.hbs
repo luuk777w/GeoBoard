@@ -6,7 +6,8 @@
 
 <nav class="navbar">
     <div class="branding">
-        <img src="/dist/assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard">
+        <img class="logo-dark" src="/dist/assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard">
+        <img class="logo-light" src="/dist/assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" style="display: none;">
     </div>
 
     <button class="create-board-element-button">
@@ -19,6 +20,7 @@
     </ul>
 
     <ul class="nav-links" style="margin-left: auto;">
+        <li class="nav-link" data-target="theme">Thema</li>
         <li class="nav-link" data-target="logout">Log out</li>
         <li class="nav-link" data-target="comehere">Sidebar</li>
     </ul>
@@ -28,7 +30,7 @@
     <button class="button button-blue" style="float: right;" data-target="goaway">Go away</button>
 </div>
 
-<div class="home-container">
+<div class="home-container dark-theme">
 
     <div class="board-elements">
 
@@ -41,6 +43,20 @@
             </div>
             <div class="board-element-body">
                 <textarea name="message" placeholder="Type your text here..."></textarea>
+            </div>
+            <div class="board-element-footer">
+                <label for="direction">Kijkrichting</label>
+                <select name="direction" id="direction">
+                    <option>&ndash;</option>
+                    <option value="N">Noorden</option>
+                    <option value="NO">Noordoosten</option>
+                    <option value="O">Oost</option>
+                    <option value="ZO">Zuidoosten</option>
+                    <option value="Z">Zuiden</option>
+                    <option value="ZW">Zuidwesten</option>
+                    <option value="W">Westen</option>
+                    <option value="NW">Noordwesten</option>
+                </select>
             </div>
         </div>
 
