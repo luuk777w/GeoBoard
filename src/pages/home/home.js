@@ -5,6 +5,9 @@ App.Home = (function () {
         console.log("home");
         App.Template.setLayout("base_layout");
         App.Template.loadhtml("home");
+
+        // TODO: Call autosize when the 'new element' panel is shown.
+        autosize($('textarea'));
     }
 
     const goaway = function () {

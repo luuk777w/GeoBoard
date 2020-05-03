@@ -9,7 +9,7 @@
         <img src="/dist/assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard">
     </div>
 
-    <button class="create-board-element">
+    <button class="create-board-element-button">
         <i class="fas fa-plus-circle fa-2x"></i>
     </button>
 
@@ -32,12 +32,24 @@
 
     <div class="board-elements">
 
-        {{!-- Element 1 --}}
+        <div class="board-element create-board-element">
+            <div class="board-element-header">
+                <span class="board-element-number new">#</span>
+                <span class="board-element-creator">Matthijs</span>
+                <i class="fas fa-check ml-auto submit-icon"></i>
+                <i class="fas fa-trash ml-3 delete-icon"></i>
+            </div>
+            <div class="board-element-body">
+                <textarea name="message" placeholder="Type your text here..."></textarea>
+            </div>
+        </div>
+
+        {{!-- Element 5 --}}
         <div class="board-element">
             <div class="board-element-header">
-                <span class="board-element-number">1</span>
+                <span class="board-element-number">5</span>
                 <span class="board-element-creator">Matthijs</span>
-                <i class="fas fa-trash ml-auto"></i>
+                <i class="fas fa-trash ml-auto delete-icon"></i>
             </div>
             <div class="board-element-body">
                 <img class="board-element-image" src="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T21.49.58.975.jpg">
@@ -50,12 +62,12 @@
             </div>
         </div>
 
-        {{!-- Element 2 --}}
+        {{!-- Element 4 --}}
         <div class="board-element">
             <div class="board-element-header">
-                <span class="board-element-number">2</span>
+                <span class="board-element-number">4</span>
                 <span class="board-element-creator">Server</span>
-                <i class="fas fa-trash ml-auto"></i>
+                <i class="fas fa-trash ml-auto delete-icon"></i>
             </div>
             <div class="board-element-body">
                 <img class="board-element-image" src="https://thumbs.werkaandemuur.nl/1/63a35ed28f9a5897e2e880e542015ca6/817x600/thumbnail/fit.jpg">
@@ -70,7 +82,7 @@
             <div class="board-element-header">
                 <span class="board-element-number">3</span>
                 <span class="board-element-creator">Server</span>
-                <i class="fas fa-trash ml-auto"></i>
+                <i class="fas fa-trash ml-auto delete-icon"></i>
             </div>
             <div class="board-element-body">
                 <p class="board-element-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, velit debitis. Rerum quae quo aperiam, numquam hic, id cum veritatis libero veniam cupiditate nobis magni molestias! Eligendi distinctio hic esse?</p>
@@ -80,12 +92,12 @@
             </div>
         </div>
 
-        {{!-- Element 4 --}}
+        {{!-- Element 2 --}}
         <div class="board-element">
             <div class="board-element-header">
-                <span class="board-element-number">4</span>
+                <span class="board-element-number">2</span>
                 <span class="board-element-creator">Server</span>
-                <i class="fas fa-trash ml-auto"></i>
+                <i class="fas fa-trash ml-auto delete-icon"></i>
             </div>
             <div class="board-element-body">
                 <p class="board-element-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, velit debitis. Rerum quae quo aperiam, numquam hic, id cum veritatis libero veniam cupiditate nobis magni molestias! Eligendi distinctio hic esse?</p>
@@ -95,12 +107,12 @@
             </div>
         </div>
 
-        {{!-- Element 5 --}}
+        {{!-- Element 1 --}}
         <div class="board-element">
             <div class="board-element-header">
-                <span class="board-element-number">5</span>
+                <span class="board-element-number">1</span>
                 <span class="board-element-creator">Luuk</span>
-                <i class="fas fa-trash ml-auto"></i>
+                <i class="fas fa-trash ml-auto delete-icon"></i>
             </div>
             <div class="board-element-body">
                 <img class="board-element-image" src="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T21.42.24.002.jpg">
