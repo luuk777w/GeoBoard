@@ -28,10 +28,10 @@ App.Router = (function () {
                 App[route.controller].init();
             }
             else if (App.Authorize.IsLoggedIn() == false) {
-                App.Helpers.redirect('/login');
+                App.Router.redirect('/login');
             }
             else if (route.role == "guest" && App.Authorize.IsLoggedIn()) {
-                App.Helpers.redirect('/home');
+                App.Router.redirect('/home');
             }
             else {
                 App.Error.init("401", "Unauthorized.");
@@ -42,9 +42,30 @@ App.Router = (function () {
         }
     }
 
+    const redirect = function (route) {
+        if (route != location.pathname) {
+            window.history.pushState("", "", route);
+            App.Router.resolveRoute();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    const redirectWithAlert = function (route, className, message)
+    {
+        if (redirect(route)) {
+            App.Alert.show(className, message);
+        }
+
+    }
+
     return {
         init: _init,
         route,
-        resolveRoute
+        resolveRoute,
+        redirect,
+        redirectWithAlert
     }
 })();

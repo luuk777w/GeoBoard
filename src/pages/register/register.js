@@ -13,11 +13,11 @@ App.Register = (function () {
     const showRegistrationSuccesful = function () {
         let formData = App.FormHelper.getFormData("#registerForm");
 
-        App.Helpers.redirect("/register/email-confirmation?email=" + formData.fields.email);
+        App.Router.redirect("/register/email-confirmation?email=" + formData.fields.email);
     }
 
     const goToLogin = function () {
-        App.Helpers.redirect("/login");
+        App.Router.redirect("/login");
     }
 
     const register = function () {

@@ -9,7 +9,7 @@ App.Login = (function () {
     }
 
     const goToRegister = function () {
-        App.Helpers.redirect("/register");
+        App.Router.redirect("/register");
     }
 
     const login = function () {
@@ -35,7 +35,7 @@ App.Login = (function () {
 
                 App.XHR.getWithAuthorization("/user/profile/get").then(result => {
 
-                    App.Helpers.redirect("/home");
+                    App.Router.redirect("/home");
                 }, error => {
                     App.Alert.show("An unknown error occurred. Please try again.");
                     App.Helpers.toggleLoadingButton(`button[type="submit"]`, false);

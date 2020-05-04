@@ -31,7 +31,7 @@ App.Home = (function () {
     const logout = function () {
         App.JWT.clear();
 
-        App.Helpers.redirect("/login");
+        App.Router.redirect("/login");
     }
 
     return {

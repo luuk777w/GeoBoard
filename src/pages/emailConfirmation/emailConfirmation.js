@@ -9,7 +9,7 @@ App.EmailConfirmation = (function () {
         let email = getEmailFromUrl();
         if (email == null || email == "")
         {
-            App.Helpers.redirect('/login');
+            App.Router.redirect('/login');
         }
     }
 
@@ -22,10 +22,11 @@ App.EmailConfirmation = (function () {
 
         App.Authorize.ResendActivationEmail(email).then(result => {
 
+            App.Alert.show('alert-success', 'A new activation email has been sent.');
             App.Helpers.toggleLoadingButton(`button`, false);
 
         }, error => {
-
+            App.Router.redirectWithAlert('/login', 'alert-error', 'Something went wrong while sending the confirmation email. Your account may be activated already.');
         });
 
 

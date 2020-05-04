@@ -10,7 +10,7 @@ App.Activate = (function () {
 
         App.Authorize.Activate(email, encodeURIComponent(token)).then(result => {
 
-            App.Helpers.redirectWithAlert("/login", "alert-success", "Your account has been activated succesfully!");
+            App.Router.redirectWithAlert("/login", "alert-success", "Your account has been activated succesfully!");
 
         }, error => {
             console.log("activate");
