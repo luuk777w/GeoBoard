@@ -91,6 +91,7 @@
     margin: .5rem;
     overflow: hidden;
     box-sizing: border-box;
+    box-shadow: 0px 0px 12px -7px $gray900;
 
     .board-element-header {
         display: flex;
