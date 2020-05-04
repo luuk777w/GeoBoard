@@ -11,7 +11,9 @@ App.Register = (function () {
     }
 
     const showRegistrationSuccesful = function () {
-        App.Helpers.redirect("/register/email-confirmation");
+        let formData = App.FormHelper.getFormData("#registerForm");
+
+        App.Helpers.redirect("/register/email-confirmation?email=" + formData.fields.email);
     }
 
     const goToLogin = function () {

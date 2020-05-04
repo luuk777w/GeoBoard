@@ -22,6 +22,22 @@ App.Authorize = (function () {
         });
     }
 
+    const ResendActivationEmail = function (email) {
+        return $.ajax({
+            type: "post",
+            url: `${App.configMap.apiUrl}/account/ResendActivationEmail/`,
+            data: `{"email": "${email}"}`,
+            contentType: "application/json",
+        });
+    }
+
+    const Activate = function (email, token) {
+        return $.ajax({
+            type: "get",
+            url: `${App.configMap.apiUrl}/account/Activate/?email=${email}&token=${token}`,
+        });
+    }
+
     const RequestPasswordReset = function (username) {
         return $.ajax({
             type: "post",
@@ -65,7 +81,8 @@ App.Authorize = (function () {
         IsLoggedIn,
         Register,
         RequestPasswordReset,
-        ResetPassword
+        ResetPassword,
+        ResendActivationEmail,
+        Activate
     }
 })();
-
