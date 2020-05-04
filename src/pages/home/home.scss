@@ -52,7 +52,8 @@
         background-color: white;
         width: 25rem;
         height: calc(100% - 1rem - 4.5rem);
-        box-shadow: 0px 12px 12px 2px $gray900;
+        // box-shadow: 0px 12px 12px 2px $gray900;
+        box-shadow: 0px 8px 12px -8px $gray900;
         padding: 0.5rem;
         animation-duration: 0.3s;
     }
