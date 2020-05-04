@@ -91,7 +91,7 @@
     margin: .5rem;
     overflow: hidden;
     box-sizing: border-box;
-    box-shadow: 0px 0px 12px -7px $gray900;
+    box-shadow: 0px 0px 12px -8px $gray900;
 
     .board-element-header {
         display: flex;
@@ -218,6 +218,7 @@
     .board-element-footer {
         align-items: center;
         border-top: 1px solid $gray100;
+        border-radius: 0;
 
         label {
             font-weight: 600;
