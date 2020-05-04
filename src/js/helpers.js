@@ -11,7 +11,19 @@ App.Helpers = (function () {
         if (route != location.pathname) {
             window.history.pushState("", "", route);
             App.Router.resolveRoute();
+
+            return true;
         }
+
+        return false;
+    }
+
+    const redirectWithAlert = function (route, className, message)
+    {
+        if (redirect(route)) {
+            App.Alert.show(className, message);
+        }
+
     }
 
     const sanitize = function (string) {
@@ -61,6 +73,7 @@ App.Helpers = (function () {
     return {
         init: _init,
         redirect,
+        redirectWithAlert,
         sanitize,
         decode,
         toggleLoadingButton
