@@ -8,7 +8,7 @@ App.Authorize = (function () {
         return $.ajax({
             type: "post",
             url: `${App.configMap.apiUrl}/account/authorize/`,
-            data: `{"username": "${username}", "password": "${password}", "RememberMe": ${remember}}`,
+            data: `{"username": "${username}", "password": "${password}", "rememberMe": ${remember}}`,
             contentType: "application/json",
         });
     }
