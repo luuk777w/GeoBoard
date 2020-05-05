@@ -7,6 +7,9 @@ App.Home = (function () {
         App.Template.loadhtml("home");
         App.Template.setPageTitle("{boardname}");
 
+        // Load the current color theme.
+        loadTheme();
+
         // TODO: Call autosize when the 'new element' panel is shown
 
         $('textarea').each(function () {
@@ -24,10 +27,43 @@ App.Home = (function () {
             content: "He hallo",
             direction: "Noorden",
             timeStamp: "05-05-2020 01:50:00"
-        }
+        };
 
         App.Home.Element.newElement(element);
     }
+
+    const toggleTheme = function () {
+        let currentTheme = localStorage.getItem('theme') ?? 'light';
+
+        if (currentTheme == 'light')
+            currentTheme = 'dark';
+        else
+            currentTheme = 'light';
+
+        localStorage.setItem('theme', currentTheme);
+
+        loadTheme();
+    }
+
+    const loadTheme = function () {
+        const currentTheme = localStorage.getItem('theme') ?? 'light';
+        const view = $('.home-view');
+
+        if (currentTheme == 'dark') {
+            view.addClass('dark-theme');
+            $('.logo-dark').hide();
+            $('.logo-light').show();
+
+            $('[data-target="theme"]').html(`<i class="far fa-sun fa-lg fa-fw"></i>`);
+        }
+        else {
+            view.removeClass('dark-theme');
+            $('.logo-light').hide();
+            $('.logo-dark').show();
+            $('[data-target="theme"]').html(`<i class="fas fa-moon fa-lg fa-fw"></i>`);
+        }
+    }
+
 
     const sidebar = function () {
         $(".side-nav").show();
@@ -72,6 +108,7 @@ App.Home = (function () {
 
     return {
         init: _init,
+        toggleTheme,
         logout,
         sidebar,
         closeSidebar,
@@ -81,20 +118,7 @@ App.Home = (function () {
 
 $('#view').on('click', '[data-target="logout"]', App.Home.logout);
 
-$('#view').on('click', '[data-target="theme"]', function () {
-    const view = $('.home-view');
-
-    if (view.hasClass('dark-theme')) {
-        view.removeClass('dark-theme');
-        $('.logo-light').hide();
-        $('.logo-dark').show();
-    }
-    else {
-        view.addClass('dark-theme');
-        $('.logo-dark').hide();
-        $('.logo-light').show();
-    }
-});
+$('#view').on('click', '[data-target="theme"]', App.Home.toggleTheme);
 
 $('#view').on('click', '[data-target="closeSidebar"]', App.Home.closeSidebar);
 $('#view').on('click', '[data-target="sidebar"]', App.Home.sidebar);
