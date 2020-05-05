@@ -5,11 +5,8 @@
 
     &.dark-theme {
 
-        .navbar {
-            color: white;
-            background: $geoboard-dark;
-        }
-
+        .navbar,
+        .side-nav,
         .board-element-header,
         .board-element-body,
         .board-element-footer {
