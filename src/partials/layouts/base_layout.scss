@@ -9,6 +9,7 @@
 
 .navbar {
     background: white;
+    color: $geoboard-dark;
     display: flex;
     flex-direction: row;
     padding: 0 4rem;
@@ -45,6 +46,10 @@
             &:hover {
                 cursor: pointer;
             }
+        }
+
+        .sidebar-link {
+            color: $gray500;
         }
     }
 

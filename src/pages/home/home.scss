@@ -33,6 +33,18 @@
                 background-color: darken($geoboard-dark, 5%);
             }
         }
+
+        .side-nav {
+            .side-nav-header {
+                background-color: darken($geoboard-dark, 5%);
+            }
+
+            .side-nav-body {
+                .section-header {
+                    border-color: darken($geoboard-dark, 5%);
+                }
+            }
+        }
     }
 
     .home-container {
