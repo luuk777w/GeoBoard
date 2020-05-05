@@ -96,6 +96,6 @@ $('#view').on('click', '[data-target="theme"]', function () {
     }
 });
 
-$('#view').on('click', '[data-target="goaway"]', App.Home.goaway);
-$('#view').on('click', '[data-target="comehere"]', App.Home.comeHere);
+$('#view').on('click', '[data-target="closeSidebar"]', App.Home.closeSidebar);
+$('#view').on('click', '[data-target="sidebar"]', App.Home.sidebar);
 $('#view').on('click', '[data-target="createBoard"]', App.Home.createBoard);
