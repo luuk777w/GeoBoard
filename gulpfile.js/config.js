@@ -35,12 +35,14 @@ module.exports = {
             'src/js/app.js',
             'src/js/**/*.js',
             'src/js/*.js',
+            'src/pages/*/*.js',
             'src/pages/**/*.js'
         ],
         sass: [
             'src/css/**/*.sccs',
             'src/css/main.scss',
             'src/css/*.scss',
+            'src/pages/*/*.scss',
             'src/pages/**/*.scss'
         ]
     },

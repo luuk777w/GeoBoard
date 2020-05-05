@@ -7,8 +7,26 @@ App.Home = (function () {
         App.Template.loadhtml("home");
         App.Template.setPageTitle("{boardname}");
 
-        // TODO: Call autosize when the 'new element' panel is shown.
-        autosize($('textarea'));
+        // TODO: Call autosize when the 'new element' panel is shown
+
+        $('textarea').each(function () {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        let element = {
+            id: "d8892794-2779-40d1-b664-c2535f8ccba0",
+            number: "7",
+            user: "Luuk",
+            isImage: false,
+            content: "He hallo",
+            direction: "Noorden",
+            timeStamp: "05-05-2020 01:50:00"
+        }
+
+        App.Home.Element.newElement(element);
     }
 
     const goaway = function () {
@@ -52,8 +70,7 @@ $('#view').on('click', '[data-target="theme"]', function () {
         $('.logo-light').hide();
         $('.logo-dark').show();
     }
-    else
-    {
+    else {
         view.addClass('dark-theme');
         $('.logo-dark').hide();
         $('.logo-light').show();

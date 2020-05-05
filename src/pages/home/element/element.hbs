@@ -1,0 +1,20 @@
+<div class="board-element" id="{{id}}">
+    <div class="board-element-header">
+        <span class="board-element-number">{{number}}</span>
+        <span class="board-element-creator">{{user}}</span>
+        <i class="fas fa-trash ml-auto delete-icon" data-target="remove"></i>
+    </div>
+    <div class="board-element-body">
+        {{#if isImage}}
+        <img class="board-element-image" src="{{content}}">
+        {{else}}
+        <p class="board-element-message">{{content}}</p>
+        {{/if}}
+    </div>
+    <div class="board-element-footer">
+        <div class="board-element-direction">
+            <i class="fas fa-location-arrow direction mr-2"></i>{{direction}}
+        </div>
+        <time class="board-element-timestamp" datetime="{{timeStamp}}">{{timeStamp}}</time>
+    </div>
+</div>
