@@ -58,19 +58,21 @@
         right: 0;
         top: 4.5rem;
         z-index: 10;
-        background-color: white;
+        background: white;
         width: 25rem;
         height: calc(100% - 4.5rem);
         // box-shadow: 0px 12px 12px 2px $gray900;
         box-shadow: 0px 8px 12px -8px $gray900;
         animation-duration: 0.3s;
+        transition: background 250ms;
 
         .side-nav-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: $gray100;
+            background: $gray100;
             padding: 1rem 1.5rem;
+            transition: background 250ms;
 
             .close-sidebar {
                 color: $gray400;
@@ -94,6 +96,7 @@
                 align-items: center;
                 border-bottom: 2px solid $gray100;
                 padding: .5rem;
+                transition: border-color 250ms;
 
                 .side-nav-section-title {
                     margin: 0;

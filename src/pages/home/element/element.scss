@@ -15,6 +15,7 @@
         justify-content: space-between;
         background: white;
         padding: .5rem 1rem;
+        transition: background 250ms;
 
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
@@ -60,12 +61,14 @@
 
     .board-element-body {
         background: white;
+        transition: background 250ms;
 
         .board-element-message {
             margin: 0;
             padding: 1rem;
             border-top: 1px solid $gray100;
             border-bottom: 1px solid $gray100;
+            transition: border-color 250ms;
         }
 
         .board-element-image {
@@ -87,6 +90,8 @@
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
 
+        transition: background 250ms;
+
         .board-element-direction {
             display: flex;
             align-items: center;
@@ -105,6 +110,7 @@
             background: $gray100;
             padding: .25rem .5rem;
             border-radius: $border-radius;
+            transition: background 250ms;
         }
     }
 }
@@ -128,6 +134,8 @@
             box-sizing: border-box;
             border-top: 1px solid $gray100;
             font: inherit;
+
+            transition: background 250ms, border-color 250ms;
         }
     }
 
@@ -135,6 +143,7 @@
         align-items: center;
         border-top: 1px solid $gray100;
         border-radius: 0;
+        transition: border-color 250ms;
 
         label {
             font-weight: 600;
