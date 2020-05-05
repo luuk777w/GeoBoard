@@ -163,7 +163,7 @@ a.button {
     }
 }
 
-/**
+/*
  * Grouped buttons
  */
 .button-group {
@@ -182,4 +182,12 @@ a.button {
             border-bottom-right-radius: 0;
         }
     }
+}
+
+/*
+ * Button sizes
+ */
+.button-small {
+    padding: .5rem 1rem;
+    font-size: .9em;
 }

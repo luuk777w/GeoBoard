@@ -22,12 +22,31 @@
     <ul class="nav-links" style="margin-left: auto;">
         <li class="nav-link" data-target="theme">Thema</li>
         <li class="nav-link" data-target="logout">Log out</li>
-        <li class="nav-link" data-target="comehere">Sidebar</li>
+        <li class="nav-link" data-target="sidebar">
+            <i class="fas fa-bars fa-lg"></i>
+        </li>
     </ul>
 </nav>
 
 <div class="side-nav animated">
-    <button class="button button-blue" style="float: right;" data-target="goaway">Go away</button>
+    <div class="side-nav-header">
+        <h4 class="m-0">Menu</h4>
+        <span class="close-sidebar" data-target="closeSidebar" title="Close sidebar">
+            <i class="fas fa-times fa-lg"></i>
+        </span>
+    </div>
+
+    <div class="side-nav-body">
+
+        <div class="side-nav-section">
+            <div class="section-header">
+                <h3 class="side-nav-section-title">My boards</h3>
+                <button class="button button-small button-green" data-target="createBoard">Create board</button>
+            </div>
+        </div>
+    </div>
+
+    {{!-- <button class="button button-blue" style="float: right;" data-target="goaway">Go away</button> --}}
 </div>
 
 <div class="home-container dark-theme">

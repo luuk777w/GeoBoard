@@ -29,8 +29,13 @@ App.Home = (function () {
         App.Home.Element.newElement(element);
     }
 
-    const goaway = function () {
-        console.log("Hoi");
+    const sidebar = function () {
+        $(".side-nav").show();
+        $(".side-nav").removeClass("slideOutRight");
+        $(".side-nav").addClass("slideInRight");
+    }
+
+    const closeSidebar = function () {
         $(".side-nav").removeClass("slideInRight");
         $(".side-nav").addClass("slideOutRight");
 
@@ -39,11 +44,24 @@ App.Home = (function () {
         }, 300);
     }
 
-    const comeHere = function () {
-        console.log("Hoi");
-        $(".side-nav").show();
-        $(".side-nav").removeClass("slideOutRight");
-        $(".side-nav").addClass("slideInRight");
+    const createBoard = function () {
+        let boardName = prompt('What is the name of this new board?');
+
+        if (boardName.trim() != "") {
+            console.info(`Nieuwe board: ${boardName}`);
+
+            let data = {
+                name: boardName
+            };
+
+            App.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
+
+                alert("Board created");
+
+            }, error => {
+                console.warn(error);
+            });
+        }
     }
 
     const logout = function () {
@@ -54,9 +72,10 @@ App.Home = (function () {
 
     return {
         init: _init,
-        goaway,
         logout,
-        comeHere
+        sidebar,
+        closeSidebar,
+        createBoard
     }
 })();
 
@@ -79,3 +98,4 @@ $('#view').on('click', '[data-target="theme"]', function () {
 
 $('#view').on('click', '[data-target="goaway"]', App.Home.goaway);
 $('#view').on('click', '[data-target="comehere"]', App.Home.comeHere);
+$('#view').on('click', '[data-target="createBoard"]', App.Home.createBoard);
