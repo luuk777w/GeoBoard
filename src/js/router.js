@@ -24,11 +24,19 @@ App.Router = (function () {
             if (route.role == "guest" && App.Authorize.IsLoggedIn() == false) {
                 App[route.controller].init();
             }
+            else if (App.Authorize.IsLoggedIn() == false) {
+
+                if (App.JWT.isTokenExpired())
+                {
+                    App.Router.redirectWithAlert('/login', 'alert-warning', 'Your session has expired. Please log in again.');
+                }
+                else
+                {
+                    App.Router.redirect('/login');
+                }
+            }
             else if ((App.Authorize.HasRole(route.role) || route.role == null) && route.role != "guest") {
                 App[route.controller].init();
-            }
-            else if (App.Authorize.IsLoggedIn() == false) {
-                App.Router.redirect('/login');
             }
             else if (route.role == "guest" && App.Authorize.IsLoggedIn()) {
                 App.Router.redirect('/home');

@@ -67,7 +67,7 @@ App.Authorize = (function () {
 
     const IsLoggedIn = function () {
 
-        if (App.JWT.getRole() == null || App.JWT.getRole() == "") {
+        if (App.JWT.getRole() == null || App.JWT.getRole() == "" || App.JWT.isTokenExpired()) {
             return false;
         } else {
             return true;

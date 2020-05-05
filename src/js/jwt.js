@@ -57,6 +57,16 @@ App.JWT = (function () {
 
     }
 
+    const isTokenExpired = function () {
+        let jwt = parse();
+
+        if (jwt == null || jwt == "") {
+            return true;
+        }
+
+        return ((Math.round((new Date()).getTime() / 1000)) > jwt["exp"])
+    }
+
     return {
         init: _init,
         set,
@@ -64,6 +74,7 @@ App.JWT = (function () {
         parse,
         getRole,
         clear,
-        getId
+        getId,
+        isTokenExpired
     }
 })();
