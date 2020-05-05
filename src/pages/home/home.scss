@@ -42,6 +42,10 @@
             .side-nav-body {
                 .section-header {
                     border-color: darken($geoboard-dark, 5%);
+
+                    .side-nav-section-title {
+                        color: white;
+                    }
                 }
             }
         }
@@ -100,6 +104,7 @@
 
                 .side-nav-section-title {
                     margin: 0;
+                    color: $geoboard-dark;
                 }
             }
         }
