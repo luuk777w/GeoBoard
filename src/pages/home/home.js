@@ -19,17 +19,19 @@ App.Home = (function () {
             this.style.height = (this.scrollHeight) + 'px';
         });
 
-        let element = {
-            id: "d8892794-2779-40d1-b664-c2535f8ccba0",
-            number: "7",
-            user: "Luuk",
-            isImage: false,
-            content: "He hallo",
-            direction: "Noorden",
-            timeStamp: "05-05-2020 01:50:00"
-        };
+        // let element = {
+        //     id: "d8892794-2779-40d1-b664-c2535f8ccba0",
+        //     number: "7",
+        //     user: "Luuk",
+        //     isImage: false,
+        //     content: "He hallo",
+        //     direction: "Noorden",
+        //     timeStamp: "05-05-2020 01:50:00"
+        // };
 
-        App.Home.Element.newElement(element);
+        // App.Home.Element.newElement(element);
+
+        loadBoardElements();
     }
 
     const toggleTheme = function () {
@@ -98,6 +100,30 @@ App.Home = (function () {
                 console.warn(error);
             });
         }
+    }
+
+    const loadBoardElements = function () {
+        let boardId = '14ce2a15-1374-4fd9-aae2-08d7f1085836';
+
+        App.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
+
+            // console.log(data);
+            $.each(data, (index, element) => {
+
+                App.Home.Element.newElement({
+                    id: element.id,
+                    number: index + 1,
+                    user: element.user.username,
+                    isImage: (element.imagePath != null),
+                    content: (element.imagePath != null) ? element.imagePath : element.note,
+                    direction: element.direction,
+                    timeStamp: element.createdAt
+                });
+            })
+
+        }, error => {
+            console.warn(error);
+        });
     }
 
     const logout = function () {

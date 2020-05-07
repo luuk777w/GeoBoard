@@ -12,9 +12,11 @@
         {{/if}}
     </div>
     <div class="board-element-footer">
+        {{#if direction}}
         <div class="board-element-direction">
             <i class="fas fa-location-arrow direction mr-2"></i>{{direction}}
         </div>
+        {{/if}}
         <time class="board-element-timestamp" datetime="{{timeStamp}}">{{timeStamp}}</time>
     </div>
 </div>
