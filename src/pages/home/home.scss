@@ -137,3 +137,40 @@
     margin: 1rem;
     margin-bottom: 0;
 }
+
+.board-list {
+    list-style: none;
+    padding: 0;
+    border-radius: $border-radius;
+
+    .board-list-item {
+        padding: .5rem 1.5rem;
+        background: $gray100;
+        transition: background 250ms;
+
+        &:first-child {
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $gray200;
+        }
+
+        &[data-target]:hover {
+            cursor: pointer;
+            background: $gray300;
+        }
+
+        .board-list-item-creator {
+            display: block;
+            font-size: .85em;
+            color: $gray500;
+        }
+    }
+}
