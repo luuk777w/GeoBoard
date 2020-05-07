@@ -47,6 +47,16 @@
                         color: white;
                     }
                 }
+
+                .board-list-item {
+                    background: darken($geoboard-dark, 5%);
+                    color: white;
+                    border-color: darken($geoboard-dark, 10%);
+
+                    &[data-target]:hover {
+                        background: darken($geoboard-dark, 10%);
+                    }
+                }
             }
         }
     }
@@ -159,7 +169,7 @@
         }
 
         &:not(:last-child) {
-            border-bottom: 1px solid $gray200;
+            border-bottom: 1px solid $gray300;
         }
 
         &[data-target]:hover {
