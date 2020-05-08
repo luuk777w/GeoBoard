@@ -6,6 +6,11 @@ class BoardElementViewModel {
     id: string;
 
     /**
+     * The index number indicating the order in which this element was created within the board.
+     */
+    number: number;
+
+    /**
      * The board where this element belongs to.
      */
     boardId: string;
@@ -36,14 +41,4 @@ class BoardElementViewModel {
      * The date and time of when this board was created.
      */
     date: Date;
-
-    public getDirection(): string
-    {
-        if (this.direction == null)
-            return null;
-
-        var output = "";
-
-        return output;
-    }
 }

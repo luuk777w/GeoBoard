@@ -4,7 +4,7 @@ class BoardElement {
 
     }
 
-    public newElement(element: BoardElementModel) {
+    public newElement(element: BoardElementViewModel) {
         let out = (window as any).Handlebars.compile((window as any).Templates["element"](element));
         $(".board-elements").prepend(out());
         $(`#${element.id}`).find('[data-target="remove"]').click(() => this.removeElement(element.id));
@@ -16,25 +16,4 @@ class BoardElement {
         });
     }
 
-}
-
-interface BoardElementModel {
-    id: string,
-    number: number,
-    user: string,
-    isImage: boolean,
-    content: string,
-    direction: Direction,
-    timeStamp: string
-}
-
-enum Direction {
-    North = 0,
-    NorthEast = 1,
-    East = 2,
-    SouthEast = 3,
-    South = 4,
-    SouthWest = 5,
-    West = 6,
-    NorthWest = 7
 }
