@@ -2,8 +2,8 @@ class EmailConfirmationPage extends Page {
 
     private alert: Alert;
 
-    constructor(router: Router) {
-        super(router);
+    constructor() {
+        super();
 
         this.alert = new Alert();
 

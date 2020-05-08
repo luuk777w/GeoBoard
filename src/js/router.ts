@@ -1,12 +1,17 @@
 class Router {
 
+    /**
+     * The singleton instance of this Router class.
+     */
+    private static instance: Router;
+
     private routes: any = {};
     private element: HTMLElement = null;
     private authorize: Authorize;
     private JWT: JWT;
     private alert: Alert;
 
-    constructor() {
+    private constructor() {
         console.log("routing the shizzles");
         this.authorize = Authorize.getInstance();
         this.JWT = JWT.getInstance();
@@ -20,6 +25,17 @@ class Router {
         window.addEventListener('load', function () {
             router.resolveRoute();
         });
+    }
+
+    /**
+     * Returns the singleton instance of this Router class.
+     */
+    public static getInstance() {
+        if (! Router.instance) {
+            Router.instance = new Router();
+        }
+
+        return Router.instance;
     }
 
     public route(path: string, controller: object, role: string) {
@@ -38,7 +54,7 @@ class Router {
 
             if (route.role == "guest" && this.authorize.isLoggedIn() == false) {
 
-                new route.controller(this);
+                new route.controller();
             }
             else if (this.authorize.isLoggedIn() == false) {
 
@@ -50,17 +66,17 @@ class Router {
                 }
             }
             else if ((this.authorize.hasRole(route.role) || route.role == null) && route.role != "guest") {
-                new route.controller(this);
+                new route.controller();
             }
             else if (route.role == "guest" && this.authorize.isLoggedIn()) {
                 this.redirect('/home');
             }
             else {
-                new ErrorPage(this, 401, "Unauthorized.");
+                new ErrorPage(401, "Unauthorized.");
             }
 
         } else {
-            new ErrorPage(this, 404, "Page not found.");
+            new ErrorPage(404, "Page not found.");
         }
     }
 

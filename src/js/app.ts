@@ -7,11 +7,11 @@ class App {
 
     private router: Router;
 
-    constructor() {
+    private constructor() {
         let config = new Config();
         console.log(config.siteName);
 
-        this.router = new Router();
+        this.router = Router.getInstance();
         new Routes(this.router);
     }
 

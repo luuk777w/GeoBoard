@@ -1,6 +1,6 @@
 class ErrorPage extends Page {
-    constructor(router: Router, errorCode: number, errorMessage: string) {
-        super(router);
+    constructor(errorCode: number, errorMessage: string) {
+        super();
 
         console.log("Error!!");
         this.template.setLayout("base_layout");

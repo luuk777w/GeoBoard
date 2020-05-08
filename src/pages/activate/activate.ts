@@ -1,6 +1,6 @@
 class ActivatePage extends Page {
-    constructor(router: Router) {
-        super(router);
+    constructor() {
+        super();
 
         let queryString = window.location.search;
         let urlParams = new URLSearchParams(queryString);

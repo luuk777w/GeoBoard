@@ -3,8 +3,8 @@ class HomePage extends Page {
     private element: BoardElement;
 
 
-    constructor(router: Router) {
-        super(router);
+    constructor() {
+        super();
 
         this.element = new BoardElement();
 
