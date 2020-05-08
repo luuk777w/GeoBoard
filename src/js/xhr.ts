@@ -45,10 +45,12 @@ class XHR {
     }
 
     public getWithAuthorization(url: string) {
+        const token = this.JWT.get();
+
         return $.ajax({
             type: "get",
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.JWT.get());
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             },
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
@@ -56,11 +58,13 @@ class XHR {
     }
 
     public postWithAuthorization(url: string, data: any = null) {
+        const token = this.JWT.get();
+
         return $.ajax({
             type: "post",
             data: data,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.JWT.get());
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             },
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
@@ -68,11 +72,13 @@ class XHR {
     }
 
     public putWithAuthorization(url: string, data: any = null) {
+        const token = this.JWT.get();
+
         return $.ajax({
             type: "put",
             data: data,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.JWT.get());
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             },
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
@@ -80,10 +86,12 @@ class XHR {
     }
 
     public deleteWithAuthorization(url: string) {
+        const token = this.JWT.get();
+
         return $.ajax({
             type: "delete",
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.JWT.get());
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             },
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
