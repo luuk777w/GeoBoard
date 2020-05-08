@@ -5,6 +5,8 @@
 
     &.dark-theme {
 
+        background-color: lighten($geoboard-dark, 10%);
+
         .navbar,
         .side-nav,
         .board-element-header,
