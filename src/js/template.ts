@@ -20,7 +20,12 @@ class Template {
 
     public loadhtml(templateName: string, data: any = null) {
         if (typeof (window as any).Templates[templateName] === "function") {
+
             (window as any).Handlebars.registerPartial('body', (window as any).Templates[templateName](data));
+            (window as any).Handlebars.registerHelper('formatDateTime', (date: Date) => {
+                return date;
+            });
+
             document.getElementById('view').innerHTML = (window as any).Templates[this.layout]();
             $("#view").removeClass();
             $("#view").addClass(`${templateName}-view`);
