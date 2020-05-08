@@ -8,9 +8,9 @@ class Page {
 
     constructor(router: Router) {
         this.template = new Template();
-        this.authorize = new Authorize();
-        this.JWT = new JWT();
-        this.XHR = new XHR();
+        this.authorize = Authorize.getInstance();
+        this.JWT = JWT.getInstance();
+        this.XHR = XHR.getInstance();
         this.router = router;
     }
 }

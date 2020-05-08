@@ -2,13 +2,29 @@ class Authorize {
 
     //TODO: Correct typing
 
+    /**
+     * The singleton instance of this Authorize class.
+     */
+    private static instance: Authorize;
+
     private config: Config;
     private JWT: JWT;
 
-    constructor() {
+    private constructor() {
         console.log("Authorize");
         this.config = new Config();
-        this.JWT = new JWT();
+        this.JWT = JWT.getInstance();
+    }
+
+    /**
+     * Returns the singleton instance of this JWT class.
+     */
+    public static getInstance() {
+        if (! Authorize.instance) {
+            Authorize.instance = new Authorize();
+        }
+
+        return Authorize.instance;
     }
 
     public login(username: string, password: string, remember: boolean) {

@@ -1,12 +1,28 @@
 class XHR {
 
+    /**
+     * The singleton instance of this XHR class.
+     */
+    private static instance: XHR;
+
     private config: Config;
     private JWT: JWT;
 
-    constructor() {
+    private constructor() {
         console.log("XHR");
         this.config = new Config();
-        this.JWT = new JWT();
+        this.JWT = JWT.getInstance();
+    }
+
+    /**
+     * Returns the singleton instance of this XHR class.
+     */
+    public static getInstance() {
+        if (! XHR.instance) {
+            XHR.instance = new XHR();
+        }
+
+        return XHR.instance;
     }
 
     public get(url: string) {

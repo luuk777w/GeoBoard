@@ -8,8 +8,8 @@ class Router {
 
     constructor() {
         console.log("routing the shizzles");
-        this.authorize = new Authorize();
-        this.JWT = new JWT();
+        this.authorize = Authorize.getInstance();
+        this.JWT = JWT.getInstance();
         this.alert = new Alert();
 
         let router = this;

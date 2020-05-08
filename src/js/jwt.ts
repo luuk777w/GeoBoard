@@ -1,6 +1,22 @@
 class JWT {
-    constructor() {
+    /**
+     * The singleton instance of this JWT class.
+     */
+    private static instance: JWT;
+
+    private constructor() {
         console.log("JWT");
+    }
+
+    /**
+     * Returns the singleton instance of this JWT class.
+     */
+    public static getInstance() {
+        if (! JWT.instance) {
+            JWT.instance = new JWT();
+        }
+
+        return JWT.instance;
     }
 
     public set(token: string) {
