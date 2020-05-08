@@ -1,7 +1,7 @@
 class Router {
 
-    private routes = {};
-    private element = null;
+    private routes: any = {};
+    private element: HTMLElement = null;
     private authorize: Authorize;
     private JWT: JWT;
     private alert: Alert;
@@ -11,6 +11,14 @@ class Router {
         this.authorize = new Authorize();
         this.JWT = new JWT();
         this.alert = new Alert();
+
+        let router = this;
+
+        window.addEventListener('popstate', function () {
+            router.resolveRoute();
+        });
+
+        window.addEventListener('load', router.resolveRoute);
     }
 
     public route(path: string, className: any, role: string) {
@@ -26,7 +34,7 @@ class Router {
 
             if (route.role == "guest" && this.authorize.isLoggedIn() == false) {
 
-                new route.controller(this)
+                new route.controller(this);
             }
             else if (this.authorize.isLoggedIn() == false) {
 
@@ -38,17 +46,17 @@ class Router {
                 }
             }
             else if ((this.authorize.hasRole(route.role) || route.role == null) && route.role != "guest") {
-                App[route.controller].init();
+                new route.controller(this);
             }
             else if (route.role == "guest" && this.authorize.isLoggedIn()) {
                 this.redirect('/home');
             }
             else {
-                new ErrorPage(this, "401", "Unauthorized.");
+                new ErrorPage(this, 401, "Unauthorized.");
             }
 
         } else {
-            new ErrorPage(this, "404", "Page not found.");
+            new ErrorPage(this, 404, "Page not found.");
         }
     }
 

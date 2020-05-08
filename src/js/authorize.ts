@@ -11,7 +11,7 @@ class Authorize {
         this.JWT = new JWT();
     }
 
-    public login(username, password, remember) {
+    public login(username: string, password: string, remember: boolean) {
         return $.ajax({
             type: "post",
             url: `${this.config.apiUrl}/account/authorize/`,
@@ -20,7 +20,7 @@ class Authorize {
         });
     }
 
-    public register(username, email, password) {
+    public register(username: string, email: string, password: string) {
         return $.ajax({
             type: "post",
             url: `${this.config.apiUrl}/account/register/`,
@@ -29,7 +29,7 @@ class Authorize {
         });
     }
 
-    public resendActivationEmail(email) {
+    public resendActivationEmail(email: string) {
         return $.ajax({
             type: "post",
             url: `${this.config.apiUrl}/account/ResendActivationEmail/`,
@@ -38,14 +38,14 @@ class Authorize {
         });
     }
 
-    public activate(email, token) {
+    public activate(email: string, token: string) {
         return $.ajax({
             type: "get",
             url: `${this.config.apiUrl}/account/Activate/?email=${email}&token=${token}`,
         });
     }
 
-    public requestPasswordReset(username) {
+    public requestPasswordReset(username: string) {
         return $.ajax({
             type: "post",
             url: `${this.config.apiUrl}/account/RequestPasswordReset/`,
@@ -54,7 +54,7 @@ class Authorize {
         });
     }
 
-    public resetPassword(email, password, token) {
+    public resetPassword(email: string, password: string, token: string) {
         return $.ajax({
             type: "post",
             url: `${this.config.apiUrl}/account/ResetPassword/`,
@@ -63,7 +63,7 @@ class Authorize {
         });
     }
 
-    public hasRole(role) {
+    public hasRole(role: string) {
 
         if (this.JWT.getRole() == role) {
             return true;

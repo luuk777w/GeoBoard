@@ -1,5 +1,5 @@
 class ErrorPage extends Page {
-    constructor(router, errorCode, errorMessage) {
+    constructor(router: Router, errorCode: number, errorMessage: string) {
         super(router);
 
         console.log("Error!!");

@@ -9,7 +9,9 @@ class Template {
     }
 
     public setLayout(layout: string) {
-        if (typeof Templates[layout] === "function") {
+
+
+        if (typeof (window as any).Templates[layout] === "function") {
             this.layout = layout;
         } else {
             throw new Error("Layout does not exist.")
@@ -17,9 +19,9 @@ class Template {
     }
 
     public loadhtml(templateName: string, data: any = null) {
-        if (typeof Templates[templateName] === "function") {
-            Handlebars.registerPartial('body', Templates[templateName](data));
-            document.getElementById('view').innerHTML = Templates[this.layout]();
+        if (typeof (window as any).Templates[templateName] === "function") {
+            (window as any).Handlebars.registerPartial('body', (window as any).Templates[templateName](data));
+            document.getElementById('view').innerHTML = (window as any).Templates[this.layout]();
             $("#view").removeClass();
             $("#view").addClass(`${templateName}-view`);
             $("#view").addClass(this.layout.replace('_', '-'));

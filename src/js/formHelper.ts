@@ -41,11 +41,11 @@ class FormHelper {
         $('.has-error').toArray().forEach(element => $(element).removeClass('has-error'));
     }
 
-    public highlightField(field) {
+    public highlightField(field: string) {
         $(field).addClass("has-error");
     }
 
-    public getFormData(selector): formData<any> {
+    public getFormData(selector: string): formData<any> {
 
         let formData: formData<any> = {
             formCompleted: true,

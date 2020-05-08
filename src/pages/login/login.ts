@@ -3,7 +3,7 @@ class Loginpage extends Page {
     private formHelper: FormHelper;
     private alert: Alert;
 
-    constructor(router) {
+    constructor(router: Router) {
         super(router);
 
         this.formHelper = new FormHelper();

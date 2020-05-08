@@ -3,7 +3,7 @@ class JWT {
         console.log("JWT");
     }
 
-    public set(token) {
+    public set(token: string) {
         localStorage.setItem("token", token);
     }
 

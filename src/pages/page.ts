@@ -6,7 +6,7 @@ class Page {
     protected XHR: XHR;
     protected router: Router;
 
-    constructor(router) {
+    constructor(router: Router) {
         this.template = new Template();
         this.authorize = new Authorize();
         this.JWT = new JWT();

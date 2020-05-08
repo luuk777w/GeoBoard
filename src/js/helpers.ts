@@ -4,7 +4,7 @@ class Helpers {
     }
 
     public static sanitize(string: string) {
-        const map = {
+        const map: any = {
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
