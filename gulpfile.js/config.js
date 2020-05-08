@@ -4,6 +4,7 @@ module.exports = {
         ts: [
             'src/js/**/*.ts',
             'src/js/*.ts',
+            "src/pages/*.ts",
             'src/pages/**/*.ts'
         ],
         sass: [

@@ -18,18 +18,24 @@ class Router {
             router.resolveRoute();
         });
 
-        window.addEventListener('load', router.resolveRoute);
+        console.log(this.routes)
+        window.addEventListener('load', this.resolveRoute);
     }
 
-    public route(path: string, className: any, role: string) {
-        this.routes[path] = { className: className, role: role };
+    public route(path: string, controller: any, role: string) {
+        this.routes[path] = { controller: controller, role: role };
+
+        // console.log(this.routes);
     }
 
     public resolveRoute() {
 
+        console.info('Registered route = ', this.routes);
+
         this.element = this.element || document.getElementById('view');
         var url = location.pathname || '/';
         var route = this.routes[url];
+
         if (this.element && route) {
 
             if (route.role == "guest" && this.authorize.isLoggedIn() == false) {
@@ -70,9 +76,9 @@ class Router {
         return false;
     }
 
-    public redirectWithAlert(route: string, className: string, message: string) {
+    public redirectWithAlert(route: string, controller: string, message: string) {
         if (this.redirect(route)) {
-            this.alert.show(className, message);
+            this.alert.show(controller, message);
         }
 
     }
