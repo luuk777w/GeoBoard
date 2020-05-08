@@ -1,4 +1,4 @@
-class Loginpage extends Page {
+class LoginPage extends Page {
 
     private formHelper: FormHelper;
     private alert: Alert;
@@ -20,7 +20,7 @@ class Loginpage extends Page {
             login.login();
         });
 
-        $('#view').on('click', '[data-target="register"]', login.goToRegister);
+        Helpers.registerOnClick("register", () => this.goToRegister());
     }
 
     public goToRegister() {

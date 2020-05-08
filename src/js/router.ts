@@ -17,15 +17,13 @@ class Router {
         window.addEventListener('popstate', function () {
             router.resolveRoute();
         });
-
-        console.log(this.routes)
-        window.addEventListener('load', this.resolveRoute);
+        window.addEventListener('load', function () {
+            router.resolveRoute();
+        });
     }
 
-    public route(path: string, controller: any, role: string) {
+    public route(path: string, controller: object, role: string) {
         this.routes[path] = { controller: controller, role: role };
-
-        // console.log(this.routes);
     }
 
     public resolveRoute() {

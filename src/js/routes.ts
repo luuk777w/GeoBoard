@@ -8,12 +8,12 @@ class Routes {
     }
 
     private registerRoutes() {
-        this.router.route('/login', Loginpage, 'guest');
-        this.router.route('/register', 'Register', 'guest');
-        this.router.route('/register/email-confirmation', 'EmailConfirmation', 'guest');
-        this.router.route('/register/activate', 'Activate', 'guest');
-        this.router.route('/', 'Home', 'User');
-        this.router.route('/home', 'Home', 'User');
+        this.router.route('/login', LoginPage, 'guest');
+        this.router.route('/register', RegisterPage, 'guest');
+        this.router.route('/register/email-confirmation', EmailConfirmationPage, 'guest');
+        this.router.route('/register/activate', ActivatePage, 'guest');
+        this.router.route('/', HomePage, 'User');
+        this.router.route('/home', HomePage, 'User');
 
         console.log('ALL routes registred')
     }

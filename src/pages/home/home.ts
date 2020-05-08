@@ -1,16 +1,21 @@
-App.Home = (function () {
+class HomePage extends Page {
 
-    // init
-    const _init = function () {
-        console.log("home");
-        App.Template.setLayout("base_layout");
-        App.Template.loadhtml("home");
-        App.Template.setPageTitle("{boardname}");
+    private element: BoardElement;
 
-        // Load the current color theme.
-        loadTheme();
+
+    constructor(router: Router) {
+        super(router);
+
+        this.element = new BoardElement();
+
+        this.template.setLayout("base_layout");
+        this.template.loadhtml("home");
+        this.template.setPageTitle("{boardname}");
+
+        this.loadTheme();
 
         // TODO: Call autosize when the 'new element' panel is shown
+        // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
 
         $('textarea').each(function () {
             this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -19,22 +24,16 @@ App.Home = (function () {
             this.style.height = (this.scrollHeight) + 'px';
         });
 
-        // let element = {
-        //     id: "d8892794-2779-40d1-b664-c2535f8ccba0",
-        //     number: "7",
-        //     user: "Luuk",
-        //     isImage: false,
-        //     content: "He hallo",
-        //     direction: "Noorden",
-        //     timeStamp: "05-05-2020 01:50:00"
-        // };
+        Helpers.registerOnClick("logout", () => this.logout());
+        Helpers.registerOnClick("theme", () => this.toggleTheme());
+        Helpers.registerOnClick("closeSidebar", () => this.closeSidebar());
+        Helpers.registerOnClick("sidebar", () => this.sidebar());
+        Helpers.registerOnClick("createBoard", () => this.createBoard());
 
-        // App.Home.Element.newElement(element);
-
-        loadBoardElements();
+        this.loadBoardElements();
     }
 
-    const toggleTheme = function () {
+    public toggleTheme() {
         let currentTheme = localStorage.getItem('theme') ?? 'light';
 
         if (currentTheme == 'light')
@@ -44,10 +43,10 @@ App.Home = (function () {
 
         localStorage.setItem('theme', currentTheme);
 
-        loadTheme();
+        this.loadTheme();
     }
 
-    const loadTheme = function () {
+    public loadTheme() {
         const currentTheme = localStorage.getItem('theme') ?? 'light';
         const view = $('.home-view');
 
@@ -67,13 +66,13 @@ App.Home = (function () {
     }
 
 
-    const sidebar = function () {
+    public sidebar() {
         $(".side-nav").show();
         $(".side-nav").removeClass("slideOutRight");
         $(".side-nav").addClass("slideInRight");
     }
 
-    const closeSidebar = function () {
+    public closeSidebar() {
         $(".side-nav").removeClass("slideInRight");
         $(".side-nav").addClass("slideOutRight");
 
@@ -82,7 +81,7 @@ App.Home = (function () {
         }, 300);
     }
 
-    const createBoard = function () {
+    public createBoard() {
         let boardName = prompt('What is the name of this new board?');
 
         if (boardName.trim() != "") {
@@ -92,7 +91,7 @@ App.Home = (function () {
                 name: boardName
             };
 
-            App.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
+            this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
 
                 alert("Board created");
 
@@ -102,15 +101,15 @@ App.Home = (function () {
         }
     }
 
-    const loadBoardElements = function () {
+    public loadBoardElements() {
         let boardId = '14ce2a15-1374-4fd9-aae2-08d7f1085836';
 
-        App.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
+        this.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
 
             // console.log(data);
-            $.each(data, (index, element) => {
+            $.each(data, (index: number, element) => {
 
-                App.Home.Element.newElement({
+                this.element.newElement({
                     id: element.id,
                     number: index + 1,
                     user: element.user.username,
@@ -126,26 +125,10 @@ App.Home = (function () {
         });
     }
 
-    const logout = function () {
-        App.JWT.clear();
+    public logout() {
+        this.JWT.clear();
 
-        App.Router.redirect("/login");
+        this.router.redirect("/login");
     }
+}
 
-    return {
-        init: _init,
-        toggleTheme,
-        logout,
-        sidebar,
-        closeSidebar,
-        createBoard
-    }
-})();
-
-$('#view').on('click', '[data-target="logout"]', App.Home.logout);
-
-$('#view').on('click', '[data-target="theme"]', App.Home.toggleTheme);
-
-$('#view').on('click', '[data-target="closeSidebar"]', App.Home.closeSidebar);
-$('#view').on('click', '[data-target="sidebar"]', App.Home.sidebar);
-$('#view').on('click', '[data-target="createBoard"]', App.Home.createBoard);

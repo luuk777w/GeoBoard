@@ -32,7 +32,7 @@ class Helpers {
      * @param {*} element The button element name.
      * @param {*} show Whether or not the loading state should be shown.
      */
-    public static toggleLoadingButton = function (element: string, show: boolean = true) {
+    public static toggleLoadingButton(element: string, show: boolean = true) {
         if (show) {
             $(element).data('value', $(element).text());
 
@@ -47,4 +47,13 @@ class Helpers {
         }
     }
 
+    /**
+     * Register onclick.
+     *
+     * @param {string} target The datatarget (`[data-target=""]`) of the element the onclick is on.
+     * @param {Function} func the target function.
+     */
+    public static registerOnClick(target: string, func: Function) {
+        $('#view').on('click', `[data-target="${target}"]`, () => func());
+    }
 }
