@@ -40,5 +40,5 @@ class BoardElementViewModel {
     /**
      * The date and time of when this board was created.
      */
-    date: Date;
+    createdAt: Date;
 }

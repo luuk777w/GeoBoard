@@ -107,17 +107,21 @@ class HomePage extends Page {
         this.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
 
             // console.log(data);
-            $.each(data, (index: number, element) => {
+            $.each(data, (index: number, data) => {
 
-                this.element.newElement({
-                    id: element.id,
+                let element: BoardElementViewModel = {
+                    id: data.id,
                     number: index + 1,
-                    user: element.user.username,
-                    isImage: (element.imagePath != null),
-                    content: (element.imagePath != null) ? element.imagePath : element.note,
-                    direction: element.direction,
-                    timeStamp: element.createdAt
-                });
+                    boardId: data.boardId,
+                    // user: data.user.username,
+                    userId: data.userId,
+                    imagePath: data.imagePath,
+                    note: data.note,
+                    direction: data.direction,
+                    createdAt: data.createdAt
+                };
+
+                this.element.newElement(element);
             })
 
         }, error => {
