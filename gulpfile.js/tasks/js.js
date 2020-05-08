@@ -1,21 +1,18 @@
 const { src, dest } = require('gulp');
-const order = require("gulp-order");
-const concat = require("gulp-concat");
-const babel = require("gulp-babel");
-const uglify = require("gulp-uglifyjs")
-const gulpif = require('gulp-if');
+const ts = require('gulp-typescript');
+const concat = require('gulp-concat');
 
-const fn = function (filesJs, filesJsOrder, production) {
+const fn = function (filesTs) {
     return function () {
 
-        return src(filesJs)
-            .pipe(order(filesJsOrder, { base: './' }))
+        let tsProject = ts.createProject('./tsconfig.json', {
+            declaration: true
+        });
+
+        return src(filesTs)
+            .pipe(tsProject())
             .pipe(concat('app.js'))
-            .pipe(babel({
-                presets: ['@babel/preset-env']
-            }))
-            .pipe(gulpif(production, uglify({ compress: true })))
-            .pipe(dest('./dist/js'))
+            .pipe(dest('./dist/js'));
     }
 };
 

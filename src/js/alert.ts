@@ -1,23 +1,18 @@
-App.Alert = (function () {
+class Alert {
 
-    const _init = function () {
+    constructor() {
         console.log("Alert");
     }
 
-    const show = function (className, message) {
+    public show = function (className: string, message: string) {
         $(".alert").children(".alert-body").text(message);
         $(".alert").addClass(className);
         $(".alert").removeClass("alert-hidden");
     }
 
-    const hide = function () {
+    public hide = function () {
         $(".alert").attr('class', 'alert alert-hidden');
         $(".alert").hide();
     }
 
-    return {
-        init: _init,
-        show,
-        hide
-    }
-})();
+}

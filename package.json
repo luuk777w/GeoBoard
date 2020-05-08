@@ -31,9 +31,12 @@
     "merge-stream": "^2.0.0"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.38",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-order": "^1.2.0",
-    "handlebars": "^4.7.6"
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "handlebars": "^4.7.6",
+    "typescript": "^3.8.3"
   }
 }

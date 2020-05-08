@@ -13,7 +13,7 @@ const handlebars = function (files_handlebars, files_partials_handlebars) {
             .pipe(gulp_handlebars())
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
-                namespace: 'App.Templates',
+                namespace: 'Templates',
                 noRedeclare: true, // Avoid duplicate declarations
             }));
 
