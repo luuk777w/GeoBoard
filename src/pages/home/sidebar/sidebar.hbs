@@ -15,13 +15,14 @@
             </div>
 
             {{#if myBoards}}
-                <ul class="board-list">
-                    {{#each myBoards}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created at {{createdAt}}</span></li>
-                    {{/each}}
-                </ul>
+            <ul class="board-list">
+                {{#each myBoards}}
+                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span
+                        class="board-list-item-description">Created at {{formatDateTime createdAt}}</span></li>
+                {{/each}}
+            </ul>
             {{else}}
-                <p class="side-nav-text">You don't own any boards. Create one!</p>
+            <p class="side-nav-text">You don't own any boards. Create one!</p>
             {{/if}}
         </div>
 
@@ -37,31 +38,33 @@
             </ul> --}}
 
             {{#if activeBoards}}
-                <ul class="board-list">
-                    {{#each activeBoards}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created by {{user.username}}</span></li>
-                    {{/each}}
-                </ul>
+            <ul class="board-list">
+                {{#each activeBoards}}
+                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span
+                        class="board-list-item-description">Created by {{user.username}}</span></li>
+                {{/each}}
+            </ul>
             {{else}}
-                <p class="side-nav-text">You are not part of any board.</p>
+            <p class="side-nav-text">You are not part of any board.</p>
             {{/if}}
         </div>
 
         <!-- Snapshots -->
         <div class="side-nav-section"></div>
-            <div class="section-header">
-                <h3 class="side-nav-section-title">My snapshots</h3>
-            </div>
-
-             {{#if snapshots}}
-                <ul class="board-list">
-                    {{#each snapshots}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created at {{createdAt}}</span></li>
-                    {{/each}}
-                </ul>
-            {{else}}
-                <p class="side-nav-text">No snapshots available.</p>
-            {{/if}}
+        <div class="section-header">
+            <h3 class="side-nav-section-title">My snapshots</h3>
         </div>
+
+        {{#if snapshots}}
+        <ul class="board-list">
+            {{#each snapshots}}
+            <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span
+                    class="board-list-item-description">Created at {{formatDateTime createdAt}}</span></li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p class="side-nav-text">No snapshots available.</p>
+        {{/if}}
     </div>
+</div>
 </div>

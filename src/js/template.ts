@@ -5,6 +5,8 @@ class Template {
 
     constructor() {
         this.config = new Config();
+
+        console.log("Hoi");
     }
 
     public setLayout(layout: string) {
@@ -21,8 +23,10 @@ class Template {
         if (typeof (window as any).Templates[templateName] === "function") {
 
             (window as any).Handlebars.registerPartial('body', (window as any).Templates[templateName](data));
+
             (window as any).Handlebars.registerHelper('formatDateTime', (date: Date) => {
-                return date;
+
+                return new Date(date).toReadableString(true);
             });
 
             document.getElementById('view').innerHTML = (window as any).Templates[this.layout]();

@@ -56,4 +56,43 @@ class Helpers {
     public static registerOnClick(target: string, func: Function) {
         $('#view').on('click', `[data-target="${target}"]`, (event) => func(event));
     }
+
+    /**
+     * Add zeros in front of digit
+     *
+     * @param {number} number The number zeroes should be applied on
+     * @param {number} length The length of the number.
+     * @return {string} number with leading zeroes
+     */
+    public static leadingZero(number: number, length: number): string {
+        var s = number + "";
+        while (s.length < length) s = "0" + s;
+        return s;
+    }
+}
+
+interface Date {
+    toReadableString(withSeconds: boolean): string;
+}
+
+/**
+ * Datetime to readable string
+ *
+ * @param {boolean} withSeconds true returns time with seconds
+ * @return {string} func the target function.
+ */
+Date.prototype.toReadableString = function (withSeconds: boolean = false): string {
+
+    const day = Helpers.leadingZero(this.getUTCDate(), 2);
+    const month = Helpers.leadingZero(this.getUTCMonth(), 2);
+    const year = this.getFullYear();
+    const hours = Helpers.leadingZero(this.getHours(), 2);
+    const minutes = Helpers.leadingZero(this.getMinutes(), 2);
+
+    if (withSeconds) {
+        const seconds = Helpers.leadingZero(this.getSeconds(), 2);
+        return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
 }
