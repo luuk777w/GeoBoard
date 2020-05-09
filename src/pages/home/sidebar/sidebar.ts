@@ -79,7 +79,6 @@ class Sidebar {
             sidebar.addClass("slideOutRight");
 
             sidebar.on('animationend', () => {
-                // do something
                 $(".side-nav").hide();
             });
         }
