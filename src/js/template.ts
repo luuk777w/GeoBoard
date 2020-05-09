@@ -36,12 +36,18 @@ class Template {
         }
     }
 
-    public setPageTitle(title: string, withoutPrefix: boolean = false) {
-        if (withoutPrefix) {
+    /**
+     * Set the browser tab site title.
+     *
+     * @param title The title to show in the browser tab.
+     * @param withoutSuffix Whether or not the sitename should be appended to the title.
+     */
+    public setPageTitle(title: string, withoutSuffix: boolean = false) {
+        if (withoutSuffix) {
             document.title = title;
         }
         else {
-            document.title = `${this.config.siteName} | ${title}`;
+            document.title = `${title} | ${this.config.siteName}`;
         }
     }
 }
