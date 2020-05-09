@@ -17,7 +17,7 @@
             {{#if myBoards}}
                 <ul class="board-list">
                     {{#each myBoards}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created at {{createdAt}}</span></li>
+                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div class="board-list-item-description">Created at {{createdAt}}</div></li>
                     {{/each}}
                 </ul>
             {{else}}
@@ -39,7 +39,7 @@
             {{#if activeBoards}}
                 <ul class="board-list">
                     {{#each activeBoards}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created by {{user.username}}</span></li>
+                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div class="board-list-item-description">Created by {{user.username}}</div></li>
                     {{/each}}
                 </ul>
             {{else}}
@@ -56,7 +56,7 @@
              {{#if snapshots}}
                 <ul class="board-list">
                     {{#each snapshots}}
-                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span class="board-list-item-description">Created at {{createdAt}}</span></li>
+                    <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div class="board-list-item-description">Created at {{createdAt}}</div></li>
                     {{/each}}
                 </ul>
             {{else}}
