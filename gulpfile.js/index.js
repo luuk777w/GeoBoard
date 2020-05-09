@@ -1,7 +1,7 @@
 const config = require('./config');
 const { watch, series, task } = require('gulp');
 
-const js = require('./tasks/js').js(config.files.js, config.order.js, config.production);
+const js = require('./tasks/js').js(config.files.ts);
 js.displayName = 'js';
 
 const sass = require('./tasks/sass').sass(config.files.sass, config.order.sass, config.production);
@@ -22,7 +22,7 @@ indexHtml.displayName = 'index.html';
 const watchFiles = () => {
 
     watch(config.files.sass, series(sass));
-    watch(config.files.js, series(js));
+    watch(config.files.ts, series(js));
     watch(config.files.handlebars, series(handlebars));
     watch(config.files.handlebars_partials, series(handlebars));
     watch(config.files.assets, series(assets));

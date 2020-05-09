@@ -1,14 +1,10 @@
-App.Helpers = (function () {
-
-    let configMap = {
-    }
-
-    const _init = function () {
+class Helpers {
+    constructor() {
         console.log("Helpers");
     }
 
-    const sanitize = function (string) {
-        const map = {
+    public static sanitize(string: string) {
+        const map: any = {
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
@@ -20,7 +16,7 @@ App.Helpers = (function () {
         return string.replace(reg, (match) => (map[match]));
     }
 
-    const decode = function (string) {
+    public static decode(string: string) {
         var parser = new DOMParser;
         var dom = parser.parseFromString(
             '<!doctype html><body>' + string,
@@ -36,7 +32,7 @@ App.Helpers = (function () {
      * @param {*} element The button element name.
      * @param {*} show Whether or not the loading state should be shown.
      */
-    const toggleLoadingButton = function (element, show = true) {
+    public static toggleLoadingButton(element: string, show: boolean = true) {
         if (show) {
             $(element).data('value', $(element).text());
 
@@ -51,10 +47,13 @@ App.Helpers = (function () {
         }
     }
 
-    return {
-        init: _init,
-        sanitize,
-        decode,
-        toggleLoadingButton
+    /**
+     * Register onclick.
+     *
+     * @param {string} target The datatarget (`[data-target=""]`) of the element the onclick is on.
+     * @param {Function} func the target function.
+     */
+    public static registerOnClick(target: string, func: Function) {
+        $('#view').on('click', `[data-target="${target}"]`, () => func());
     }
-})();
+}

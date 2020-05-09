@@ -1,26 +1,39 @@
-App.JWT = (function () {
+class JWT {
+    /**
+     * The singleton instance of this JWT class.
+     */
+    private static instance: JWT;
 
-    let configMap = {
-    }
-
-    const _init = function () {
+    private constructor() {
         console.log("JWT");
     }
-    const set = function (token) {
+
+    /**
+     * Returns the singleton instance of this JWT class.
+     */
+    public static getInstance() {
+        if (! JWT.instance) {
+            JWT.instance = new JWT();
+        }
+
+        return JWT.instance;
+    }
+
+    public set(token: string) {
         localStorage.setItem("token", token);
     }
 
-    const get = function () {
+    public get() {
         return localStorage.getItem("token");
     }
 
-    const clear = function () {
+    public clear() {
         localStorage.setItem("token", "");
     }
 
-    const parse = function () {
+    public parse() {
 
-        let token = get();
+        let token = this.get();
 
         if (token == null || token == "") {
             return;
@@ -35,9 +48,9 @@ App.JWT = (function () {
         return JSON.parse(jsonPayload);
     };
 
-    const getRole = function () {
+    public getRole() {
 
-        let jwt = parse();
+        let jwt = this.parse();
 
         if (jwt == null || jwt == "") {
             return [];
@@ -46,8 +59,8 @@ App.JWT = (function () {
         return jwt["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
     }
 
-    const getId = function () {
-        let jwt = parse();
+    public getId() {
+        let jwt = this.parse();
 
         if (jwt == null || jwt == "") {
             return [];
@@ -57,8 +70,8 @@ App.JWT = (function () {
 
     }
 
-    const isTokenExpired = function () {
-        let jwt = parse();
+    public isTokenExpired() {
+        let jwt = this.parse();
 
         if (jwt == null || jwt == "") {
             return true;
@@ -67,14 +80,4 @@ App.JWT = (function () {
         return ((Math.round((new Date()).getTime() / 1000)) > jwt["exp"])
     }
 
-    return {
-        init: _init,
-        set,
-        get,
-        parse,
-        getRole,
-        clear,
-        getId,
-        isTokenExpired
-    }
-})();
+}

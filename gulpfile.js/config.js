@@ -1,10 +1,11 @@
 module.exports = {
     production: false,
     files: {
-        js: [
-            'src/js/**/*.js',
-            'src/js/*.js',
-            'src/pages/**/*.js'
+        ts: [
+            'src/js/**/*.ts',
+            'src/js/*.ts',
+            "src/pages/*.ts",
+            'src/pages/**/*.ts'
         ],
         sass: [
             'src/css/**/*.scss',
@@ -31,13 +32,6 @@ module.exports = {
         ]
     },
     order: {
-        js: [
-            'src/js/app.js',
-            'src/js/**/*.js',
-            'src/js/*.js',
-            'src/pages/*/*.js',
-            'src/pages/**/*.js'
-        ],
         sass: [
             'src/css/**/*.sccs',
             'src/css/main.scss',

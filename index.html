@@ -25,13 +25,7 @@
     <script src="/dist/js/app.js"></script>
     <script src="/dist/js/templates.js"></script>
     <script>
-        App.init(afterInit);
-
-        window.addEventListener('popstate', function () {
-            App.Router.resolveRoute();
-        });
-
-        window.addEventListener('load', App.Router.resolveRoute());
+        const app = App.getInstance();
     </script>
 </body>
 

@@ -1,21 +1,20 @@
-App.FormHelper = (function () {
+class FormHelper {
 
-    const _init = function () {
+    constructor() {
         console.log("FormHelper");
 
         // Clear the validaton errors.
-        clearErrors();
+        this.clearErrors();
     }
 
-    const showError = function (field, errors) {
+    public showError = function (field: string, errors: any) {
         const element = $(`.validation-error[data-field="${field.toLowerCase()}"]`);
 
-        if (! (errors instanceof Array) || errors.length == 1) {
+        if (!(errors instanceof Array) || errors.length == 1) {
             element.text(errors);
         }
-        else
-        {
-            const errorList = $('<ul/>');
+        else {
+            const errorList = '<ul/>';
 
             for (let error in errors) {
                 $('<li/>')
@@ -29,7 +28,7 @@ App.FormHelper = (function () {
         element.show();
     }
 
-    const clearErrors = function () {
+    public clearErrors() {
         $('.validation-error').toArray().forEach(element => {
             // Clear the validation error text.
             $(element).text('');
@@ -42,13 +41,13 @@ App.FormHelper = (function () {
         $('.has-error').toArray().forEach(element => $(element).removeClass('has-error'));
     }
 
-    const highlightField = function (field) {
+    public highlightField(field: string) {
         $(field).addClass("has-error");
     }
 
-    const getFormData = function (selector) {
+    public getFormData(selector: string): formData<any> {
 
-        let formData = {
+        let formData: formData<any> = {
             formCompleted: true,
             notCompletedFields: [],
             fields: {}
@@ -73,11 +72,10 @@ App.FormHelper = (function () {
         return formData;
     }
 
-    return {
-        init: _init,
-        getFormData,
-        showError,
-        clearErrors,
-        highlightField
-    }
-})();
+}
+
+interface formData<T> {
+    formCompleted: boolean,
+    notCompletedFields: Array<string>,
+    fields: T
+}
