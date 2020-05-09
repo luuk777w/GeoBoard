@@ -62,9 +62,9 @@ class Sidebar {
         const sidebar = $("#sidebar .side-nav");
 
         if (! sidebar.is(':visible')) {
-            $(".side-nav").show();
-            $(".side-nav").removeClass("slideOutRight");
-            $(".side-nav").addClass("slideInRight");
+            sidebar.show();
+            sidebar.removeClass("slideOutRight");
+            sidebar.addClass("slideInRight");
         }
         else {
             this.close();
@@ -75,12 +75,13 @@ class Sidebar {
         const sidebar = $("#sidebar .side-nav");
 
         if (sidebar.is(':visible')) {
-            $(".side-nav").removeClass("slideInRight");
-            $(".side-nav").addClass("slideOutRight");
+            sidebar.removeClass("slideInRight");
+            sidebar.addClass("slideOutRight");
 
-            setTimeout(function () {
+            sidebar.on('animationend', () => {
+                // do something
                 $(".side-nav").hide();
-            }, 300);
+            });
         }
     }
 
