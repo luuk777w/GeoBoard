@@ -106,8 +106,6 @@ class HomePage extends Page {
                     createdAt: data.createdAt
                 };
 
-                console.log(element);
-
                 this.element.newElement(element);
             })
 
