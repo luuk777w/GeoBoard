@@ -17,7 +17,7 @@ class App {
     /**
      * Returns the singleton instance of this App class.
      */
-    public static getInstance() {
+    public static start() {
         if (! App.instance) {
             App.instance = new App();
         }
