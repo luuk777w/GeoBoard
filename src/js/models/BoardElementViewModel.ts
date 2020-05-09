@@ -1,7 +1,7 @@
 class BoardElementViewModel {
 
     /**
-     * The unique identifier of this board.
+     * The unique identifier of this element.
      */
     id: string;
 
