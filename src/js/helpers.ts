@@ -54,6 +54,6 @@ class Helpers {
      * @param {Function} func the target function.
      */
     public static registerOnClick(target: string, func: Function) {
-        $('#view').on('click', `[data-target="${target}"]`, () => func());
+        $('#view').on('click', `[data-target="${target}"]`, (event) => func(event));
     }
 }

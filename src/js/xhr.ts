@@ -60,10 +60,10 @@ class XHR {
         });
     }
 
-    public getWithAuthorization(url: string) {
+    public async getWithAuthorization(url: string) {
         const token = this.JWT.get();
 
-        return $.ajax({
+        return await $.ajax({
             type: "get",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);

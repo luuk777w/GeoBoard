@@ -2,17 +2,20 @@ class HomePage extends Page {
 
     private element: BoardElement;
 
+    private sidebar: Sidebar;
 
     constructor() {
         super();
 
         this.element = new BoardElement();
+        this.sidebar = new Sidebar();
 
         this.template.setLayout("base_layout");
         this.template.loadhtml("home");
         this.template.setPageTitle("{boardname}");
 
         this.loadTheme();
+        this.sidebar.loadSidebar();
 
         // TODO: Call autosize when the 'new element' panel is shown
         // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
@@ -26,8 +29,6 @@ class HomePage extends Page {
 
         Helpers.registerOnClick("logout", () => this.logout());
         Helpers.registerOnClick("theme", () => this.toggleTheme());
-        Helpers.registerOnClick("closeSidebar", () => this.closeSidebar());
-        Helpers.registerOnClick("sidebar", () => this.sidebar());
         Helpers.registerOnClick("createBoard", () => this.createBoard());
 
         this.loadBoardElements();
@@ -63,22 +64,6 @@ class HomePage extends Page {
             $('.logo-dark').show();
             $('[data-target="theme"]').html(`<i class="fas fa-moon fa-lg fa-fw"></i>`);
         }
-    }
-
-
-    public sidebar() {
-        $(".side-nav").show();
-        $(".side-nav").removeClass("slideOutRight");
-        $(".side-nav").addClass("slideInRight");
-    }
-
-    public closeSidebar() {
-        $(".side-nav").removeClass("slideInRight");
-        $(".side-nav").addClass("slideOutRight");
-
-        setTimeout(function () {
-            $(".side-nav").hide();
-        }, 300);
     }
 
     public createBoard() {
