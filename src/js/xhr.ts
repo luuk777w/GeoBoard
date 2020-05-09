@@ -25,16 +25,16 @@ class XHR {
         return XHR.instance;
     }
 
-    public get(url: string) {
-        return $.ajax({
+    public async get(url: string) {
+        return await $.ajax({
             type: "get",
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
         });
     }
 
-    public post(url: string, data: any = null) {
-        return $.ajax({
+    public async post(url: string, data: any = null) {
+        return await $.ajax({
             type: "post",
             data: data,
             url: `${this.config.apiUrl}${url}`,
@@ -42,8 +42,8 @@ class XHR {
         });
     }
 
-    public put(url: string, data: any = null) {
-        return $.ajax({
+    public async put(url: string, data: any = null) {
+        return await $.ajax({
             type: "put",
             data: data,
             url: `${this.config.apiUrl}${url}`,
@@ -51,8 +51,8 @@ class XHR {
         });
     }
 
-    public del(url: string) {
-        return $.ajax({
+    public async del(url: string) {
+        return await $.ajax({
             type: "delete",
 
             url: `${this.config.apiUrl}${url}`,
@@ -73,10 +73,10 @@ class XHR {
         });
     }
 
-    public postWithAuthorization(url: string, data: any = null) {
+    public async postWithAuthorization(url: string, data: any = null) {
         const token = this.JWT.get();
 
-        return $.ajax({
+        return await $.ajax({
             type: "post",
             data: data,
             beforeSend: function (xhr) {
@@ -87,10 +87,10 @@ class XHR {
         });
     }
 
-    public putWithAuthorization(url: string, data: any = null) {
+    public async putWithAuthorization(url: string, data: any = null) {
         const token = this.JWT.get();
 
-        return $.ajax({
+        return await $.ajax({
             type: "put",
             data: data,
             beforeSend: function (xhr) {
@@ -101,10 +101,10 @@ class XHR {
         });
     }
 
-    public deleteWithAuthorization(url: string) {
+    public async deleteWithAuthorization(url: string) {
         const token = this.JWT.get();
 
-        return $.ajax({
+        return await $.ajax({
             type: "delete",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
