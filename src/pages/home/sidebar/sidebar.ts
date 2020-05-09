@@ -78,9 +78,9 @@ class Sidebar {
             sidebar.removeClass("slideInRight");
             sidebar.addClass("slideOutRight");
 
-            sidebar.on('animationend', () => {
+            setTimeout(function () {
                 $(".side-nav").hide();
-            });
+            }, 300);
         }
     }
 
