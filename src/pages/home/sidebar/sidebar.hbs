@@ -18,7 +18,7 @@
             <ul class="board-list">
                 {{#each myBoards}}
                 <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div
-                        class="board-list-item-description">Created at {{formatDateTime createdAt}}</div>
+                        class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
                 </li>
                 {{/each}}
             </ul>
@@ -61,7 +61,7 @@
         <ul class="board-list">
             {{#each snapshots}}
             <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div
-                    class="board-list-item-description">Created at {{formatDateTime createdAt}}</div>
+                    class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
             </li>
             {{/each}}
         </ul>
@@ -74,7 +74,7 @@
     <ul class="board-list">
         {{#each snapshots}}
         <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<span
-                class="board-list-item-description">Created at {{formatDateTime createdAt}}</span></li>
+                class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></li>
         {{/each}}
     </ul>
     {{else}}
