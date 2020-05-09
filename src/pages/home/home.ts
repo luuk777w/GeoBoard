@@ -98,13 +98,15 @@ class HomePage extends Page {
                     id: data.id,
                     number: index + 1,
                     boardId: data.boardId,
-                    // user: data.user.username,
+                    user: data.user,
                     userId: data.userId,
                     imagePath: data.imagePath,
                     note: data.note,
                     direction: data.direction,
                     createdAt: data.createdAt
                 };
+
+                console.log(element);
 
                 this.element.newElement(element);
             })

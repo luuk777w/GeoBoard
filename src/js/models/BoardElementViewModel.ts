@@ -33,9 +33,10 @@ class BoardElementViewModel {
     /**
      * The user who created this element.
      */
-    userId: string;
+    userId: object;
 
     // TODO: Add user model..
+    user: any;
 
     /**
      * The date and time of when this board was created.
