@@ -4,7 +4,6 @@ class Template {
     private config: Config;
 
     constructor() {
-        console.log("init template");
         this.config = new Config();
     }
 

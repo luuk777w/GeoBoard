@@ -5,7 +5,7 @@ class JWT {
     private static instance: JWT;
 
     private constructor() {
-        console.log("JWT");
+        //
     }
 
     /**

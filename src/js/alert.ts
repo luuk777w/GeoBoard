@@ -1,7 +1,7 @@
 class Alert {
 
     constructor() {
-        console.log("Alert");
+        //
     }
 
     public show = function (className: string, message: string) {

@@ -1,6 +1,6 @@
 class Helpers {
     constructor() {
-        console.log("Helpers");
+        //
     }
 
     public static sanitize(string: string) {

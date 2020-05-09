@@ -9,7 +9,6 @@ class App {
 
     private constructor() {
         let config = new Config();
-        console.log(config.siteName);
 
         this.router = Router.getInstance();
         new Routes(this.router);

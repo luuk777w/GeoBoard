@@ -14,7 +14,5 @@ class Routes {
         this.router.route('/register/activate', ActivatePage, 'guest');
         this.router.route('/', HomePage, 'User');
         this.router.route('/home', HomePage, 'User');
-
-        console.log('ALL routes registred')
     }
 }

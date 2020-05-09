@@ -1,8 +1,6 @@
 class FormHelper {
 
     constructor() {
-        console.log("FormHelper");
-
         // Clear the validaton errors.
         this.clearErrors();
     }

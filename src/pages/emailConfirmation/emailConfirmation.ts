@@ -33,9 +33,6 @@ class EmailConfirmationPage extends Page {
         }, error => {
             this.router.redirectWithAlert('/login', 'alert-error', 'Something went wrong while sending the confirmation email. Your account may be activated already.');
         });
-
-
-        console.log("hoi");
     }
 
     getEmailFromUrl() {

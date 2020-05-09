@@ -12,7 +12,6 @@ class ActivatePage extends Page {
             this.router.redirectWithAlert("/login", "alert-success", "Your account has been activated succesfully!");
 
         }, error => {
-            console.log("activate");
             this.template.setLayout("auth_layout");
             this.template.loadhtml("activate");
         });

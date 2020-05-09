@@ -9,8 +9,6 @@ class Sidebar {
         Helpers.registerOnClick("closeSidebar", () => this.close());
 
         Helpers.registerOnClick("board", (event: any) => this.goToBoard(event.target));
-
-        console.log('Sidebar');
     }
 
     public async loadSidebar() {

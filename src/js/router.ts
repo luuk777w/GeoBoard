@@ -12,7 +12,6 @@ class Router {
     private alert: Alert;
 
     private constructor() {
-        console.log("routing the shizzles");
         this.authorize = Authorize.getInstance();
         this.JWT = JWT.getInstance();
         this.alert = new Alert();
@@ -43,8 +42,6 @@ class Router {
     }
 
     public resolveRoute() {
-
-        console.info('Registered route = ', this.routes);
 
         this.element = this.element || document.getElementById('view');
         var url = location.pathname || '/';

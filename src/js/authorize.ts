@@ -11,7 +11,6 @@ class Authorize {
     private JWT: JWT;
 
     private constructor() {
-        console.log("Authorize");
         this.config = new Config();
         this.JWT = JWT.getInstance();
     }
