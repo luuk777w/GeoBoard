@@ -77,7 +77,8 @@ class Sidebar {
                 name: boardName
             };
 
-            this.boardHub.getConnection().send("createBoard", boardName);
+            this.boardHub.getConnection().send("createBoard", data);
+            // TODO: Willen we met SignalR of met XHR een bord maken? Ik zou zeggen: gebruik alleen SignalR daar waar realtime interactie nodig is. Voor een werkend voorbeeld heb ik even deze makkelijke functie (bord aanmaken)
 
             // this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
 
