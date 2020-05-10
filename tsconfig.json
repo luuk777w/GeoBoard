@@ -3,11 +3,13 @@
         "src/js/**/*.ts",
         "src/js/*.ts",
         "src/pages/*.ts",
-        "src/pages/**/*.ts"
+        "src/pages/**/*.ts",
     ],
     "compilerOptions": {
         "noImplicitAny": true,
         "target": "es2015",
-        "allowJs": true
+        "allowJs": true,
+        "module": "es2015",
+        "moduleResolution": "node",
     }
 }

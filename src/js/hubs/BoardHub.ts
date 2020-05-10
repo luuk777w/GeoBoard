@@ -1,4 +1,4 @@
-class BoardHub extends SignalR {
+class BoardHub extends SignalRClient {
 
     /**
      * The singleton instance of this SignalR class.
@@ -13,7 +13,7 @@ class BoardHub extends SignalR {
      * Returns the singleton instance of this BoardHub class.
      */
     public static getInstance() {
-        if (! BoardHub.instance) {
+        if (!BoardHub.instance) {
             BoardHub.instance = new BoardHub();
         }
 

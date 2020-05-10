@@ -1,4 +1,4 @@
-abstract class SignalR {
+abstract class SignalRClient {
 
     private connection: any;
 
@@ -12,8 +12,7 @@ abstract class SignalR {
         console.log(this.connection);
     }
 
-    public getConnection()
-    {
+    public getConnection() {
         return this.connection;
     }
 }
