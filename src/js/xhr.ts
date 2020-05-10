@@ -9,7 +9,7 @@ class XHR {
     private JWT: JWT;
 
     private constructor() {
-        this.config = new Config();
+        this.config = Config.getInstance();
         this.JWT = JWT.getInstance();
     }
 

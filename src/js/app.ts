@@ -8,7 +8,7 @@ class App {
     private router: Router;
 
     private constructor() {
-        let config = new Config();
+        let config = Config.getInstance();
 
         this.router = Router.getInstance();
         new Routes(this.router);

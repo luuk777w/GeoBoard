@@ -1,14 +1,23 @@
 class Sidebar {
 
     private XHR: XHR;
+    private boardHub: BoardHub;
 
     constructor() {
         this.XHR = XHR.getInstance();
+        this.boardHub = BoardHub.getInstance();
 
         Helpers.registerOnClick("sidebar", () => this.toggle());
         Helpers.registerOnClick("closeSidebar", () => this.close());
 
+        Helpers.registerOnClick("createBoard", () => this.createBoard());
+
+        // TODO: Dit moet een route worden. Heeft ook als voordeel dat je een bord direct kunt benaderen.
         Helpers.registerOnClick("board", (event: any) => this.goToBoard(event.target));
+
+        this.boardHub.getConnection().on('boardCreated', (response: any) => {
+            console.log('From hub: ', response);
+        });
     }
 
     public async loadSidebar() {
@@ -56,6 +65,28 @@ class Sidebar {
 
         alert('Clicked on board: ' + clickedBoard.data('board-id'));
         // TODO: Set and route to new board.
+    }
+
+    public createBoard() {
+        let boardName = prompt('What is the name of this new board?');
+
+        if (boardName.trim() != "") {
+            console.info(`Nieuwe board: ${boardName}`);
+
+            let data = {
+                name: boardName
+            };
+
+            this.boardHub.getConnection().send("createBoard", boardName);
+
+            // this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
+
+            //     alert("Board created");
+
+            // }, error => {
+            //     console.warn(error);
+            // });
+        }
     }
 
     public toggle() {

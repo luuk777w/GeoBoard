@@ -4,11 +4,15 @@ class HomePage extends Page {
 
     private sidebar: Sidebar;
 
+    private boardHub: BoardHub;
+
     constructor() {
         super();
 
         this.element = new BoardElement();
         this.sidebar = new Sidebar();
+
+        this.boardHub = BoardHub.getInstance();
 
         this.template.setLayout("base_layout");
         this.template.loadhtml("home");
@@ -29,7 +33,6 @@ class HomePage extends Page {
 
         Helpers.registerOnClick("logout", () => this.logout());
         Helpers.registerOnClick("theme", () => this.toggleTheme());
-        Helpers.registerOnClick("createBoard", () => this.createBoard());
 
         this.loadBoardElements();
     }
@@ -63,26 +66,6 @@ class HomePage extends Page {
             $('.logo-light').hide();
             $('.logo-dark').show();
             $('[data-target="theme"]').html(`<i class="fas fa-moon fa-lg fa-fw"></i>`);
-        }
-    }
-
-    public createBoard() {
-        let boardName = prompt('What is the name of this new board?');
-
-        if (boardName.trim() != "") {
-            console.info(`Nieuwe board: ${boardName}`);
-
-            let data = {
-                name: boardName
-            };
-
-            this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
-
-                alert("Board created");
-
-            }, error => {
-                console.warn(error);
-            });
         }
     }
 
