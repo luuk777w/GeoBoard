@@ -4,8 +4,11 @@ abstract class SignalRClient {
 
     constructor(hubName: string) {
         const apiUrl = Config.getInstance().apiUrl;
+        const loginToken = JWT.getInstance().get();
 
-        this.connection = new (window as any).signalR.HubConnectionBuilder().withUrl(`${apiUrl}/${hubName}`).build();
+        this.connection = new (window as any).signalR.HubConnectionBuilder()
+            .withUrl(`${apiUrl}/${hubName}`, { accessTokenFactory: () => loginToken })
+            .build();
 
         this.connection.start();
 
