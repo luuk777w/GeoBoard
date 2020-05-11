@@ -68,7 +68,7 @@
             .board-list-item {
                 padding: .5rem 1.5rem;
                 background: $gray100;
-                transition: background 250ms;
+                transition: background 250ms, border-color 250ms;
 
                 &:first-child {
                     border-top-left-radius: $border-radius;
@@ -84,7 +84,8 @@
                     border-bottom: 1px solid $gray300;
                 }
 
-                &[data-target]:hover {
+                &[data-target]:hover:not(.active),
+                &[data-target]:focus:not(.active) {
                     cursor: pointer;
                     background: $gray300;
                 }
@@ -92,6 +93,18 @@
                 .board-list-item-description {
                     font-size: .85em;
                     color: $gray500;
+                }
+
+                &.active {
+                    color: white;
+                    font-weight: 600;
+                    background-color: $blue600;
+                    border-color: $blue700;
+
+                    .board-list-item-description {
+                        color: $gray300;
+                        font-weight: normal;
+                    }
                 }
             }
         }

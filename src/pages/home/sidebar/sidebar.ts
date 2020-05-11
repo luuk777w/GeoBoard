@@ -22,10 +22,13 @@ class Sidebar {
 
     public async loadSidebar() {
         let data = {
+            selectedBoard: localStorage.getItem('board'),
             myBoards: await this.loadMyBoards(),
             activeBoards: [] as string[],
             snapshots: [] as string[]
         }
+
+        console.log(data);
 
         let out = (window as any).Handlebars.compile((window as any).Templates["sidebar"](data));
         $("#sidebar").html(out());
@@ -46,7 +49,7 @@ class Sidebar {
                     userId: data.userId,
                     createdAt: data.createdAt,
                     isLocked: data.isLocked,
-                    elements: []
+                    elements: [],
                 });
             });
 
@@ -61,7 +64,7 @@ class Sidebar {
         const clickedBoard = $(target);
         const currentBoard = localStorage.getItem('board');
 
-        if (clickedBoard.data('board-id') == null)
+        if (clickedBoard.data('board-id') == null || clickedBoard.data('board-id') == currentBoard)
             return;
 
         this.boardHub.getConnection().invoke("switchBoard", currentBoard, clickedBoard.data('board-id')).then((response: BoardViewModel) => {
@@ -69,7 +72,8 @@ class Sidebar {
 
             localStorage.setItem('board', response.id);
 
-            alert('Switched board to: ' + response.name);
+            $('.board-list-item.active').removeClass('active');
+            $(clickedBoard).addClass('active');
 
         }).catch((err: any) => console.log(err));
 
@@ -88,16 +92,11 @@ class Sidebar {
                 name: boardName
             };
 
-            this.boardHub.getConnection().invoke("createBoard", data);
-            // TODO: Willen we met SignalR of met XHR een bord maken? Ik zou zeggen: gebruik alleen SignalR daar waar realtime interactie nodig is. Voor een werkend voorbeeld heb ik even deze makkelijke functie (bord aanmaken)
-
-            // this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
-
-            //     alert("Board created");
-
-            // }, error => {
-            //     console.warn(error);
-            // });
+            this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
+                alert("Board created");
+            }, error => {
+                console.warn(error);
+            });
         }
     }
 
