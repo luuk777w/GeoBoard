@@ -15,26 +15,58 @@ class HomePage extends Page {
         this.boardHub = BoardHub.getInstance();
 
         this.template.setLayout("base_layout");
-        this.template.loadhtml("home");
-        this.template.setPageTitle("{boardname}");
 
-        this.loadTheme();
-        this.sidebar.loadSidebar();
+        // Load the board information from the server if available.
+        const boardLoaded = new Promise(async (resolve) => {
+            if (localStorage.getItem('board')) {
+                // Get the board ID from the localstorage if available
+                const boardId = localStorage.getItem('board');
 
-        // TODO: Call autosize when the 'new element' panel is shown
-        // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
+                // Attemp to fetch the board info.
+                await this.XHR.getWithAuthorization(`/boards/${boardId}`).then((response) => {
+                    this.template.loadhtml("home", { currentBoard: response.name });
+                    this.template.setPageTitle(response.name);
+                })
+                .catch((error) => {
+                    console.warn(error);
+                    this.template.loadhtml("home");
+                });
+            }
+            else
+            {
+                // Load the home HTML without setting the board name.
+                this.template.loadhtml("home");
+            }
 
-        $('textarea').each(function () {
-            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-        }).on('input', function () {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
+            // Resolve the promise.
+            resolve();
         });
 
-        Helpers.registerOnClick("logout", () => this.logout());
-        Helpers.registerOnClick("theme", () => this.toggleTheme());
+        // When the board fetch is finished.
+        boardLoaded.then(() => {
+            this.loadTheme();
+            this.sidebar.loadSidebar();
 
-        this.loadBoardElements();
+            // TODO: Call autosize when the 'new element' panel is shown
+            // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
+
+            $('textarea').each(function () {
+                this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+            }).on('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+
+            Helpers.registerOnClick("logout", () => this.logout());
+            Helpers.registerOnClick("theme", () => this.toggleTheme());
+
+            this.loadBoardElements();
+
+            this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+                this.template.setPageTitle(response.name);
+                $('.board-info-name').text(response.name);
+            });
+        });
     }
 
     public toggleTheme() {

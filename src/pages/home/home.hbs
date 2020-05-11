@@ -10,8 +10,10 @@
     </ul>
 
     <div class="board-info ml-auto">
+        {{#if currentBoard}}
         <span class="board-info-prefix">Current board</span>
-        <span class="board-info-name">[boardname]</span>
+        <span class="board-info-name">{{currentBoard}}</span>
+        {{/if}}
     </div>
 
     <ul class="nav-links">
