@@ -58,13 +58,24 @@ class Sidebar {
     }
 
     public goToBoard(target: any) {
-        let clickedBoard = $(target);
+        const clickedBoard = $(target);
+        const currentBoard = localStorage.getItem('board');
 
         if (clickedBoard.data('board-id') == null)
             return;
 
-        alert('Clicked on board: ' + clickedBoard.data('board-id'));
-        // TODO: Set and route to new board.
+        this.boardHub.getConnection().invoke("switchBoard", currentBoard, clickedBoard.data('board-id')).then((response: BoardViewModel) => {
+            console.log(response);
+
+            localStorage.setItem('board', response.id);
+
+            alert('Switched board to: ' + response.name);
+
+        }).catch((err: any) => console.log(err));
+
+        this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
+            console.warn('BoardNotFound', response);
+        });
     }
 
     public createBoard() {
@@ -77,7 +88,7 @@ class Sidebar {
                 name: boardName
             };
 
-            this.boardHub.getConnection().send("createBoard", data);
+            this.boardHub.getConnection().invoke("createBoard", data);
             // TODO: Willen we met SignalR of met XHR een bord maken? Ik zou zeggen: gebruik alleen SignalR daar waar realtime interactie nodig is. Voor een werkend voorbeeld heb ik even deze makkelijke functie (bord aanmaken)
 
             // this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
