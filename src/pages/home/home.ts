@@ -25,6 +25,9 @@ class HomePage extends Page {
             this.template.loadHtml("home", { currentBoard: board.name });
             this.template.setPageTitle(board.name);
 
+            // Show the board info in the navigation section.
+            $('.board-info').show();
+
             this.board.show(board.id);
 
             // Board selected; return true for usage later in this chain.
@@ -36,6 +39,9 @@ class HomePage extends Page {
 
             // Show the "Select a board instruction" by setting the board to null.
             this.board.show(null);
+
+            // Hide the board info.
+            $('.board-info').hide();
 
             // No baord selected; return false for usage later in this chain.
             return false;
@@ -55,6 +61,7 @@ class HomePage extends Page {
         this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
             this.template.setPageTitle(response.name);
             $('.board-info-name').text(response.name);
+            $('.board-info').show();
 
             this.board.show(response.id);
         });
