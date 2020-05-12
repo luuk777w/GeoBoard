@@ -3,7 +3,7 @@ class ErrorPage extends Page {
         super();
 
         this.template.setLayout("base_layout");
-        this.template.loadhtml("error", { error_code: errorCode, error_message: errorMessage });
+        this.template.loadHtml("error", { error_code: errorCode, error_message: errorMessage });
 
     }
 }

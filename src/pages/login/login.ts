@@ -10,7 +10,7 @@ class LoginPage extends Page {
         this.alert = new Alert();
 
         this.template.setLayout("auth_layout");
-        this.template.loadhtml("login");
+        this.template.loadHtml("login");
         this.template.setPageTitle("Login");
 
         let login = this;

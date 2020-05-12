@@ -12,7 +12,7 @@ class RegisterPage extends Page {
         Helpers.registerOnClick("login", () => this.goToLogin());
 
         this.template.setLayout("auth_layout");
-        this.template.loadhtml("register");
+        this.template.loadHtml("register");
         this.template.setPageTitle("Create an account");
     }
 

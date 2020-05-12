@@ -36,7 +36,7 @@ IF NOT DEFINED arg2 (
 			echo         super^(^);
 			echo         console.log^("%arg2%"^);
 			echo         this.template.setLayout^("base_layout"^);
-			echo         this.template.loadhtml^("%arg2%"^);
+			echo         this.template.loadHtml^("%arg2%"^);
 			echo     ^}
 			echo ^}
 		) > src\pages\%arg2%\%arg2%.ts

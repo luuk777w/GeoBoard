@@ -10,7 +10,7 @@ class EmailConfirmationPage extends Page {
         Helpers.registerOnClick("resendEmail", () => this.resendEmail());
 
         this.template.setLayout("auth_layout");
-        this.template.loadhtml("emailConfirmation");
+        this.template.loadHtml("emailConfirmation");
 
         let email = this.getEmailFromUrl();
         if (email == null || email == "") {

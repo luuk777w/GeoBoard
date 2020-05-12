@@ -19,7 +19,7 @@ class Template {
         }
     }
 
-    public loadhtml(templateName: string, data: any = null) {
+    public loadHtml(templateName: string, data: any = null) {
         if (typeof (window as any).Templates[templateName] === "function") {
 
             (window as any).Handlebars.registerHelper('ifEquals', (arg1: any, arg2: any, options: any) => {

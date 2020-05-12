@@ -13,7 +13,7 @@ class ActivatePage extends Page {
 
         }, error => {
             this.template.setLayout("auth_layout");
-            this.template.loadhtml("activate");
+            this.template.loadHtml("activate");
         });
     }
 }
