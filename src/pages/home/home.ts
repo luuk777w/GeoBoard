@@ -14,40 +14,38 @@ class HomePage extends Page {
         this.boardHub = BoardHub.getInstance();
 
         this.template.setLayout("base_layout");
-
-        // Load the board information from the server if available.
-        this.board.loadBoard().then((board: BoardViewModel) => {
-            this.template.loadhtml("home", { currentBoard: board.name });
-            this.template.setPageTitle(board.name);
-
-            let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
-            $("#board-container").html(out());
-
-            this.board.loadElements(board.id);
-        })
-        .catch((error) => {
-            // Load the home page without setting the board info.
-            this.template.loadhtml("home");
-        });
-
         this.loadTheme();
-        this.sidebar.loadSidebar();
 
+        // Register the click events.
         Helpers.registerOnClick("logout", () => this.logout());
         Helpers.registerOnClick("theme", () => this.toggleTheme());
 
+        // Load the board information from the server if available.
+        this.board.loadBoard().then((board: BoardViewModel) => {
+            this.template.loadHtml("home", { currentBoard: board.name });
+            this.template.setPageTitle(board.name);
+
+            this.board.show(board.id);
+        })
+        .catch((error) => {
+            // Load the home page without setting the board info.
+            this.template.loadHtml("home");
+        })
+        .then(() => {
+            // Load the sidebar when everything is finished.
+            // The sidebar must wait on the loadHTML to finish.
+            this.sidebar.loadSidebar();
+        });
+
+        // Listen to the on SwitchedBoard event.
         this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
             this.template.setPageTitle(response.name);
             $('.board-info-name').text(response.name);
 
-            let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
-            $("#board-container").html(out());
-
-            this.board.loadElements(response.id);
+            this.board.show(response.id);
         });
 
         // TODO: Call autosize when the 'new element' panel is shown
-        // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
         $('textarea').each(function () {
             this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
         }).on('input', function () {

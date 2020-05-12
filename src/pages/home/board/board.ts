@@ -10,6 +10,10 @@ class Board {
         this.element = new BoardElement();
     }
 
+    /**
+     * Load the board that is currently selected (if any).
+     * Returns a promise.
+     */
     public async loadBoard(): Promise<any> {
         return new Promise(async (resolve, reject) => {
 
@@ -18,8 +22,10 @@ class Board {
                 const boardId = localStorage.getItem('board');
 
                 // Attemp to fetch the board info.
-                await this.XHR.getWithAuthorization(`/boards/${boardId}`)
-                    .then((response: BoardViewModel) => resolve(response))
+                await this.XHR.getWithAuthorization(`/boards/${boardId}?includeElements=true`)
+                    .then((response: BoardViewModel) => {
+                        resolve(response);
+                    })
                     .catch((error) => {
                         console.warn('Something went wrong while loading the current board', error);
 
@@ -32,11 +38,24 @@ class Board {
         });
     }
 
+    /**
+     * Show the given board and load the elements.
+     *
+     * @param boardId The ID of the board to show.
+     */
+    public show(boardId: string) {
+        // Read the board template.
+        let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
+        $("#board-container").html(out());
+
+        // Load the elements.
+        this.loadElements(boardId);
+    }
+
     public loadElements(boardId: string) {
 
         this.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
 
-            // console.log(data);
             $.each(data, (index: number, data) => {
 
                 let element: BoardElementViewModel = {

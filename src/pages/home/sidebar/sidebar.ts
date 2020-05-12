@@ -28,8 +28,6 @@ class Sidebar {
             snapshots: [] as string[]
         }
 
-        console.log(data);
-
         let out = (window as any).Handlebars.compile((window as any).Templates["sidebar"](data));
         $("#sidebar").html(out());
     }
