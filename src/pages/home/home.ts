@@ -1,72 +1,60 @@
 class HomePage extends Page {
 
-    private element: BoardElement;
-
     private sidebar: Sidebar;
+    private board: Board;
 
     private boardHub: BoardHub;
 
     constructor() {
         super();
 
-        this.element = new BoardElement();
         this.sidebar = new Sidebar();
+        this.board = new Board();
 
         this.boardHub = BoardHub.getInstance();
 
         this.template.setLayout("base_layout");
 
         // Load the board information from the server if available.
-        const boardLoaded = new Promise(async (resolve) => {
-            if (localStorage.getItem('board')) {
-                // Get the board ID from the localstorage if available
-                const boardId = localStorage.getItem('board');
+        this.board.loadBoard().then((board: BoardViewModel) => {
+            this.template.loadhtml("home", { currentBoard: board.name });
+            this.template.setPageTitle(board.name);
 
-                // Attemp to fetch the board info.
-                await this.XHR.getWithAuthorization(`/boards/${boardId}`).then((response) => {
-                    this.template.loadhtml("home", { currentBoard: response.name });
-                    this.template.setPageTitle(response.name);
-                })
-                .catch((error) => {
-                    console.warn(error);
-                    this.template.loadhtml("home");
-                });
-            }
-            else
-            {
-                // Load the home HTML without setting the board name.
-                this.template.loadhtml("home");
-            }
+            let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
+            $("#board-container").html(out());
 
-            // Resolve the promise.
-            resolve();
+            this.board.loadElements(board.id);
+        })
+        .catch((error) => {
+            // Load the home page without setting the board info.
+            this.template.loadhtml("home");
         });
 
-        // When the board fetch is finished.
-        boardLoaded.then(() => {
-            this.loadTheme();
-            this.sidebar.loadSidebar();
+        this.loadTheme();
+        this.sidebar.loadSidebar();
 
-            // TODO: Call autosize when the 'new element' panel is shown
-            // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
+        Helpers.registerOnClick("logout", () => this.logout());
+        Helpers.registerOnClick("theme", () => this.toggleTheme());
 
-            $('textarea').each(function () {
-                this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-            }).on('input', function () {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
+        this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+            this.template.setPageTitle(response.name);
+            $('.board-info-name').text(response.name);
 
-            Helpers.registerOnClick("logout", () => this.logout());
-            Helpers.registerOnClick("theme", () => this.toggleTheme());
+            let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
+            $("#board-container").html(out());
 
-            this.loadBoardElements();
-
-            this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
-                this.template.setPageTitle(response.name);
-                $('.board-info-name').text(response.name);
-            });
+            this.board.loadElements(response.id);
         });
+
+        // TODO: Call autosize when the 'new element' panel is shown
+        // TODO: Dit is lelijk hier in de constructor. Moet verplaatst worden.
+        $('textarea').each(function () {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
     }
 
     public toggleTheme() {
@@ -99,34 +87,6 @@ class HomePage extends Page {
             $('.logo-dark').show();
             $('[data-target="theme"]').html(`<i class="fas fa-moon fa-lg fa-fw"></i>`);
         }
-    }
-
-    public loadBoardElements() {
-        let boardId = '14ce2a15-1374-4fd9-aae2-08d7f1085836';
-
-        this.XHR.getWithAuthorization(`/boards/${boardId}/elements`).then(data => {
-
-            // console.log(data);
-            $.each(data, (index: number, data) => {
-
-                let element: BoardElementViewModel = {
-                    id: data.id,
-                    number: index + 1,
-                    boardId: data.boardId,
-                    user: data.user,
-                    userId: data.userId,
-                    imagePath: data.imagePath,
-                    note: data.note,
-                    direction: data.direction,
-                    createdAt: data.createdAt
-                };
-
-                this.element.newElement(element);
-            })
-
-        }, error => {
-            console.warn(error);
-        });
     }
 
     public logout() {

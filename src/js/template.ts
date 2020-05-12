@@ -22,14 +22,14 @@ class Template {
     public loadhtml(templateName: string, data: any = null) {
         if (typeof (window as any).Templates[templateName] === "function") {
 
+            (window as any).Handlebars.registerHelper('ifEquals', (arg1: any, arg2: any, options: any) => {
+                return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+            });
+
             (window as any).Handlebars.registerPartial('body', (window as any).Templates[templateName](data));
 
             (window as any).Handlebars.registerHelper('formatDateTime', (date: Date) => {
                 return new Date(date).toReadableString(true);
-            });
-
-            (window as any).Handlebars.registerHelper('ifEquals', (arg1: any, arg2: any, options: any) => {
-                return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
             });
 
             document.getElementById('view').innerHTML = (window as any).Templates[this.layout]();
