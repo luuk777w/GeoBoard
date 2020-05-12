@@ -66,6 +66,8 @@
     .home-container {
         overflow: auto;
         display: flex;
+        position: relative;
+        height: 100%;
     }
 
     .create-board-element-button {

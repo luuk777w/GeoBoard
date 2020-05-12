@@ -39,17 +39,24 @@ class Board {
     }
 
     /**
-     * Show the given board and load the elements.
+     * Show the given board and load the elements when a board is selected.
+     * When no board is selected, an instruction will be shown.
      *
      * @param boardId The ID of the board to show.
      */
-    public show(boardId: string) {
+    public show(boardId?: string) {
         // Read the board template.
-        let out = (window as any).Handlebars.compile((window as any).Templates["board"]());
+        let out = (window as any).Handlebars.compile((window as any).Templates["board"]({
+            boardSelected: (boardId != null)
+        }));
+
         $("#board-container").html(out());
 
-        // Load the elements.
-        this.loadElements(boardId);
+        // Only load when a board is selected.
+        if (boardId != null) {
+            // Load the elements.
+            this.loadElements(boardId);
+        }
     }
 
     public loadElements(boardId: string) {

@@ -26,15 +26,29 @@ class HomePage extends Page {
             this.template.setPageTitle(board.name);
 
             this.board.show(board.id);
+
+            // Board selected; return true for usage later in this chain.
+            return true;
         })
         .catch((error) => {
             // Load the home page without setting the board info.
             this.template.loadHtml("home");
+
+            // Show the "Select a board instruction" by setting the board to null.
+            this.board.show(null);
+
+            // No baord selected; return false for usage later in this chain.
+            return false;
         })
-        .then(() => {
+        .then(async (boardSelected: boolean) => {
             // Load the sidebar when everything is finished.
             // The sidebar must wait on the loadHTML to finish.
-            this.sidebar.loadSidebar();
+            await this.sidebar.loadSidebar();
+
+            // Toggle the sidebar when there is no board selected.
+            if (! boardSelected) {
+                this.sidebar.toggle();
+            }
         });
 
         // Listen to the on SwitchedBoard event.
