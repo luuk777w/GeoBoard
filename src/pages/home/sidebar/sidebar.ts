@@ -15,11 +15,15 @@ class Sidebar {
         // TODO: Dit moet een route worden. Heeft ook als voordeel dat je een bord direct kunt benaderen.
         Helpers.registerOnClick("board", (event: any) => this.goToBoard(event.target));
 
+        // TODO: Moet verplaatst worden naar een betere plek (als dat nog van toepassing is).
         this.boardHub.getConnection().on('boardCreated', (response: any) => {
             console.log('From hub: ', response);
         });
     }
 
+    /**
+     * Load the data needed for the sidebar and compile / show the sidebar HTML after.
+     */
     public async loadSidebar() {
         let data = {
             selectedBoard: localStorage.getItem('board'),
@@ -58,24 +62,46 @@ class Sidebar {
         return boards;
     }
 
+    /**
+     * Go to the clicked board.
+     *
+     * @param target The clicked board item.
+     */
     public goToBoard(target: any) {
-        const clickedBoard = $(target);
+        // The board item in the sidebar.
+        const clickedBoardItem = $(target);
+
+        // The curent board the user is viewing (if any).
         const currentBoard = localStorage.getItem('board');
 
-        if (clickedBoard.data('board-id') == null || clickedBoard.data('board-id') == currentBoard)
+        // The board-id of the clicked board.
+        const requstedBoard = clickedBoardItem.data('board-id')
+
+        // Prevent null or duplicate switch to board.
+        if (requstedBoard == null || requstedBoard == currentBoard)
             return;
 
-        this.boardHub.getConnection().invoke("switchBoard", currentBoard, clickedBoard.data('board-id')).then((response: BoardViewModel) => {
-            console.log(response);
+        // Attemp to switch to the clicked board.
+        this.boardHub.getConnection().invoke("SwitchBoard", currentBoard, requstedBoard)
+            .then((response: BoardViewModel) => {
+                console.log(response);
 
-            localStorage.setItem('board', response.id);
+                // Store the new board id.
+                localStorage.setItem('board', response.id);
 
-            $('.board-list-item.active').removeClass('active');
-            $(clickedBoard).addClass('active');
+                // Toggle the previous and active board.
+                $('.board-list-item.active').removeClass('active');
+                $(clickedBoardItem).addClass('active');
 
-        }).catch((err: any) => console.log(err));
+            }).catch((error: any) => console.warn('Something went wrong while switching to the requested board', error));
 
+        // When a board is not found...
         this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
+            console.warn('BoardNotFound', response);
+        });
+
+        // When the user was not allowed to switch...
+        this.boardHub.getConnection().on('SwitchNotAllowed', (response: any) => {
             console.warn('BoardNotFound', response);
         });
     }
@@ -98,6 +124,9 @@ class Sidebar {
         }
     }
 
+    /**
+     * Toggle the visibility of the sidebar.
+     */
     public toggle() {
         const sidebar = $("#sidebar .side-nav");
 
@@ -111,6 +140,9 @@ class Sidebar {
         }
     }
 
+    /**
+     * Close the sidebar (if open).
+     */
     public close() {
         const sidebar = $("#sidebar .side-nav");
 
