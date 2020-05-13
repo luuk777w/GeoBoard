@@ -37,7 +37,7 @@ class LoginPage extends Page {
         });
 
         if (formData.formCompleted == false) {
-            this.alert.show("alert-error", "Username or password not filled in.");
+            this.alert.show(AlertType.Error, "Username or password not filled in.");
             return;
         }
 
@@ -52,12 +52,12 @@ class LoginPage extends Page {
 
                     this.router.redirect("/home");
                 }, error => {
-                    this.alert.show("alert-error", "An unknown error occurred. Please try again.");
+                    this.alert.show(AlertType.Error, "An unknown error occurred. Please try again.");
                     Helpers.toggleLoadingButton(`button[type="submit"]`, false);
                 });
 
             } else {
-                this.alert.show("alert-error", "An unknown error occurred. Please try again.");
+                this.alert.show(AlertType.Error, "An unknown error occurred. Please try again.");
                 Helpers.toggleLoadingButton(`button[type="submit"]`, false);
             }
 
@@ -66,7 +66,7 @@ class LoginPage extends Page {
             Helpers.toggleLoadingButton(`button[type="submit"]`, false);
 
             if (error.status == 0) {
-                this.alert.show("alert-error", "Could not reach the server. Please try again later.");
+                this.alert.show(AlertType.Error, "Could not reach the server. Please try again later.");
                 return;
             }
 
@@ -79,9 +79,9 @@ class LoginPage extends Page {
                 });
 
             } else if (error.responseJSON.message != null) {
-                this.alert.show("alert-error", error.responseJSON.message);
+                this.alert.show(AlertType.Error, error.responseJSON.message);
             } else {
-                this.alert.show("alert-error", "An unknown error occurred. Please try again.");
+                this.alert.show(AlertType.Error, "An unknown error occurred. Please try again.");
             }
         });
     }

@@ -105,14 +105,14 @@ class Sidebar {
             }).catch((error: any) => {
                 console.warn('Something went wrong while switching to the requested board', error);
 
-                this.alert.show("alert-error", "Something went wrong. Please try again.", true);
+                this.alert.show(AlertType.Error, "Something went wrong. Please try again.", true);
             });
 
         // When a board is not found or the user is not allowed to access the board...
         this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
             console.warn('BoardNotFound', response);
 
-            this.alert.show("alert-error", "Board not found.", true);
+            this.alert.show(AlertType.Error, "Board not found.", true);
         });
     }
 
@@ -140,7 +140,7 @@ class Sidebar {
     public toggle() {
         const sidebar = $("#sidebar .side-nav");
 
-        if (! sidebar.is(':visible')) {
+        if (!sidebar.is(':visible')) {
             sidebar.show();
             sidebar.removeClass("slideOutRight");
             sidebar.addClass("slideInRight");

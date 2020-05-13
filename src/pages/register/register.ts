@@ -63,7 +63,7 @@ class RegisterPage extends Page {
             Helpers.toggleLoadingButton(`button[data-target="register"]`, false);
 
             if (error.status == 0) {
-                this.alert.show("alert-error", "Could not reach the server. Please try again later.");
+                this.alert.show(AlertType.Error, "Could not reach the server. Please try again later.");
                 return;
             }
 
@@ -74,9 +74,9 @@ class RegisterPage extends Page {
                 });
 
             } else if (error.responseJSON.message != null) {
-                this.alert.show("alert-error", error.responseJSON.message);
+                this.alert.show(AlertType.Error, error.responseJSON.message);
             } else {
-                this.alert.show("alert-error", "An unknown error occurred. Please try again.");
+                this.alert.show(AlertType.Error, "An unknown error occurred. Please try again.");
             }
         });
     }

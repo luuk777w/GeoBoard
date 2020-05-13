@@ -9,7 +9,7 @@ class ActivatePage extends Page {
 
         this.authorize.activate(email, encodeURIComponent(token)).then(result => {
 
-            this.router.redirectWithAlert("/login", "alert-success", "Your account has been activated succesfully!");
+            this.router.redirectWithAlert("/login", AlertType.Success, "Your account has been activated succesfully!");
 
         }, error => {
             this.template.setLayout("auth_layout");

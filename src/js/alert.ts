@@ -9,8 +9,10 @@ class Alert {
         this.scope = scope;
     }
 
-    public show(className: string, message: string, animated: boolean = false) {
+    public show(alertType: AlertType, message: string, animated: boolean = false) {
         const parent = this.getScope();
+
+        let className: string = alertType;
 
         $(`${parent}.alert`).children(".alert-body").text(message);
         $(`${parent}.alert`).addClass(className);
@@ -50,4 +52,11 @@ class Alert {
     private getScope(): string {
         return (this.scope) ? `${this.scope} ` : '';
     }
+}
+
+enum AlertType {
+    Info = "alert-info",
+    Error = "alert-error",
+    Warning = "alert-warning",
+    Success = "alert-success"
 }

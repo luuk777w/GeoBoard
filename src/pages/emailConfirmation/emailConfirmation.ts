@@ -27,11 +27,11 @@ class EmailConfirmationPage extends Page {
 
         this.authorize.resendActivationEmail(email).then(result => {
 
-            this.alert.show('alert-success', 'A new activation email has been sent.');
+            this.alert.show(AlertType.Success, 'A new activation email has been sent.');
             Helpers.toggleLoadingButton(`button`, false);
 
         }, error => {
-            this.router.redirectWithAlert('/login', 'alert-error', 'Something went wrong while sending the confirmation email. Your account may be activated already.');
+            this.router.redirectWithAlert('/login', AlertType.Error, 'Something went wrong while sending the confirmation email. Your account may be activated already.');
         });
     }
 

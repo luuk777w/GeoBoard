@@ -30,7 +30,7 @@ class Router {
      * Returns the singleton instance of this Router class.
      */
     public static getInstance() {
-        if (! Router.instance) {
+        if (!Router.instance) {
             Router.instance = new Router();
         }
 
@@ -56,7 +56,7 @@ class Router {
             else if (this.authorize.isLoggedIn() == false) {
 
                 if (this.JWT.isTokenExpired()) {
-                    this.redirectWithAlert('/login', 'alert-warning', 'Your session has expired. Please log in again.');
+                    this.redirectWithAlert('/login', AlertType.Warning, 'Your session has expired. Please log in again.');
                 }
                 else {
                     this.redirect('/login');
@@ -87,7 +87,7 @@ class Router {
         return false;
     }
 
-    public redirectWithAlert(route: string, controller: string, message: string) {
+    public redirectWithAlert(route: string, controller: AlertType, message: string) {
         if (this.redirect(route)) {
             this.alert.show(controller, message);
         }
