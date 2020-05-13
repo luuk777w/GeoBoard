@@ -11,13 +11,16 @@ abstract class SignalRClient {
             .withAutomaticReconnect()
             .build();
 
+        // Start the connection.
         this.getConnection().start();
 
+        // Handle reconnection when the connection was lost.
         this.getConnection().onreconnecting((error: any) => {
             $(".notification").text("The connection with the server was lost. Reconnecting...");
             $(".notification").slideDown(200, () => $(this).show());
         });
 
+        // When reconnected to SignalR...
         this.getConnection().onreconnected((connectionId: any) => {
             $(".notification").slideUp(200, () => {
                 $(this).hide();
@@ -27,6 +30,9 @@ abstract class SignalRClient {
         });
     }
 
+    /**
+     * Get the HubConnection instance of SignalR.
+     */
     public getConnection() {
         return this.connection;
     }
