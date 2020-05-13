@@ -2,12 +2,13 @@ class Sidebar {
 
     private XHR: XHR;
     private boardHub: BoardHub;
-
+    private board: Board;
     private alert: Alert;
 
     constructor() {
         this.XHR = XHR.getInstance();
         this.boardHub = BoardHub.getInstance();
+        this.board = Board.getInstance();
 
         this.alert = new Alert('.side-nav-body');
 
@@ -82,8 +83,12 @@ class Sidebar {
         const requstedBoard = clickedBoardItem.data('board-id')
 
         // Prevent null or duplicate switch to board.
-        if (requstedBoard == null || requstedBoard == currentBoard)
+        if (requstedBoard == null || requstedBoard == currentBoard) {
+            localStorage.removeItem('board');
+            $('.board-list-item.active').removeClass('active');
+            this.board.show();
             return;
+        }
 
         // Attemp to switch to the clicked board.
         this.boardHub.getConnection().invoke("SwitchBoard", currentBoard, requstedBoard)
@@ -154,6 +159,11 @@ class Sidebar {
      * Close the sidebar (if open).
      */
     public close() {
+
+        const currentBoard = localStorage.getItem('board');
+        if (currentBoard == null)
+            return;
+
         const sidebar = $("#sidebar .side-nav");
 
         if (sidebar.is(':visible')) {

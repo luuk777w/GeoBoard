@@ -9,7 +9,7 @@ class HomePage extends Page {
         super();
 
         this.sidebar = new Sidebar();
-        this.board = new Board();
+        this.board = Board.getInstance();
 
         this.boardHub = BoardHub.getInstance();
 
@@ -33,29 +33,29 @@ class HomePage extends Page {
             // Board selected; return true for usage later in this chain.
             return true;
         })
-        .catch((error) => {
-            // Load the home page without setting the board info.
-            this.template.loadHtml("home");
+            .catch((error) => {
+                // Load the home page without setting the board info.
+                this.template.loadHtml("home");
 
-            // Show the "Select a board instruction" by setting the board to null.
-            this.board.show(null);
+                // Show the "Select a board instruction" by setting the board to null.
+                this.board.show(null);
 
-            // Hide the board info.
-            $('.board-info').hide();
+                // Hide the board info.
+                $('.board-info').hide();
 
-            // No baord selected; return false for usage later in this chain.
-            return false;
-        })
-        .then(async (boardSelected: boolean) => {
-            // Load the sidebar when everything is finished.
-            // The sidebar must wait on the loadHTML to finish.
-            await this.sidebar.loadSidebar();
+                // No baord selected; return false for usage later in this chain.
+                return false;
+            })
+            .then(async (boardSelected: boolean) => {
+                // Load the sidebar when everything is finished.
+                // The sidebar must wait on the loadHTML to finish.
+                await this.sidebar.loadSidebar();
 
-            // Toggle the sidebar when there is no board selected.
-            if (! boardSelected) {
-                this.sidebar.toggle();
-            }
-        });
+                // Toggle the sidebar when there is no board selected.
+                if (!boardSelected) {
+                    this.sidebar.toggle();
+                }
+            });
 
         // Listen to the on SwitchedBoard event.
         this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {

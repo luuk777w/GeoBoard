@@ -1,5 +1,7 @@
 class Board {
 
+    private static instance: Board;
+
     private XHR: XHR;
 
     private element: BoardElement;
@@ -8,6 +10,14 @@ class Board {
         this.XHR = XHR.getInstance();
 
         this.element = new BoardElement();
+    }
+
+    public static getInstance() {
+        if (!Board.instance) {
+            Board.instance = new Board();
+        }
+
+        return Board.instance;
     }
 
     /**
