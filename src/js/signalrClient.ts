@@ -8,6 +8,7 @@ abstract class SignalRClient {
 
         this.connection = new (window as any).signalR.HubConnectionBuilder()
             .withUrl(`${apiUrl}/${hubName}`, { accessTokenFactory: () => loginToken })
+            .withAutomaticReconnect()
             .build();
 
         this.connection.start();
