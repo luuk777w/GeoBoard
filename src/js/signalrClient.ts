@@ -11,9 +11,20 @@ abstract class SignalRClient {
             .withAutomaticReconnect()
             .build();
 
-        this.connection.start();
+        this.getConnection().start();
 
-        console.log(this.connection);
+        this.getConnection().onreconnecting((error: any) => {
+            $(".notification").text("The connection with the server was lost. Reconnecting...");
+            $(".notification").slideDown(200, () => $(this).show());
+        });
+
+        this.getConnection().onreconnected((connectionId: any) => {
+            $(".notification").slideUp(200, () => {
+                $(this).hide();
+
+                $(this).text("The connection with the server was lost. Reconnecting...");
+            });
+        });
     }
 
     public getConnection() {
