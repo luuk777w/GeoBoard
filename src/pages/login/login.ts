@@ -37,7 +37,7 @@ class LoginPage extends Page {
         });
 
         if (formData.formCompleted == false) {
-            this.alert.show("alert-error", "Username or password not filled in.")
+            this.alert.show("alert-error", "Username or password not filled in.");
             return;
         }
 

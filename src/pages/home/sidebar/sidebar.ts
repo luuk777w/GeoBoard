@@ -3,9 +3,13 @@ class Sidebar {
     private XHR: XHR;
     private boardHub: BoardHub;
 
+    private alert: Alert;
+
     constructor() {
         this.XHR = XHR.getInstance();
         this.boardHub = BoardHub.getInstance();
+
+        this.alert = new Alert('.side-nav-body');
 
         Helpers.registerOnClick("sidebar", () => this.toggle());
         Helpers.registerOnClick("closeSidebar", () => this.close());
@@ -86,6 +90,9 @@ class Sidebar {
             .then((response: BoardViewModel) => {
                 console.log(response);
 
+                if (response == null)
+                    return;
+
                 // Store the new board id.
                 localStorage.setItem('board', response.id);
 
@@ -93,16 +100,17 @@ class Sidebar {
                 $('.board-list-item.active').removeClass('active');
                 $(clickedBoardItem).addClass('active');
 
-            }).catch((error: any) => console.warn('Something went wrong while switching to the requested board', error));
+            }).catch((error: any) => {
+                console.warn('Something went wrong while switching to the requested board', error);
 
-        // When a board is not found...
+                this.alert.show("alert-error", "Something went wrong. Please try again.");
+            });
+
+        // When a board is not found or the user is not allowed to access the board...
         this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
             console.warn('BoardNotFound', response);
-        });
 
-        // When the user was not allowed to switch...
-        this.boardHub.getConnection().on('SwitchNotAllowed', (response: any) => {
-            console.warn('BoardNotFound', response);
+            this.alert.show("alert-error", "Board not found.");
         });
     }
 
