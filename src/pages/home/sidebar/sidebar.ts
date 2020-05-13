@@ -100,17 +100,19 @@ class Sidebar {
                 $('.board-list-item.active').removeClass('active');
                 $(clickedBoardItem).addClass('active');
 
+                this.alert.hide(true);
+
             }).catch((error: any) => {
                 console.warn('Something went wrong while switching to the requested board', error);
 
-                this.alert.show("alert-error", "Something went wrong. Please try again.");
+                this.alert.show("alert-error", "Something went wrong. Please try again.", true);
             });
 
         // When a board is not found or the user is not allowed to access the board...
         this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
             console.warn('BoardNotFound', response);
 
-            this.alert.show("alert-error", "Board not found.");
+            this.alert.show("alert-error", "Board not found.", true);
         });
     }
 
