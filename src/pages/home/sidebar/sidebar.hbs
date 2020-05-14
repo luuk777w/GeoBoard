@@ -15,14 +15,12 @@
 
                 <div class="section-header-section">
                     <h3 class="side-nav-section-title side-nav-my-boards">My boards</h3>
-                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create
-                        board</button>
+                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create board</button>
                 </div>
 
                 <div class="section-header-section create-board-section" style="display: none;">
                     <input type="text" name="boardName">
-                    <button class="button button-small button-green create-board-button" data-target="createBoard"><i
-                            class="fa fa-check"></i></button>
+                    <button class="button button-small button-green create-board-button" data-target="createBoard"><i class="fa fa-check"></i></button>
                 </div>
 
             </div>
@@ -32,8 +30,7 @@
                 {{#each myBoards}}
                 <li class="board-list-item {{#ifEquals ../selectedBoard id}}active{{/ifEquals}}" data-target="board"
                     data-board-id="{{id}}">{{name}}
-                    <div class="board-list-item-description">Created at <time
-                            datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
+                    <div class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
                 </li>
                 {{/each}}
             </ul>
@@ -56,8 +53,8 @@
             {{#if activeBoards}}
             <ul class="board-list">
                 {{#each activeBoards}}
-                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div
-                        class="board-list-item-description">Created by {{user.username}}</div>
+                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}
+                    <div class="board-list-item-description">Created by {{user.username}}</div>
                 </li>
                 {{/each}}
             </ul>
@@ -75,9 +72,8 @@
             {{#if snapshots}}
             <ul class="board-list">
                 {{#each snapshots}}
-                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}<div
-                        class="board-list-item-description">Created at <time
-                            datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
+                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}
+                    <div class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
                 </li>
                 {{/each}}
             </ul>
