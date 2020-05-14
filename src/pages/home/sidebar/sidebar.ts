@@ -15,6 +15,7 @@ class Sidebar {
         Helpers.registerOnClick("sidebar", () => this.toggle());
         Helpers.registerOnClick("closeSidebar", () => this.close());
 
+        Helpers.registerOnClick("toggleCreateBoard", () => this.toggleCreateBoard());
         Helpers.registerOnClick("createBoard", () => this.createBoard());
 
         // TODO: Dit moet een route worden. Heeft ook als voordeel dat je een bord direct kunt benaderen.
@@ -121,22 +122,62 @@ class Sidebar {
         });
     }
 
-    public createBoard() {
-        let boardName = prompt('What is the name of this new board?');
+    public toggleCreateBoard() {
 
-        if (boardName.trim() != "") {
-            console.info(`Nieuwe board: ${boardName}`);
+        if ($("[data-target='toggleCreateBoard']").hasClass("button-green")) {
+            $("[data-target='toggleCreateBoard']")
+                .removeClass("button-green")
+                .addClass("button-red")
+                .html("Cancel");
 
-            let data = {
-                name: boardName
-            };
+            $(".side-nav-my-boards").html("Create board");
 
-            this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
-                alert("Board created");
-            }, error => {
-                console.warn(error);
-            });
+            $(".create-board-section").slideDown(100);
+
+        } else {
+            $("[data-target='toggleCreateBoard']")
+                .removeClass("button-red")
+                .addClass("button-green")
+                .html("Create board");
+
+            $(".side-nav-my-boards").html("My boards");
+
+            $(".create-board-section").slideUp(100);
         }
+    }
+
+    public createBoard() {
+
+        let boardName = $("[name=boardName]").val();
+
+        if (boardName == "" || boardName == null) {
+            this.alert.show(AlertType.Error, "Please enter a boardname", true);
+
+            setTimeout(() => {
+                this.alert.hide(true);
+            }, 2000);
+
+            return;
+        }
+
+        let data = {
+            name: boardName
+        };
+
+        this.XHR.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
+            this.alert.show(AlertType.Success, "Board created!", true);
+
+            setTimeout(() => {
+                this.alert.hide(true);
+            }, 2000);
+        }, error => {
+
+            this.alert.show(AlertType.Error, error, true);
+
+            setTimeout(() => {
+                this.alert.hide(true);
+            }, 2000);
+        });
     }
 
     /**

@@ -36,13 +36,15 @@
         }
     }
 
+
+
     .side-nav-body {
         padding: 1rem;
 
         .section-header {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
             border-bottom: 2px solid $gray100;
             padding: .5rem;
             transition: border-color 250ms;
@@ -52,6 +54,24 @@
                 color: $geoboard-dark;
             }
 
+            .section-header-section {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+
+                input {
+                    width: calc(100% - 3rem);
+                }
+
+                .create-board-button {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
         }
 
         .side-nav-text {
