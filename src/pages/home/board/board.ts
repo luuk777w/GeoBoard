@@ -1,17 +1,23 @@
 class Board {
 
+    /**
+     * The singleton instance of this Board class.
+     */
     private static instance: Board;
 
     private XHR: XHR;
 
     private element: BoardElement;
 
-    constructor() {
+    private constructor() {
         this.XHR = XHR.getInstance();
 
         this.element = new BoardElement();
     }
 
+    /**
+     * Returns the singleton instance of this Board class.
+     */
     public static getInstance() {
         if (!Board.instance) {
             Board.instance = new Board();
