@@ -56,7 +56,7 @@ export class LoginPage extends Page {
 
                 this.XHR.getWithAuthorization("/user/profile/get").then(result => {
 
-                    this.router.redirect("/home");
+                    this.router.redirect("/");
                 }, error => {
                     this.alert.show(AlertType.Error, "An unknown error occurred. Please try again.");
                     Helpers.toggleLoadingButton(`button[type="submit"]`, false);

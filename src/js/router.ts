@@ -71,7 +71,7 @@ export class Router {
                 new route.controller();
             }
             else if (route.role == "guest" && this.authorize.isLoggedIn()) {
-                this.redirect('/home');
+                this.redirect('/');
             }
             else {
                 new ErrorPage(401, "Unauthorized.");
