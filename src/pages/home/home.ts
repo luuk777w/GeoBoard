@@ -69,7 +69,7 @@ export class HomePage extends Page {
             });
 
         // Listen to the on SwitchedBoard event.
-        this.boardHub.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+        this.boardHub.on('SwitchedBoard', (response: BoardViewModel) => {
             this.template.setPageTitle(response.name);
             $('.board-info-name').text(response.name);
             $('.board-info').show();
