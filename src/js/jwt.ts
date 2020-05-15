@@ -1,4 +1,4 @@
-class JWT {
+export class JWT {
     /**
      * The singleton instance of this JWT class.
      */
@@ -12,7 +12,7 @@ class JWT {
      * Returns the singleton instance of this JWT class.
      */
     public static getInstance() {
-        if (! JWT.instance) {
+        if (!JWT.instance) {
             JWT.instance = new JWT();
         }
 

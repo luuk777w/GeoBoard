@@ -1,4 +1,6 @@
-class FormHelper {
+import * as $ from 'jquery';
+
+export class FormHelper {
 
     constructor() {
         // Clear the validaton errors.
@@ -72,7 +74,7 @@ class FormHelper {
 
 }
 
-interface formData<T> {
+export interface formData<T> {
     formCompleted: boolean,
     notCompletedFields: Array<string>,
     fields: T

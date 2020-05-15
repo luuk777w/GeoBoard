@@ -1,18 +1,22 @@
-class Template {
+import * as Handlebars from 'handlebars'
+import { Config } from './config';
+import { Helpers } from './helpers';
+import * as $ from 'jquery';
+
+export class Template {
 
     private layout: string = "base_layout";
     private config: Config;
+    private templates: any;
 
     constructor() {
         this.config = Config.getInstance();
-
-        console.log("Hoi");
+        this.templates = require('../../dist/js/templates');
     }
 
     public setLayout(layout: string) {
 
-
-        if (typeof (window as any).Templates[layout] === "function") {
+        if (typeof this.templates[layout] === "function") {
             this.layout = layout;
         } else {
             throw new Error("Layout does not exist.")
@@ -20,19 +24,19 @@ class Template {
     }
 
     public loadHtml(templateName: string, data: any = null) {
-        if (typeof (window as any).Templates[templateName] === "function") {
+        if (typeof this.templates[templateName] === "function") {
 
-            (window as any).Handlebars.registerHelper('ifEquals', (arg1: any, arg2: any, options: any) => {
+            Handlebars.registerHelper('ifEquals', (arg1: any, arg2: any, options: any) => {
                 return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
             });
 
-            (window as any).Handlebars.registerPartial('body', (window as any).Templates[templateName](data));
+            Handlebars.registerPartial('body', this.templates[templateName](data));
 
-            (window as any).Handlebars.registerHelper('formatDateTime', (date: Date) => {
-                return new Date(date).toReadableString(true);
+            Handlebars.registerHelper('formatDateTime', (date: Date) => {
+                return Helpers.DateToReadableString(date, true);
             });
 
-            document.getElementById('view').innerHTML = (window as any).Templates[this.layout]();
+            document.getElementById('view').innerHTML = this.templates[this.layout]();
             $("#view").removeClass();
             $("#view").addClass(`${templateName}-view`);
             $("#view").addClass(this.layout.replace('_', '-'));

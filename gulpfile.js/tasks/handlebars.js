@@ -13,8 +13,8 @@ const handlebars = function (files_handlebars, files_partials_handlebars) {
             .pipe(gulp_handlebars())
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
-                namespace: 'Templates',
-                noRedeclare: true, // Avoid duplicate declarations
+                root: 'exports',
+                noRedeclare: true
             }));
 
         const partials = src(files_partials_handlebars)
@@ -29,8 +29,8 @@ const handlebars = function (files_handlebars, files_partials_handlebars) {
 
         return merge(partials, templates)
             .pipe(concat('templates.js'))
+            .pipe(wrap('var Handlebars = require("handlebars");\n <%= contents %>'))
             .pipe(dest('dist/js/'));
-
     }
 }
 

@@ -1,4 +1,8 @@
-class XHR {
+import { Config } from "./config";
+import { JWT } from "./jwt";
+import * as $ from 'jquery';
+
+export class XHR {
 
     /**
      * The singleton instance of this XHR class.
@@ -17,7 +21,7 @@ class XHR {
      * Returns the singleton instance of this XHR class.
      */
     public static getInstance() {
-        if (! XHR.instance) {
+        if (!XHR.instance) {
             XHR.instance = new XHR();
         }
 

@@ -1,4 +1,6 @@
-class Helpers {
+import * as $ from 'jquery';
+
+export class Helpers {
     constructor() {
         //
     }
@@ -69,30 +71,28 @@ class Helpers {
         while (s.length < length) s = "0" + s;
         return s;
     }
-}
 
-interface Date {
-    toReadableString(withSeconds: boolean): string;
-}
+    /**
+     * Datetime to readable string
+     *
+     * @param {boolean} withSeconds true returns time with seconds
+     * @return {string} func the target function.
+     */
+    public static DateToReadableString = function (dateTime: Date, withSeconds: boolean = false): string {
 
-/**
- * Datetime to readable string
- *
- * @param {boolean} withSeconds true returns time with seconds
- * @return {string} func the target function.
- */
-Date.prototype.toReadableString = function (withSeconds: boolean = false): string {
+        const date = new Date(dateTime);
 
-    const day = Helpers.leadingZero(this.getUTCDate(), 2);
-    const month = Helpers.leadingZero(this.getUTCMonth(), 2);
-    const year = this.getFullYear();
-    const hours = Helpers.leadingZero(this.getHours(), 2);
-    const minutes = Helpers.leadingZero(this.getMinutes(), 2);
+        const day = Helpers.leadingZero(date.getUTCDate(), 2);
+        const month = Helpers.leadingZero(date.getUTCMonth(), 2);
+        const year = date.getFullYear();
+        const hours = Helpers.leadingZero(date.getHours(), 2);
+        const minutes = Helpers.leadingZero(date.getMinutes(), 2);
 
-    if (withSeconds) {
-        const seconds = Helpers.leadingZero(this.getSeconds(), 2);
-        return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+        if (withSeconds) {
+            const seconds = Helpers.leadingZero(date.getSeconds(), 2);
+            return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+        }
+
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
     }
-
-    return `${day}-${month}-${year} ${hours}:${minutes}`;
 }

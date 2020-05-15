@@ -1,4 +1,4 @@
-class Config {
+export class Config {
 
     /**
      * The singleton instance of this Config class.
@@ -13,7 +13,7 @@ class Config {
      * Returns the singleton instance of this Config class.
      */
     public static getInstance() {
-        if (! Config.instance) {
+        if (!Config.instance) {
             Config.instance = new Config();
         }
 

@@ -13,9 +13,6 @@ module.exports = {
             'src/pages/**/*.scss',
             'src/partials/**/*.scss'
         ],
-        vendor: [
-            'vendor/*.js'
-        ],
         handlebars: [
             'src/pages/*.hbs',
             'src/pages/**/*.hbs',

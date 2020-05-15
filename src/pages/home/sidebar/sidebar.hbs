@@ -15,7 +15,8 @@
 
                 <div class="section-header-section">
                     <h3 class="side-nav-section-title side-nav-my-boards">My boards</h3>
-                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create board</button>
+                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create
+                        board</button>
                 </div>
 
                 <div class="section-header-section create-board-section" style="display: none;">
@@ -28,8 +29,7 @@
             {{#if myBoards}}
             <ul class="board-list">
                 {{#each myBoards}}
-                <li class="board-list-item {{#ifEquals ../selectedBoard id}}active{{/ifEquals}}" data-target="board"
-                    data-board-id="{{id}}">{{name}}
+                <li class="board-list-item {{#ifEquals ../selectedBoard id}}active{{/ifEquals}}" data-target="board" data-board-id="{{id}}">{{name}}
                     <div class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
                 </li>
                 {{/each}}

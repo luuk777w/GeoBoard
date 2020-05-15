@@ -1,4 +1,4 @@
-enum Direction {
+export enum Direction {
     North = 0,
     NorthEast = 1,
     East = 2,

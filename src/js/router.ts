@@ -1,4 +1,9 @@
-class Router {
+import { Authorize } from "./authorize";
+import { JWT } from "./jwt";
+import { Alert, AlertType } from "./alert";
+import { ErrorPage } from "../pages/error/error";
+
+export class Router {
 
     /**
      * The singleton instance of this Router class.

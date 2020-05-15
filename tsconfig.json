@@ -3,13 +3,15 @@
         "src/js/**/*.ts",
         "src/js/*.ts",
         "src/pages/*.ts",
-        "src/pages/**/*.ts",
+        "src/pages/**/*.ts"
     ],
     "compilerOptions": {
-        "noImplicitAny": true,
+        "module": "commonjs",
         "target": "es2015",
-        "allowJs": true,
-        "module": "es2015",
-        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "moduleResolution": "Node"
     }
 }

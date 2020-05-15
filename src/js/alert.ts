@@ -1,4 +1,6 @@
-class Alert {
+import * as $ from 'jquery';
+
+export class Alert {
 
     /**
      * The scope where the alert element should be called.
@@ -54,7 +56,7 @@ class Alert {
     }
 }
 
-enum AlertType {
+export enum AlertType {
     Info = "alert-info",
     Error = "alert-error",
     Warning = "alert-warning",

@@ -1,4 +1,12 @@
-class HomePage extends Page {
+import { Page } from "../page";
+import { Sidebar } from "./sidebar/sidebar";
+import { Board } from "./board/board";
+import { BoardHub } from "../../js/hubs/BoardHub";
+import { Helpers } from "../../js/helpers";
+import { BoardViewModel } from "../../js/models/BoardViewModel";
+import * as $ from 'jquery';
+
+export class HomePage extends Page {
 
     private sidebar: Sidebar;
     private board: Board;
@@ -7,6 +15,8 @@ class HomePage extends Page {
 
     constructor() {
         super();
+
+        console.log("Hallo daar");
 
         this.sidebar = new Sidebar();
         this.board = Board.getInstance();

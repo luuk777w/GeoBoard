@@ -1,4 +1,8 @@
-class App {
+import { Router } from "./router";
+import { Config } from "./config";
+import { Routes } from "./routes";
+
+export class App {
 
     /**
      * The singleton instance of this App class.
@@ -18,7 +22,7 @@ class App {
      * Returns the singleton instance of this App class.
      */
     public static start() {
-        if (! App.instance) {
+        if (!App.instance) {
             App.instance = new App();
         }
 
@@ -26,3 +30,4 @@ class App {
     }
 }
 
+App.start();

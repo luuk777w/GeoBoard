@@ -1,4 +1,11 @@
-class Routes {
+import { Router } from "./router";
+import { LoginPage } from "../pages/login/login";
+import { RegisterPage } from "../pages/register/register";
+import { EmailConfirmationPage } from "../pages/emailConfirmation/emailConfirmation";
+import { ActivatePage } from "../pages/activate/activate";
+import { HomePage } from "../pages/home/home";
+
+export class Routes {
 
     private router: Router;
 

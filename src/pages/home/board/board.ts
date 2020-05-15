@@ -1,17 +1,23 @@
-class Board {
+import { XHR } from "../../../js/xhr";
+import { BoardElement } from "../boardElement/boardElement";
+import { BoardViewModel } from "../../../js/models/BoardViewModel";
+import { BoardElementViewModel } from "../../../js/models/BoardElementViewModel";
+import * as Handlebars from 'handlebars'
+import * as $ from 'jquery';
+
+export class Board {
 
     /**
      * The singleton instance of this Board class.
      */
     private static instance: Board;
-
     private XHR: XHR;
-
     private element: BoardElement;
+    private templates: any;
 
     private constructor() {
         this.XHR = XHR.getInstance();
-
+        this.templates = require('../../../../dist/js/templates');
         this.element = new BoardElement();
     }
 
@@ -62,11 +68,11 @@ class Board {
      */
     public show(boardId?: string) {
         // Read the board template.
-        let out = (window as any).Handlebars.compile((window as any).Templates["board"]({
+        let out = Handlebars.compile(this.templates["board"]({
             boardSelected: (boardId != null)
         }));
 
-        $("#board-container").html(out());
+        $("#board-container").html(out({}));
 
         // Only load when a board is selected.
         if (boardId != null) {

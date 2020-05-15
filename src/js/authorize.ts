@@ -1,4 +1,8 @@
-class Authorize {
+import { Config } from "./config";
+import { JWT } from "./jwt";
+import * as $ from 'jquery';
+
+export class Authorize {
 
     //TODO: Correct typing
 
@@ -19,7 +23,7 @@ class Authorize {
      * Returns the singleton instance of this JWT class.
      */
     public static getInstance() {
-        if (! Authorize.instance) {
+        if (!Authorize.instance) {
             Authorize.instance = new Authorize();
         }
 

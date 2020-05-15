@@ -1,4 +1,10 @@
-class RegisterPage extends Page {
+import { Page } from "../page";
+import { FormHelper, formData } from "../../js/formHelper";
+import { Alert, AlertType } from "../../js/alert";
+import { Helpers } from "../../js/helpers";
+import * as $ from 'jquery';
+
+export class RegisterPage extends Page {
 
     private formHelper: FormHelper;
     private alert: Alert;

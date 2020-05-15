@@ -1,4 +1,6 @@
-class ErrorPage extends Page {
+import { Page } from "../page";
+
+export class ErrorPage extends Page {
     constructor(errorCode: number, errorMessage: string) {
         super();
 

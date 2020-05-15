@@ -1,14 +1,25 @@
-class Sidebar {
+import { XHR } from "../../../js/xhr";
+import { BoardHub } from "../../../js/hubs/BoardHub";
+import { Board } from "../board/board";
+import { Alert, AlertType } from "../../../js/alert";
+import { Helpers } from "../../../js/helpers";
+import { BoardViewModel } from "../../../js/models/BoardViewModel";
+import * as Handlebars from 'handlebars'
+import * as $ from 'jquery';
+
+export class Sidebar {
 
     private XHR: XHR;
     private boardHub: BoardHub;
     private board: Board;
     private alert: Alert;
+    private templates: any;
 
     constructor() {
         this.XHR = XHR.getInstance();
         this.boardHub = BoardHub.getInstance();
         this.board = Board.getInstance();
+        this.templates = require('../../../../dist/js/templates');
 
         this.alert = new Alert('.side-nav-body');
 
@@ -38,8 +49,8 @@ class Sidebar {
             snapshots: [] as string[]
         }
 
-        let out = (window as any).Handlebars.compile((window as any).Templates["sidebar"](data));
-        $("#sidebar").html(out());
+        let out = Handlebars.compile(this.templates["sidebar"](data));
+        $("#sidebar").html(out({}));
     }
 
     /**
@@ -75,13 +86,17 @@ class Sidebar {
      */
     public goToBoard(target: any) {
         // The board item in the sidebar.
-        const clickedBoardItem = $(target);
+        let clickedBoardItem = $(target);
 
-        // The curent board the user is viewing (if any).
         const currentBoard = localStorage.getItem('board');
 
-        // The board-id of the clicked board.
+        // if clicked on the time or text, set clickedBoardItem to parent board-list-item
+        if (clickedBoardItem.is("time") || clickedBoardItem.hasClass("board-list-item-description")) {
+            clickedBoardItem = $(target).parents(".board-list-item");
+        }
+
         const requstedBoard = clickedBoardItem.data('board-id')
+
 
         // Prevent null or duplicate switch to board.
         if (requstedBoard == null || requstedBoard == currentBoard) {
@@ -94,7 +109,7 @@ class Sidebar {
         // Attemp to switch to the clicked board.
         this.boardHub.getConnection().invoke("SwitchBoard", currentBoard, requstedBoard)
             .then((response: BoardViewModel) => {
-                console.log(response);
+                //console.log(response);
 
                 if (response == null)
                     return;

@@ -1,4 +1,6 @@
-class BoardHub extends SignalRClient {
+import { SignalRClient } from '../signalrClient'
+
+export class BoardHub extends SignalRClient {
 
     /**
      * The singleton instance of this SignalR class.

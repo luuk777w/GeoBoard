@@ -1,4 +1,6 @@
-class BoardViewModel {
+import { BoardElementViewModel } from "./BoardElementViewModel";
+
+export class BoardViewModel {
     /**
      * The unique identifier of this board.
      */

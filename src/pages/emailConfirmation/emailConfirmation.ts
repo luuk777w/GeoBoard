@@ -1,4 +1,8 @@
-class EmailConfirmationPage extends Page {
+import { Page } from "../page";
+import { Alert, AlertType } from "../../js/alert";
+import { Helpers } from "../../js/helpers";
+
+export class EmailConfirmationPage extends Page {
 
     private alert: Alert;
 
@@ -25,12 +29,12 @@ class EmailConfirmationPage extends Page {
 
         Helpers.toggleLoadingButton("button", true);
 
-        this.authorize.resendActivationEmail(email).then(result => {
+        this.authorize.resendActivationEmail(email).then(() => {
 
             this.alert.show(AlertType.Success, 'A new activation email has been sent.');
             Helpers.toggleLoadingButton(`button`, false);
 
-        }, error => {
+        }, () => {
             this.router.redirectWithAlert('/login', AlertType.Error, 'Something went wrong while sending the confirmation email. Your account may be activated already.');
         });
     }

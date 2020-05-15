@@ -1,4 +1,7 @@
-class ActivatePage extends Page {
+import { Page } from "../page";
+import { AlertType } from "../../js/alert";
+
+export class ActivatePage extends Page {
     constructor() {
         super();
 
@@ -7,11 +10,11 @@ class ActivatePage extends Page {
         let email = urlParams.get('email');
         let token = urlParams.get('token');
 
-        this.authorize.activate(email, encodeURIComponent(token)).then(result => {
+        this.authorize.activate(email, encodeURIComponent(token)).then(() => {
 
             this.router.redirectWithAlert("/login", AlertType.Success, "Your account has been activated succesfully!");
 
-        }, error => {
+        }, () => {
             this.template.setLayout("auth_layout");
             this.template.loadHtml("activate");
         });

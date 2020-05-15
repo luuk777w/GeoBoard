@@ -1,4 +1,6 @@
-class BoardElementViewModel {
+import { Direction } from "./Direction";
+
+export class BoardElementViewModel {
 
     /**
      * The unique identifier of this element.

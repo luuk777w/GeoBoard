@@ -1,12 +1,17 @@
-abstract class SignalRClient {
+import * as SignalR from '@microsoft/signalr'
+import { Config } from './config';
+import { JWT } from './jwt';
+import * as $ from 'jquery';
 
-    private connection: any;
+export abstract class SignalRClient {
+
+    private connection: SignalR.HubConnection;
 
     constructor(hubName: string) {
         const apiUrl = Config.getInstance().apiUrl;
         const loginToken = JWT.getInstance().get();
 
-        this.connection = new (window as any).signalR.HubConnectionBuilder()
+        this.connection = new SignalR.HubConnectionBuilder()
             .withUrl(`${apiUrl}/${hubName}`, { accessTokenFactory: () => loginToken })
             .withAutomaticReconnect()
             .build();
