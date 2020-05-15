@@ -1,4 +1,5 @@
 import { BoardElementViewModel } from "./BoardElementViewModel";
+import { UserViewModel } from "./UserViewModel";
 
 export class BoardViewModel {
     /**
@@ -16,7 +17,10 @@ export class BoardViewModel {
      */
     userId: string;
 
-    // TODO: Add user object
+    /**
+     * The user who created this board.
+     */
+    owner: UserViewModel;
 
     /**
      * The date and time of when this board was created.

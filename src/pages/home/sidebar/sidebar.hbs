@@ -15,8 +15,7 @@
 
                 <div class="section-header-section">
                     <h3 class="side-nav-section-title side-nav-my-boards">My boards</h3>
-                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create
-                        board</button>
+                    <button class="button button-small button-green" data-target="toggleCreateBoard">Create board</button>
                 </div>
 
                 <div class="section-header-section create-board-section" style="display: none;">
@@ -45,16 +44,11 @@
                 <h3 class="side-nav-section-title">Active boards</h3>
             </div>
 
-            {{!-- <ul class="board-list">
-                <li class="board-list-item" data-target="test">Hallo123<span class="board-list-item-creator">Created by luuk</span></li>
-                <li class="board-list-item">Grappige plaatsnamen<span class="board-list-item-creator">Created by matthijs</span></li>
-            </ul> --}}
-
             {{#if activeBoards}}
             <ul class="board-list">
                 {{#each activeBoards}}
                 <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}
-                    <div class="board-list-item-description">Created by {{user.username}}</div>
+                    <div class="board-list-item-description">Created by {{owner.username}}</div>
                 </li>
                 {{/each}}
             </ul>

@@ -45,7 +45,7 @@ export class Sidebar {
         let data = {
             selectedBoard: localStorage.getItem('board'),
             myBoards: await this.loadMyBoards(),
-            activeBoards: [] as string[],
+            activeBoards: await this.loadMyBoards('/active'),
             snapshots: [] as string[]
         }
 
@@ -56,21 +56,24 @@ export class Sidebar {
     /**
      * Load the boards owned by the current user.
      */
-    private async loadMyBoards(): Promise<Array<BoardViewModel>> {
+    private async loadMyBoards(path: string = ""): Promise<Array<BoardViewModel>> {
         let boards: Array<BoardViewModel> = [];
 
-        await this.XHR.getWithAuthorization(`/boards`).then((data) => {
+        await this.XHR.getWithAuthorization(`/boards${path}`).then((data) => {
 
             $.each(data, (index: number, data) => {
                 boards.push({
                     id: data.id,
                     name: data.name,
                     userId: data.userId,
+                    owner: data.owner,
                     createdAt: data.createdAt,
                     isLocked: data.isLocked,
                     elements: [],
                 });
             });
+
+            console.log(data);
 
         }, error => {
             console.warn(error);
