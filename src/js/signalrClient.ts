@@ -41,14 +41,4 @@ export abstract class SignalRClient {
     public getConnection() {
         return this.connection;
     }
-
-    /**
-     * Registers a handler that will be invoked when the hub method with the specified method name is invoked.
-     *
-     * @param event The name of the hub method to define.
-     * @param callback The handler that will be raised when the hub method is invoked.
-     */
-    public on(event: string, callback: (...args: any[]) => void) {
-        return this.getConnection().on(event, callback);
-    }
 }

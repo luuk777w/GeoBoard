@@ -33,7 +33,7 @@ export class Sidebar {
         Helpers.registerOnClick("board", (event: any) => this.goToBoard(event.target));
 
         // TODO: Moet verplaatst worden naar een betere plek (als dat nog van toepassing is).
-        this.boardHub.on('boardCreated', (response: any) => {
+        this.boardHub.getConnection().on('boardCreated', (response: any) => {
             console.log('From hub: ', response);
         });
     }
@@ -130,7 +130,7 @@ export class Sidebar {
             });
 
         // When a board is not found or the user is not allowed to access the board...
-        this.boardHub.on('BoardNotFound', (response: any) => {
+        this.boardHub.getConnection().on('BoardNotFound', (response: any) => {
             console.warn('BoardNotFound', response);
 
             this.alert.show(AlertType.Error, "Board not found.", true);
