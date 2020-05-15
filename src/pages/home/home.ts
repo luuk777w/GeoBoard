@@ -24,7 +24,6 @@ export class HomePage extends Page {
         this.boardHub = BoardHub.getInstance();
 
         this.template.setLayout("base_layout");
-        this.loadTheme();
 
         // Register the click events.
         Helpers.registerOnClick("logout", () => this.logout());
@@ -61,6 +60,8 @@ export class HomePage extends Page {
                 // The sidebar must wait on the loadHTML to finish.
                 await this.sidebar.loadSidebar();
 
+                this.loadTheme();
+
                 // Toggle the sidebar when there is no board selected.
                 if (!boardSelected) {
                     this.sidebar.toggle();
@@ -73,6 +74,7 @@ export class HomePage extends Page {
             $('.board-info-name').text(response.name);
             $('.board-info').show();
 
+            // Show the current board with the board ID from the response.
             this.board.show(response.id);
         });
 
