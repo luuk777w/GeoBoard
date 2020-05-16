@@ -10,13 +10,7 @@ export class BoardHub extends SignalRClient {
     private constructor() {
         const currentBoard = localStorage.getItem('board');
 
-        if (currentBoard) {
-            super('boardHub', `?currentBoard=${currentBoard}`);
-        }
-        else
-        {
-            super('boardHub');
-        }
+        super(`boardHub?currentBoard=${currentBoard}`);
     }
 
     /**

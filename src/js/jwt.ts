@@ -28,7 +28,7 @@ export class JWT {
     }
 
     public clear() {
-        localStorage.setItem("token", "");
+        localStorage.removeItem("token");
     }
 
     public parse() {
