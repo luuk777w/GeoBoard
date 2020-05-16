@@ -6,10 +6,12 @@ import { Helpers } from "../../../js/helpers";
 import { BoardViewModel } from "../../../js/models/BoardViewModel";
 import * as Handlebars from 'handlebars'
 import * as $ from 'jquery';
+import { JWT } from "../../../js/jwt";
 
 export class Sidebar {
 
     private XHR: XHR;
+    private JWT: JWT;
     private boardHub: BoardHub;
     private board: Board;
     private alert: Alert;
@@ -17,6 +19,7 @@ export class Sidebar {
 
     constructor() {
         this.XHR = XHR.getInstance();
+        this.JWT = JWT.getInstance();
         this.boardHub = BoardHub.getInstance();
         this.board = Board.getInstance();
         this.templates = require('../../../../dist/js/templates');
@@ -43,9 +46,9 @@ export class Sidebar {
      */
     public async loadSidebar() {
         let data = {
+            currentUser: this.JWT.getId(),
             selectedBoard: localStorage.getItem('board'),
-            myBoards: await this.loadMyBoards(),
-            activeBoards: await this.loadMyBoards('/active'),
+            boards: await this.loadBoards("/player-boards"),
             snapshots: [] as string[]
         }
 
@@ -54,12 +57,12 @@ export class Sidebar {
     }
 
     /**
-     * Load the boards owned by the current user.
+     * Load the boards from the given path.
      */
-    private async loadMyBoards(path: string = ""): Promise<Array<BoardViewModel>> {
+    private async loadBoards(path: string): Promise<Array<BoardViewModel>> {
         let boards: Array<BoardViewModel> = [];
 
-        await this.XHR.getWithAuthorization(`/boards${path}`).then((data) => {
+        await this.XHR.getWithAuthorization(path).then((data) => {
 
             $.each(data, (index: number, data) => {
                 boards.push({

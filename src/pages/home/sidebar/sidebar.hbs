@@ -25,11 +25,19 @@
 
             </div>
 
-            {{#if myBoards}}
+            {{#if boards}}
             <ul class="board-list">
-                {{#each myBoards}}
+                {{#each boards}}
                 <li class="board-list-item{{#ifEquals ../selectedBoard id}} active{{/ifEquals}}" data-target="board" data-board-id="{{id}}">{{name}}
-                    <div class="board-list-item-description">Created at <time datetime="{{createdAt}}">{{formatDateTime createdAt}}</time></div>
+                    {{#ifEquals ../currentUser userId}}
+                        <i title="You own this bord" class="fas fa-crown is-owner fa-fw ml-1"></i>
+                    {{/ifEquals}}
+
+                    {{#ifEquals ../currentUser userId}}
+                        <div class="board-list-item-description">Created at <time datetime="{{../createdAt}}">{{formatDateTime ../createdAt}}</time></div>
+                    {{else}}
+                        <div class="board-list-item-description">Created by {{../owner.username}}</div>
+                    {{/ifEquals}}
                 </li>
                 {{/each}}
             </ul>
@@ -38,7 +46,7 @@
             {{/if}}
         </div>
 
-        <!-- Active boards -->
+        {{!-- <!-- Active boards -->
         <div class="side-nav-section">
             <div class="section-header">
                 <h3 class="side-nav-section-title">Active boards</h3>
@@ -55,7 +63,7 @@
             {{else}}
             <p class="side-nav-text">You are not part of any board.</p>
             {{/if}}
-        </div>
+        </div> --}}
 
         <!-- Snapshots -->
         <div class="side-nav-section">
