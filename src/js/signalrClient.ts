@@ -7,12 +7,12 @@ export abstract class SignalRClient {
 
     private connection: SignalR.HubConnection;
 
-    constructor(hubName: string) {
+    constructor(hubName: string, params: string = "") {
         const apiUrl = Config.getInstance().apiUrl;
         const loginToken = JWT.getInstance().get();
 
         this.connection = new SignalR.HubConnectionBuilder()
-            .withUrl(`${apiUrl}/${hubName}`, { accessTokenFactory: () => loginToken })
+            .withUrl(`${apiUrl}/${hubName}${params}`, { accessTokenFactory: () => loginToken })
             .withAutomaticReconnect()
             .build();
 
@@ -38,7 +38,7 @@ export abstract class SignalRClient {
     /**
      * Get the HubConnection instance of SignalR.
      */
-    public getConnection() {
+    public getConnection(): SignalR.HubConnection {
         return this.connection;
     }
 }

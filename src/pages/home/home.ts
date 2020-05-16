@@ -78,6 +78,14 @@ export class HomePage extends Page {
             this.board.show(response.id);
         });
 
+        this.boardHub.getConnection().on('UserJoinedBoard', (response) => {
+            this.updateUserList(response.joinedUsers);
+        });
+
+        this.boardHub.getConnection().on('UserLeftBoard', (response) => {
+            this.removeLeftUser(response.userId);
+        });
+
         // TODO: Call autosize when the 'new element' panel is shown
         $('textarea').each(function () {
             this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -86,6 +94,55 @@ export class HomePage extends Page {
             this.style.height = (this.scrollHeight) + 'px';
         });
 
+    }
+
+    /**
+     * Append the given user to the list of users who are viewing the current board.
+     *
+     * @param userId The ID of the user who joined the board.
+     * @param username The username of the user who joined the board.
+     */
+    public showJoinedUser(userId: string, username: string) {
+        let template = `
+        <li class="avatar animated bounceIn" title="${username}" data-user="${userId}">
+            <span class="avatar-title">${username[0].toUpperCase()}</span>
+        </li>`;
+
+        $('.active-board-users').append(template);
+    }
+
+    /**
+     * Update the list of users who are viewing the board currently.
+     *
+     * @param users The list of users who are viewing the current board.
+     */
+    public updateUserList(users: any)
+    {
+        this.clearUserList();
+
+        $.each(users, (index, user) => {
+            // Ignore the current logged in user.
+            if (user.id == this.JWT.getId()) return;
+
+            // Show the user in the list.
+            this.showJoinedUser(user.id, user.username);
+        });
+    }
+
+    /**
+     * Remove the given user from the list of users who are viewing the current board.
+     *
+     * @param userId The ID of the user who left the board.
+     */
+    public removeLeftUser(userId: string) {
+        $(`.active-board-users .avatar[data-user="${userId}"]`).remove();
+    }
+
+    /**
+     * Clear the list of users who are viewing the current board.
+     */
+    public clearUserList() {
+        $(`.active-board-users .avatar`).remove();
     }
 
     public toggleTheme() {

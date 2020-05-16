@@ -47,7 +47,7 @@
             {{#if activeBoards}}
             <ul class="board-list">
                 {{#each activeBoards}}
-                <li class="board-list-item" data-target="board" data-board-id="{{id}}">{{name}}
+                <li class="board-list-item{{#ifEquals ../selectedBoard id}} active{{/ifEquals}}" data-target="board" data-board-id="{{id}}">{{name}}
                     <div class="board-list-item-description">Created by {{owner.username}}</div>
                 </li>
                 {{/each}}

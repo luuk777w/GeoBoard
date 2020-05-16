@@ -8,7 +8,15 @@ export class BoardHub extends SignalRClient {
     private static instance: BoardHub;
 
     private constructor() {
-        super('boardHub');
+        const currentBoard = localStorage.getItem('board');
+
+        if (currentBoard) {
+            super('boardHub', `?currentBoard=${currentBoard}`);
+        }
+        else
+        {
+            super('boardHub');
+        }
     }
 
     /**

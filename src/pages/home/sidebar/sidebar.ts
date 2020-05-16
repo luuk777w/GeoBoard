@@ -73,8 +73,6 @@ export class Sidebar {
                 });
             });
 
-            console.log(data);
-
         }, error => {
             console.warn(error);
         });
