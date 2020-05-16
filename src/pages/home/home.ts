@@ -16,8 +16,6 @@ export class HomePage extends Page {
     constructor() {
         super();
 
-        console.log("Hallo daar");
-
         this.sidebar = new Sidebar();
         this.board = Board.getInstance();
 
@@ -178,6 +176,10 @@ export class HomePage extends Page {
     }
 
     public logout() {
+        // Disconnect from the SignalR socket.
+        this.boardHub.getConnection().stop();
+
+        // Forget the login token.
         this.JWT.clear();
 
         this.router.redirect("/login");
