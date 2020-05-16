@@ -5,6 +5,7 @@ import { BoardHub } from "../../js/hubs/BoardHub";
 import { Helpers } from "../../js/helpers";
 import { BoardViewModel } from "../../js/models/BoardViewModel";
 import * as $ from 'jquery';
+import { HubConnectionState } from "@microsoft/signalr";
 
 export class HomePage extends Page {
 
@@ -20,6 +21,11 @@ export class HomePage extends Page {
         this.board = Board.getInstance();
 
         this.boardHub = BoardHub.getInstance();
+
+        if (this.boardHub.getConnection().state == HubConnectionState.Disconnected)
+        {
+            this.boardHub.getConnection().start();
+        }
 
         this.template.setLayout("base_layout");
 
@@ -120,7 +126,7 @@ export class HomePage extends Page {
 
         $.each(users, (index, user) => {
             // Ignore the current logged in user.
-            if (user.id == this.JWT.getId()) return;
+            // if (user.id == this.JWT.getId()) return;
 
             // Show the user in the list.
             this.showJoinedUser(user.id, user.username);

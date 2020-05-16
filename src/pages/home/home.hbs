@@ -9,6 +9,11 @@
         <li class="nav-link">Page</li>
     </ul> --}}
 
+    <div class="board-info">
+        <span class="board-info-prefix">Current board</span>
+        <span class="board-info-name">{{currentBoard}}</span>
+    </div>
+
     <ul class="active-board-users">
         {{!-- <div class="board-active-users-label">Currently viewing:</div> --}}
 
@@ -20,12 +25,7 @@
         </li> --}}
     </ul>
 
-    <div class="board-info mr-auto">
-        <span class="board-info-prefix">Current board</span>
-        <span class="board-info-name">{{currentBoard}}</span>
-    </div>
-
-    <ul class="nav-links">
+    <ul class="nav-links ml-auto">
         <li class="nav-link" data-target="theme"></li>
         <li class="nav-link" data-target="logout">
             <i class="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
