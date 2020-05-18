@@ -1,6 +1,10 @@
 import React from 'react';
-import styles from './navbar.scss';
-import spacing from '../../css/spacing.scss';
+import './navbar.scss';
+import '../../css/spacing.scss';
+import {
+    Link
+} from "react-router-dom";
+
 
 export class Navbar extends React.Component {
 
@@ -14,26 +18,27 @@ export class Navbar extends React.Component {
         }
 
         return (
-            <nav className={styles.navbar}>
-                <div className={styles.branding}>
+            <nav className="navbar">
+                <div className="branding">
                     <img className="logo-dark" src="../assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
                     <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" style={displayNone} />
                 </div>
-                <div className={styles.boardInfo}>
-                    <span className={styles.boardInfoPrefix}>Current board</span>
-                    <span className={styles.boardInfoName}>{currentBoard}</span>
+                <div className="board-info">
+                    <span className="board-info-prefix">Current board</span>
+                    <span className="board-info-name">{currentBoard}</span>
                 </div>
 
-                <ul className="activeBoardUsers">
+                <ul className="active-board-users">
 
                 </ul>
 
-                <ul className={`${styles.navLinks} ${spacing.mlAuto}`}>
-                    <li className={styles.navLink} data-target="theme"></li>
-                    <li className={styles.navLink} data-target="logout">
+                <ul className="nav-links ml-auto">
+                    <li className="nav-link"><Link to="/">Home</Link></li>
+                    <li className="nav-link" data-target="theme"></li>
+                    <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
-                    <li className={`${styles.navLink} ${styles.sidebarLink}`} data-target="sidebar">
+                    <li className="nav-link sidebar-link" data-target="sidebar">
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
@@ -41,5 +46,4 @@ export class Navbar extends React.Component {
             </nav>
         )
     }
-
 }
