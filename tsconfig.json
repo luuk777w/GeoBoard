@@ -1,17 +1,27 @@
 {
-    "include": [
-        "src/js/**/*.ts",
-        "src/js/*.ts",
-        "src/pages/*.ts",
-        "src/pages/**/*.ts"
-    ],
+    "compileOnSave": true,
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
-        "target": "es2015",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "moduleResolution": "Node"
-    }
+        "allowJs": true,
+        "jsx": "react",
+        "outDir": "./dist",
+        "rootDir": "./",
+        "isolatedModules": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "baseUrl": "./src",
+        "typeRoots": [
+            "node_modules/@types",
+            "src/typings",
+            "src/**/*"
+        ],
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

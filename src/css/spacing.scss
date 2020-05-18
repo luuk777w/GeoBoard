@@ -5,82 +5,82 @@ $sizes: 0, $spacer * .25, $spacer * .5, $spacer, $spacer * 1.5, $spacer * 3;
 
     /* Padding #{index($sizes, $size) - 1} (#{$size} rem) */
 
-  .p-#{index($sizes, $size) - 1} {
+  .p#{index($sizes, $size) - 1} {
     padding: $size !important;
   }
 
-  .pt-#{index($sizes, $size) - 1} {
+  .pt#{index($sizes, $size) - 1} {
     padding-top: $size !important;
   }
 
-  .pb-#{index($sizes, $size) - 1} {
+  .pb#{index($sizes, $size) - 1} {
     padding-bottom: $size !important;
   }
 
-  .pl-#{index($sizes, $size) - 1} {
+  .pl#{index($sizes, $size) - 1} {
     padding-left: $size !important;
   }
 
-  .pr-#{index($sizes, $size) - 1} {
+  .pr#{index($sizes, $size) - 1} {
     padding-right: $size !important;
   }
 
-  .px-#{index($sizes, $size) - 1} {
+  .px#{index($sizes, $size) - 1} {
     padding-left: $size !important;
     padding-right: $size !important;
   }
 
-  .py-#{index($sizes, $size) - 1} {
+  .py#{index($sizes, $size) - 1} {
     padding-top: $size !important;
     padding-bottom: $size !important;
   }
 
     /* Margin #{index($sizes, $size) - 1} (#{$size} rem) */
 
-  .m-#{index($sizes, $size) - 1} {
+  .m#{index($sizes, $size) - 1} {
     margin: $size !important;
   }
 
-  .mt-#{index($sizes, $size) - 1} {
+  .mt#{index($sizes, $size) - 1} {
     margin-top: $size !important;
   }
 
-  .mb-#{index($sizes, $size) - 1} {
+  .mb#{index($sizes, $size) - 1} {
     margin-bottom: $size !important;
   }
 
-  .ml-#{index($sizes, $size) - 1} {
+  .ml#{index($sizes, $size) - 1} {
     margin-left: $size !important;
   }
 
-  .mr-#{index($sizes, $size) - 1} {
+  .mr#{index($sizes, $size) - 1} {
     margin-right: $size !important;
   }
 
-  .mx-#{index($sizes, $size) - 1} {
+  .mx#{index($sizes, $size) - 1} {
     margin-left: $size !important;
     margin-right: $size !important;
   }
 
-  .my-#{index($sizes, $size) - 1} {
+  .my#{index($sizes, $size) - 1} {
     margin-top: $size !important;
     margin-bottom: $size !important;
   }
 }
 
-.ml-auto {
+.mlAuto {
     margin-left: auto !important;
 }
 
-.mr-auto  {
+.mrAuto  {
     margin-right: auto !important;
 }
 
-.m-auto {
+.mAuto {
     margin: auto !important;
 }
 
-.mx-auto {
+.mxAuto {
     margin-left: auto !important;
     margin-right: auto !important;
 }
