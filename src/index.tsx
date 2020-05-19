@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/main.scss'
 import  './index.scss';
@@ -11,18 +11,29 @@ import {
 import { Navbar } from './components/navbar/navbar';
 
 
-class App extends React.Component {
+class App extends Component<{}, AppState> {
+
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            sidebarIsOpen: false
+        };
+    }
+
+    toggleSidebar() {
+        this.setState(state => ({
+            sidebarIsOpen: ! state.sidebarIsOpen
+        }));
+    }
+
     render() {
         return (
             <Router>
                 <Switch>
-                    <Route path="/about">
-                    </Route>
-                    <Route path="/users">
-                    </Route>
                     <Route path="/">
-                        <Navbar />
-                        <Home />
+                        <Navbar sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
+                        <Home sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
                     </Route>
                 </Switch>
             </Router>
@@ -31,3 +42,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+interface AppState {
+    sidebarIsOpen: boolean;
+}

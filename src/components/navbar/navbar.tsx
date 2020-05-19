@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 
-export class Navbar extends React.Component {
+export class Navbar extends React.Component<NavbarProps, {}> {
 
     render() {
 
@@ -37,7 +37,7 @@ export class Navbar extends React.Component {
                     <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
-                    <li className="nav-link sidebar-link" data-target="sidebar">
+                    <li className="nav-link sidebar-link" onClick={this.props.toggleSidebar}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
@@ -45,4 +45,9 @@ export class Navbar extends React.Component {
             </nav>
         )
     }
+}
+
+interface NavbarProps {
+    sidebarIsOpen: boolean;
+    toggleSidebar: () => void;
 }
