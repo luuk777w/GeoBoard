@@ -33,7 +33,6 @@ export class Navbar extends React.Component {
                 </ul>
 
                 <ul className="nav-links ml-auto">
-                    <li className="nav-link"><Link to="/">Home</Link></li>
                     <li className="nav-link" data-target="theme"></li>
                     <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out

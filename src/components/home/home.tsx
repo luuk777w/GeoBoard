@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Board } from '../board/board';
+import { SideNav } from '../sidenav/sidenav';
 
 export class Home extends React.Component {
 
     render() {
         return (
-            <h1>Hallo !</h1>
+            <div>
+                <Board />
+                <SideNav />
+            </div>
         )
     }
 
