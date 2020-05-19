@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './sidenav.scss';
+import './sidebar.scss';
 import '../../css/components/button.scss';
 import { BoardListItem } from '../boardListItem/boardListItem';
 
-export class SideNav extends React.Component<{}, SideNavState> {
+export class Sidebar extends React.Component<{}, SideNavState> {
 
     constructor(props: any) {
         super(props);

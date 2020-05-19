@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Board } from '../board/board';
-import { SideNav } from '../sidenav/sidenav';
+import { Sidebar } from '../sidebar/sidebar';
 
 export class Home extends React.Component {
 
@@ -9,7 +9,7 @@ export class Home extends React.Component {
         return (
             <div>
                 <Board />
-                <SideNav />
+                <Sidebar />
             </div>
         )
     }
