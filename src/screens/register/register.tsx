@@ -51,7 +51,7 @@ export class Register extends React.Component {
 
                             </div>
 
-                            <div className="panel-body">
+                            <div className="panel-body py-4">
                                 <div className="terms checkbox">
                                     <input id="terms" name="terms" type="checkbox" />
                                     <label htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</label>

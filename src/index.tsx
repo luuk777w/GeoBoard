@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './css/main.scss'
+import './css/main.scss';
 import './index.scss';
 import { Home } from './screens/home/home'
 import {

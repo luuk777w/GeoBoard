@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { AuthLayout } from '../../layouts/auth/auth';
 import { Link } from 'react-router-dom';
 
-import '../../css/components/forms.scss';
-import '../../css/components/panel.scss';
 import './login.scss';
 
 export class Login extends React.Component {

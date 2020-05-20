@@ -136,15 +136,15 @@ a.button {
 }
 
 .button-pd-1 {
-    padding: 0.225rem 0.25rem;
+    padding: 0.225rem 0.25rem !important;
 }
 
 .button-pd-2 {
-    padding: 0.45rem 0.5rem;
+    padding: 0.45rem 0.5rem !important;
 }
 
 .button-pd-3 {
-    padding: 0.9rem 1rem;
+    padding: 0.9rem 1rem !important;
 }
 
 .button-text-black {
@@ -188,6 +188,6 @@ a.button {
  * Button sizes
  */
 .button-small {
-    padding: .5rem 1rem;
+    padding: .5rem 1rem !important;
     font-size: .9em;
 }
