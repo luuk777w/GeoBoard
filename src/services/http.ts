@@ -1,5 +1,6 @@
 import { singleton, container } from "tsyringe";
 import { Config } from "./config";
+import $ from 'jquery';
 
 // https://github.com/microsoft/tsyringe
 @singleton()
