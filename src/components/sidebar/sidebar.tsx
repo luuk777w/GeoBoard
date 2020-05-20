@@ -3,6 +3,8 @@ import './sidebar.scss';
 import '../../css/components/button.scss';
 import { BoardListItem } from '../boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
+import { container } from "tsyringe";
+import { HttpService } from '../../services/http';
 
 export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
@@ -11,6 +13,8 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         this.state = { activeBoardId: '' };
 
         this.toggleBoard = this.toggleBoard.bind(this);
+
+        const instance = container.resolve(HttpService);
     }
 
     // Lifting state up \/
@@ -26,12 +30,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     render() {
 
         return (
-            <CSSTransition in={this.props.isOpen} timeout={2000} classNames={{
-                enter: 'animated',
-                enterActive: 'slideOutRight',
-                enterDone: 'animated slideOutRight',
-                exit: 'animated',
-                exitActive: 'slideInRight',
+            <CSSTransition in={this.props.isOpen} unmountOnExit={true} timeout={300} classNames={{
+                enter: 'animated slideInRight',
+                exit: 'animated slideOutRight'
             }}>
                 <div className="side-nav">
                     <div className="side-nav-header">

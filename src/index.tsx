@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/main.scss'
-import  './index.scss';
+import './index.scss';
 import { Home } from './components/home/home'
 import {
     BrowserRouter as Router,
@@ -9,7 +10,6 @@ import {
     Route,
 } from "react-router-dom";
 import { Navbar } from './components/navbar/navbar';
-
 
 class App extends Component<{}, AppState> {
 
@@ -23,7 +23,7 @@ class App extends Component<{}, AppState> {
 
     toggleSidebar() {
         this.setState(state => ({
-            sidebarIsOpen: ! state.sidebarIsOpen
+            sidebarIsOpen: !state.sidebarIsOpen
         }));
     }
 
