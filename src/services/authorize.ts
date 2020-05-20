@@ -11,7 +11,7 @@ export class AuthorizeService {
     }
 
     public async login(username: string, password: string, remember: boolean) {
-        await this.httpService.post('/account/authorize', {
+        return await this.httpService.post('/account/authorize', {
             username: username,
             password: password,
             rememberMe: remember
