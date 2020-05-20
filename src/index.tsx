@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/main.scss'
 import './index.scss';
-import { Home } from './components/home/home'
+import { Home } from './screens/home/home'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 import { Navbar } from './components/navbar/navbar';
+import { Login } from './screens/login/login';
+import { Register } from './screens/register/register';
 
 class App extends Component<{}, AppState> {
 
@@ -31,6 +33,8 @@ class App extends Component<{}, AppState> {
         return (
             <Router>
                 <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
                     <Route path="/">
                         <Navbar sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
                         <Home sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
@@ -41,7 +45,7 @@ class App extends Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('app'));
 
 interface AppState {
     sidebarIsOpen: boolean;

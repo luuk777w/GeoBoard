@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Board } from '../board/board';
-import { Sidebar } from '../sidebar/sidebar';
+import { Board } from '../../components/board/board';
+import { Sidebar } from '../../components/sidebar/sidebar';
+import { BaseLayout } from '../../layouts/base/base';
 
 export class Home extends React.Component<HomeProps, {}> {
 
@@ -11,10 +12,10 @@ export class Home extends React.Component<HomeProps, {}> {
 
     render() {
         return (
-            <>
+            <BaseLayout>
                 <Board />
                 <Sidebar isOpen={this.props.sidebarIsOpen} toggleSidebar={this.props.toggleSidebar} />
-            </>
+            </BaseLayout>
         )
     }
 

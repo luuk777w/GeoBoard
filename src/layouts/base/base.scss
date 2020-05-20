@@ -1,0 +1,93 @@
+@import "src/css/colors";
+
+.base-layout{
+    height: 100%;
+
+    background-color: $geoboard-light;
+    background-image: url('https://geoboard.luukwuijster.dev/images/bi2.jpg');
+    background-size: cover;
+}
+
+.navbar {
+    background: white;
+    color: $geoboard-dark;
+    display: flex;
+    flex-direction: row;
+    padding: 0 4rem;
+    align-items: center;
+    height: 4.5rem;
+    box-shadow: 0px 0px 12px -8px $gray900;
+    transition: background 250ms;
+    overflow: hidden;
+
+    .branding {
+        img {
+            max-height: 2.5rem;
+        }
+
+        margin-right: 2rem;
+    }
+
+    .board-info {
+        padding: 1.5rem 1rem;
+
+        .board-info-prefix {
+            display: block;
+            font-size: .8em;
+            color: $gray500;
+        }
+
+        .board-info-name {
+            display: block;
+            font-weight: 600;
+            color: $blue600;
+        }
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .nav-link {
+            padding: 1.5rem 1rem;
+
+            &.active {
+                font-weight: 600;
+                border-bottom: 3px solid $blue400;
+            }
+
+            &:not(:last-child) {
+                margin-right: .5rem;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .sidebar-link {
+            color: $gray500;
+        }
+    }
+
+}
+
+.notification {
+    display: none;
+    color: white;
+    background: $red700;
+    padding: .5rem 4em;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0px 6px 12px -12px $gray900;
+}
+
+.footer {
+    padding: 1.5rem;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
