@@ -2,19 +2,16 @@ import { singleton, container } from "tsyringe";
 import { Config } from "./config";
 import $ from 'jquery';
 
-// https://github.com/microsoft/tsyringe
 @singleton()
 export class HttpService {
 
     private config: Config;
 
     constructor() {
-        console.log("Hallo HttpService");
-
         this.config = container.resolve(Config);
     }
 
-    public async get(url: string) {
+    public async get<T>(url: string): Promise<T> {
         return await $.ajax({
             type: "get",
             url: `${this.config.apiUrl}${url}`,
@@ -22,7 +19,7 @@ export class HttpService {
         });
     }
 
-    public async post(url: string, data: any = null) {
+    public async post<T>(url: string, data?: T): Promise<T> {
         return await $.ajax({
             type: "post",
             data: data,
@@ -31,7 +28,7 @@ export class HttpService {
         });
     }
 
-    public async put(url: string, data: any = null) {
+    public async put<T>(url: string, data?: T): Promise<T> {
         return await $.ajax({
             type: "put",
             data: data,
@@ -43,7 +40,6 @@ export class HttpService {
     public async delete(url: string) {
         return await $.ajax({
             type: "delete",
-
             url: `${this.config.apiUrl}${url}`,
             contentType: "application/json"
         });

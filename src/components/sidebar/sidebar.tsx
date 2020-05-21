@@ -8,13 +8,15 @@ import { HttpService } from '../../services/http';
 
 export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
+    private httpService: HttpService;
+
     constructor(props: any) {
         super(props);
         this.state = { activeBoardId: '' };
 
         this.toggleBoard = this.toggleBoard.bind(this);
 
-        const instance = container.resolve(HttpService);
+        this.httpService = container.resolve(HttpService);
     }
 
     // Lifting state up \/
@@ -55,7 +57,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
                                 <div className="section-header-section create-board-section" style={{ display: "none" }}>
                                     <input type="text" name="boardName" />
-                                    <button className="button button-small button-green create-board-button" data-target="createBoard"><i className="fa fa-check"></i></button>
+                                    <button className="button button-small button-green create-board-button"><i className="fa fa-check"></i></button>
                                 </div>
                             </div>
 
