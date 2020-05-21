@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { UserViewModel } from 'models/UserViewModel';
 import { Direction } from 'models/Direction';
 
+import './boardElement.scss';
+
 export class BoardElement extends React.Component<BoardElementProps> {
 
     constructor(props: any) {
@@ -45,6 +47,6 @@ interface BoardElementProps {
     // TODO: Use direction Enum
     direction: Direction;
     note: string;
-    imagePath: string;
+    imagePath?: string;
     createdAt: string;
 }
