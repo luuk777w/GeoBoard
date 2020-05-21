@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidebar.scss';
 import '../../css/components/button.scss';
-import { BoardListItem } from '../boardListItem/boardListItem';
+import { BoardListItem } from './boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
 import { HttpService } from '../../services/http';
@@ -10,7 +10,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
     private httpService: HttpService;
 
-    constructor(props: any) {
+    constructor(props: SidebarProps) {
         super(props);
         this.state = { activeBoardId: '' };
 

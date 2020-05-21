@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './boardListItem.scss';
-import '../../css/components/button.scss';
+import '../../../css/components/button.scss';
 
 export class BoardListItem extends React.Component<BoardListItemProps> {
 
-    constructor(props: any) {
+    constructor(props: BoardListItemProps) {
         super(props);
 
         this.toggleBoard = this.toggleBoard.bind(this);

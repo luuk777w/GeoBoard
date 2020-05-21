@@ -6,7 +6,7 @@ import { BaseLayout } from '../../layouts/base/base';
 
 export class Home extends React.Component<HomeProps, {}> {
 
-    constructor(props: any) {
+    constructor(props: HomeProps) {
         super(props);
     }
 
