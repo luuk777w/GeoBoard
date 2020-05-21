@@ -7,7 +7,7 @@ import './boardElement.scss';
 
 export class BoardElement extends React.Component<BoardElementProps> {
 
-    constructor(props: any) {
+    constructor(props: BoardElementProps) {
         super(props);
     }
 

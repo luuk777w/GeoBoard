@@ -10,9 +10,9 @@ export class AuthorizeService {
         this.httpService = container.resolve(HttpService);
     }
 
-    public async login(username: string, password: string, remember: boolean) {
+    public async login(username: string, password: string, rememberMe: boolean) {
         return await this.httpService.post('/account/authorize', JSON.stringify({
-            username, password, rememberMe: remember
+            username, password, rememberMe
         }));
     }
 }
