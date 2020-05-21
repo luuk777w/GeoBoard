@@ -46,7 +46,7 @@ interface BoardElementProps {
     user: UserViewModel;
     // TODO: Use direction Enum
     direction: Direction;
-    note: string;
+    note?: string;
     imagePath?: string;
     createdAt: string;
 }
