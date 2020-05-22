@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Board } from '../../components/board/board';
-import { Sidebar } from '../../components/sidebar/sidebar';
+import Sidebar from '../../components/sidebar/sidebar';
 import { BaseLayout } from '../../layouts/base/base';
 
-export class Home extends React.Component<HomeProps, {}> {
+export class Home extends React.Component {
 
-    constructor(props: HomeProps) {
+    constructor(props: any) {
         super(props);
     }
 
@@ -14,14 +13,9 @@ export class Home extends React.Component<HomeProps, {}> {
         return (
             <BaseLayout>
                 <Board />
-                <Sidebar isOpen={this.props.sidebarIsOpen} toggleSidebar={this.props.toggleSidebar} />
+                <Sidebar />
             </BaseLayout>
         )
     }
 
-}
-
-interface HomeProps {
-    sidebarIsOpen: boolean;
-    toggleSidebar: () => void;
 }

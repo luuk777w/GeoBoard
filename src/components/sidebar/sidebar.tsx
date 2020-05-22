@@ -5,8 +5,19 @@ import { BoardListItem } from './boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
 import { HttpService } from '../../services/http';
+import { connect } from "react-redux";
+import { AppState } from '../../store';
+import { toggleSidebar } from "../../store/sidebar/actions"
 
-export class Sidebar extends React.Component<SidebarProps, SidebarState> {
+interface SidebarProps {
+    isOpen?: boolean;
+}
+
+interface SidebarState {
+    activeBoardId: string;
+}
+
+class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
     private httpService: HttpService;
 
@@ -39,7 +50,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 <div className="side-nav">
                     <div className="side-nav-header">
                         <h4 className="m-0">Menu</h4>
-                        <span className="close-sidebar" title="Close sidebar" onClick={this.props.toggleSidebar}>
+                        <span className="close-sidebar" title="Close sidebar" onClick={() => toggleSidebar()}>
                             <i className="fas fa-times fa-lg"></i>
                         </span>
                     </div>
@@ -95,11 +106,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     }
 }
 
-interface SidebarState {
-    activeBoardId: string;
-}
+const mapStateToProps = (state: AppState) => ({
+    sidebar: state.sidebar
+})
 
-interface SidebarProps {
-    isOpen: boolean;
-    toggleSidebar: () => void;
-}
+export default connect(mapStateToProps, { toggleSidebar })(Sidebar);
+

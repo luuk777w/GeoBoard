@@ -9,38 +9,34 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import { Navbar } from './components/navbar/navbar';
+import Navbar from './components/navbar/navbar';
 import { Login } from './screens/login/login';
 import { Register } from './screens/register/register';
+import { Provider } from 'react-redux';
+import configureStore from "./store/index";
 
 class App extends Component<{}, AppState> {
 
+    store = configureStore();
+
     constructor(props: any) {
         super(props);
-
-        this.state = {
-            sidebarIsOpen: false
-        };
-    }
-
-    toggleSidebar() {
-        this.setState(state => ({
-            sidebarIsOpen: !state.sidebarIsOpen
-        }));
     }
 
     render() {
         return (
-            <Router>
-                <Switch>
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/">
-                        <Navbar sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
-                        <Home sidebarIsOpen={this.state.sidebarIsOpen} toggleSidebar={() => this.toggleSidebar()} />
-                    </Route>
-                </Switch>
-            </Router>
+            <Provider store={this.store}>
+                <Router>
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/">
+                            <Navbar />
+                            <Home />
+                        </Route>
+                    </Switch>
+                </Router>
+            </Provider>
         )
     }
 }

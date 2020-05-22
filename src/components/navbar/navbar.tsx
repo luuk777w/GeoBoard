@@ -1,12 +1,14 @@
 import React from 'react';
 import './navbar.scss';
 import '../../css/spacing.scss';
-import {
-    Link
-} from "react-router-dom";
+import { toggleSidebar } from '../../store/sidebar/actions'
+import { connect } from "react-redux";
 
+class Navbar extends React.Component {
 
-export class Navbar extends React.Component<NavbarProps, {}> {
+    constructor(props: any) {
+        super(props);
+    }
 
     render() {
 
@@ -37,7 +39,7 @@ export class Navbar extends React.Component<NavbarProps, {}> {
                     <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
-                    <li className="nav-link sidebar-link" onClick={this.props.toggleSidebar}>
+                    <li className="nav-link sidebar-link" onClick={() => toggleSidebar()}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
@@ -47,7 +49,4 @@ export class Navbar extends React.Component<NavbarProps, {}> {
     }
 }
 
-interface NavbarProps {
-    sidebarIsOpen: boolean;
-    toggleSidebar: () => void;
-}
+export default connect(null, toggleSidebar)(Navbar);
