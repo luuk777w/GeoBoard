@@ -1,12 +1,12 @@
-import React from 'react';
-import { toggleSidebar } from 'store/sidebar/actions'
-import { connect } from "react-redux";
-
 import 'css/spacing.scss';
 import './navbar.scss';
-import { toggleDarkTheme } from 'store/system/actions';
-import { SystemState } from 'store/system/types';
+
 import { AppState } from 'store';
+import React from 'react';
+import { SystemState } from 'store/system/types';
+import { connect } from "react-redux";
+import { toggleDarkTheme } from 'store/system/actions';
+import { toggleSidebar } from 'store/sidebar/actions'
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
@@ -65,6 +65,6 @@ class Navbar extends React.Component<NavbarProps> {
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system,
-})
+});
 
 export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);

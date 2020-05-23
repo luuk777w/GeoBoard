@@ -1,6 +1,6 @@
-import { createStore, combineReducers } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { combineReducers, createStore } from "redux";
 
+import { composeWithDevTools } from "redux-devtools-extension";
 import { sidebarReducer } from "./sidebar/reducers";
 import { systemReducers } from "./system/reducers";
 

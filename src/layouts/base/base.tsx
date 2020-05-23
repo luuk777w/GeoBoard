@@ -7,7 +7,7 @@ import { AppState } from 'store';
 import { connect } from 'react-redux';
 
 interface BaseLayoutProps {
-    system?: SystemState;
+    system: SystemState;
     children: any;
 }
 
@@ -19,7 +19,7 @@ class BaseLayout extends React.Component<BaseLayoutProps> {
 
     render() {
         return (
-            <div className={this.props.system?.darkThemeIsActive ? "base-layout dark-theme" : "base-layout"}>
+            <div className={this.props.system.darkThemeIsActive ? "base-layout dark-theme" : "base-layout"}>
                 <Navbar />
                 <Sidebar />
                 {this.props.children}
@@ -32,4 +32,4 @@ const mapStateToProps = (state: AppState) => ({
     system: state.system,
 })
 
-export default connect(mapStateToProps, null)(BaseLayout);
+export default connect(mapStateToProps, {})(BaseLayout);
