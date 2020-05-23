@@ -6,12 +6,3 @@ export function toggleSidebar() {
         payload: {}
     }
 }
-
-export function setBoardId(activeBoardId: string) {
-    return {
-        type: SET_BOARDID,
-        payload: {
-            activeBoardId: activeBoardId
-        }
-    }
-}

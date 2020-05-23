@@ -7,11 +7,13 @@ import { SystemState } from 'store/system/types';
 import { connect } from "react-redux";
 import { toggleDarkTheme } from 'store/system/actions';
 import { toggleSidebar } from 'store/sidebar/actions'
+import { BoardState } from 'store/board/types';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
     system: SystemState;
+    board: BoardState;
 }
 
 class Navbar extends React.Component<NavbarProps> {
@@ -21,10 +23,6 @@ class Navbar extends React.Component<NavbarProps> {
     }
 
     render() {
-
-        //TODO implementeer dit
-        const currentBoard = "Hallo"
-
         return (
             <nav className="navbar">
                 <div className="branding">
@@ -35,10 +33,13 @@ class Navbar extends React.Component<NavbarProps> {
                     }
 
                 </div>
-                <div className="board-info">
-                    <span className="board-info-prefix">Current board</span>
-                    <span className="board-info-name">{currentBoard}</span>
-                </div>
+
+                {this.props.board.activeBoardId &&
+                    <div className="board-info">
+                        <span className="board-info-prefix">Current board</span>
+                        <span className="board-info-name">{this.props.board.activeBoardName}</span>
+                    </div>
+                }
 
                 <ul className="active-board-users">
 
@@ -65,6 +66,7 @@ class Navbar extends React.Component<NavbarProps> {
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system,
+    board: state.board
 });
 
 export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);
