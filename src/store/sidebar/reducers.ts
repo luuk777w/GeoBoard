@@ -1,8 +1,7 @@
-import { TOGGLE_SIDEBAR, SET_BOARDID, SidebarState, SidebarActionTypes } from "./types";
+import { TOGGLE_SIDEBAR, SidebarState, SidebarActionTypes } from "./types";
 
 const initialState: SidebarState = {
     isOpen: true,
-    activeBoardId: ''
 }
 
 export function sidebarReducer(state = initialState, action: SidebarActionTypes): SidebarState {
@@ -12,12 +11,6 @@ export function sidebarReducer(state = initialState, action: SidebarActionTypes)
                 ...state,
                 isOpen: !state.isOpen
             };
-        }
-        case SET_BOARDID: {
-            return {
-                ...state,
-                activeBoardId: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardId
-            }
         }
         default:
             return state;

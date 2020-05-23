@@ -1,6 +1,5 @@
 export interface SidebarState {
     isOpen: boolean;
-    activeBoardId: string;
 }
 
 export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
@@ -11,12 +10,7 @@ interface ToggleSidebarAction {
     payload: SidebarState;
 }
 
-interface SetBoardIdAction {
-    type: typeof SET_BOARDID;
-    payload: SidebarState;
-}
-
-export type SidebarActionTypes = ToggleSidebarAction | SetBoardIdAction;
+export type SidebarActionTypes = ToggleSidebarAction;
 
 //Wanneer er meer actions zijn defineer je dat alsvolgt:
 //export type SidebarActioTypes = ToggleSidebarAction | ANDER_INTERFACE HIER | ETC
