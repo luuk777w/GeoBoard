@@ -1,9 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './boardListItem.scss';
 import '../../../css/components/button.scss';
+import { connect } from 'react-redux';
+import { AppState } from 'store';
+import { setBoardId } from 'store/sidebar/actions';
+import { sidebarState } from 'store/sidebar/types';
 
-export class BoardListItem extends React.Component<BoardListItemProps> {
+interface BoardListItemProps {
+    boardId: string;
+    boardName: string;
+    username?: string;
+    timestamp?: string;
+    isOwner?: boolean;
+    sidebar: sidebarState;
+    setBoardId: typeof setBoardId;
+}
+
+class BoardListItem extends React.Component<BoardListItemProps> {
 
     constructor(props: BoardListItemProps) {
         super(props);
@@ -12,7 +25,7 @@ export class BoardListItem extends React.Component<BoardListItemProps> {
     }
 
     toggleBoard() {
-        this.props.onClick(this);
+        this.props.setBoardId(this.props.boardId);
     }
 
     render() {
@@ -20,7 +33,7 @@ export class BoardListItem extends React.Component<BoardListItemProps> {
         //Conditional rendering
         //Lees hier meer: https://reactjs.org/docs/conditional-rendering.html
 
-        const isActive = this.props.activeBoardId == this.props.boardId ? true : false
+        const isActive = this.props.sidebar.activeBoardId == this.props.boardId ? true : false
 
         return (
             <li className={isActive ? "board-list-item active" : "board-list-item"} onClick={this.toggleBoard}>
@@ -38,12 +51,8 @@ export class BoardListItem extends React.Component<BoardListItemProps> {
     }
 }
 
-interface BoardListItemProps {
-    boardId: string;
-    boardName: string;
-    activeBoardId: string;
-    onClick: any;
-    username?: string;
-    timestamp?: string;
-    isOwner?: boolean;
-}
+const mapStateToProps = (state: AppState) => ({
+    sidebar: state.sidebar
+})
+
+export default connect(mapStateToProps, { setBoardId })(BoardListItem)

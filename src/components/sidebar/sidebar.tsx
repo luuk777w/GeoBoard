@@ -1,56 +1,41 @@
 import React from 'react';
 import './sidebar.scss';
-import '../../css/components/button.scss';
-import { BoardListItem } from './boardListItem/boardListItem';
+import 'css/components/button.scss';
+import BoardListItem from './boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
-import { HttpService } from '../../services/http';
 import { connect } from "react-redux";
-import { AppState } from '../../store';
-import { toggleSidebar } from "../../store/sidebar/actions"
+import { AppState } from 'store';
+import { sidebarState } from 'store/sidebar/types';
+import { toggleSidebar } from "store/sidebar/actions"
+import { HttpService } from 'services/http';
 
 interface SidebarProps {
-    isOpen?: boolean;
+    toggleSidebar: typeof toggleSidebar;
+    sidebar: sidebarState;
 }
 
-interface SidebarState {
-    activeBoardId: string;
-}
-
-class Sidebar extends React.Component<SidebarProps, SidebarState> {
+class Sidebar extends React.Component<SidebarProps> {
 
     private httpService: HttpService;
 
     constructor(props: SidebarProps) {
         super(props);
-        this.state = { activeBoardId: '' };
-
-        this.toggleBoard = this.toggleBoard.bind(this);
 
         this.httpService = container.resolve(HttpService);
-    }
-
-    // Lifting state up \/
-    // Lees hier meer: https://reactjs.org/docs/lifting-state-up.html
-    toggleBoard(board: BoardListItem) {
-        const boardId = board.props.boardId;
-
-        this.setState(state => ({
-            activeBoardId: state.activeBoardId == boardId ? "" : boardId
-        }));
     }
 
     render() {
 
         return (
-            <CSSTransition in={this.props.isOpen} unmountOnExit={true} timeout={300} classNames={{
+            <CSSTransition in={this.props.sidebar.isOpen} unmountOnExit={true} timeout={300} classNames={{
                 enter: 'animated slideInRight',
                 exit: 'animated slideOutRight'
             }}>
                 <div className="side-nav">
                     <div className="side-nav-header">
                         <h4 className="m-0">Menu</h4>
-                        <span className="close-sidebar" title="Close sidebar" onClick={() => toggleSidebar()}>
+                        <span className="close-sidebar" title="Close sidebar" onClick={this.props.toggleSidebar}>
                             <i className="fas fa-times fa-lg"></i>
                         </span>
                     </div>
@@ -77,16 +62,14 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
                                     boardId="id1"
                                     boardName="Yo-Yo Yoghurt"
                                     username="Matthijs"
-                                    activeBoardId={this.state.activeBoardId}
-                                    onClick={this.toggleBoard} />
+                                />
 
                                 <BoardListItem
                                     boardId="id2"
                                     boardName="Coolheid"
                                     timestamp="02:47 19/05/2020"
                                     isOwner={true}
-                                    activeBoardId={this.state.activeBoardId}
-                                    onClick={this.toggleBoard} />
+                                />
                             </ul>
 
                             {/* <p className="side-nav-text">You don't own any boards. Create one!</p> */}
@@ -107,7 +90,7 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    sidebar: state.sidebar
+    sidebar: state.sidebar,
 })
 
 export default connect(mapStateToProps, { toggleSidebar })(Sidebar);

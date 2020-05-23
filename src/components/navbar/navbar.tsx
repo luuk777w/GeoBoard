@@ -4,7 +4,11 @@ import '../../css/spacing.scss';
 import { toggleSidebar } from '../../store/sidebar/actions'
 import { connect } from "react-redux";
 
-class Navbar extends React.Component {
+interface NavbarProps {
+    toggleSidebar: typeof toggleSidebar;
+}
+
+class Navbar extends React.Component<NavbarProps> {
 
     constructor(props: any) {
         super(props);
@@ -26,7 +30,7 @@ class Navbar extends React.Component {
                     <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" style={displayNone} />
                 </div>
                 <div className="board-info">
-                    <span className="board-info-prefix">Current board</span>
+                    <span className="board-info-pre fix">Current board</span>
                     <span className="board-info-name">{currentBoard}</span>
                 </div>
 
@@ -39,14 +43,13 @@ class Navbar extends React.Component {
                     <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
-                    <li className="nav-link sidebar-link" onClick={() => toggleSidebar()}>
+                    <li className="nav-link sidebar-link" onClick={this.props.toggleSidebar}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
-
             </nav>
         )
     }
 }
 
-export default connect(null, toggleSidebar)(Navbar);
+export default connect(null, { toggleSidebar })(Navbar);

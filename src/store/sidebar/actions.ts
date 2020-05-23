@@ -1,9 +1,17 @@
-import { sidebarState, TOGGLE_SIDEBAR } from "./types";
+import { TOGGLE_SIDEBAR, SET_BOARDID, sidebarState } from "./types";
 
 export function toggleSidebar() {
-    console.log("hoi");
     return {
         type: TOGGLE_SIDEBAR,
         payload: {}
+    }
+}
+
+export function setBoardId(activeBoardId: string) {
+    return {
+        type: SET_BOARDID,
+        payload: {
+            activeBoardId: activeBoardId
+        }
     }
 }

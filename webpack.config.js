@@ -9,7 +9,17 @@ module.exports = {
     },
     mode: "development",
     resolve: {
-        extensions: ['.js', '.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx'],
+        alias: {
+            components: path.resolve(__dirname, 'src/components'),
+            css: path.resolve(__dirname, 'src/css'),
+            layouts: path.resolve(__dirname, 'src/layouts'),
+            models: path.resolve(__dirname, 'src/models'),
+            screens: path.resolve(__dirname, 'src/screens'),
+            services: path.resolve(__dirname, 'src/services'),
+            store: path.resolve(__dirname, 'src/store'),
+            typings: path.resolve(__dirname, 'src/typings'),
+        }
     },
     module: {
         rules: [
