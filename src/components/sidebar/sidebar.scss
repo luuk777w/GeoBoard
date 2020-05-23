@@ -1,7 +1,7 @@
 @import "src/css/colors";
 @import "src/css/variables";
 
-.side-nav {
+.sidebar {
     display: block;
     position: absolute;
     right: 0;
@@ -15,7 +15,7 @@
     animation-duration: 0.3s;
     transition: background 250ms;
 
-    .side-nav-header {
+    .sidebar-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -38,7 +38,7 @@
 
 
 
-    .side-nav-body {
+    .sidebar-body {
         padding: 1rem;
 
         .section-header {
@@ -49,7 +49,7 @@
             padding: .5rem;
             transition: border-color 250ms;
 
-            .side-nav-section-title {
+            .sidebar-section-title {
                 margin: 0;
                 color: $geoboard-dark;
             }
@@ -74,7 +74,7 @@
             }
         }
 
-        .side-nav-text {
+        .sidebar-text {
             padding: .5rem;
             color: $gray500;
             margin-top: 0;
@@ -84,6 +84,40 @@
             list-style: none;
             padding: 0;
             border-radius: $border-radius;
+        }
+    }
+}
+
+/**
+ * Dark theme
+ */
+#app .dark-theme {
+    .sidebar {
+        background: $geoboard-dark;
+        color: white;
+
+        .sidebar-header {
+            background-color: darken($geoboard-dark, 5%);
+        }
+
+        .sidebar-body {
+            .section-header {
+                border-color: darken($geoboard-dark, 5%);
+
+                .sidebar-section-title {
+                    color: white;
+                }
+            }
+
+            .board-list-item {
+                background: darken($geoboard-dark, 5%);
+                color: white;
+                border-color: darken($geoboard-dark, 10%);
+
+                &[data-target]:hover {
+                    background: darken($geoboard-dark, 10%);
+                }
+            }
         }
     }
 }

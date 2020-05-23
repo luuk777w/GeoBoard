@@ -9,7 +9,6 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import Navbar from './components/navbar/navbar';
 import { Login } from './screens/login/login';
 import { Register } from './screens/register/register';
 import { Provider } from 'react-redux';
@@ -30,10 +29,7 @@ class App extends Component<{}, AppState> {
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
-                        <Route path="/">
-                            <Navbar />
-                            <Home />
-                        </Route>
+                        <Route path="/" component={Home} />
                     </Switch>
                 </Router>
             </Provider>

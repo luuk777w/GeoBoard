@@ -11,7 +11,7 @@ export class Board extends React.Component {
 
     render() {
         return (
-            <>
+            <div className="board-elements">
                 <BoardElement
                     id="1234"
                     number={1}
@@ -28,7 +28,7 @@ export class Board extends React.Component {
                     imagePath="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T22.03.37.797.jpg"
                     createdAt="21-05-2020 20:01"
                 />
-            </>
+            </div>
         )
     }
 

@@ -32,22 +32,22 @@ class Sidebar extends React.Component<SidebarProps> {
                 enter: 'animated slideInRight',
                 exit: 'animated slideOutRight'
             }}>
-                <div className="side-nav">
-                    <div className="side-nav-header">
+                <aside className="sidebar">
+                    <div className="sidebar-header">
                         <h4 className="m-0">Menu</h4>
                         <span className="close-sidebar" title="Close sidebar" onClick={this.props.toggleSidebar}>
                             <i className="fas fa-times fa-lg"></i>
                         </span>
                     </div>
 
-                    <div className="side-nav-body">
+                    <div className="sidebar-body">
                         {/*TODO ALERT HERE*/}
 
-                        <div className="side-nav-section">
+                        <div className="sidebar-section">
                             <div className="section-header">
 
                                 <div className="section-header-section">
-                                    <h3 className="side-nav-section-title side-nav-my-boards">My boards</h3>
+                                    <h3 className="sidebar-section-title sidebar-my-boards">My boards</h3>
                                     <button className="button button-small button-green" data-target="toggleCreateBoard">Create board</button>
                                 </div>
 
@@ -72,18 +72,18 @@ class Sidebar extends React.Component<SidebarProps> {
                                 />
                             </ul>
 
-                            {/* <p className="side-nav-text">You don't own any boards. Create one!</p> */}
+                            {/* <p className="sidebar-text">You don't own any boards. Create one!</p> */}
                         </div>
 
-                        <div className="side-nav-section">
+                        <div className="sidebar-section">
                             <div className="section-header">
-                                <h3 className="side-nav-section-title">My snapshots</h3>
+                                <h3 className="sidebar-section-title">My snapshots</h3>
                             </div>
 
-                            <p className="side-nav-text">No snapshots available.</p>
+                            <p className="sidebar-text">No snapshots available.</p>
                         </div>
                     </div>
-                </div>
+                </aside>
             </CSSTransition>
         )
     }

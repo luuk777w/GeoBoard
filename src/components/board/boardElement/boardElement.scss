@@ -159,3 +159,36 @@
         }
     }
 }
+
+/**
+ * Dark theme
+ */
+#app .dark-theme {
+
+    .board-element-header,
+    .board-element-body,
+    .board-element-footer {
+        background: $geoboard-dark;
+        color: white;
+    }
+
+    .board-element-body {
+        .board-element-message {
+            border-color: darken($geoboard-dark, 5%);
+        }
+
+        textarea {
+            background: $geoboard-dark;
+            color: white;
+            border-color: darken($geoboard-dark, 5%);
+        }
+    }
+
+    .board-element-footer {
+        border-color: darken($geoboard-dark, 5%);
+
+        .board-element-timestamp {
+            background-color: darken($geoboard-dark, 5%);
+        }
+    }
+}
