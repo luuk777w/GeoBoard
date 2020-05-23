@@ -1,11 +1,11 @@
-import { TOGGLE_SIDEBAR, SET_BOARDID, sidebarState, SidebarActionTypes } from "./types";
+import { TOGGLE_SIDEBAR, SET_BOARDID, SidebarState, SidebarActionTypes } from "./types";
 
-const initialState: sidebarState = {
+const initialState: SidebarState = {
     isOpen: true,
     activeBoardId: ''
 }
 
-export function sidebarReducer(state = initialState, action: SidebarActionTypes): sidebarState {
+export function sidebarReducer(state = initialState, action: SidebarActionTypes): SidebarState {
     switch (action.type) {
         case TOGGLE_SIDEBAR: {
             return {

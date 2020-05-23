@@ -1,10 +1,10 @@
 import React from 'react';
 import './boardListItem.scss';
-import '../../../css/components/button.scss';
+import 'css/components/button.scss';
 import { connect } from 'react-redux';
 import { AppState } from 'store';
 import { setBoardId } from 'store/sidebar/actions';
-import { sidebarState } from 'store/sidebar/types';
+import { SidebarState } from 'store/sidebar/types';
 
 interface BoardListItemProps {
     boardId: string;
@@ -12,7 +12,7 @@ interface BoardListItemProps {
     username?: string;
     timestamp?: string;
     isOwner?: boolean;
-    sidebar: sidebarState;
+    sidebar: SidebarState;
     setBoardId: typeof setBoardId;
 }
 

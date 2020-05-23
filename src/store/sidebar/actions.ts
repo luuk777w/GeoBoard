@@ -1,4 +1,4 @@
-import { TOGGLE_SIDEBAR, SET_BOARDID, sidebarState } from "./types";
+import { TOGGLE_SIDEBAR, SET_BOARDID } from "./types";
 
 export function toggleSidebar() {
     return {

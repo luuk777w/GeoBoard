@@ -1,7 +1,7 @@
 import React from 'react';
 import './navbar.scss';
-import '../../css/spacing.scss';
-import { toggleSidebar } from '../../store/sidebar/actions'
+import 'css/spacing.scss';
+import { toggleSidebar } from 'store/sidebar/actions'
 import { connect } from "react-redux";
 
 interface NavbarProps {
@@ -30,7 +30,7 @@ class Navbar extends React.Component<NavbarProps> {
                     <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" style={displayNone} />
                 </div>
                 <div className="board-info">
-                    <span className="board-info-pre fix">Current board</span>
+                    <span className="board-info-prenfix">Current board</span>
                     <span className="board-info-name">{currentBoard}</span>
                 </div>
 

@@ -6,13 +6,13 @@ import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
 import { connect } from "react-redux";
 import { AppState } from 'store';
-import { sidebarState } from 'store/sidebar/types';
+import { SidebarState as SidebarState } from 'store/sidebar/types';
 import { toggleSidebar } from "store/sidebar/actions"
 import { HttpService } from 'services/http';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
-    sidebar: sidebarState;
+    sidebar: SidebarState;
 }
 
 class Sidebar extends React.Component<SidebarProps> {
