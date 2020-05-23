@@ -14,7 +14,7 @@ import { Register } from './screens/register/register';
 import { Provider } from 'react-redux';
 import configureStore from "./store/index";
 
-class App extends Component<{}, AppState> {
+class App extends Component {
 
     store = configureStore();
 
@@ -38,7 +38,3 @@ class App extends Component<{}, AppState> {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-interface AppState {
-    sidebarIsOpen: boolean;
-}
