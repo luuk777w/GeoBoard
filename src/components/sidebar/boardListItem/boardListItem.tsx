@@ -2,7 +2,7 @@ import React from 'react';
 import './boardListItem.scss';
 import 'css/components/button.scss';
 import { connect } from 'react-redux';
-import { AppState } from 'store';
+import { RootState } from 'store';
 import { setBoardId } from 'store/sidebar/actions';
 import { SidebarState } from 'store/sidebar/types';
 
@@ -51,7 +51,7 @@ class BoardListItem extends React.Component<BoardListItemProps> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: RootState) => ({
     sidebar: state.sidebar
 })
 

@@ -113,7 +113,7 @@
 /**
  * Dark theme
  */
-#app .dark-theme {
+.base-layout.dark-theme .navbar {
     background: $geoboard-dark;
     color: white;
 }

@@ -3,10 +3,6 @@
 
 #app {
 
-    &.dark-theme {
-        background-color: lighten($geoboard-dark, 10%);
-    }
-
     .board-container {
         overflow: auto;
         display: flex;

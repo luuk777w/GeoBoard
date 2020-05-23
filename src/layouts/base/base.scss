@@ -6,6 +6,10 @@
     background-color: $geoboard-light;
     background-image: url('https://geoboard.luukwuijster.dev/images/bi2.jpg');
     background-size: cover;
+
+    &.dark-theme {
+        background-color: lighten($geoboard-dark, 10%);
+    }
 }
 
 .notification {

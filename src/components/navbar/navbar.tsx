@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 
 import 'css/spacing.scss';
 import './navbar.scss';
+import { toggleDarkTheme } from 'store/app/actions';
+import { AppState } from 'store/app/types';
+import { RootState } from 'store';
 
 interface NavbarProps {
+    toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
+    app: AppState;
 }
 
 class Navbar extends React.Component<NavbarProps> {
 
-    constructor(props: any) {
+    constructor(props: NavbarProps) {
         super(props);
     }
 
@@ -20,15 +25,15 @@ class Navbar extends React.Component<NavbarProps> {
         //TODO implementeer dit
         const currentBoard = "Hallo"
 
-        const displayNone = {
-            display: "none"
-        }
-
         return (
             <nav className="navbar">
                 <div className="branding">
-                    <img className="logo-dark" src="../assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
-                    <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" style={displayNone} />
+
+                {this.props.app.darkThemeIsActive
+                    ? <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" />
+                    : <img className="logo-dark" src="../assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
+                }
+
                 </div>
                 <div className="board-info">
                     <span className="board-info-prefix">Current board</span>
@@ -40,7 +45,12 @@ class Navbar extends React.Component<NavbarProps> {
                 </ul>
 
                 <ul className="nav-links ml-auto">
-                    <li className="nav-link" data-target="theme"></li>
+                    <li className="nav-link" onClick={this.props.toggleDarkTheme}>
+                        {this.props.app.darkThemeIsActive
+                            ? <i className="far fa-sun fa-lg fa-fw"></i>
+                            : <i className="fas fa-moon fa-lg fa-fw"></i>
+                        }
+                    </li>
                     <li className="nav-link" data-target="logout">
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
@@ -53,4 +63,8 @@ class Navbar extends React.Component<NavbarProps> {
     }
 }
 
-export default connect(null, { toggleSidebar })(Navbar);
+const mapStateToProps = (state: RootState) => ({
+    app: state.app,
+})
+
+export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);

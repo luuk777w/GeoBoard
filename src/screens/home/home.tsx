@@ -1,6 +1,6 @@
 import React from 'react';
-import { Board } from '../../components/board/board';
-import { BaseLayout } from '../../layouts/base/base';
+import { Board } from 'components/board/board';
+import BaseLayout from 'layouts/base/base';
 
 import './home.scss';
 
