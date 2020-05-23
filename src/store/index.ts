@@ -2,14 +2,14 @@ import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { sidebarReducer } from "./sidebar/reducers";
-import { appReducers } from "./app/reducers";
+import { systemReducers } from "./system/reducers";
 
 const rootReducer = combineReducers({
-    app: appReducers,
+    system: systemReducers,
     sidebar: sidebarReducer,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
     const store = createStore(rootReducer, composeWithDevTools());

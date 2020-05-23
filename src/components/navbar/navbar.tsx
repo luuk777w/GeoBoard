@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 
 import 'css/spacing.scss';
 import './navbar.scss';
-import { toggleDarkTheme } from 'store/app/actions';
-import { AppState } from 'store/app/types';
-import { RootState } from 'store';
+import { toggleDarkTheme } from 'store/system/actions';
+import { SystemState } from 'store/system/types';
+import { AppState } from 'store';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
-    app: AppState;
+    system: SystemState;
 }
 
 class Navbar extends React.Component<NavbarProps> {
@@ -29,10 +29,10 @@ class Navbar extends React.Component<NavbarProps> {
             <nav className="navbar">
                 <div className="branding">
 
-                {this.props.app.darkThemeIsActive
-                    ? <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" />
-                    : <img className="logo-dark" src="../assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
-                }
+                    {this.props.system.darkThemeIsActive
+                        ? <img className="logo-light" src="../assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" />
+                        : <img className="logo-dark" src="../assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
+                    }
 
                 </div>
                 <div className="board-info">
@@ -46,7 +46,7 @@ class Navbar extends React.Component<NavbarProps> {
 
                 <ul className="nav-links ml-auto">
                     <li className="nav-link" onClick={this.props.toggleDarkTheme}>
-                        {this.props.app.darkThemeIsActive
+                        {this.props.system.darkThemeIsActive
                             ? <i className="far fa-sun fa-lg fa-fw"></i>
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
@@ -63,8 +63,8 @@ class Navbar extends React.Component<NavbarProps> {
     }
 }
 
-const mapStateToProps = (state: RootState) => ({
-    app: state.app,
+const mapStateToProps = (state: AppState) => ({
+    system: state.system,
 })
 
 export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);

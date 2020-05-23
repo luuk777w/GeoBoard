@@ -1,10 +1,10 @@
-import { TOGGLE_DARK_THEME, AppState, AppActionTypes } from "./types";
+import { TOGGLE_DARK_THEME, SystemState, SystemActionTypes } from "./types";
 
-const initialState: AppState = {
+const initialState: SystemState = {
     darkThemeIsActive: false
 }
 
-export function appReducers(state = initialState, action: AppActionTypes): AppState {
+export function systemReducers(state = initialState, action: SystemActionTypes): SystemState {
     switch (action.type) {
         case TOGGLE_DARK_THEME: {
             return {

@@ -2,12 +2,12 @@ import React from 'react';
 import Navbar from 'components/navbar/navbar';
 import Sidebar from 'components/sidebar/sidebar';
 import './base.scss';
-import { AppState } from 'store/app/types';
-import { RootState } from 'store';
+import { SystemState } from 'store/system/types';
+import { AppState } from 'store';
 import { connect } from 'react-redux';
 
 interface BaseLayoutProps {
-    app?: AppState;
+    system?: SystemState;
     children: any;
 }
 
@@ -19,7 +19,7 @@ class BaseLayout extends React.Component<BaseLayoutProps> {
 
     render() {
         return (
-            <div className={this.props.app?.darkThemeIsActive ? "base-layout dark-theme" : "base-layout"}>
+            <div className={this.props.system?.darkThemeIsActive ? "base-layout dark-theme" : "base-layout"}>
                 <Navbar />
                 <Sidebar />
                 {this.props.children}
@@ -28,8 +28,8 @@ class BaseLayout extends React.Component<BaseLayoutProps> {
     }
 }
 
-const mapStateToProps = (state: RootState) => ({
-    app: state.app,
+const mapStateToProps = (state: AppState) => ({
+    system: state.system,
 })
 
 export default connect(mapStateToProps, null)(BaseLayout);

@@ -5,7 +5,7 @@ import BoardListItem from './boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
 import { connect } from "react-redux";
-import { RootState } from 'store';
+import { AppState } from 'store';
 import { SidebarState as SidebarState } from 'store/sidebar/types';
 import { toggleSidebar } from "store/sidebar/actions"
 import { HttpService } from 'services/http';
@@ -89,7 +89,7 @@ class Sidebar extends React.Component<SidebarProps> {
     }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: AppState) => ({
     sidebar: state.sidebar,
 })
 
