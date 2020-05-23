@@ -50,3 +50,17 @@
     }
 }
 
+/**
+ * Dark theme
+ */
+ .base-layout.dark-theme {
+    .board-list-item:not(.active) {
+        background: darken($geoboard-dark, 5%);
+        color: white;
+        border-color: darken($geoboard-dark, 10%);
+
+        &[data-target]:hover {
+            background: darken($geoboard-dark, 10%);
+        }
+    }
+ }
