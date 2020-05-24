@@ -5,7 +5,7 @@ module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'public')
     },
     mode: "development",
     resolve: {
@@ -54,7 +54,7 @@ module.exports = {
     ],
     devServer: {
         historyApiFallback: true,
-        contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, 'public'),
         port: 8888
     }
 };
