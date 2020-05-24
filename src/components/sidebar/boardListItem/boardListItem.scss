@@ -53,7 +53,7 @@
 /**
  * Dark theme
  */
- .base-layout.dark-theme {
+ .home-container.dark-theme {
     .board-list-item:not(.active) {
         background: darken($geoboard-dark, 5%);
         color: white;

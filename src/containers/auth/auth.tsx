@@ -4,7 +4,7 @@ import './auth.scss';
 import '../../css/components/forms.scss';
 import '../../css/components/panel.scss';
 
-export class AuthLayout extends React.Component {
+export class AuthContainer extends React.Component {
 
     constructor(props: any) {
         super(props);
@@ -12,7 +12,7 @@ export class AuthLayout extends React.Component {
 
     render() {
         return (
-            <div className="auth-layout">
+            <div className="auth-container">
                 {this.props.children}
             </div>
         )

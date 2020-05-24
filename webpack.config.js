@@ -13,12 +13,13 @@ module.exports = {
         alias: {
             components: path.resolve(__dirname, 'src/components'),
             css: path.resolve(__dirname, 'src/css'),
-            layouts: path.resolve(__dirname, 'src/layouts'),
+            containers: path.resolve(__dirname, 'src/containers'),
             models: path.resolve(__dirname, 'src/models'),
-            screens: path.resolve(__dirname, 'src/screens'),
+            views: path.resolve(__dirname, 'src/views'),
             services: path.resolve(__dirname, 'src/services'),
             store: path.resolve(__dirname, 'src/store'),
             typings: path.resolve(__dirname, 'src/typings'),
+            helpers: path.resolve(__dirname, 'src/helpers'),
         }
     },
     module: {

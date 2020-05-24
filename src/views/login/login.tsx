@@ -1,17 +1,35 @@
 import React, { FormEvent } from 'react';
-import { AuthLayout } from '../../layouts/auth/auth';
+import { AuthContainer } from '../../containers/auth/auth';
 import { Link } from 'react-router-dom';
 
 import './login.scss';
 import { container } from 'tsyringe';
 import { AuthorizeService } from '../../services/authorize';
+import { mapToViewModel } from 'helpers/helpers';
+import { LoginViewModel } from 'models/authViewModels';
+import Alert from 'components/alert/alert';
+import { connect } from 'react-redux';
+import { showAlert, hideAlert } from 'store/alert/actions';
 
-export class Login extends React.Component<{}, LoginState> {
+interface LoginProps {
+    showAlert: typeof showAlert;
+    hideAlert: typeof hideAlert;
+}
+
+interface LoginState {
+    username: string;
+    password: string;
+    rememberMe: boolean;
+}
+
+class Login extends React.Component<LoginProps, LoginState> {
 
     private authorizeService: AuthorizeService;
 
     constructor(props: any) {
         super(props);
+
+        this.props.hideAlert();
 
         this.state = {
             username: '',
@@ -22,18 +40,32 @@ export class Login extends React.Component<{}, LoginState> {
         this.authorizeService = container.resolve(AuthorizeService);
     }
 
+    i = 1;
+
     async onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        await this.authorizeService.login(this.state.username, this.state.password, this.state.rememberMe)
+        const loginData: LoginViewModel = {
+            username: this.state.username,
+            password: this.state.password,
+            rememberMe: this.state.rememberMe
+        }
+
+        await this.authorizeService.login(loginData)
             .then((response) => {
                 console.log(response);
             })
-            .catch((e) => console.log(e))
-    }
+            .catch((e) => {
 
-    map<T>(object: any): T {
-        return object;
+                if (this.i % 2) {
+                    this.props.showAlert();
+                } else {
+
+                    this.props.hideAlert();
+                }
+
+                this.i++;
+            })
     }
 
     handleInputChange(event: any) {
@@ -42,7 +74,7 @@ export class Login extends React.Component<{}, LoginState> {
         const name = target.name;
 
         this.setState(() => (
-            this.map<LoginState>({
+            mapToViewModel<LoginState>({
                 [name]: value
             })
         ));
@@ -50,9 +82,9 @@ export class Login extends React.Component<{}, LoginState> {
 
     render() {
         return (
-            <AuthLayout>
+            <AuthContainer>
                 <div className="login-container animated fadeInDown">
-                    {/* ALERT HERE */}
+                    <Alert unmountOnExit={false} />
 
                     <div className="panel">
                         <div className="panel-header">Login to GeoBoard</div>
@@ -98,14 +130,9 @@ export class Login extends React.Component<{}, LoginState> {
                         </form>
                     </div>
                 </div>
-            </AuthLayout>
+            </AuthContainer>
         )
     }
-
 }
 
-interface LoginState {
-    username: string;
-    password: string;
-    rememberMe: boolean;
-}
+export default connect(null, { showAlert, hideAlert })(Login);

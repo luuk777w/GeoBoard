@@ -1,6 +1,6 @@
 import React from 'react';
 import { Board } from 'components/board/board';
-import BaseLayout from 'layouts/base/base';
+import BaseContainer from 'containers/home/home';
 
 import './home.scss';
 
@@ -12,11 +12,11 @@ export class Home extends React.Component {
 
     render() {
         return (
-            <BaseLayout>
+            <BaseContainer>
                 <div className="board-container">
                     <Board />
                 </div>
-            </BaseLayout>
+            </BaseContainer>
         )
     }
 

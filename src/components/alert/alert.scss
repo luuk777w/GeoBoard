@@ -1,0 +1,56 @@
+@import "../../css/variables";
+@import "../../css/colors";
+
+// Alert construction
+.alert {
+    display: flex;
+    align-items: center;
+    padding: 1em 1.5em;
+    color: $gray900;
+    background-color: $gray300;
+    border-radius: $border-radius;
+    margin: 1em 0;
+
+    // Alert title
+    > .alert-title {
+        display: inline-block;
+        font-weight: bold;
+        margin-right: .5em;
+    }
+}
+
+.alert-animation-wrapper{
+    transition: height 200ms ease-out;
+    height: 0;
+    overflow: hidden;
+}
+
+.alert-animation {
+    height: 5.5rem;
+}
+
+/*
+ * Alert types
+ */
+.alert-info {
+    color: white;
+    background-color: $blue400;
+}
+
+.alert-error {
+    color: white;
+    background-color: $red400;
+}
+
+.alert-warning {
+    background-color: $amber400;
+}
+
+.alert-success {
+    color: white;
+    background-color: $green500;
+}
+
+.alert-hidden {
+    visibility: hidden;
+}

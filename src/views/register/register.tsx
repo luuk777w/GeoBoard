@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthLayout } from '../../layouts/auth/auth';
+import { AuthContainer } from '../../containers/auth/auth';
 import { Link } from 'react-router-dom';
 
 import './register.scss';
@@ -12,7 +12,7 @@ export class Register extends React.Component {
 
     render() {
         return (
-            <AuthLayout>
+            <AuthContainer>
                 <div className="register-container">
 
                     {/* ALERT HERE */}
@@ -68,7 +68,7 @@ export class Register extends React.Component {
                         </form>
                     </div>
                 </div>
-            </AuthLayout>
+            </AuthContainer>
         )
     }
 

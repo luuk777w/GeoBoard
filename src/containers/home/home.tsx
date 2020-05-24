@@ -1,25 +1,25 @@
 import React from 'react';
 import Navbar from 'components/navbar/navbar';
 import Sidebar from 'components/sidebar/sidebar';
-import './base.scss';
+import './home.scss';
 import { SystemState } from 'store/system/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
 
-interface BaseLayoutProps {
+interface BaseContainerProps {
     system: SystemState;
     children: any;
 }
 
-class BaseLayout extends React.Component<BaseLayoutProps> {
+class BaseContainer extends React.Component<BaseContainerProps> {
 
-    constructor(props: BaseLayoutProps) {
+    constructor(props: BaseContainerProps) {
         super(props);
     }
 
     render() {
         return (
-            <div className={this.props.system.darkThemeIsActive ? "base-layout dark-theme" : "base-layout"}>
+            <div className={this.props.system.darkThemeIsActive ? "home-container dark-theme" : "home-container"}>
                 <Navbar />
                 <Sidebar />
                 {this.props.children}
@@ -32,4 +32,4 @@ const mapStateToProps = (state: AppState) => ({
     system: state.system,
 })
 
-export default connect(mapStateToProps, {})(BaseLayout);
+export default connect(mapStateToProps, {})(BaseContainer);
