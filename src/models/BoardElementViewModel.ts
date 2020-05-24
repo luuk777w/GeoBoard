@@ -1,4 +1,5 @@
 import { Direction } from "./Direction";
+import { UserViewModel } from "./UserViewModel";
 
 export class BoardElementViewModel {
 
@@ -37,8 +38,10 @@ export class BoardElementViewModel {
      */
     userId: object;
 
-    // TODO: Add user model..
-    user: any;
+    /**
+     * The user who created this element.
+     */
+    user: UserViewModel;
 
     /**
      * The date and time of when this board was created.
