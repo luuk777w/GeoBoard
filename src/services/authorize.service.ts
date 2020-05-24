@@ -1,5 +1,5 @@
 import { singleton, container } from "tsyringe";
-import { HttpService } from "./http";
+import { HttpService } from "./http.service";
 import { LoginViewModel } from "models/authViewModels";
 
 @singleton()

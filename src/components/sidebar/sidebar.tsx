@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { AppState } from 'store';
 import { SidebarState as SidebarState } from 'store/sidebar/types';
 import { toggleSidebar } from "store/sidebar/actions"
-import { HttpService } from 'services/http';
+import { HttpService } from 'services/http.service';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;

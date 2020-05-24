@@ -1,5 +1,5 @@
 import { singleton, container } from "tsyringe";
-import { Config } from "./config";
+import { Config } from "./config.service";
 import $ from 'jquery';
 
 @singleton()

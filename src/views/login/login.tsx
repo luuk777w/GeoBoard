@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './login.scss';
 import { container } from 'tsyringe';
-import { AuthorizeService } from '../../services/authorize';
+import { AuthorizeService } from '../../services/authorize.service';
 import { mapToViewModel } from 'helpers/helpers';
 import { LoginViewModel } from 'models/authViewModels';
 import Alert from 'components/alert/alert';
