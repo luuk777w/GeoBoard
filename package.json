@@ -8,8 +8,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server",
-    "build:style-typings": "%CD%\\node_modules\\.bin\\tcm -o src/typings -p /src/**/*.scss"
+    "dev": "webpack-dev-server"
   },
   "contributors": [
     "luuk777w",

@@ -10,10 +10,13 @@ import { LoginViewModel } from 'models/authViewModels';
 import Alert from 'components/alert/alert';
 import { connect } from 'react-redux';
 import { showAlert, hideAlert } from 'store/alert/actions';
+import { AlertType } from 'store/alert/types';
+import { JWTService } from 'services/jwt.service';
 
 interface LoginProps {
     showAlert: typeof showAlert;
     hideAlert: typeof hideAlert;
+    history: any;
 }
 
 interface LoginState {
@@ -25,11 +28,10 @@ interface LoginState {
 class Login extends React.Component<LoginProps, LoginState> {
 
     private authorizeService: AuthorizeService;
+    private jwtService: JWTService;
 
     constructor(props: any) {
         super(props);
-
-        this.props.hideAlert();
 
         this.state = {
             username: '',
@@ -38,12 +40,12 @@ class Login extends React.Component<LoginProps, LoginState> {
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
+        this.jwtService = container.resolve(JWTService);
     }
-
-    i = 1;
 
     async onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        this.props.hideAlert();
 
         const loginData: LoginViewModel = {
             username: this.state.username,
@@ -51,21 +53,26 @@ class Login extends React.Component<LoginProps, LoginState> {
             rememberMe: this.state.rememberMe
         }
 
+        if (loginData.username == "" || loginData.password == "") {
+            this.props.showAlert(AlertType.Warning, "Username or password not filled in.");
+            return;
+        }
+
         await this.authorizeService.login(loginData)
-            .then((response) => {
-                console.log(response);
+            .then((response: any) => {
+                this.jwtService.set(response.token);
+                this.props.history.push("/");
             })
-            .catch((e) => {
-
-                if (this.i % 2) {
-                    this.props.showAlert();
-                } else {
-
-                    this.props.hideAlert();
+            .catch((error) => {
+                if (error.status == 0) {
+                    this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                    return;
                 }
 
-                this.i++;
-            })
+                error.responseJSON.message != null
+                    ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
+                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+            });
     }
 
     handleInputChange(event: any) {
@@ -84,7 +91,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         return (
             <AuthContainer>
                 <div className="login-container animated fadeInDown">
-                    <Alert unmountOnExit={false} />
+                    <Alert />
 
                     <div className="panel">
                         <div className="panel-header">Login to GeoBoard</div>

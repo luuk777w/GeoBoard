@@ -14,6 +14,9 @@ import { Register } from './views/register/register';
 import { Provider } from 'react-redux';
 import configureStore from "./store/index";
 import { PersistGate } from 'redux-persist/integration/react';
+import { AuthorizedRoute } from "components/Route/authorizedRoute";
+import { UnAuthorizedOnlyRoute } from "components/Route/unauthorizedOnlyRoute";
+
 
 class App extends Component {
 
@@ -29,9 +32,9 @@ class App extends Component {
                 <PersistGate loading={null} persistor={this.store.persistor}>
                     <Router>
                         <Switch>
-                            <Route path="/login" component={Login} />
-                            <Route path="/register" component={Register} />
-                            <Route path="/" component={Home} />
+                            <UnAuthorizedOnlyRoute path="/login" component={Login} />
+                            <UnAuthorizedOnlyRoute path="/register" component={Register} />
+                            <AuthorizedRoute path="/" component={Home} />
                         </Switch>
                     </Router>
                 </PersistGate>

@@ -8,18 +8,29 @@ import { connect } from "react-redux";
 import { toggleDarkTheme } from 'store/system/actions';
 import { toggleSidebar } from 'store/sidebar/actions'
 import { BoardState } from 'store/board/types';
+import { JWTService } from 'services/jwt.service';
+import { container } from 'tsyringe';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
     system: SystemState;
     board: BoardState;
+    history: any;
 }
 
 class Navbar extends React.Component<NavbarProps> {
 
+    private JWTService: JWTService;
+
     constructor(props: NavbarProps) {
         super(props);
+        this.JWTService = container.resolve(JWTService);
+    }
+
+    handleLogout() {
+        this.JWTService.clear();
+        this.props.history.push("/login");
     }
 
     render() {
@@ -52,7 +63,7 @@ class Navbar extends React.Component<NavbarProps> {
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
                     </li>
-                    <li className="nav-link" data-target="logout">
+                    <li className="nav-link" data-target="logout" onClick={() => this.handleLogout()}>
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
                     <li className="nav-link sidebar-link" onClick={this.props.toggleSidebar}>

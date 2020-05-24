@@ -1,5 +1,3 @@
-
-
 /**
  * Map a object to viewmodel.
  *

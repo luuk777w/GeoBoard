@@ -1,9 +1,12 @@
 import { SHOW, HIDE, SET_TYPE, SET_BODY, AlertType } from "./types";
 
-export function showAlert() {
+export function showAlert(type?: AlertType, body?: string) {
     return {
         type: SHOW,
-        payload: {}
+        payload: {
+            body: body,
+            type: type
+        }
     }
 }
 

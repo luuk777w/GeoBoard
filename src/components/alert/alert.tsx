@@ -3,37 +3,55 @@ import './alert.scss'
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { AppState } from 'store';
-import { AlertState } from 'store/alert/types';
+import { AlertState, AlertType } from 'store/alert/types';
 
 interface AlertProps {
-    unmountOnExit: boolean;
+    slideIn: boolean;
     alert: AlertState;
 }
 
 class Alert extends React.Component<AlertProps> {
 
     static defaultProps = {
-        unmountOnExit: true
+        slideIn: false
     }
 
     constructor(props: AlertProps) {
         super(props);
     }
 
+    getTypeIcon(type: AlertType) {
+        switch (type) {
+            case AlertType.Info: return "fa fa-info fa-fw"
+            case AlertType.Success: return "fa fa-check fa-fw"
+            case AlertType.Warning: return "fa fa-exclamation fa-fw"
+            case AlertType.Error: return "fa fa-times fa-fw"
+            default: break;
+        }
+    }
+
     render() {
 
+        const cssTransitionEnter = this.props.slideIn ? 'alert-animation-height-5' : 'alert-visable';
+        const animationStyle = this.props.slideIn
+            ? 'alert-height-animation-wrapper alert-animation-height-0'
+            : 'alert-opacity-animation-wrapper alert-hidden';
+
+        const alertStyle = 'alert ' + this.props.alert.type;
+        const iconStyle = this.getTypeIcon(this.props.alert.type);
+
         return (
-            <CSSTransition in={this.props.alert.show} unmountOnExit={this.props.unmountOnExit} timeout={200} classNames={{
-                enter: 'alert-animation',
-                enterDone: 'alert-animation',
+            <CSSTransition in={this.props.alert.show} timeout={200} classNames={{
+                enter: cssTransitionEnter,
+                enterDone: cssTransitionEnter,
                 exit: ''
             }}>
-                <div className="alert-animation-wrapper">
-                    <div className="alert">
+                <div className={animationStyle}>
+                    <div className={alertStyle}>
                         <div className="alert-title">
-                            <i className="fa fa-exclamation-circle fa-lg"></i>
+                            <i className={iconStyle}></i>
                         </div>
-                        <div className="alert-body">Hallo</div>
+                        <div className="alert-body">{this.props.alert.body}</div>
                     </div>
                 </div>
             </CSSTransition >

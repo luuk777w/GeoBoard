@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 interface BaseContainerProps {
     system: SystemState;
     children: any;
+    history: any;
 }
 
 class BaseContainer extends React.Component<BaseContainerProps> {
@@ -20,7 +21,7 @@ class BaseContainer extends React.Component<BaseContainerProps> {
     render() {
         return (
             <div className={this.props.system.darkThemeIsActive ? "home-container dark-theme" : "home-container"}>
-                <Navbar />
+                <Navbar history={this.props.history} />
                 <Sidebar />
                 {this.props.children}
             </div>

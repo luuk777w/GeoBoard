@@ -11,7 +11,9 @@ export function alertReducer(state = initialState, action: AlertActionTypes): Al
         case SHOW: {
             return {
                 ...state,
-                show: true
+                show: true,
+                type: action.payload.type,
+                body: action.payload.body
             };
         }
         case HIDE: {

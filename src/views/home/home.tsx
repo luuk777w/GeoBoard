@@ -4,7 +4,11 @@ import BaseContainer from 'containers/base/base';
 
 import './home.scss';
 
-export class Home extends React.Component {
+interface HomeProps {
+    history: any;
+}
+
+export class Home extends React.Component<HomeProps> {
 
     constructor(props: any) {
         super(props);
@@ -12,7 +16,7 @@ export class Home extends React.Component {
 
     render() {
         return (
-            <BaseContainer>
+            <BaseContainer history={this.props.history}>
                 <div className="board-container">
                     <Board />
                 </div>

@@ -5,27 +5,35 @@
 .alert {
     display: flex;
     align-items: center;
-    padding: 1em 1.5em;
+    padding: 0.7rem 0.7rem;
     color: $gray900;
     background-color: $gray300;
     border-radius: $border-radius;
-    margin: 1em 0;
+    margin: 1rem 0;
 
     // Alert title
     > .alert-title {
         display: inline-block;
         font-weight: bold;
-        margin-right: .5em;
+        margin-right: 0.7rem;
+        font-size: 1.5rem;
     }
 }
 
-.alert-animation-wrapper{
+.alert-height-animation-wrapper{
     transition: height 200ms ease-out;
+}
+
+.alert-opacity-animation-wrapper{
+    transition: opacity 200ms ease-out;
+}
+
+.alert-animation-height-0 {
     height: 0;
     overflow: hidden;
 }
 
-.alert-animation {
+.alert-animation-height-5 {
     height: 5.5rem;
 }
 
@@ -52,5 +60,9 @@
 }
 
 .alert-hidden {
-    visibility: hidden;
+    opacity: 0;
+}
+
+.alert-visable {
+    opacity: 1;
 }
