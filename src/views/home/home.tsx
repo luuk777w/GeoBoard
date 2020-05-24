@@ -1,6 +1,6 @@
 import React from 'react';
 import { Board } from 'components/board/board';
-import BaseContainer from 'containers/home/home';
+import BaseContainer from 'containers/base/base';
 
 import './home.scss';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'components/navbar/navbar';
 import Sidebar from 'components/sidebar/sidebar';
-import './home.scss';
+import './base.scss';
 import { SystemState } from 'store/system/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
