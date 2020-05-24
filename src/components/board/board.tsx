@@ -1,15 +1,38 @@
 import React from 'react';
 import { BoardElement } from './boardElement/boardElement';
 import { UserViewModel } from '../../models/UserViewModel';
-import './board.scss'
+import { Config } from 'services/config.service';
+import { container } from 'tsyringe';
 
-export class Board extends React.Component {
+import './board.scss'
+import { BoardState } from 'store/board/types';
+import { AppState } from 'store';
+import { connect } from 'react-redux';
+
+interface BoardProps {
+    board: BoardState;
+}
+
+class Board extends React.Component<BoardProps> {
+
+    private configService: Config;
 
     constructor(props: any) {
         super(props);
+
+        this.configService = container.resolve(Config);
     }
 
     render() {
+
+        if (this.props.board.activeBoardId != '') {
+            document.title = `${this.configService.siteName} | ${this.props.board.activeBoardName}`;
+        }
+        else
+        {
+            document.title = this.configService.siteName;
+        }
+
         return (
             <div className="board-elements">
                 <BoardElement
@@ -33,3 +56,9 @@ export class Board extends React.Component {
     }
 
 }
+
+const mapStateToProps = (state: AppState) => ({
+    board: state.board
+});
+
+export default connect(mapStateToProps, { })(Board);
