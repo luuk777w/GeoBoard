@@ -60,7 +60,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
         await this.authorizeService.login(loginData)
             .then((response: any) => {
-                this.jwtService.set(response.token);
+                this.jwtService.setToken(response.token);
                 this.props.history.push("/");
             })
             .catch((error) => {

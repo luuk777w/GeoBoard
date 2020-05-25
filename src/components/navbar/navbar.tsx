@@ -29,7 +29,7 @@ class Navbar extends React.Component<NavbarProps> {
     }
 
     handleLogout() {
-        this.JWTService.clear();
+        this.JWTService.clearToken();
         this.props.history.push("/login");
     }
 

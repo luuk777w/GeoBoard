@@ -19,20 +19,10 @@ export class AuthorizeService {
     }
 
     public hasRole(role: string) {
-
-        if (this.JWTService.getRole() == role) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.JWTService.getUserRole() == role);
     }
 
     public isAuthorized() {
-
-        if (this.JWTService.getRole() == null || this.JWTService.getRole() == "" || this.JWTService.isTokenExpired()) {
-            return false;
-        } else {
-            return true;
-        }
+        return (this.JWTService.getUserRole() == null || this.JWTService.getUserRole() == "" || this.JWTService.isTokenExpired());
     }
 }
