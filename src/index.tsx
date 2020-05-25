@@ -12,7 +12,7 @@ import {
 import Login from './views/login/login';
 import { Register } from './views/register/register';
 import { Provider } from 'react-redux';
-import configureStore from "./store/index";
+import { store } from "./store/index";
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthorizedRoute } from "components/Route/authorizedRoute";
 import { UnAuthorizedOnlyRoute } from "components/Route/unauthorizedOnlyRoute";
@@ -20,16 +20,14 @@ import { UnAuthorizedOnlyRoute } from "components/Route/unauthorizedOnlyRoute";
 
 class App extends Component {
 
-    store = configureStore();
-
     constructor(props: any) {
         super(props);
     }
 
     render() {
         return (
-            <Provider store={this.store.store}>
-                <PersistGate loading={null} persistor={this.store.persistor}>
+            <Provider store={store.store}>
+                <PersistGate loading={null} persistor={store.persistor}>
                     <Router>
                         <Switch>
                             <UnAuthorizedOnlyRoute path="/login" component={Login} />

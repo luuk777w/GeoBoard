@@ -20,6 +20,7 @@ module.exports = {
             store: path.resolve(__dirname, 'src/store'),
             typings: path.resolve(__dirname, 'src/typings'),
             helpers: path.resolve(__dirname, 'src/helpers'),
+            util: path.resolve(__dirname, 'src/util'),
         }
     },
     module: {

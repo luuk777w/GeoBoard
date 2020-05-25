@@ -1,5 +1,5 @@
 import { singleton, container } from "tsyringe";
-import { Config } from "./config.service";
+import { Config } from "../util/config";
 import $ from 'jquery';
 import { JWTService } from "./jwt.service";
 

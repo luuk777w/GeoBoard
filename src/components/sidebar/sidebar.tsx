@@ -22,11 +22,11 @@ interface SidebarProps {
     sidebar: SidebarState;
 }
 
-interface ScopedSidebarState {
+interface LocalSidebarState {
     playerBoards: Array<BoardViewModel>;
 }
 
-class Sidebar extends React.Component<SidebarProps, ScopedSidebarState> {
+class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
     private httpService: HttpService;
 
@@ -44,7 +44,6 @@ class Sidebar extends React.Component<SidebarProps, ScopedSidebarState> {
         this.httpService.getWithAuthorization<Array<BoardViewModel>>('/player-boards')
             .then((response: Array<BoardViewModel>) => {
 
-                // this.props.hideAlert();
                 this.setState({
                     playerBoards: response
                 });
@@ -54,8 +53,6 @@ class Sidebar extends React.Component<SidebarProps, ScopedSidebarState> {
 
                 console.warn(e);
             });
-
-        console.log(this.state.playerBoards);
     }
 
     render() {
@@ -96,7 +93,7 @@ class Sidebar extends React.Component<SidebarProps, ScopedSidebarState> {
                                 {this.state.playerBoards.length > 0
                                     ? this.state.playerBoards.map((board: BoardViewModel, index) => {
                                         return (<BoardListItem
-                                            key={index}
+                                                key={index}
                                                 boardId={board.id}
                                                 boardName={board.name}
                                                 userId={board.userId}

@@ -32,3 +32,5 @@ export default function configureStore() {
     const persistor = persistStore(store);
     return { store, persistor }
 }
+
+export const store = configureStore();

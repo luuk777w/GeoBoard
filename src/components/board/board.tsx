@@ -1,13 +1,14 @@
 import React from 'react';
 import { BoardElement } from './boardElement/boardElement';
 import { UserViewModel } from '../../models/UserViewModel';
-import { Config } from 'services/config.service';
+import { Config } from 'util/config';
 import { container } from 'tsyringe';
 
 import './board.scss'
 import { BoardState } from 'store/board/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
+import { BoardHubService } from 'services/hubs/boardHub.service';
 
 interface BoardProps {
     board: BoardState;
@@ -15,24 +16,30 @@ interface BoardProps {
 
 class Board extends React.Component<BoardProps> {
 
-    private configService: Config;
+    private config: Config;
+
+    private boardHubService: BoardHubService;
 
     constructor(props: any) {
         super(props);
 
-        this.configService = container.resolve(Config);
+        this.config = container.resolve(Config);
+        this.boardHubService = container.resolve(BoardHubService);
+
+        console.log(this.boardHubService.getConnection());
     }
 
-    render() {
-
+    componentDidMount() {
         if (this.props.board.activeBoardId != '') {
-            document.title = `${this.configService.siteName} | ${this.props.board.activeBoardName}`;
+            document.title = `${this.config.siteName} | ${this.props.board.activeBoardName}`;
         }
         else
         {
-            document.title = this.configService.siteName;
+            document.title = this.config.siteName;
         }
+    }
 
+    render() {
         return (
             <div className="board-elements">
                 <BoardElement

@@ -1,7 +1,4 @@
-import { singleton, container } from "tsyringe";
-import { HttpService } from "./http.service";
-import { LoginViewModel } from "models/authViewModels";
-
+import { singleton } from "tsyringe";
 @singleton()
 export class JWTService {
 
