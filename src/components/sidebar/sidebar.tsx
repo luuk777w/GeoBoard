@@ -1,6 +1,5 @@
 import React from 'react';
-import './sidebar.scss';
-import 'css/components/button.scss';
+import Alert from 'components/alert/alert';
 import BoardListItem from './boardListItem/boardListItem';
 import { CSSTransition } from 'react-transition-group';
 import { container } from "tsyringe";
@@ -9,13 +8,25 @@ import { AppState } from 'store';
 import { SidebarState as SidebarState } from 'store/sidebar/types';
 import { toggleSidebar } from "store/sidebar/actions"
 import { HttpService } from 'services/http.service';
+import { BoardViewModel } from 'models/BoardViewModel';
+
+import 'css/components/button.scss';
+import './sidebar.scss';
+import { showAlert, hideAlert } from 'store/alert/actions';
+import { AlertType } from 'store/alert/types';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
+    showAlert: typeof showAlert;
+    hideAlert: typeof hideAlert;
     sidebar: SidebarState;
 }
 
-class Sidebar extends React.Component<SidebarProps> {
+interface ScopedSidebarState {
+    playerBoards: Array<BoardViewModel>;
+}
+
+class Sidebar extends React.Component<SidebarProps, ScopedSidebarState> {
 
     private httpService: HttpService;
 
@@ -23,11 +34,34 @@ class Sidebar extends React.Component<SidebarProps> {
         super(props);
 
         this.httpService = container.resolve(HttpService);
+
+        this.state = {
+            playerBoards: []
+        }
+    }
+
+    componentDidMount() {
+        this.httpService.getWithAuthorization<Array<BoardViewModel>>('/player-boards')
+            .then((response: Array<BoardViewModel>) => {
+
+                // this.props.hideAlert();
+                this.setState({
+                    playerBoards: response
+                });
+            })
+            .catch((e) => {
+                this.props.showAlert(AlertType.Error, "Something went wrong while getting your boards. Please try again.")
+
+                console.warn(e);
+            });
+
+        console.log(this.state.playerBoards);
     }
 
     render() {
 
         return (
+
             <CSSTransition in={this.props.sidebar.isOpen} unmountOnExit={true} timeout={300} classNames={{
                 enter: 'animated slideInRight',
                 exit: 'animated slideOutRight'
@@ -41,7 +75,7 @@ class Sidebar extends React.Component<SidebarProps> {
                     </div>
 
                     <div className="sidebar-body">
-                        {/*TODO ALERT HERE*/}
+                        <Alert slideIn={true} />
 
                         <div className="sidebar-section">
                             <div className="section-header">
@@ -58,21 +92,22 @@ class Sidebar extends React.Component<SidebarProps> {
                             </div>
 
                             <ul className="board-list">
-                                <BoardListItem
-                                    boardId="id1"
-                                    boardName="Yo-Yo Yoghurt"
-                                    username="Matthijs"
-                                />
 
-                                <BoardListItem
-                                    boardId="id2"
-                                    boardName="Coolheid"
-                                    timestamp="02:47 19/05/2020"
-                                    isOwner={true}
-                                />
-                            </ul>
+                                {this.state.playerBoards.length > 0
+                                    ? this.state.playerBoards.map((board: BoardViewModel, index) => {
+                                        return (<BoardListItem
+                                            key={index}
+                                                boardId={board.id}
+                                                boardName={board.name}
+                                                userId={board.userId}
+                                                username={board.owner.username}
+                                                timestamp={board.createdAt}
+                                            />)
+                                    })
 
-                            {/* <p className="sidebar-text">You don't own any boards. Create one!</p> */}
+                                    : <p className="sidebar-text">You don't own any boards. Create one!</p>
+                                }
+                                </ul>
                         </div>
 
                         <div className="sidebar-section">
@@ -93,5 +128,5 @@ const mapStateToProps = (state: AppState) => ({
     sidebar: state.sidebar,
 })
 
-export default connect(mapStateToProps, { toggleSidebar })(Sidebar);
+export default connect(mapStateToProps, { toggleSidebar, showAlert, hideAlert })(Sidebar);
 

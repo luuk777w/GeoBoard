@@ -1,14 +1,17 @@
 import { singleton, container } from "tsyringe";
 import { Config } from "./config.service";
 import $ from 'jquery';
+import { JWTService } from "./jwt.service";
 
 @singleton()
 export class HttpService {
 
     private config: Config;
+    private jwtService: JWTService;
 
     constructor() {
         this.config = container.resolve(Config);
+        this.jwtService = container.resolve(JWTService);
     }
 
     public async get<T>(url: string): Promise<T> {
@@ -45,6 +48,58 @@ export class HttpService {
         });
     }
 
-    // TODO: Add AJAX actions with authorization
+    public async getWithAuthorization<T>(url: string): Promise<T> {
+        const token = this.jwtService.getToken();
+
+        return await $.ajax({
+            type: "get",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            },
+            url: `${this.config.apiUrl}${url}`,
+            contentType: "application/json"
+        });
+    }
+
+    public async postWithAuthorization<T>(url: string, data: any = null): Promise<T> {
+        const token = this.jwtService.getToken();
+
+        return await $.ajax({
+            type: "post",
+            data: data,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            },
+            url: `${this.config.apiUrl}${url}`,
+            contentType: "application/json"
+        });
+    }
+
+    public async putWithAuthorization<T>(url: string, data: any = null): Promise<T> {
+        const token = this.jwtService.getToken();
+
+        return await $.ajax({
+            type: "put",
+            data: data,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            },
+            url: `${this.config.apiUrl}${url}`,
+            contentType: "application/json"
+        });
+    }
+
+    public async deleteWithAuthorization(url: string) {
+        const token = this.jwtService.getToken();
+
+        return await $.ajax({
+            type: "delete",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            },
+            url: `${this.config.apiUrl}${url}`,
+            contentType: "application/json"
+        });
+    }
 
 }

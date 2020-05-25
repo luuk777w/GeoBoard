@@ -23,6 +23,10 @@ export class AuthorizeService {
     }
 
     public isAuthorized() {
-        return (this.JWTService.getUserRole() == null || this.JWTService.getUserRole() == "" || this.JWTService.isTokenExpired());
+        if (this.JWTService.getUserRole() == null || this.JWTService.getUserRole() == "" || this.JWTService.isTokenExpired()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
