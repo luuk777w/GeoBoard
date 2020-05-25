@@ -41,24 +41,34 @@ class Board extends React.Component<BoardProps> {
 
     render() {
         return (
-            <div className="board-elements">
-                <BoardElement
-                    id="1234"
-                    number={1}
-                    user={new UserViewModel}
-                    direction={1}
-                    note="Hallo daar"
-                    createdAt="21-05-2020 20:00"
-                />
-                <BoardElement
-                    id="4567"
-                    number={2}
-                    user={new UserViewModel}
-                    direction={1}
-                    imagePath="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T22.03.37.797.jpg"
-                    createdAt="21-05-2020 20:01"
-                />
-            </div>
+            <>
+            {this.props.board.activeBoardId != ''
+                ?
+                <div className="board-elements">
+                    <BoardElement
+                        id="1234"
+                        number={1}
+                        user={new UserViewModel}
+                        direction={1}
+                        note="Hallo daar"
+                        createdAt="21-05-2020 20:00"
+                    />
+                    <BoardElement
+                        id="4567"
+                        number={2}
+                        user={new UserViewModel}
+                        direction={1}
+                        imagePath="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T22.03.37.797.jpg"
+                        createdAt="21-05-2020 20:01"
+                    />
+                </div>
+
+                :
+                <div className="select-board-instruction">
+                    <h1>Please select or create a board.</h1>
+                </div>
+            }
+        </>
         )
     }
 
