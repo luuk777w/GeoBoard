@@ -46,7 +46,6 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         // If there was any active board on page load...
         if (this.props.board.activeBoardId) {
             await this.loadBoardElements();
-            this.updateSiteTitle(this.props.board.activeBoardName);
         }
 
         this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
@@ -54,12 +53,12 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                 boardElements: response.elements
             });
 
-            this.updateSiteTitle(response.name);
+            this.updateSiteTitle();
         });
     }
 
     /**
-     * Load the elements from the board that was already activeoard on page load.
+     * Load the elements from the board that was already active on page load.
      */
     private async loadBoardElements() {
         await this.httpService.getWithAuthorization<Array<BoardElementViewModel>>(`/boards/${this.props.board.activeBoardId}/elements`)
@@ -71,9 +70,9 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             .catch((e) => console.warn(e));
     }
 
-    private updateSiteTitle(boardName: string) {
-        if (boardName != '') {
-            document.title = `${this.config.siteName} | ${boardName}`;
+    private updateSiteTitle() {
+        if (this.props.board.activeBoardId != '') {
+            document.title = `${this.config.siteName} | ${this.props.board.activeBoardName}`;
         }
         else
         {

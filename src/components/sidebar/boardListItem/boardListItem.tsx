@@ -42,16 +42,12 @@ class BoardListItem extends React.Component<BoardListItemProps> {
     }
 
     toggleBoard() {
-        console.log(this.props.activeBoard, `Prop boardId: ${this.props.boardId}`);
-
-        let currentBoardId = (this.props.activeBoard.activeBoardId == '') ? null : this.props.activeBoard.activeBoardId;
-
         if (this.props.boardId != '') {
-            this.boardHubService.getConnection().invoke('SwitchBoard', currentBoardId, this.props.boardId)
-                .then((response: BoardViewModel) => {
-                    this.props.setActiveBoard(response.id, response.name);
-                })
-                .catch((e) => console.warn(e));
+            this.props.setActiveBoard(this.props.boardId, this.props.boardName);
+
+            const activeBoard = (this.props.activeBoard.activeBoardId == '') ? null : this.props.activeBoard.activeBoardId;
+
+            this.boardHubService.getConnection().invoke('SwitchBoard', activeBoard, this.props.boardId);
         }
     }
 
