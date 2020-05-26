@@ -23,6 +23,20 @@ export class BoardElement extends React.Component<BoardElementProps> {
         super(props);
     }
 
+    getReadableDirection(direction: Direction) {
+        // TODO: Richtingen vertalen
+        switch (direction) {
+            case Direction.North: return 'Noord';
+            case Direction.NorthEast: return 'Noordoost';
+            case Direction.East: return 'Oost';
+            case Direction.SouthEast: return 'Zuidoost';
+            case Direction.South: return 'Zuid';
+            case Direction.SouthWest: return 'Zuidwest';
+            case Direction.West: return 'West';
+            case Direction.NorthWest: return 'Noordwest';
+        }
+    }
+
     render() {
         return (
             <div className="board-element animated bounceIn" data-element-id={this.props.id}>
@@ -41,7 +55,7 @@ export class BoardElement extends React.Component<BoardElementProps> {
 
                     {this.props.direction &&
                         <div className="board-element-direction">
-                            <i className="fas fa-location-arrow direction mr-2"></i>{this.props.direction}
+                            <i className="fas fa-location-arrow direction mr-2"></i>{this.getReadableDirection(this.props.direction)}
                         </div>
                     }
 
