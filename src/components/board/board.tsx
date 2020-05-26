@@ -49,11 +49,11 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         }
 
         this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+            this.updateSiteTitle();
+
             this.setState({
                 boardElements: response.elements
             });
-
-            this.updateSiteTitle();
         });
     }
 
