@@ -71,7 +71,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     }
 
     private updateSiteTitle() {
-        if (this.props.board.activeBoardId != '') {
+        if (this.props.board.activeBoardId != null) {
             document.title = `${this.config.siteName} | ${this.props.board.activeBoardName}`;
         }
         else
@@ -83,7 +83,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     render() {
         return (
             <>
-            {this.props.board.activeBoardId != ''
+            {this.props.board.activeBoardId != null
                 ?
                 <div className="board-elements">
 

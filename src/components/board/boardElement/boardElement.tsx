@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { UserViewModel } from 'models/UserViewModel';
 import { Direction } from 'models/Direction';
 
