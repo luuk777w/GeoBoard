@@ -10,8 +10,8 @@ export function boardReducer(state = initialState, action: BoardActionTypes): Bo
         case SET_ACTIVE_BOARD: {
             return {
                 ...state,
-                activeBoardId: state.activeBoardId == action.payload.activeBoardId ? null : action.payload.activeBoardId,
-                activeBoardName: state.activeBoardId == action.payload.activeBoardId ? null : action.payload.activeBoardName
+                activeBoardId: action.payload.activeBoardId,
+                activeBoardName: action.payload.activeBoardName
             }
         }
         default:
