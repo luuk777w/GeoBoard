@@ -1,6 +1,6 @@
 export interface BoardState {
-    activeBoardId: null | string;
-    activeBoardName: null | string;
+    boardId: string | null;
+    name: string | null;
 }
 
 export const SET_ACTIVE_BOARD = "SET_ACTIVE_BOARD";

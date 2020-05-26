@@ -1,21 +1,20 @@
 import React from 'react';
-import { BoardElement } from './boardElement/boardElement';
-import { UserViewModel } from '../../models/UserViewModel';
 import { Config } from 'util/config';
 import { container } from 'tsyringe';
-
-import './board.scss'
-import { BoardState } from 'store/board/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
+
+import { BoardState } from 'store/board/types';
 import { BoardHubService } from 'services/hubs/boardHub.service';
 import { BoardElementViewModel } from 'models/BoardElementViewModel';
 import { BoardViewModel } from 'models/BoardViewModel';
-import { HubConnectionState } from '@microsoft/signalr';
+import { BoardElement } from './boardElement/boardElement';
 import { HttpService } from 'services/http.service';
 
+import './board.scss'
+
 interface BoardProps {
-    board: BoardState;
+    activeBoardState: BoardState;
 }
 
 interface LocalBoardState {
@@ -44,7 +43,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 
     async componentDidMount() {
         // If there was any active board on page load...
-        if (this.props.board.activeBoardId) {
+        if (this.props.activeBoardState.boardId) {
             await this.loadBoardElements();
         }
 
@@ -61,7 +60,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
      * Load the elements from the board that was already active on page load.
      */
     private async loadBoardElements() {
-        await this.httpService.getWithAuthorization<Array<BoardElementViewModel>>(`/boards/${this.props.board.activeBoardId}/elements`)
+        await this.httpService.getWithAuthorization<Array<BoardElementViewModel>>(`/boards/${this.props.activeBoardState.boardId}/elements`)
             .then((response: Array<BoardElementViewModel>) => {
                 this.setState({
                     boardElements: response
@@ -71,8 +70,8 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     }
 
     private updateSiteTitle() {
-        if (this.props.board.activeBoardId != null) {
-            document.title = `${this.config.siteName} | ${this.props.board.activeBoardName}`;
+        if (this.props.activeBoardState.boardId != null) {
+            document.title = `${this.config.siteName} | ${this.props.activeBoardState.name}`;
         }
         else
         {
@@ -83,7 +82,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     render() {
         return (
             <>
-            {this.props.board.activeBoardId != null
+            {this.props.activeBoardState.boardId != null
                 ?
                 <div className="board-elements">
 
@@ -116,7 +115,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    board: state.board
+    activeBoardState: state.activeBoard
 });
 
 export default connect(mapStateToProps, { })(Board);

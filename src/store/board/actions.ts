@@ -4,8 +4,8 @@ export function setActiveBoard(boardId: string | null, boardName: string | null)
     return {
         type: SET_ACTIVE_BOARD,
         payload: {
-            activeBoardId: boardId,
-            activeBoardName: boardName
+            boardId: boardId,
+            name: boardName
         }
     }
 }

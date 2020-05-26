@@ -15,7 +15,7 @@ interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
     system: SystemState;
-    board: BoardState;
+    activeBoardState: BoardState;
     history: any;
 }
 
@@ -45,10 +45,10 @@ class Navbar extends React.Component<NavbarProps> {
 
                 </div>
 
-                {this.props.board.activeBoardId &&
+                {this.props.activeBoardState.boardId &&
                     <div className="board-info">
                         <span className="board-info-prefix">Current board</span>
-                        <span className="board-info-name">{this.props.board.activeBoardName}</span>
+                        <span className="board-info-name">{this.props.activeBoardState.name}</span>
                     </div>
                 }
 
@@ -77,7 +77,7 @@ class Navbar extends React.Component<NavbarProps> {
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system,
-    board: state.board
+    activeBoardState: state.activeBoard
 });
 
 export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);

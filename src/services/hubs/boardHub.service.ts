@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 export class BoardHubService extends SignalRClient {
     constructor() {
         const state: AppState = store.store.getState();
-        const currentBoard = state.board.activeBoardId;
+        const currentBoard = state.activeBoard.boardId;
 
         super(`boardHub?currentBoard=${currentBoard}`);
     }

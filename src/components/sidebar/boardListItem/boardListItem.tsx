@@ -23,7 +23,7 @@ interface BoardListItemProps {
     /**
      * The currently shown board.
      */
-    activeBoard: BoardState;
+    activeBoardState: BoardState;
     setActiveBoard: typeof setActiveBoard;
 }
 
@@ -42,16 +42,11 @@ class BoardListItem extends React.Component<BoardListItemProps> {
     }
 
     toggleBoard() {
-        const boardId = this.props.activeBoard.activeBoardId == this.props.boardId ? null : this.props.boardId;
-        const boardName = this.props.activeBoard.activeBoardName == this.props.boardName ? null : this.props.boardName;
+        const boardId = this.props.activeBoardState.boardId == this.props.boardId ? null : this.props.boardId;
+        const boardName = this.props.activeBoardState.name == this.props.boardName ? null : this.props.boardName;
 
         this.props.setActiveBoard(boardId, boardName);
         this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
-
-        console.log({
-            active: boardId,
-            clicked: this.props.boardId
-        });
     }
 
     render() {
@@ -59,7 +54,7 @@ class BoardListItem extends React.Component<BoardListItemProps> {
         //Conditional rendering
         //Lees hier meer: https://reactjs.org/docs/conditional-rendering.html
 
-        const isActive = this.props.activeBoard.activeBoardId == this.props.boardId ? true : false
+        const isActive = this.props.activeBoardState.boardId == this.props.boardId ? true : false
         const isOwner = this.props.userId == this.jwtService.getUserId();
 
         return (
@@ -80,7 +75,7 @@ class BoardListItem extends React.Component<BoardListItemProps> {
 
 const mapStateToProps = (state: AppState) => ({
     sidebar: state.sidebar,
-    activeBoard: state.board
+    activeBoardState: state.activeBoard
 })
 
 export default connect(mapStateToProps, { setActiveBoard })(BoardListItem)
