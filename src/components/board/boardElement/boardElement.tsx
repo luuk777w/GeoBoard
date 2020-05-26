@@ -4,11 +4,27 @@ import { UserViewModel } from 'models/UserViewModel';
 import { Direction } from 'models/Direction';
 
 import './boardElement.scss';
+import { dateToReadableString } from 'helpers/helpers';
+
+interface BoardElementProps {
+    id: string;
+    number: number;
+    user: UserViewModel;
+    // TODO: Use direction Enum
+    direction?: Direction;
+    note?: string;
+    imagePath?: string;
+    createdAt: Date;
+}
 
 export class BoardElement extends React.Component<BoardElementProps> {
 
     constructor(props: BoardElementProps) {
         super(props);
+    }
+
+    componentDidMount() {
+        console.log('Deze props: ', this.props)
     }
 
     render() {
@@ -33,20 +49,9 @@ export class BoardElement extends React.Component<BoardElementProps> {
                         </div>
                     }
 
-                    <time className="board-element-timestamp" dateTime={this.props.createdAt}>{this.props.createdAt}</time>
+                    <time className="board-element-timestamp" dateTime={this.props.createdAt.toString()}>{dateToReadableString(this.props.createdAt)}</time>
                 </div>
             </div>
         )
     }
-}
-
-interface BoardElementProps {
-    id: string;
-    number: number;
-    user: UserViewModel;
-    // TODO: Use direction Enum
-    direction: Direction;
-    note?: string;
-    imagePath?: string;
-    createdAt: string;
 }

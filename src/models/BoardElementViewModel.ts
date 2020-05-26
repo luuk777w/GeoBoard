@@ -26,7 +26,7 @@ export class BoardElementViewModel {
     /**
      * An optional note for this element.
      */
-    note: string;
+    note?: string;
 
     /**
      * The optional direction where the subject is taken from.
@@ -36,7 +36,7 @@ export class BoardElementViewModel {
     /**
      * The user who created this element.
      */
-    userId: object;
+    userId: string;
 
     /**
      * The user who created this element.

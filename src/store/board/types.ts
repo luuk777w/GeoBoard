@@ -3,18 +3,11 @@ export interface BoardState {
     activeBoardName: string;
 }
 
-export const SET_ACTIVE_BOARD_ID = "SET_ACTIVE_BOARD_ID";
-export const SET_ACTIVE_BOARD_NAME = "SET_ACTIVE_BOARD_NAME";
+export const SET_ACTIVE_BOARD = "SET_ACTIVE_BOARD";
 
-
-interface SetActiveBoardIdAction {
-    type: typeof SET_ACTIVE_BOARD_ID;
+interface SetActiveBoardAction {
+    type: typeof SET_ACTIVE_BOARD;
     payload: BoardState;
 }
 
-interface SetActiveBoardNameAction {
-    type: typeof SET_ACTIVE_BOARD_NAME;
-    payload: BoardState;
-}
-
-export type BoardActionTypes = SetActiveBoardIdAction | SetActiveBoardNameAction;
+export type BoardActionTypes = SetActiveBoardAction;

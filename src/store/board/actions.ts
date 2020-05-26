@@ -1,19 +1,11 @@
-import { SET_ACTIVE_BOARD_ID, SET_ACTIVE_BOARD_NAME } from "./types"
+import { SET_ACTIVE_BOARD } from "./types"
 
-export function setActiveBoardId(activeBoardId: string) {
+export function setActiveBoard(boardId: string, boardName: string) {
     return {
-        type: SET_ACTIVE_BOARD_ID,
+        type: SET_ACTIVE_BOARD,
         payload: {
-            activeBoardId: activeBoardId
-        }
-    }
-}
-
-export function setActiveBoardName(activeBoardName: string) {
-    return {
-        type: SET_ACTIVE_BOARD_NAME,
-        payload: {
-            activeBoardName: activeBoardName
+            activeBoardId: boardId,
+            activeBoardName: boardName
         }
     }
 }

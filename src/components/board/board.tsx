@@ -9,15 +9,24 @@ import { BoardState } from 'store/board/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
 import { BoardHubService } from 'services/hubs/boardHub.service';
+import { BoardElementViewModel } from 'models/BoardElementViewModel';
+import { BoardViewModel } from 'models/BoardViewModel';
+import { HubConnectionState } from '@microsoft/signalr';
+import { HttpService } from 'services/http.service';
 
 interface BoardProps {
     board: BoardState;
 }
 
-class Board extends React.Component<BoardProps> {
+interface LocalBoardState {
+    boardElements: Array<BoardElementViewModel>
+}
+
+class Board extends React.Component<BoardProps, LocalBoardState> {
 
     private config: Config;
 
+    private httpService: HttpService;
     private boardHubService: BoardHubService;
 
     constructor(props: any) {
@@ -26,12 +35,45 @@ class Board extends React.Component<BoardProps> {
         this.config = container.resolve(Config);
         this.boardHubService = container.resolve(BoardHubService);
 
-        console.log(this.boardHubService.getConnection());
+        this.httpService = container.resolve(HttpService);
+
+        this.state = {
+            boardElements: []
+        }
     }
 
-    componentDidMount() {
-        if (this.props.board.activeBoardId != '') {
-            document.title = `${this.config.siteName} | ${this.props.board.activeBoardName}`;
+    async componentDidMount() {
+        // If there was any active board on page load...
+        if (this.props.board.activeBoardId) {
+            await this.loadBoardElements();
+            this.updateSiteTitle(this.props.board.activeBoardName);
+        }
+
+        this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+            this.setState({
+                boardElements: response.elements
+            });
+
+            this.updateSiteTitle(response.name);
+        });
+    }
+
+    /**
+     * Load the elements from the board that was already activeoard on page load.
+     */
+    private async loadBoardElements() {
+        await this.httpService.getWithAuthorization<Array<BoardElementViewModel>>(`/boards/${this.props.board.activeBoardId}/elements`)
+            .then((response: Array<BoardElementViewModel>) => {
+                this.setState({
+                    boardElements: response
+                });
+            })
+            .catch((e) => console.warn(e));
+    }
+
+    private updateSiteTitle(boardName: string) {
+        if (boardName != '') {
+            document.title = `${this.config.siteName} | ${boardName}`;
         }
         else
         {
@@ -45,22 +87,22 @@ class Board extends React.Component<BoardProps> {
             {this.props.board.activeBoardId != ''
                 ?
                 <div className="board-elements">
-                    <BoardElement
-                        id="1234"
-                        number={1}
-                        user={new UserViewModel}
-                        direction={1}
-                        note="Hallo daar"
-                        createdAt="21-05-2020 20:00"
-                    />
-                    <BoardElement
-                        id="4567"
-                        number={2}
-                        user={new UserViewModel}
-                        direction={1}
-                        imagePath="https://geoboard.luukwuijster.dev/images/userImages/25-04-2020T22.03.37.797.jpg"
-                        createdAt="21-05-2020 20:01"
-                    />
+
+                    {this.state.boardElements.map((element: BoardElementViewModel, index) => {
+                        return (
+                            <BoardElement
+                                key={index}
+                                id={element.id}
+                                // TODO: Use number from server
+                                number={index + 1}
+                                user={element.user}
+                                direction={element.direction}
+                                note={element.note}
+                                imagePath={element.imagePath}
+                                createdAt={element.createdAt}
+                            />
+                        )
+                    })}
                 </div>
 
                 :

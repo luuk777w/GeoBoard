@@ -26,6 +26,7 @@ export abstract class SignalRClient {
         // Start the connection.
         this.getConnection().start();
 
+        // TODO: Moet nog omgebouwd worden naar nieuwe situatie.
         // Handle reconnection when the connection was lost.
         this.getConnection().onreconnecting((error: any) => {
             $(".notification").text("The connection with the server was lost. Reconnecting...");

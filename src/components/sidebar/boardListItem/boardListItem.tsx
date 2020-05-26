@@ -3,26 +3,34 @@ import './boardListItem.scss';
 import 'css/components/button.scss';
 import { connect } from 'react-redux';
 import { AppState } from 'store';
-import { setActiveBoardId, setActiveBoardName } from 'store/board/actions';
+import { setActiveBoard } from 'store/board/actions';
 import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { container } from 'tsyringe';
 import { dateToReadableString } from 'helpers/helpers';
+import { BoardHubService } from 'services/hubs/boardHub.service';
+import { BoardViewModel } from 'models/BoardViewModel';
 
 interface BoardListItemProps {
+    /**
+     * The boardId of this specific board list item.
+     */
     boardId: string;
     boardName: string;
     userId: string;
     username: string;
     timestamp: Date;
+    /**
+     * The currently shown board.
+     */
     activeBoard: BoardState;
-    setActiveBoardId: typeof setActiveBoardId;
-    setActiveBoardName: typeof setActiveBoardName;
+    setActiveBoard: typeof setActiveBoard;
 }
 
 class BoardListItem extends React.Component<BoardListItemProps> {
 
     private jwtService: JWTService;
+    private boardHubService: BoardHubService;
 
     constructor(props: BoardListItemProps) {
         super(props);
@@ -30,11 +38,21 @@ class BoardListItem extends React.Component<BoardListItemProps> {
         this.toggleBoard = this.toggleBoard.bind(this);
 
         this.jwtService = container.resolve(JWTService);
+        this.boardHubService = container.resolve(BoardHubService);
     }
 
     toggleBoard() {
-        this.props.setActiveBoardId(this.props.boardId);
-        this.props.setActiveBoardName(this.props.boardName);
+        console.log(this.props.activeBoard, `Prop boardId: ${this.props.boardId}`);
+
+        let currentBoardId = (this.props.activeBoard.activeBoardId == '') ? null : this.props.activeBoard.activeBoardId;
+
+        if (this.props.boardId != '') {
+            this.boardHubService.getConnection().invoke('SwitchBoard', currentBoardId, this.props.boardId)
+                .then((response: BoardViewModel) => {
+                    this.props.setActiveBoard(response.id, response.name);
+                })
+                .catch((e) => console.warn(e));
+        }
     }
 
     render() {
@@ -66,4 +84,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoard: state.board
 })
 
-export default connect(mapStateToProps, { setActiveBoardId, setActiveBoardName })(BoardListItem)
+export default connect(mapStateToProps, { setActiveBoard })(BoardListItem)

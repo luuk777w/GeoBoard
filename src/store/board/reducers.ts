@@ -1,4 +1,4 @@
-import { BoardState, BoardActionTypes, SET_ACTIVE_BOARD_ID, SET_ACTIVE_BOARD_NAME } from "./types";
+import { BoardState, BoardActionTypes, SET_ACTIVE_BOARD } from "./types";
 
 const initialState: BoardState = {
     activeBoardId: '',
@@ -7,17 +7,12 @@ const initialState: BoardState = {
 
 export function boardReducer(state = initialState, action: BoardActionTypes): BoardState {
     switch (action.type) {
-        case SET_ACTIVE_BOARD_ID: {
+        case SET_ACTIVE_BOARD: {
             return {
                 ...state,
-                activeBoardId: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardId
+                activeBoardId: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardId,
+                activeBoardName: state.activeBoardName == action.payload.activeBoardName ? '' : action.payload.activeBoardName
             }
-        }
-        case SET_ACTIVE_BOARD_NAME: {
-            return {
-                ...state,
-                activeBoardName: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardName
-            };
         }
         default:
             return state;
