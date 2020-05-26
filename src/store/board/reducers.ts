@@ -11,7 +11,7 @@ export function boardReducer(state = initialState, action: BoardActionTypes): Bo
             return {
                 ...state,
                 activeBoardId: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardId,
-                activeBoardName: state.activeBoardName == action.payload.activeBoardName ? '' : action.payload.activeBoardName
+                activeBoardName: state.activeBoardId == action.payload.activeBoardId ? '' : action.payload.activeBoardName
             }
         }
         default:

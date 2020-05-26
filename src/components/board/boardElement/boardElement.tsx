@@ -23,10 +23,6 @@ export class BoardElement extends React.Component<BoardElementProps> {
         super(props);
     }
 
-    componentDidMount() {
-        console.log('Deze props: ', this.props)
-    }
-
     render() {
         return (
             <div className="board-element animated bounceIn" data-element-id={this.props.id}>
