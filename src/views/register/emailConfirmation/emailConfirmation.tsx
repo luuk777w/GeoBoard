@@ -10,6 +10,8 @@ import { showAlert } from "store/alert/actions";
 import { AlertType } from "store/alert/types";
 import { connect } from "react-redux";
 
+// import './emailConfirmation.scss';
+
 interface EmailConfirmationProps {
     showAlert: typeof showAlert;
     location: any;
@@ -27,20 +29,23 @@ class EmailConfirmation extends Component<EmailConfirmationProps> {
     }
 
     resendEmail() {
-        // if (queryString.parse)
+        const params = queryString.parse(this.props.location.search);
 
-        console.log(queryString.parse(this.props.location.search));
+        if (params.email != undefined && params.email != '') {
+            const email = `${params.email}`;
 
-        // const email = queryString.parse(this.props.location.search);
-
-
-        // this.authorizeService.resendActivationEmail(email)
-        //     .then(() => {
-        //         this.props.showAlert(AlertType.Success, 'A new activation email has been sent.');
-        //     })
-        //     .catch((e) => {
-        //         // TODO: Redirect with alert
-        //     });
+            this.authorizeService.resendActivationEmail(email)
+                .then(() => {
+                    this.props.showAlert(AlertType.Success, 'A new activation email has been sent.');
+                })
+                .catch((e) => {
+                    // TODO: Redirect with alert
+                });
+        }
+        else
+        {
+            this.props.history.push('/login');
+        }
     }
 
     render() {
@@ -59,7 +64,7 @@ class EmailConfirmation extends Component<EmailConfirmationProps> {
                         <div className="panel-footer">
                             <p className="mt-0">Didn't receive an activation email?</p>
 
-                            <button className="button button-blue" onClick={this.resendEmail}>Send email again</button>
+                            <button className="button button-blue" onClick={() => this.resendEmail()}>Send email again</button>
                         </div>
                     </div>
                 </div>
