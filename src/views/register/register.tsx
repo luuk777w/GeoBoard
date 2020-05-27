@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import { AuthContainer } from '../../containers/auth/auth';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Alert from 'components/alert/alert';
 
 import './register.scss';
@@ -75,6 +75,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                     this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
                     return;
                 }
+
+                // TODO: Show field specific errors.
 
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)

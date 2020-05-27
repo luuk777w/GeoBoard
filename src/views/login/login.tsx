@@ -130,7 +130,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                             <div className="panel-footer">
                                 <div className="button-group">
                                     <button type="submit" className="button button-green button-pd-2">Login</button>
-                                    <button className="button button-link button-pd-2" data-target="recover-password">Reset password</button>
+                                    <Link to="/reset-password" className="button button-link button-pd-2" data-target="recover-password">Reset password</Link>
                                 </div>
 
                                 <p className="register-information pt-1">No account yet? <Link to="/register">Create one here</Link></p>
