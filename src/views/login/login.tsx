@@ -49,7 +49,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.props.hideAlert();
 
         const loginData: LoginViewModel = {
-            username: this.state.username,
+            username: this.state.username.trim(),
             password: this.state.password,
             rememberMe: this.state.remember
         }
