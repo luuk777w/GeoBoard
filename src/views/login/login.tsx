@@ -1,17 +1,18 @@
 import React, { FormEvent } from 'react';
-import { AuthContainer } from '../../containers/auth/auth';
 import { Link } from 'react-router-dom';
-
-import './login.scss';
 import { container } from 'tsyringe';
+import { connect } from 'react-redux';
+
+import { AuthContainer } from '../../containers/auth/auth';
 import { AuthorizeService } from '../../services/authorize.service';
 import { mapToViewModel } from 'helpers/helpers';
 import { LoginViewModel } from 'models/authViewModels';
 import Alert from 'components/alert/alert';
-import { connect } from 'react-redux';
 import { showAlert, hideAlert } from 'store/alert/actions';
 import { AlertType } from 'store/alert/types';
 import { JWTService } from 'services/jwt.service';
+
+import './login.scss';
 
 interface LoginProps {
     showAlert: typeof showAlert;
@@ -22,7 +23,7 @@ interface LoginProps {
 interface LoginState {
     username: string;
     password: string;
-    rememberMe: boolean;
+    remember: boolean;
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -36,7 +37,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.state = {
             username: '',
             password: '',
-            rememberMe: false
+            remember: false
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
@@ -50,7 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         const loginData: LoginViewModel = {
             username: this.state.username,
             password: this.state.password,
-            rememberMe: this.state.rememberMe
+            rememberMe: this.state.remember
         }
 
         if (loginData.username == "" || loginData.password == "") {
@@ -119,7 +120,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                                 </div>
 
                                 <div className="remember checkbox">
-                                    <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} checked={this.state.rememberMe} />
+                                    <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
                                     <label htmlFor="remember">Remember me</label>
                                 </div>
 
