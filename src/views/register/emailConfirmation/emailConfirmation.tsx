@@ -10,7 +10,7 @@ import { showAlert } from "store/alert/actions";
 import { AlertType } from "store/alert/types";
 import { connect } from "react-redux";
 
-// import './emailConfirmation.scss';
+import './emailConfirmation.scss';
 
 interface EmailConfirmationProps {
     showAlert: typeof showAlert;

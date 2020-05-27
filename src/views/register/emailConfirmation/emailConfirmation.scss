@@ -1,21 +1,22 @@
 .emailConfirmation-container {
     width: 22rem;
     margin-top: 6rem;
-}
 
-.panel-body {
-    display: flex;
-    justify-content: space-around;
+    .panel-body {
+        display: flex;
+        justify-content: space-around;
 
-    img {
-        width: 18rem;
+        img {
+            width: 18rem;
+        }
     }
-}
 
-.panel-footer{
-    background-color: white !important;
+    .panel-footer{
+        background-color: white !important;
 
-    button {
-        width: 100%;
+        button {
+            width: 100%;
+        }
     }
+
 }
