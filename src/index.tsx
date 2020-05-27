@@ -10,7 +10,7 @@ import {
     Route,
 } from "react-router-dom";
 import Login from './views/login/login';
-import { Register } from './views/register/register';
+import Register from './views/register/register';
 import { Provider } from 'react-redux';
 import { store } from "./store/index";
 import { PersistGate } from 'redux-persist/integration/react';
