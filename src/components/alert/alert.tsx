@@ -22,7 +22,7 @@ class Alert extends React.Component<AlertProps> {
 
     getTypeIcon(type: AlertType) {
         switch (type) {
-            case AlertType.Info: return "fa fa-info fa-fw"
+            case AlertType.Info: return "fa fa-info-circle fa-fw"
             case AlertType.Success: return "fa fa-check fa-fw"
             case AlertType.Warning: return "fa fa-exclamation fa-fw"
             case AlertType.Error: return "fa fa-times fa-fw"
