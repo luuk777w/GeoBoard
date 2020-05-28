@@ -11,6 +11,7 @@ import { AuthorizeService } from 'services/authorize.service';
 import { container } from 'tsyringe';
 import { RegisterViewModel } from 'models/authViewModels';
 import { AlertType } from 'store/alert/types';
+import { FormFieldValidationErrors } from 'components/formFieldValidationErrors/formFieldValidationErrors';
 
 interface RegisterProps {
     showAlert: typeof showAlert;
@@ -24,6 +25,7 @@ interface RegisterState {
     password: string;
     passwordConfirm: string;
     terms: boolean;
+    errors: any;
 }
 
 class Register extends React.Component<RegisterProps, RegisterState> {
@@ -38,7 +40,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             email: '',
             password: '',
             passwordConfirm: '',
-            terms: false
+            terms: false,
+            errors: {}
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
@@ -77,6 +80,11 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 }
 
                 // TODO: Show field specific errors.
+                this.setState({
+                    errors: error.responseJSON.errors
+                });
+
+                console.log(error.responseJSON.errors);
 
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
@@ -112,13 +120,15 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
                                     <input type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Choose a unique username" autoFocus />
-                                    <div className="validation-error" data-field="username"></div>
+
+                                    <FormFieldValidationErrors field="Username" errors={this.state.errors} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="email">Email Address</label>
                                     <input type="email" onChange={(e) => this.handleInputChange(e)} id="email" name="email" placeholder="name@domain.com" />
-                                    <div className="validation-error" data-field="email"></div>
+
+                                    <FormFieldValidationErrors field="Email" errors={this.state.errors} />
                                 </div>
                             </div>
 
@@ -126,13 +136,15 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
                                     <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" />
-                                    <div className="validation-error" data-field="password"></div>
+
+                                    <FormFieldValidationErrors field="Password" errors={this.state.errors} />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="password-confirm">Confirm password</label>
                                     <input type="password" onChange={(e) => this.handleInputChange(e)} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
-                                    <div className="validation-error" data-field="password-confirm"></div>
+
+                                    <FormFieldValidationErrors field="PasswordConfirm" errors={this.state.errors} />
                                 </div>
 
                             </div>
@@ -142,7 +154,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                     <input id="terms" onChange={(e) => this.handleInputChange(e)} name="terms" type="checkbox" />
                                     <label htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</label>
                                 </div>
-                                <div className="validation-error" data-field="terms"></div>
+                                <FormFieldValidationErrors field="Terms" errors={this.state.errors} />
                             </div>
 
                             <div className="panel-footer">
