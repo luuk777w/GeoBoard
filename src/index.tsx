@@ -18,6 +18,7 @@ import { AuthorizedRoute } from "components/Route/authorizedRoute";
 import { UnAuthorizedOnlyRoute } from "components/Route/unauthorizedOnlyRoute";
 import { NotFound } from "views/errors/notFound/notFound";
 import EmailConfirmation from "views/register/emailConfirmation/emailConfirmation";
+import Activate from "views/register/activate/activate";
 
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
                             <UnAuthorizedOnlyRoute exact path="/register" component={Register} />
 
                             <UnAuthorizedOnlyRoute path="/register/email-confirmation" component={EmailConfirmation} />
+                            <UnAuthorizedOnlyRoute path="/register/activate" component={Activate} />
 
                             <AuthorizedRoute component={NotFound} />
                         </Switch>

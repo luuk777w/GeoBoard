@@ -26,6 +26,10 @@ export class AuthorizeService {
         return await this.httpService.post('/account/resend-activation-email', JSON.stringify({ email }));
     }
 
+    public async activateAccount(email: string, token: string) {
+        return await this.httpService.get(`/account/activate?email=${email}&token=${token}`);
+    }
+
     public hasRole(role: string) {
         return (this.JWTService.getUserRole() == role);
     }
