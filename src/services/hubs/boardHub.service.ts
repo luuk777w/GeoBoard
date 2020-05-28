@@ -1,7 +1,6 @@
 import { SignalRClient } from "util/signalrClient";
 import { singleton } from "tsyringe";
-import configureStore, { store, AppState } from "store";
-import PropTypes from 'prop-types'
+import { store, AppState } from "store";
 
 @singleton()
 export class BoardHubService extends SignalRClient {

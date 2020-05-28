@@ -32,7 +32,7 @@ class Alert extends React.Component<AlertProps> {
 
     render() {
 
-        const cssTransitionEnter = this.props.slideIn ? 'alert-animation-height-5' : 'alert-visable';
+        const cssTransitionEnter = this.props.slideIn ? 'alert-animation-height-5' : 'alert-visible';
         const animationStyle = this.props.slideIn
             ? 'alert-height-animation-wrapper alert-animation-height-0'
             : 'alert-opacity-animation-wrapper alert-hidden';
