@@ -58,7 +58,7 @@ class EmailConfirmation extends Component<EmailConfirmationProps> {
                         <div className="panel-header">Activation email has been sent!</div>
 
                         <div className="panel-body pb-0 pt-2">
-                            <img src="/ assets/media/email.svg" alt="" />
+                            <img src="/assets/media/email.svg" alt="" />
                         </div>
 
                         <div className="panel-footer">

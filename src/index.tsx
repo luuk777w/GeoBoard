@@ -36,7 +36,6 @@ class App extends Component {
                             <UnAuthorizedOnlyRoute path="/login" component={Login} />
                             <UnAuthorizedOnlyRoute exact path="/register" component={Register} />
 
-                            {/* TODO: Move to /register/email-confirmation */}
                             <UnAuthorizedOnlyRoute path="/register/email-confirmation" component={EmailConfirmation} />
 
                             <AuthorizedRoute component={NotFound} />
