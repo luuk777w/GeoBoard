@@ -6,7 +6,7 @@ import { container } from "tsyringe";
 import { AuthContainer } from "containers/auth/auth";
 import Alert from 'components/alert/alert';
 import { AuthorizeService } from "services/authorize.service";
-import { showAlert } from "store/alert/actions";
+import { showAlert, hideAlert } from "store/alert/actions";
 import { AlertType } from "store/alert/types";
 import { connect } from "react-redux";
 
@@ -14,6 +14,7 @@ import './emailConfirmation.scss';
 
 interface EmailConfirmationProps {
     showAlert: typeof showAlert;
+    hideAlert: typeof hideAlert;
     location: any;
     history: any;
 }
@@ -28,32 +29,39 @@ class EmailConfirmation extends Component<EmailConfirmationProps> {
         this.authorizeService = container.resolve(AuthorizeService);
     }
 
-    resendEmail() {
+    componentDidMount() {
         const params = queryString.parse(this.props.location.search);
 
-        if (params.email != undefined && params.email != '') {
-            const email = `${params.email}`;
-
-            this.authorizeService.resendActivationEmail(email)
-                .then(() => {
-                    this.props.showAlert(AlertType.Success, 'A new activation email has been sent.');
-                })
-                .catch((e) => {
-                    // TODO: Redirect with alert
-                });
-        }
-        else
-        {
+        if (params.email == undefined || params.email == '') {
             this.props.history.push('/login');
         }
+    }
+
+    resendEmail() {
+        this.props.hideAlert();
+
+        const params = queryString.parse(this.props.location.search);
+        const email = `${params.email}`;
+
+        this.authorizeService.resendActivationEmail(email)
+            .then(() => {
+                this.props.showAlert(AlertType.Success, 'A new activation email has been sent.');
+                this.props.history.push('/login');
+            })
+            .catch((e) => {
+                // TODO: Redirect with alert
+
+                this.props.showAlert(AlertType.Error, 'Something went wrong while resending your activation email. Please try agian');
+            });
     }
 
     render() {
         return (
             <AuthContainer>
-                <Alert />
 
                 <div className="emailConfirmation-container animated fadeInDown">
+                    <Alert />
+
                     <div className="panel">
                         <div className="panel-header">Activation email has been sent!</div>
 
@@ -74,4 +82,4 @@ class EmailConfirmation extends Component<EmailConfirmationProps> {
 }
 
 
-export default connect(null, { showAlert })(EmailConfirmation);
+export default connect(null, { showAlert, hideAlert })(EmailConfirmation);
