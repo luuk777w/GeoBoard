@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Alert from 'components/alert/alert';
 
 import './register.scss';
-import { mapToViewModel } from 'helpers/helpers';
+import { mapToType } from 'helpers/helpers';
 import { showAlert, hideAlert } from 'store/alert/actions';
 import { connect } from 'react-redux';
 import { AuthorizeService } from 'services/authorize.service';
@@ -12,6 +12,11 @@ import { container } from 'tsyringe';
 import { RegisterViewModel } from 'models/authViewModels';
 import { AlertType } from 'store/alert/types';
 import { FormFieldValidationErrors } from 'components/formFieldValidationErrors/formFieldValidationErrors';
+import { Form } from 'components/form/form';
+import { FormGroup } from 'components/form/formGroup';
+import { FormLabel } from 'components/form/formLabel';
+import FormInput from 'components/form/formInput';
+import { FormPanel } from 'components/form/formPanel';
 
 interface RegisterProps {
     showAlert: typeof showAlert;
@@ -98,7 +103,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         const name = target.name;
 
         this.setState(() => (
-            mapToViewModel<RegisterState>({
+            mapToType<RegisterState>({
                 [name]: value
             })
         ));
@@ -114,48 +119,47 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                     <div className="panel animated fadeInDown">
                         <div className="panel-header">Create a GeoBoard account</div>
 
-                        <form method="post" id="registerForm" onSubmit={(event) => this.onSubmit(event)}>
-                            <div className="panel-body">
-
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
-                                    <input type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Choose a unique username" autoFocus />
+                        <Form method="post" id="registerForm" onSubmit={(event) => this.onSubmit(event)}>
+                            <FormPanel>
+                                <FormGroup>
+                                    <FormLabel htmlFor="username">Username</FormLabel>
+                                    <FormInput type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Choose a unique username" autoFocus />
 
                                     <FormFieldValidationErrors field="Username" errors={this.state.errors} />
-                                </div>
+                                </FormGroup>
 
-                                <div className="form-group">
-                                    <label htmlFor="email">Email Address</label>
-                                    <input type="email" onChange={(e) => this.handleInputChange(e)} id="email" name="email" placeholder="name@domain.com" />
+                                <FormGroup>
+                                    <FormLabel htmlFor="email">Email Address</FormLabel>
+                                    <FormInput type="email" onChange={(e) => this.handleInputChange(e)} id="email" name="email" placeholder="name@domain.com" />
 
                                     <FormFieldValidationErrors field="Email" errors={this.state.errors} />
-                                </div>
-                            </div>
+                                </FormGroup>
+                            </FormPanel>
 
-                            <div className="panel-body">
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
-                                    <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" />
+                            <FormPanel>
+                                <FormGroup>
+                                    <FormLabel htmlFor="password">Password</FormLabel>
+                                    <FormInput type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" />
 
                                     <FormFieldValidationErrors field="Password" errors={this.state.errors} />
-                                </div>
+                                </FormGroup>
 
-                                <div className="form-group">
-                                    <label htmlFor="password-confirm">Confirm password</label>
-                                    <input type="password" onChange={(e) => this.handleInputChange(e)} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
+                                <FormGroup>
+                                    <FormLabel htmlFor="password-confirm">Confirm password</FormLabel>
+                                    <FormInput type="password" onChange={(e) => this.handleInputChange(e)} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
 
                                     <FormFieldValidationErrors field="PasswordConfirm" errors={this.state.errors} />
-                                </div>
+                                </FormGroup>
 
-                            </div>
+                            </FormPanel>
 
-                            <div className="panel-body py-4">
+                            <FormPanel className="py-4">
                                 <div className="terms checkbox">
-                                    <input id="terms" onChange={(e) => this.handleInputChange(e)} name="terms" type="checkbox" />
-                                    <label htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</label>
+                                    <FormInput id="terms" onChange={(e) => this.handleInputChange(e)} name="terms" type="checkbox" />
+                                    <FormLabel htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</FormLabel>
                                 </div>
                                 <FormFieldValidationErrors field="Terms" errors={this.state.errors} />
-                            </div>
+                            </FormPanel>
 
                             <div className="panel-footer">
                                 <div className="button-group">
@@ -163,7 +167,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                     <Link to="/login" className="button button-link button-pd-2">I have an account</Link>
                                 </div>
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </AuthContainer>

@@ -8,6 +8,7 @@ import { AuthorizeService } from "services/authorize.service";
 import { showAlert } from "store/alert/actions";
 import { AlertType } from "store/alert/types";
 import { connect } from "react-redux";
+import Alert from "components/alert/alert";
 
 import './activate.scss';
 
@@ -43,14 +44,15 @@ class Activate extends Component<ActivateProps> {
 
             this.props.history.push('/login');
         })
-        .catch((e) => {
-            this.props.showAlert(AlertType.Error, "Something went wrong while activating your account. Please contact support.");
-        });
+            .catch((e) => {
+                this.props.showAlert(AlertType.Error, "Something went wrong while activating your account. Please contact support.");
+            });
     }
 
     render() {
         return (
             <AuthContainer>
+                <Alert />
                 {/* No content for this page. */}
             </AuthContainer>
         );

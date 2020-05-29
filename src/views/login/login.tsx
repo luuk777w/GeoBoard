@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { AuthContainer } from '../../containers/auth/auth';
 import { AuthorizeService } from '../../services/authorize.service';
-import { mapToViewModel } from 'helpers/helpers';
+import { mapToType } from 'helpers/helpers';
 import { LoginViewModel } from 'models/authViewModels';
 import Alert from 'components/alert/alert';
 import { showAlert, hideAlert } from 'store/alert/actions';
@@ -82,7 +82,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         const name = target.name;
 
         this.setState(() => (
-            mapToViewModel<LoginState>({
+            mapToType<LoginState>({
                 [name]: value
             })
         ));

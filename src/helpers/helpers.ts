@@ -1,10 +1,10 @@
 /**
- * Map a object to viewmodel.
+ * Map a object to type.
  *
- * @param {*} object The object that will be mapped to viewmodel
+ * @param {*} object The object that will be mapped to type
  * @returns mapped object
  */
-export function mapToViewModel<T>(object: any): T {
+export function mapToType<T>(object: any): T {
     return object;
 }
 
