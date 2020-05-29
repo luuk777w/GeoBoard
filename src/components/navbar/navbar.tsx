@@ -10,6 +10,7 @@ import { toggleSidebar } from 'store/sidebar/actions'
 import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { container } from 'tsyringe';
+import { Avatar } from 'components/avatar/avatar';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
@@ -52,9 +53,10 @@ class Navbar extends React.Component<NavbarProps> {
                     </div>
                 }
 
-                <ul className="active-board-users">
-
-                </ul>
+                <div className="active-board-users">
+                    <Avatar imagePath="https://i.imgur.com/7RcAN5C.jpg" name="Matthijs" />
+                    <Avatar name="Luuk" />
+                </div>
 
                 <ul className="nav-links ml-auto">
                     <li className="nav-link" onClick={this.props.toggleDarkTheme}>
