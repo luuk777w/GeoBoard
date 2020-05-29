@@ -16,7 +16,6 @@ import { Form } from 'components/form/form';
 import { FormGroup } from 'components/form/formGroup';
 import { FormLabel } from 'components/form/formLabel';
 import FormInput from 'components/form/formInput';
-import { FormPanel } from 'components/form/formPanel';
 
 interface RegisterProps {
     showAlert: typeof showAlert;
@@ -120,7 +119,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                         <div className="panel-header">Create a GeoBoard account</div>
 
                         <Form method="post" id="registerForm" onSubmit={(event) => this.onSubmit(event)}>
-                            <FormPanel>
+                            <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="username">Username</FormLabel>
                                     <FormInput type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Choose a unique username" autoFocus />
@@ -134,9 +133,9 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
                                     <FormFieldValidationErrors field="Email" errors={this.state.errors} />
                                 </FormGroup>
-                            </FormPanel>
+                            </div>
 
-                            <FormPanel>
+                            <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="password">Password</FormLabel>
                                     <FormInput type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" />
@@ -151,15 +150,15 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                     <FormFieldValidationErrors field="PasswordConfirm" errors={this.state.errors} />
                                 </FormGroup>
 
-                            </FormPanel>
+                            </div>
 
-                            <FormPanel className="py-4">
+                            <div className="panel-body py-4">
                                 <div className="terms checkbox">
                                     <FormInput id="terms" onChange={(e) => this.handleInputChange(e)} name="terms" type="checkbox" />
                                     <FormLabel htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</FormLabel>
                                 </div>
                                 <FormFieldValidationErrors field="Terms" errors={this.state.errors} />
-                            </FormPanel>
+                            </div>
 
                             <div className="panel-footer">
                                 <div className="button-group">
