@@ -31,7 +31,7 @@ class Announcement extends React.Component<AnnouncementProps> {
                 <div className={animationStyle}>
                     <div className={announcementStyle}>{this.props.announcement.body}</div>
                 </div>
-            </CSSTransition >
+            </CSSTransition>
         )
     }
 }
