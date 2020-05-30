@@ -110,21 +110,16 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
 
                     {this.state.removeBoardIsOpen &&
                         <div className="remove-board-prompt">
-                            <div className="body">
 
-                                <div className="header">
-                                    <div className="title">
-                                        Are you sure you want to remove this board?
-                                    </div>
-                                    <i title="Cancel" className="fas fa-times cancel fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+                            <div className="remove-board-prompt-header">
+                                <div className="remove-board-prompt-header-title">Are you sure you want to remove this board?</div>
+                                <i title="Cancel" className="fas fa-times cancel fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+                            </div>
 
-                                </div>
+                            <div className="remove-board-prompt-body">
+                                <div className="remove-board-prompt-text">All users will lose access and all items will be deleted. This action cannot be undone.</div>
 
-                                <div className="subtitle">
-                                    All users will lose access and all items will be deleted. This action cannot be undone.
-                                </div>
-
-                                <input type="text" placeholder="Type boardname here" onChange={() => this.handleInputChange(event)} />
+                                <input type="text" placeholder="Enter boardname here to confirm" onChange={() => this.handleInputChange(event)} />
 
                                 <button className="button button-red button-small" onClick={() => this.removeBoard()}
                                     disabled={this.props.boardName !== this.state.removeBoardName}>Remove board</button>
