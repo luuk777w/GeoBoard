@@ -119,7 +119,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
                         <div className="sidebar-section">
                             <div className="section-header">
-                                <CreateBoard onAddBoard={this.addBoard} />
+                                <CreateBoard onBoardCreated={this.addBoard} />
                             </div>
 
                             <ul className="board-list">

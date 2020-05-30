@@ -3,7 +3,7 @@
 
 input[type=text], input[type=password], input[type=email] {
     width: 100%;
-    padding: 8px 14px;
+    padding: .5rem 1rem;
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 1rem;
@@ -41,15 +41,44 @@ input[type=text], input[type=password], input[type=email] {
     display: flex;
     align-items: center;
     position: relative;
+    width: 100%;
+    margin: 1rem 0;
+
+    input {
+        margin: 0;
+    }
 
     .input-prefix {
         position: absolute;
         padding: 0 1rem;
         color: $gray900;
+
+        + input[type=text],
+        + input[type=password],
+        + input[type=email] {
+            padding-left: 3rem;
+        }
     }
 
-    input[type=text], input[type=password], input[type=email] {
-        padding-left: 3rem;
+    input[type=text]:nth-child(1),
+    input[type=password]:nth-child(1),
+    input[type=email]:nth-child(1)
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+    }
+
+    .button:nth-child(1)
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .button:nth-child(2)
+    {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 }
 

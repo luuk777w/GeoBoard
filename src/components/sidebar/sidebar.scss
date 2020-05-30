@@ -36,8 +36,6 @@
         }
     }
 
-
-
     .sidebar-body {
         padding: 1rem;
 
@@ -47,6 +45,7 @@
             justify-content: space-between;
             border-bottom: 2px solid $gray100;
             padding: .5rem;
+            margin-bottom: .5rem;
             transition: border-color 250ms;
 
             .sidebar-section-title {
@@ -60,13 +59,7 @@
                 align-items: center;
                 width: 100%;
 
-                input {
-                    width: calc(100% - 3rem);
-                }
-
                 .create-board-button {
-                    width: 2.5rem;
-                    height: 2.5rem;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -82,7 +75,7 @@
 
         .board-list {
             list-style: none;
-            padding: 0;
+            padding: .5rem;
             margin-top: 0;
             border-radius: $border-radius;
         }

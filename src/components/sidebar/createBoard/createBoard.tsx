@@ -5,6 +5,7 @@ import { showAlert, hideAlert } from 'store/alert/actions'
 import { AlertType } from 'store/alert/types';
 import { HttpService } from 'services/http.service';
 import { container } from 'tsyringe';
+import { BoardViewModel } from 'models/BoardViewModel';
 
 interface CreateBoardState {
     isOpen: boolean;
@@ -14,7 +15,7 @@ interface CreateBoardState {
 interface CreateBoardProps {
     showAlert: typeof showAlert;
     hideAlert: typeof showAlert;
-    onAddBoard: Function;
+    onBoardCreated: Function;
 }
 
 class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
@@ -34,7 +35,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
     toggleCreateBoard() {
         this.setState(state => ({
-            isOpen: !state.isOpen
+            isOpen: ! state.isOpen
         }));
     }
 
@@ -47,10 +48,8 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
     createBoard() {
 
         if (this.state.boardName == "") {
-            this.props.showAlert(AlertType.Warning, "Please enter a boardname");
-            setTimeout(() => {
-                this.props.hideAlert();
-            }, 2000);
+            this.props.showAlert(AlertType.Warning, "Please enter a boardname.");
+
             return;
         }
 
@@ -58,10 +57,10 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
             name: this.state.boardName
         };
 
-        this.httpService.postWithAuthorization(`/boards`, JSON.stringify(data)).then(result => {
-            this.props.showAlert(AlertType.Success, "Board created!");
+        this.httpService.postWithAuthorization<BoardViewModel>(`/boards`, JSON.stringify(data)).then((result: BoardViewModel) => {
+            this.props.showAlert(AlertType.Success, `Board '${result.name}' created!`);
 
-            this.props.onAddBoard(result);
+            this.props.onBoardCreated(result);
 
             this.setState(() => ({
                 isOpen: false,
@@ -70,13 +69,15 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
             setTimeout(() => {
                 this.props.hideAlert();
-            }, 2000);
-        }, error => {
-            this.props.showAlert(AlertType.Error, error);
+            }, 5000);
 
-            setTimeout(() => {
-                this.props.hideAlert();
-            }, 2000);
+        }, error => {
+            if (error.status == 0) {
+                this.props.showAlert(AlertType.Error, "Could not reach server. Please try again.");
+            }
+            else {
+                this.props.showAlert(AlertType.Error, "Something went wrong. Please try again.");
+            }
         });
     }
 
@@ -99,8 +100,10 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
                 }}>
                     <div className="create-board-height-animation-wrapper create-board-animation-height-0">
                         <div className="section-header-section create-board-section">
-                            <input type="text" name="boardName" onChange={() => this.handleInputChange(event)} />
-                            <button className="button button-small button-green create-board-button" onClick={() => this.createBoard()}><i className="fa fa-check"></i></button>
+                            <div className="input-group">
+                                <input type="text" name="boardName" placeholder="Choose a unique board name" onChange={() => this.handleInputChange(event)} />
+                                <button className="button button-small button-green create-board-button" onClick={() => this.createBoard()}><i className="fa fa-check"></i></button>
+                            </div>
                         </div>
                     </div>
                 </CSSTransition >
