@@ -37,6 +37,8 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
         this.setState(state => ({
             isOpen: ! state.isOpen
         }));
+
+        this.props.hideAlert();
     }
 
     handleInputChange(event: any) {
@@ -69,7 +71,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
             setTimeout(() => {
                 this.props.hideAlert();
-            }, 5000);
+            }, 3000);
 
         }, error => {
             if (error.status == 0) {
@@ -101,7 +103,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
                     <div className="create-board-height-animation-wrapper create-board-animation-height-0">
                         <div className="section-header-section create-board-section">
                             <div className="input-group">
-                                <input type="text" name="boardName" placeholder="Choose a unique board name" onChange={() => this.handleInputChange(event)} />
+                                <input type="text" name="boardName" placeholder="Choose a unique board name" value={this.state.boardName} onChange={() => this.handleInputChange(event)} />
                                 <button className="button button-small button-green create-board-button" onClick={() => this.createBoard()}><i className="fa fa-check"></i></button>
                             </div>
                         </div>
