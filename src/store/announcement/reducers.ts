@@ -1,14 +1,14 @@
-import { SHOW_ALERT, HIDE_ALERT, SET_ALERT_TYPE, SET_ALERT_BODY, AlertState, AlertActionTypes, AlertType } from "./types";
+import { SHOW_ANNOUNCEMENT, HIDE_ANNOUNCEMENT, SET_ANNOUNCEMENT_TYPE, SET_ANNOUNCEMENT_BODY, AnnouncementType, AnnouncementActionTypes, AnnouncementState } from "./types";
 
-const initialState: AlertState = {
+const initialState: AnnouncementState = {
     show: false,
-    type: AlertType.Info,
+    type: AnnouncementType.Info,
     body: ''
 }
 
-export function alertReducer(state = initialState, action: AlertActionTypes): AlertState {
+export function announcementReducer(state = initialState, action: AnnouncementActionTypes): AnnouncementState {
     switch (action.type) {
-        case SHOW_ALERT: {
+        case SHOW_ANNOUNCEMENT: {
             return {
                 ...state,
                 show: true,
@@ -16,19 +16,20 @@ export function alertReducer(state = initialState, action: AlertActionTypes): Al
                 body: action.payload.body
             };
         }
-        case HIDE_ALERT: {
+        case HIDE_ANNOUNCEMENT: {
             return {
                 ...state,
-                show: false
+                show: false,
+                body: ''
             };
         }
-        case SET_ALERT_TYPE: {
+        case SET_ANNOUNCEMENT_TYPE: {
             return {
                 ...state,
                 type: action.payload.type
             };
         }
-        case SET_ALERT_BODY: {
+        case SET_ANNOUNCEMENT_BODY: {
             return {
                 ...state,
                 body: action.payload.body

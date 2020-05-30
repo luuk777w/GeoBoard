@@ -5,7 +5,7 @@ import { sidebarReducer } from "./sidebar/reducers";
 import { systemReducers } from "./system/reducers";
 import { boardReducer } from "./board/reducers";
 import { alertReducer } from "./alert/reducers";
-
+import { announcementReducer } from "./announcement/reducers";
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
     system: systemReducers,
     sidebar: sidebarReducer,
     activeBoard: boardReducer,
-    alert: alertReducer
+    alert: alertReducer,
+    announcement: announcementReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

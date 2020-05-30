@@ -1,8 +1,8 @@
-import { SHOW, HIDE, SET_TYPE, SET_BODY, AlertType } from "./types";
+import { SHOW_ALERT, HIDE_ALERT, SET_ALERT_TYPE, SET_ALERT_BODY, AlertType } from "./types";
 
 export function showAlert(type?: AlertType, body?: string) {
     return {
-        type: SHOW,
+        type: SHOW_ALERT,
         payload: {
             body: body,
             type: type
@@ -12,14 +12,14 @@ export function showAlert(type?: AlertType, body?: string) {
 
 export function hideAlert() {
     return {
-        type: HIDE,
+        type: HIDE_ALERT,
         payload: {}
     }
 }
 
 export function setAlertType(type: AlertType) {
     return {
-        type: SET_TYPE,
+        type: SET_ALERT_TYPE,
         payload: {
             type: type
         }
@@ -28,7 +28,7 @@ export function setAlertType(type: AlertType) {
 
 export function setAlertBody(body: string) {
     return {
-        type: SET_BODY,
+        type: SET_ALERT_BODY,
         payload: {
             body: body
         }

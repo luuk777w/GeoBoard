@@ -3,6 +3,9 @@ import { JWTService } from '../services/jwt.service';
 import { Config } from './config';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
 import { container } from 'tsyringe';
+import { store } from 'store';
+import { showAnnouncement, hideAnnouncement } from 'store/announcement/actions';
+import { AnnouncementType } from 'store/announcement/types';
 
 export abstract class SignalRClient {
 
@@ -26,20 +29,14 @@ export abstract class SignalRClient {
         // Start the connection.
         this.getConnection().start();
 
-        // TODO: Moet nog omgebouwd worden naar nieuwe situatie.
         // Handle reconnection when the connection was lost.
         this.getConnection().onreconnecting((error: any) => {
-            $(".notification").text("The connection with the server was lost. Reconnecting...");
-            $(".notification").slideDown(200, () => $(this).show());
+            store.store.dispatch(showAnnouncement(AnnouncementType.Error, "The connection with the server was lost. Reconnecting..."));
         });
 
         // When reconnected to SignalR...
         this.getConnection().onreconnected((connectionId: any) => {
-            $(".notification").slideUp(200, () => {
-                $(this).hide();
-
-                $(this).text("The connection with the server was lost. Reconnecting...");
-            });
+            store.store.dispatch(hideAnnouncement());
         });
     }
 

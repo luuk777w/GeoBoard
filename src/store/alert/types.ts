@@ -4,28 +4,28 @@ export interface AlertState {
     body: string;
 }
 
-export const SHOW = "SHOW";
-export const HIDE = "HIDE";
-export const SET_TYPE = "SET_TYPE";
-export const SET_BODY = "SET_BODY";
+export const SHOW_ALERT = "SHOW_ALERT";
+export const HIDE_ALERT = "HIDE_ALERT";
+export const SET_ALERT_TYPE = "SET_ALERT_TYPE";
+export const SET_ALERT_BODY = "SET_ALERT_BODY";
 
 interface ShowAction {
-    type: typeof SHOW;
+    type: typeof SHOW_ALERT;
     payload: AlertState;
 }
 
 interface HideAction {
-    type: typeof HIDE;
+    type: typeof HIDE_ALERT;
     payload: AlertState;
 }
 
 interface SetTypeAction {
-    type: typeof SET_TYPE;
+    type: typeof SET_ALERT_TYPE;
     payload: AlertState;
 }
 
 interface SetBodyAction {
-    type: typeof SET_BODY;
+    type: typeof SET_ALERT_BODY;
     payload: AlertState;
 }
 

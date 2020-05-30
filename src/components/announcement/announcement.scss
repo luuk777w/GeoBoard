@@ -1,0 +1,46 @@
+@import "../../css/variables";
+@import "../../css/colors";
+
+.announcement {
+    display: block;
+    color: $gray900;
+    background-color: $gray300;
+    padding: .5rem 4em;
+    font-weight: 600;
+    box-shadow: 0px 6px 12px -12px $gray900;
+}
+
+.announcement-height-animation-wrapper{
+    transition: height 200ms ease-out;
+}
+
+.announcement-animation-height-closed {
+    height: 0;
+    overflow: hidden;
+}
+
+.announcement-animation-height-open {
+    height: 100%;
+}
+
+/*
+ * Announcement types
+ */
+.announcement-info {
+    color: white;
+    background-color: $blue400;
+}
+
+.announcement-error {
+    color: white;
+    background-color: $red400;
+}
+
+.announcement-warning {
+    background-color: $amber400;
+}
+
+.announcement-success {
+    color: white;
+    background-color: $green500;
+}
