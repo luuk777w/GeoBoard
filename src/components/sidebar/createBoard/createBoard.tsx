@@ -54,7 +54,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
         }
 
         let data = {
-            name: this.state.boardName
+            name: (this.state.boardName[0].toUpperCase()) + this.state.boardName.slice(1)
         };
 
         this.httpService.postWithAuthorization<BoardViewModel>(`/boards`, JSON.stringify(data)).then((result: BoardViewModel) => {
