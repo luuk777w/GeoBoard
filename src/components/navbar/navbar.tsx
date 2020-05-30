@@ -11,10 +11,14 @@ import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { container } from 'tsyringe';
 import { Avatar } from 'components/avatar/avatar';
+import { BoardHubService } from 'services/hubs/boardHub.service';
+import { BoardUserViewModel } from 'models/BoardUserViewModel';
+import { setJoinedUsers } from 'store/board/actions';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
+    setJoinedUsers: typeof setJoinedUsers;
     system: SystemState;
     activeBoardState: BoardState;
     history: any;
@@ -23,10 +27,27 @@ interface NavbarProps {
 class Navbar extends React.Component<NavbarProps> {
 
     private JWTService: JWTService;
+    private boardHubService: BoardHubService;
 
     constructor(props: NavbarProps) {
         super(props);
+
         this.JWTService = container.resolve(JWTService);
+        this.boardHubService = container.resolve(BoardHubService);
+    }
+
+    componentDidMount() {
+        this.boardHubService.getConnection().on('UserJoinedBoard', (response) => {
+            this.props.setJoinedUsers(response.joinedUsers);
+
+            console.log("User joined board", response);
+        });
+
+        this.boardHubService.getConnection().on('UserLeftBoard', (response) => {
+            this.props.setJoinedUsers(response.joinedUsers);
+
+            console.log("User LEFT board", response);
+        });
     }
 
     handleLogout() {
@@ -54,8 +75,10 @@ class Navbar extends React.Component<NavbarProps> {
                 }
 
                 <div className="active-board-users">
-                    <Avatar imagePath="https://i.imgur.com/7RcAN5C.jpg" name="Matthijs" />
-                    <Avatar name="Luuk" />
+                    {this.props.activeBoardState.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
+                        console.log(user);
+                        return <Avatar key={index} username={user.username} />
+                    })}
                 </div>
 
                 <ul className="nav-links ml-auto">
@@ -82,4 +105,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoardState: state.activeBoard
 });
 
-export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar })(Navbar);
+export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers })(Navbar);

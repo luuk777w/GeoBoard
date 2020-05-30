@@ -64,10 +64,10 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
         const boardName = this.props.activeBoardState.name == this.props.boardName ? null : this.props.boardName;
 
         if (boardId == null) {
-            this.props.setActiveBoard(boardId, boardName);
         } else {
-            this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
         }
+        this.props.setActiveBoard(boardId, boardName);
+        this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
     }
 
     promptRemoveBoard() {

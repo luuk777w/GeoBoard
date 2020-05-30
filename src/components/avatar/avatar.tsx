@@ -4,9 +4,9 @@ import React from "react";
 import './avatar.scss';
 
 interface AvatarProps {
-    name: string;
+    username: string;
     imagePath?: string;
-    size?: string;
+    size?: "xs" | "s" | "m" | "l" | "xl";
     animated?: boolean;
 }
 
@@ -21,14 +21,14 @@ export class Avatar extends Component<AvatarProps> {
     }
 
     getNameAbbreviation(): string {
-        return this.props.name[0].toUpperCase();
+        return this.props.username[0].toUpperCase();
     }
 
     render() {
         return (
-            <div className="avatar animated bounceIn" title={this.props.name}>
+            <div className="avatar animated bounceIn" title={this.props.username}>
                 {this.props.imagePath
-                    ? <img src={this.props.imagePath} alt={this.props.name} className="avatar-img"></img>
+                    ? <img src={this.props.imagePath} alt={this.props.username} className="avatar-img"></img>
                     : <span className="avatar-title">{this.getNameAbbreviation()}</span>
                 }
             </div>

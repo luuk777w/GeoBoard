@@ -31,7 +31,9 @@ export abstract class SignalRClient {
 
         // Handle reconnection when the connection was lost.
         this.getConnection().onreconnecting((error: any) => {
-            store.store.dispatch(showAnnouncement(AnnouncementType.Error, "The connection with the server was lost. Reconnecting..."));
+            store.store.dispatch(
+                showAnnouncement(AnnouncementType.Error, "The connection with the server was lost. Reconnecting...")
+            );
         });
 
         // When reconnected to SignalR...
