@@ -89,6 +89,19 @@
     }
 }
 
+.create-board-height-animation-wrapper{
+    transition: height 200ms ease-out;
+}
+
+.create-board-animation-height-0 {
+    height: 0;
+    overflow: hidden;
+}
+
+.create-board-animation-height-3 {
+    height: 3.4rem;
+}
+
 /**
  * Dark theme
  */

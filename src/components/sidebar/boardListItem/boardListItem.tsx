@@ -13,13 +13,14 @@ import { BoardViewModel } from 'models/BoardViewModel';
 
 interface BoardListItemProps {
     /**
-     * The boardId of this specific board list item.
+     * The boardId of this specific boards list item.
      */
     boardId: string;
     boardName: string;
     userId: string;
     username: string;
     timestamp: Date;
+    onRemoveBoard: Function;
     /**
      * The currently shown board.
      */
@@ -27,7 +28,12 @@ interface BoardListItemProps {
     setActiveBoard: typeof setActiveBoard;
 }
 
-class BoardListItem extends React.Component<BoardListItemProps> {
+interface BoardListItemState {
+    removeBoardIsOpen: boolean;
+    removeBoardName: string;
+}
+
+class BoardListItem extends React.Component<BoardListItemProps, BoardListItemState> {
 
     private jwtService: JWTService;
     private boardHubService: BoardHubService;
@@ -35,40 +41,106 @@ class BoardListItem extends React.Component<BoardListItemProps> {
     constructor(props: BoardListItemProps) {
         super(props);
 
-        this.toggleBoard = this.toggleBoard.bind(this);
+        this.state = {
+            removeBoardIsOpen: false,
+            removeBoardName: ''
+        }
 
         this.jwtService = container.resolve(JWTService);
         this.boardHubService = container.resolve(BoardHubService);
     }
 
-    toggleBoard() {
+    toggleBoard(event: any) {
+
+        if (event.target.className.includes("remove-board")) return;
+        else if (event.target.className.includes("title")) return;
+        else if (event.target.className.includes("subtitle")) return;
+        else if (event.target.className.includes("body")) return;
+        else if (event.target.localName == "input") return;
+        else if (event.target.localName == "button") return;
+        else if (event.target.localName == "i") return;
+
         const boardId = this.props.activeBoardState.boardId == this.props.boardId ? null : this.props.boardId;
         const boardName = this.props.activeBoardState.name == this.props.boardName ? null : this.props.boardName;
 
-        this.props.setActiveBoard(boardId, boardName);
-        this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
+        if (boardId == null) {
+            this.props.setActiveBoard(boardId, boardName);
+        } else {
+            this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
+        }
+    }
+
+    promptRemoveBoard() {
+        this.setState((state) => ({
+            removeBoardIsOpen: !state.removeBoardIsOpen
+        }))
+    }
+
+    removeBoard() {
+        this.setState(() => ({
+            removeBoardIsOpen: false,
+            removeBoardName: ''
+        }));
+
+        this.props.onRemoveBoard(this.props.boardId);
+    }
+
+    handleInputChange(event: any) {
+        this.setState(() => ({
+            removeBoardName: event.target.value
+        }));
     }
 
     render() {
-
-        //Conditional rendering
-        //Lees hier meer: https://reactjs.org/docs/conditional-rendering.html
 
         const isActive = this.props.activeBoardState.boardId == this.props.boardId ? true : false
         const isOwner = this.props.userId == this.jwtService.getUserId();
 
         return (
-            <li className={isActive ? "board-list-item active" : "board-list-item"} onClick={this.toggleBoard}>
-                {this.props.boardName}
-                {isOwner &&
-                    <i title="You own this bord" className="fas fa-crown is-owner fa-fw ml-1"></i>
-                }
+            <>
+                <li className={isActive ? "board-list-item active" : "board-list-item"} onClick={() => this.toggleBoard(event)}>
+                    {this.props.boardName}
+                    {isOwner &&
+                        <i title="You own this bord" className="fas fa-crown is-owner fa-fw ml-1"></i>
+                    }
 
-                {isOwner
-                    ? <div className="board-list-item-description">Created at <time dateTime={this.props.timestamp.toString()}>{dateToReadableString(this.props.timestamp)}</time></div>
-                    : <div className="board-list-item-description">Created by {this.props.username}</div>
-                }
-            </li>
+                    {isOwner &&
+                        <i title="Remove board" className="fas fa-trash remove-board fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+                    }
+
+                    {this.state.removeBoardIsOpen &&
+                        <div className="remove-board-prompt">
+                            <div className="body">
+
+                                <div className="header">
+                                    <div className="title">
+                                        Are you sure you want to remove this board?
+                                    </div>
+                                    <i title="Cancel" className="fas fa-times cancel fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+
+                                </div>
+
+                                <div className="subtitle">
+                                    All users will lose access and all items will be deleted. This action cannot be undone.
+                                </div>
+
+                                <input type="text" placeholder="Type boardname here" onChange={() => this.handleInputChange(event)} />
+
+                                <button className="button button-red button-small" onClick={() => this.removeBoard()}
+                                    disabled={this.props.boardName !== this.state.removeBoardName}>Remove board</button>
+                            </div>
+                        </div>
+                    }
+
+                    {isOwner
+                        ? <div className="board-list-item-description">Created at <time dateTime={this.props.timestamp.toString()}>{dateToReadableString(this.props.timestamp)}</time></div>
+                        : <div className="board-list-item-description">Created by {this.props.username}</div>
+                    }
+                </li>
+
+
+
+            </>
         )
     }
 }

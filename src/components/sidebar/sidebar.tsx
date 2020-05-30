@@ -14,6 +14,8 @@ import 'css/components/button.scss';
 import './sidebar.scss';
 import { showAlert, hideAlert } from 'store/alert/actions';
 import { AlertType } from 'store/alert/types';
+import CreateBoard from './createBoard/createBoard';
+import { mapToType } from 'helpers/helpers';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
@@ -38,6 +40,47 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
         this.state = {
             playerBoards: []
         }
+
+        this.addBoard = this.addBoard.bind(this);
+        this.removeBoard = this.removeBoard.bind(this);
+    }
+
+    addBoard(board: BoardViewModel) {
+        let boards = this.state.playerBoards;
+        boards.push(board);
+
+        this.setState(() => ({
+            playerBoards: boards
+        }))
+    }
+
+    removeBoard(boardId: string) {
+        let boards = this.state.playerBoards;
+        let board = mapToType<BoardViewModel>(boards.find(x => x.id === boardId));
+
+        this.httpService.deleteWithAuthorization(`/boards/${boardId}`)
+            .then((response) => {
+                boards.splice(boards.indexOf(board), 1);
+
+                this.setState(() => ({
+                    playerBoards: boards
+                }));
+
+                this.props.showAlert(AlertType.Success, "Board removed!");
+
+                setTimeout(() => {
+                    this.props.hideAlert();
+                }, 2000);
+            })
+            .catch((e) => {
+
+                this.props.showAlert(AlertType.Error, e.status);
+
+                setTimeout(() => {
+                    this.props.hideAlert();
+                }, 2000);
+            });
+
     }
 
     componentDidMount() {
@@ -76,16 +119,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
                         <div className="sidebar-section">
                             <div className="section-header">
-
-                                <div className="section-header-section">
-                                    <h3 className="sidebar-section-title sidebar-my-boards">My boards</h3>
-                                    <button className="button button-small button-green" data-target="toggleCreateBoard">Create board</button>
-                                </div>
-
-                                <div className="section-header-section create-board-section" style={{ display: "none" }}>
-                                    <input type="text" name="boardName" />
-                                    <button className="button button-small button-green create-board-button"><i className="fa fa-check"></i></button>
-                                </div>
+                                <CreateBoard onAddBoard={this.addBoard} />
                             </div>
 
                             <ul className="board-list">
@@ -93,18 +127,19 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
                                 {this.state.playerBoards.length > 0
                                     ? this.state.playerBoards.map((board: BoardViewModel, index) => {
                                         return (<BoardListItem
-                                                key={index}
-                                                boardId={board.id}
-                                                boardName={board.name}
-                                                userId={board.userId}
-                                                username={board.owner.username}
-                                                timestamp={board.createdAt}
-                                            />)
+                                            key={index}
+                                            boardId={board.id}
+                                            boardName={board.name}
+                                            userId={board.userId}
+                                            username={board.owner.username}
+                                            timestamp={board.createdAt}
+                                            onRemoveBoard={this.removeBoard}
+                                        />)
                                     })
 
                                     : <p className="sidebar-text">You don't own any boards. Create one!</p>
                                 }
-                                </ul>
+                            </ul>
                         </div>
 
                         <div className="sidebar-section">

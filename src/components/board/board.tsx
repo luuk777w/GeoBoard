@@ -10,11 +10,13 @@ import { BoardElementViewModel } from 'models/BoardElementViewModel';
 import { BoardViewModel } from 'models/BoardViewModel';
 import { BoardElement } from './boardElement/boardElement';
 import { HttpService } from 'services/http.service';
+import { setActiveBoard } from 'store/board/actions';
 
 import './board.scss'
 
 interface BoardProps {
     activeBoardState: BoardState;
+    setActiveBoard: typeof setActiveBoard;
 }
 
 interface LocalBoardState {
@@ -44,15 +46,17 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     async componentDidMount() {
         // If there was any active board on page load...
         if (this.props.activeBoardState.boardId) {
+
             await this.loadBoardElements();
         }
 
         this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
-            this.updateSiteTitle();
-
             this.setState({
                 boardElements: response.elements
             });
+
+            this.props.setActiveBoard(response.id, response.name);
+            this.updateSiteTitle();
         });
     }
 
@@ -73,8 +77,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         if (this.props.activeBoardState.boardId != null) {
             document.title = `${this.props.activeBoardState.name} | ${this.config.siteName}`;
         }
-        else
-        {
+        else {
             document.title = this.config.siteName;
         }
     }
@@ -82,33 +85,33 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     render() {
         return (
             <>
-            {this.props.activeBoardState.boardId != null
-                ?
-                <div className="board-elements">
+                {this.props.activeBoardState.boardId != null
+                    ?
+                    <div className="board-elements">
 
-                    {this.state.boardElements.map((element: BoardElementViewModel, index) => {
-                        return (
-                            <BoardElement
-                                key={index}
-                                id={element.id}
-                                // TODO: Use number from server
-                                number={index + 1}
-                                user={element.user}
-                                direction={element.direction}
-                                note={element.note}
-                                imagePath={element.imagePath}
-                                createdAt={element.createdAt}
-                            />
-                        )
-                    })}
-                </div>
+                        {this.state.boardElements.map((element: BoardElementViewModel, index) => {
+                            return (
+                                <BoardElement
+                                    key={index}
+                                    id={element.id}
+                                    // TODO: Use number from server
+                                    number={index + 1}
+                                    user={element.user}
+                                    direction={element.direction}
+                                    note={element.note}
+                                    imagePath={element.imagePath}
+                                    createdAt={element.createdAt}
+                                />
+                            )
+                        })}
+                    </div>
 
-                :
-                <div className="select-board-instruction">
-                    <h1>Please select or create a board.</h1>
-                </div>
-            }
-        </>
+                    :
+                    <div className="select-board-instruction">
+                        <h1>Please select or create a board.</h1>
+                    </div>
+                }
+            </>
         )
     }
 
@@ -118,4 +121,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoardState: state.activeBoard
 });
 
-export default connect(mapStateToProps, { })(Board);
+export default connect(mapStateToProps, { setActiveBoard })(Board);
