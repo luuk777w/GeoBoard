@@ -8,6 +8,11 @@ export class BoardHubService extends SignalRClient {
         const state: AppState = store.store.getState();
         const currentBoard = state.activeBoard.boardId;
 
-        super(`boardHub?currentBoard=${currentBoard}`);
+        if (currentBoard == null || currentBoard == '') {
+            super(`boardHub`);
+        }
+        else {
+            super(`boardHub?currentBoard=${currentBoard}`);
+        }
     }
 }

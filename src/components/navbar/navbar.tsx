@@ -82,7 +82,6 @@ class Navbar extends React.Component<NavbarProps> {
 
                 <div className="active-board-users">
                     {this.props.activeBoard.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
-                        console.log(user);
                         return <Avatar key={index} username={user.username} />
                     })}
                 </div>

@@ -3,7 +3,7 @@ import './boardListItem.scss';
 import 'css/components/button.scss';
 import { connect } from 'react-redux';
 import { AppState } from 'store';
-import { setActiveBoard } from 'store/board/actions';
+import { setActiveBoard, setJoinedUsers } from 'store/board/actions';
 import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { container } from 'tsyringe';
@@ -26,6 +26,7 @@ interface BoardListItemProps {
      */
     activeBoardState: BoardState;
     setActiveBoard: typeof setActiveBoard;
+    setJoinedUsers: typeof setJoinedUsers;
 }
 
 interface BoardListItemState {
@@ -60,14 +61,24 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
         else if (event.target.localName == "button") return;
         else if (event.target.localName == "i") return;
 
-        const boardId = this.props.activeBoardState.boardId == this.props.boardId ? null : this.props.boardId;
-        const boardName = this.props.activeBoardState.name == this.props.boardName ? null : this.props.boardName;
+        const boardToSwitchFrom = this.props.activeBoardState.boardId;
+        const boardToSwitchTo = this.props.boardId;
 
-        if (boardId == null) {
-        } else {
-        }
-        this.props.setActiveBoard(boardId, boardName);
-        this.boardHubService.getConnection().invoke('SwitchBoard', boardId, this.props.boardId);
+        this.boardHubService.getConnection().invoke('SwitchBoard', boardToSwitchFrom, boardToSwitchTo)
+            .then(() => {
+
+                if (boardToSwitchFrom == boardToSwitchTo) {
+                    // Don't set any board active.
+                    this.props.setActiveBoard(null, null);
+
+                    // Empty the joined users list.
+                    this.props.setJoinedUsers([]);
+
+                } else {
+                    this.props.setActiveBoard(boardToSwitchTo, this.props.boardName);
+                }
+            })
+        ;
     }
 
     promptRemoveBoard() {
@@ -145,4 +156,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoardState: state.activeBoard
 })
 
-export default connect(mapStateToProps, { setActiveBoard })(BoardListItem)
+export default connect(mapStateToProps, { setActiveBoard, setJoinedUsers })(BoardListItem)
