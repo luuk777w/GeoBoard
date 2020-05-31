@@ -1,0 +1,26 @@
+@import "src/css/colors";
+@import "src/css/variables";
+
+#app {
+
+    .board-container {
+        overflow: auto;
+        display: flex;
+        position: relative;
+        height: 100%;
+    }
+
+    .create-board-element-button {
+        outline: none;
+        background: none;
+        border: 0;
+        margin-right: 1rem;
+        color: $blue500;
+        transition: all 250ms;
+
+        &:hover {
+            color: $blue700;
+            cursor: pointer;
+        }
+    }
+}
