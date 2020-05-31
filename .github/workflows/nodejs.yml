@@ -26,7 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies
       run: npm ci
-    - name: Run Gulp
-      run: gulp build
+    - name: Run Webpack
+      run: npm run build
       env:
         CI: true
