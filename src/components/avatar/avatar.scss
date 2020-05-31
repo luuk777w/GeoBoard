@@ -1,0 +1,31 @@
+@import "css/colors";
+
+.avatar {
+    position: relative;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    &:not(:last-child) {
+        margin-right: .5rem;
+    }
+
+    .avatar-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background-color: $blue200;
+        color: #fff;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
+}
