@@ -20,7 +20,7 @@ interface NavbarProps {
     toggleSidebar: typeof toggleSidebar;
     setJoinedUsers: typeof setJoinedUsers;
     system: SystemState;
-    activeBoardState: BoardState;
+    activeBoard: BoardState;
     history: any;
 }
 
@@ -55,6 +55,12 @@ class Navbar extends React.Component<NavbarProps> {
         this.props.history.push("/login");
     }
 
+    toggleSidebar() {
+        if (this.props.activeBoard.boardId != null) {
+            this.props.toggleSidebar();
+        }
+    }
+
     render() {
         return (
             <nav className="navbar">
@@ -67,15 +73,15 @@ class Navbar extends React.Component<NavbarProps> {
 
                 </div>
 
-                {this.props.activeBoardState.boardId &&
+                {this.props.activeBoard.boardId &&
                     <div className="board-info">
                         <span className="board-info-prefix">Current board</span>
-                        <span className="board-info-name">{this.props.activeBoardState.name}</span>
+                        <span className="board-info-name">{this.props.activeBoard.name}</span>
                     </div>
                 }
 
                 <div className="active-board-users">
-                    {this.props.activeBoardState.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
+                    {this.props.activeBoard.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
                         console.log(user);
                         return <Avatar key={index} username={user.username} />
                     })}
@@ -91,7 +97,7 @@ class Navbar extends React.Component<NavbarProps> {
                     <li className="nav-link" data-target="logout" onClick={() => this.handleLogout()}>
                         <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
                     </li>
-                    <li className="nav-link sidebar-link" onClick={this.props.toggleSidebar}>
+                    <li className="nav-link sidebar-link" onClick={() => this.toggleSidebar()}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
@@ -102,7 +108,7 @@ class Navbar extends React.Component<NavbarProps> {
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system,
-    activeBoardState: state.activeBoard
+    activeBoard: state.activeBoard
 });
 
 export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers })(Navbar);

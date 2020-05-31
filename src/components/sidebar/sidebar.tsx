@@ -16,12 +16,14 @@ import { showAlert, hideAlert } from 'store/alert/actions';
 import { AlertType } from 'store/alert/types';
 import CreateBoard from './createBoard/createBoard';
 import { mapToType } from 'helpers/helpers';
+import { BoardState } from 'store/board/types';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
     showAlert: typeof showAlert;
     hideAlert: typeof hideAlert;
     sidebar: SidebarState;
+    activeBoard: BoardState;
 }
 
 interface LocalSidebarState {
@@ -83,6 +85,12 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
     }
 
+    toggleSidebar() {
+        if (this.props.activeBoard.boardId != null) {
+            this.props.toggleSidebar();
+        }
+    }
+
     componentDidMount() {
         this.httpService.getWithAuthorization<Array<BoardViewModel>>('/player-boards')
             .then((response: Array<BoardViewModel>) => {
@@ -109,7 +117,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
                 <aside className="sidebar">
                     <div className="sidebar-header">
                         <h4 className="m-0">Menu</h4>
-                        <span className="close-sidebar" title="Close sidebar" onClick={this.props.toggleSidebar}>
+                        <span className="close-sidebar" title="Close sidebar" onClick={() => this.toggleSidebar()}>
                             <i className="fas fa-times fa-lg"></i>
                         </span>
                     </div>
@@ -158,6 +166,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
 const mapStateToProps = (state: AppState) => ({
     sidebar: state.sidebar,
+    activeBoard: state.activeBoard
 })
 
 export default connect(mapStateToProps, { toggleSidebar, showAlert, hideAlert })(Sidebar);
