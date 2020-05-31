@@ -39,14 +39,10 @@ class Navbar extends React.Component<NavbarProps> {
     componentDidMount() {
         this.boardHubService.getConnection().on('UserJoinedBoard', (response) => {
             this.props.setJoinedUsers(response.joinedUsers);
-
-            console.log("User joined board", response);
         });
 
         this.boardHubService.getConnection().on('UserLeftBoard', (response) => {
             this.props.setJoinedUsers(response.joinedUsers);
-
-            console.log("User LEFT board", response);
         });
     }
 
