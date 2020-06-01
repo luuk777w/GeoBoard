@@ -1,11 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/'
     },
     mode: "development",
@@ -52,7 +54,11 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'style.css'
         }),
-
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'public/assets', to: 'assets' }
+            ]
+        })
     ],
     devServer: {
         historyApiFallback: true,

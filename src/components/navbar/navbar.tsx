@@ -63,8 +63,8 @@ class Navbar extends React.Component<NavbarProps> {
                 <div className="branding">
 
                     {this.props.system.darkThemeIsActive
-                        ? <img className="logo-light" src="assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" />
-                        : <img className="logo-dark" src="assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
+                        ? <img className="logo-light" src="/assets/media/logo/GeoBoard_Light.png" alt="GeoBoard" />
+                        : <img className="logo-dark" src="/assets/media/logo/GeoBoard_Dark.png" alt="GeoBoard" />
                     }
 
                 </div>
