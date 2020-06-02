@@ -13,6 +13,7 @@ import { AlertType } from 'store/alert/types';
 import { JWTService } from 'services/jwt.service';
 
 import './login.scss';
+import { Button } from 'components/button/button';
 
 interface LoginProps {
     showAlert: typeof showAlert;
@@ -24,6 +25,7 @@ interface LoginState {
     username: string;
     password: string;
     remember: boolean;
+    isSubmitting: boolean;
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -37,7 +39,8 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.state = {
             username: '',
             password: '',
-            remember: false
+            remember: false,
+            isSubmitting: false
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
@@ -47,6 +50,8 @@ class Login extends React.Component<LoginProps, LoginState> {
     async onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         this.props.hideAlert();
+
+        this.setState({ isSubmitting: true });
 
         const loginData: LoginViewModel = {
             username: this.state.username.trim(),
@@ -73,6 +78,9 @@ class Login extends React.Component<LoginProps, LoginState> {
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+            })
+            .finally(() => {
+                this.setState({isSubmitting: false});
             });
     }
 
@@ -129,7 +137,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                             <div className="panel-footer">
                                 <div className="button-group">
-                                    <button type="submit" className="button button-green button-pd-2">Login</button>
+                                    <Button isLoading={this.state.isSubmitting} type="submit" className="button button-green button-pd-2">Login</Button>
                                     <Link to="/reset-password" className="button button-link button-pd-2" data-target="recover-password">Reset password</Link>
                                 </div>
 

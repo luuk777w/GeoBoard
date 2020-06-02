@@ -6,10 +6,12 @@ import { AlertType } from 'store/alert/types';
 import { HttpService } from 'services/http.service';
 import { container } from 'tsyringe';
 import { BoardViewModel } from 'models/BoardViewModel';
+import { Button } from 'components/button/button';
 
 interface CreateBoardState {
     isOpen: boolean;
     boardName: string;
+    isSubmitting: boolean;
 }
 
 interface CreateBoardProps {
@@ -29,7 +31,8 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
         this.state = {
             isOpen: false,
-            boardName: ''
+            boardName: '',
+            isSubmitting: false
         }
     }
 
@@ -54,6 +57,8 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
             return;
         }
+
+        this.setState({ isSubmitting: true });
 
         let data = {
             name: (this.state.boardName[0].toUpperCase()) + this.state.boardName.slice(1)
@@ -80,6 +85,9 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
             else {
                 this.props.showAlert(AlertType.Error, "Something went wrong. Please try again.");
             }
+        })
+        .finally(() => {
+            this.setState({isSubmitting: false});
         });
     }
 
@@ -104,7 +112,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
                         <div className="section-header-section create-board-section">
                             <div className="input-group">
                                 <input type="text" name="boardName" placeholder="Choose a unique board name" value={this.state.boardName} onChange={() => this.handleInputChange(event)} />
-                                <button className="button button-small button-green create-board-button" onClick={() => this.createBoard()}><i className="fa fa-check"></i></button>
+                                <Button isLoading={this.state.isSubmitting} className="button button-small button-green create-board-button" onClick={() => this.createBoard()}><i className="fa fa-check"></i></Button>
                             </div>
                         </div>
                     </div>

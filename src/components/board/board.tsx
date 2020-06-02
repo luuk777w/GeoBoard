@@ -55,7 +55,8 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                 boardElements: response.elements
             });
 
-            // this.props.setActiveBoard(response.id, response.name);
+            console.log('SwitchedBoard', this.props.activeBoardState);
+
             this.updateSiteTitle();
         });
     }

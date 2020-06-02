@@ -16,6 +16,7 @@ import { Form } from 'components/form/form';
 import { FormGroup } from 'components/form/formGroup';
 import { FormLabel } from 'components/form/formLabel';
 import FormInput from 'components/form/formInput';
+import { Button } from 'components/button/button';
 
 interface RegisterProps {
     showAlert: typeof showAlert;
@@ -30,6 +31,7 @@ interface RegisterState {
     passwordConfirm: string;
     terms: boolean;
     errors: any;
+    isSubmitting: boolean;
 }
 
 class Register extends React.Component<RegisterProps, RegisterState> {
@@ -45,7 +47,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             password: '',
             passwordConfirm: '',
             terms: false,
-            errors: {}
+            errors: {},
+            isSubmitting: false
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
@@ -66,6 +69,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             this.props.showAlert(AlertType.Warning, "The confirmed password does not match the passsword.");
             return;
         }
+
+        this.setState({ isSubmitting: true });
 
         const registerData: RegisterViewModel = {
             username: this.state.username.trim(),
@@ -93,7 +98,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
-            });
+            })
+            .finally(() => {
+                this.setState({isSubmitting: false});
+            });;
     }
 
     handleInputChange(event: any) {
@@ -162,7 +170,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
                             <div className="panel-footer">
                                 <div className="button-group">
-                                    <button className="button button-green button-pd-2 loading" data-target="register">Create account</button>
+                                    <Button isLoading={this.state.isSubmitting} className="button button-green button-pd-2 loading" data-target="register">Create account</Button>
                                     <Link to="/login" className="button button-link button-pd-2">I have an account</Link>
                                 </div>
                             </div>
