@@ -85,7 +85,7 @@ class Navbar extends React.Component<NavbarProps> {
                 <ul className="nav-links ml-auto">
                     <li className="nav-link mr-0" onClick={this.props.toggleDarkTheme}>
                         {this.props.system.darkThemeIsActive
-                            ? <i className="far fa-sun fa-lg fa-fw"></i>
+                            ? <i className="fas fa-sun fa-lg fa-fw"></i>
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
                     </li>
