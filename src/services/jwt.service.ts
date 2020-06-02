@@ -47,6 +47,15 @@ export class JWTService {
         return jwt["nameid"];
     }
 
+    public getUsername() {
+        let jwt = this.parseToken();
+
+        if (jwt == null || jwt == "")
+            return [];
+
+        return jwt["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    }
+
     public isTokenExpired() {
         let jwt = this.parseToken();
 

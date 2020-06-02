@@ -6,14 +6,12 @@ import './avatar.scss';
 interface AvatarProps {
     username: string;
     imagePath?: string;
-    size?: "xs" | "s" | "m" | "l" | "xl";
+    size?: "sm" | "m";
     animated?: boolean;
 }
 
 export class Avatar extends Component<AvatarProps> {
 
-    // TODO: Dynamic animation
-    // TODO: Dyanmic sizes (force available strings?)
     // TODO: Extend attributes (for data-tags)
 
     constructor(props: any) {
@@ -25,8 +23,11 @@ export class Avatar extends Component<AvatarProps> {
     }
 
     render() {
+        const sizeClass = (this.props.size) ? ` avatar-${this.props.size}` : '';
+        const animationClass = (this.props.animated) ? ' animated bounceIn' : '';
+
         return (
-            <div className="avatar animated bounceIn" title={this.props.username}>
+            <div className={`avatar${sizeClass}${animationClass}`} title={this.props.username}>
                 {this.props.imagePath
                     ? <img src={this.props.imagePath} alt={this.props.username} className="avatar-img"></img>
                     : <span className="avatar-title">{this.getNameAbbreviation()}</span>

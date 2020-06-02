@@ -78,24 +78,31 @@ class Navbar extends React.Component<NavbarProps> {
 
                 <div className="active-board-users">
                     {this.props.activeBoard.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
-                        return <Avatar key={index} username={user.username} />
+                        return <Avatar key={index} username={user.username} animated={true} />
                     })}
                 </div>
 
                 <ul className="nav-links ml-auto">
-                    <li className="nav-link" onClick={this.props.toggleDarkTheme}>
+                    <li className="nav-link mr-0" onClick={this.props.toggleDarkTheme}>
                         {this.props.system.darkThemeIsActive
                             ? <i className="far fa-sun fa-lg fa-fw"></i>
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
                     </li>
-                    <li className="nav-link" data-target="logout" onClick={() => this.handleLogout()}>
-                        <i className="fas fa-sign-out-alt fa-fw mr-1"></i>Log out
-                    </li>
-                    <li className="nav-link sidebar-link" onClick={() => this.toggleSidebar()}>
+                    <li className="nav-link sidebar-link mr-2" onClick={() => this.toggleSidebar()}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
                     </li>
                 </ul>
+                <div className="dropdown user-dropdown">
+                    <button className="dropdown-toggle">
+                        <div className="avatar-wrapper ml-2">
+                            <Avatar size="sm" username={this.JWTService.getUsername()} />{this.JWTService.getUsername()}
+                        </div>
+                    </button>
+                    <ul className="dropdown-content">
+                        <li className="dropdown-item" onClick={() => this.handleLogout()}><i className="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</li>
+                    </ul>
+                </div>
             </nav>
         )
     }
