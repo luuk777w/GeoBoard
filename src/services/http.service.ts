@@ -75,6 +75,35 @@ export class HttpService {
         });
     }
 
+    public async postWithAuthorizationAndProgress<T>(url: string, data: any = null): Promise<T> {
+        const token = this.jwtService.getToken();
+
+        return await $.ajax({
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+
+                xhr.upload.addEventListener("progress", function (evt) {
+                    if (evt.lengthComputable) {
+                        let percentComplete: number = evt.loaded / evt.total;
+                        percentComplete = percentComplete * 100;
+
+                        console.log(percentComplete);
+                    }
+                }, false);
+
+                return xhr;
+            },
+
+            type: "post",
+            data: data,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            },
+            url: `${this.config.apiUrl}${url}`,
+            contentType: "application/json"
+        });
+    }
+
     public async putWithAuthorization<T>(url: string, data: any = null): Promise<T> {
         const token = this.jwtService.getToken();
 
