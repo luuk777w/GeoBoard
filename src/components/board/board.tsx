@@ -13,6 +13,7 @@ import { HttpService } from 'services/http.service';
 import { setActiveBoard } from 'store/board/actions';
 
 import './board.scss'
+import { mapToType } from 'helpers/helpers';
 
 interface BoardProps {
     activeBoardState: BoardState;
@@ -59,6 +60,27 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 
             this.updateSiteTitle();
         });
+
+        this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
+
+            let elements = this.state.boardElements;
+            elements.push(response);
+
+            this.setState(() => ({
+                boardElements: elements
+            }))
+        });
+
+        this.boardHubService.getConnection().on('RemoveElement', (response: string) => {
+
+            let elements = this.state.boardElements;
+            let element = mapToType<BoardElementViewModel>(elements.find(x => x.id === response));
+            elements.splice(elements.indexOf(element), 1);
+
+            this.setState(() => ({
+                boardElements: elements
+            }))
+        });
     }
 
     /**
@@ -96,11 +118,11 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                                     key={index}
                                     id={element.id}
                                     // TODO: Use number from server
-                                    number={index + 1}
+                                    number={element.elementNumber}
                                     user={element.user}
                                     direction={element.direction}
                                     note={element.note}
-                                    imagePath={element.imagePath}
+                                    imageId={element.imageId}
                                     createdAt={element.createdAt}
                                 />
                             )

@@ -11,7 +11,7 @@ export class BoardElementViewModel {
     /**
      * The index number indicating the order in which this element was created within the board.
      */
-    number: number;
+    elementNumber: number;
 
     /**
      * The board where this element belongs to.
@@ -21,7 +21,7 @@ export class BoardElementViewModel {
     /**
      * The path to the image when available.
      */
-    imagePath: string;
+    imageId: string;
 
     /**
      * An optional note for this element.

@@ -4,6 +4,9 @@ import { Direction } from 'models/Direction';
 
 import './boardElement.scss';
 import { dateToReadableString } from 'helpers/helpers';
+import { Config } from 'util/config';
+import { container } from 'tsyringe';
+import { HttpService } from 'services/http.service';
 
 interface BoardElementProps {
     id: string;
@@ -12,14 +15,20 @@ interface BoardElementProps {
     // TODO: Use direction Enum
     direction?: Direction;
     note?: string;
-    imagePath?: string;
+    imageId?: string;
     createdAt: Date;
 }
 
 export class BoardElement extends React.Component<BoardElementProps> {
 
+    private config: Config;
+    private httpService: HttpService;
+
     constructor(props: BoardElementProps) {
         super(props);
+
+        this.config = container.resolve(Config);
+        this.httpService = container.resolve(HttpService);
     }
 
     getReadableDirection(direction: Direction) {
@@ -36,17 +45,26 @@ export class BoardElement extends React.Component<BoardElementProps> {
         }
     }
 
+    removeElement() {
+        this.httpService.deleteWithAuthorization(`/boards/elements/${this.props.id}`).then(() => {
+
+        }, (error) => {
+            console.warn(error);
+        });
+    }
+
     render() {
+
         return (
             <div className="board-element animated bounceIn" data-element-id={this.props.id}>
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.number}</span>
                     <span className="board-element-creator">{this.props.user.username}</span>
-                    <i className="fas fa-trash ml-auto delete-icon" data-target="remove"></i>
+                    <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
                 </div>
                 <div className="board-element-body">
-                    {this.props.imagePath
-                        ? <img className="board-element-image" src={this.props.imagePath} />
+                    {this.props.imageId
+                        ? <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.imageId}`} />
                         : <p className="board-element-message">{this.props.note}</p>
                     }
                 </div>

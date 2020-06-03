@@ -26,29 +26,26 @@ export class Home extends React.Component<HomeProps> {
         let e = event;
         let hasFile = false;
         let items = (event.clipboardData || event.originalEvent.clipboardData).items;
+
         for (let index in items) {
             let item = items[index];
+
             if (item.kind === 'file') {
                 hasFile = true;
                 let blob = item.getAsFile();
                 let reader = new FileReader();
+
                 reader.onload = function (event: any) {
 
                     let dataObject: BoardElementMutateModel = {
                         Image: event.target.result.split("base64,")[1]
                     }
 
-                    //REPLACE \/
-                    const boardId = "465c2f41-a4b9-4c0e-d7f9-08d7f126e84e";
-
-                    home.httpService.postWithAuthorizationAndProgress<BoardElementMutateModel>(`/boards/${boardId}/createElement`, JSON.stringify(dataObject)).then(() => {
+                    home.httpService.postWithAuthorizationAndProgress<BoardElementMutateModel>(`/boards/elements/`, JSON.stringify(dataObject)).then(() => {
                         console.log("success!");
                     }, (e) => {
                         console.log(e);
                     });
-
-
-                    console.log("Hoi");
                 }
                 reader.readAsDataURL(blob);
             }
