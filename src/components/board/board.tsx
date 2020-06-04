@@ -64,7 +64,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
 
             let elements = this.state.boardElements;
-            elements.push(response);
+            elements.unshift(response);
 
             this.setState(() => ({
                 boardElements: elements
