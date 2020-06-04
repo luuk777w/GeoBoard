@@ -21,7 +21,7 @@ export class BoardElementViewModel {
     /**
      * The path to the image when available.
      */
-    imageId: string;
+    imageId?: string;
 
     /**
      * An optional note for this element.
