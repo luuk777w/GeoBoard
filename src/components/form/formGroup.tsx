@@ -22,7 +22,7 @@ export class FormGroup extends Component<FormGroupProps> {
 
         const groupElement = React.createElement(
             "div",
-            this.props,
+            props,
             children
         )
 

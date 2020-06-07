@@ -52,6 +52,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
+
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     async onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -104,7 +106,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             });;
     }
 
-    handleInputChange(event: any) {
+    handleInputChange(event: React.ChangeEvent<any>) {
         const target = event.target;
         const value = target.type == 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -130,14 +132,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                             <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="username">Username</FormLabel>
-                                    <FormInput type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Choose a unique username" autoFocus />
+                                    <FormInput type="text" onChange={this.handleInputChange} id="username" name="username" placeholder="Choose a unique username" autoFocus />
 
                                     <FormFieldValidationErrors field="Username" errors={this.state.errors} />
                                 </FormGroup>
 
                                 <FormGroup>
                                     <FormLabel htmlFor="email">Email Address</FormLabel>
-                                    <FormInput type="email" onChange={(e) => this.handleInputChange(e)} id="email" name="email" placeholder="name@domain.com" />
+                                    <FormInput type="email" onChange={this.handleInputChange} id="email" name="email" placeholder="name@domain.com" />
 
                                     <FormFieldValidationErrors field="Email" errors={this.state.errors} />
                                 </FormGroup>
@@ -146,14 +148,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                             <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="password">Password</FormLabel>
-                                    <FormInput type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" />
+                                    <FormInput type="password" onChange={this.handleInputChange} id="password" name="password" placeholder="Choose a strong password" />
 
                                     <FormFieldValidationErrors field="Password" errors={this.state.errors} />
                                 </FormGroup>
 
                                 <FormGroup>
                                     <FormLabel htmlFor="password-confirm">Confirm password</FormLabel>
-                                    <FormInput type="password" onChange={(e) => this.handleInputChange(e)} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
+                                    <FormInput type="password" onChange={this.handleInputChange} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
 
                                     <FormFieldValidationErrors field="PasswordConfirm" errors={this.state.errors} />
                                 </FormGroup>
@@ -162,7 +164,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
                             <div className="panel-body py-4">
                                 <div className="terms checkbox">
-                                    <FormInput id="terms" onChange={(e) => this.handleInputChange(e)} name="terms" type="checkbox" />
+                                    <FormInput id="terms" onChange={this.handleInputChange} name="terms" type="checkbox" />
                                     <FormLabel htmlFor="terms">I agree to the <span className="link ml-1" data-target="terms">terms of service</span>.</FormLabel>
                                 </div>
                                 <FormFieldValidationErrors field="Terms" errors={this.state.errors} />
