@@ -9,44 +9,51 @@ interface FormInputProps extends InputHTMLAttributes<any> {
     alert: AlertState;
 }
 
-class FormInput extends Component<FormInputProps> {
+export const FormInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({ children, ...rest }) => (
+    <input {...rest} />
+);
 
-    removeProps(key: any, value: any) {
-        if (key == "children") return undefined;
-        else if (key == "alert") return undefined;
-        else return value;
-    }
+// class FormInput extends Component<FormInputProps> {
 
-    render() {
-        const children = mapToType<Array<InputHTMLAttributes<any>>>(this.props.children);
-        const props = JSON.parse(JSON.stringify(this.props, this.removeProps));
+//     removeProps(key: any, value: any) {
+//         if (key == "children") return undefined;
+//         else if (key == "alert") return undefined;
+//         else return value;
+//     }
 
-        //====
+//     render() {
+//         const children = mapToType<Array<InputHTMLAttributes<any>>>(this.props.children);
+//         const props = JSON.parse(JSON.stringify(this.props, this.removeProps));
 
-        if (this.props.alert.show) {
-            props.className += " has-error";
-        }
+//         //====
 
-        //====
+//         if (this.props.alert.show) {
+//             props.className += " has-error";
+//         }
 
-        const inputElement = React.createElement(
-            "input",
-            props,
-            children
-        )
+//         //====
 
-        return (
-            <>
-                {inputElement}
-            </>
-        );
+//         // TODO: Klasse ombouwen naar zoals Button
+//         props.onChange = this.props.onChange;
 
-    }
-}
+//         const inputElement = React.createElement(
+//             "input",
+//             props,
+//             children
+//         )
 
-const mapStateToProps = (state: AppState) => ({
-    alert: state.alert,
-})
+//         return (
+//             <>
+//                 {inputElement}
+//             </>
+//         );
 
-export default connect(mapStateToProps, {})(FormInput);
+//     }
+// }
+
+// const mapStateToProps = (state: AppState) => ({
+//     alert: state.alert,
+// })
+
+// export default connect(mapStateToProps, {})(FormInput);
 

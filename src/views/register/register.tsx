@@ -15,7 +15,7 @@ import { FormFieldValidationErrors } from 'components/formFieldValidationErrors/
 import { Form } from 'components/form/form';
 import { FormGroup } from 'components/form/formGroup';
 import { FormLabel } from 'components/form/formLabel';
-import FormInput from 'components/form/formInput';
+import { FormInput } from 'components/form/formInput';
 import { Button } from 'components/button/button';
 
 interface RegisterProps {
