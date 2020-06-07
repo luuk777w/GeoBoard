@@ -9,6 +9,10 @@ import { connect } from 'react-redux';
 import ManageBoardModal from 'components/modal/manageBoardModal/manageBoardModal';
 import { ManageBoardModalState } from 'store/modals/manageBoardModal/types';
 
+import '../../css/components/forms.scss';
+import '../../css/components/panel.scss';
+import '../../css/components/table.scss';
+
 interface BaseContainerProps {
     system: SystemState;
     manageBoardModal: ManageBoardModalState;

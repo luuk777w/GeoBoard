@@ -160,17 +160,34 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     </div>
                     <div className="modal-body">
                         <h4 className="mt-0">Users</h4>
-                        <ul>
-                            {this.state.board.users?.map((user: any, index: any) => {
-                                return (<li key={index}>{user.userId}</li>);
-                            })}
-                        </ul>
+                        <table className="table table-sm table-bordered table-full">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Added on</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.board.users?.map((user: any, index: any) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{user.userId}</td>
+                                            <td>...</td>
+                                            <td>
+                                                <button className="button button-red button-small">Remove</button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
                     </div>
                     <div className="modal-body">
                         <FormGroup>
                             <h4 className="mt-0">Invite user</h4>
                             <div className="input-group">
-                                <input type="text" name="inviteUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.inviteUsername} onChange={this.handleInputChange} />
+                                <FormInput type="text" name="inviteUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.inviteUsername || ''} onChange={this.handleInputChange} />
                                 <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.inviteUser()}>Invite</Button>
                             </div>
                         </FormGroup>

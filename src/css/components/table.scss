@@ -1,0 +1,33 @@
+@import "css/colors";
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+
+    th, td {
+        padding: 1rem;
+    }
+}
+
+.table-sm {
+    th, td {
+        padding: .25rem 1rem;
+    }
+}
+
+.table-full {
+    width: 100%;
+}
+
+.table-bordered {
+    thead th,
+    thead td {
+        border-bottom: 2px solid $gray300;
+    }
+
+    tbody th,
+    tbody td {
+        border-bottom: 1px solid $gray300;
+    }
+}
