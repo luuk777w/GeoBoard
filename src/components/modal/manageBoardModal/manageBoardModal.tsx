@@ -14,7 +14,7 @@ import { FormGroup } from "components/form/formGroup";
 import { FormLabel } from "components/form/formLabel";
 import { FormInput } from 'components/form/formInput';
 import { FormFieldValidationErrors } from "components/formFieldValidationErrors/formFieldValidationErrors";
-import { mapToType } from "helpers/helpers";
+import { mapToType, dateToReadableString } from "helpers/helpers";
 
 import Alert from "components/alert/alert";
 import { showAlert, hideAlert } from "store/alert/actions";
@@ -37,7 +37,7 @@ interface ManageBoardModelState {
     formFields: {
         name: string;
         description: string;
-        inviteUsername: string;
+        addUsername: string;
     }
 
     isSubmitting: boolean;
@@ -57,7 +57,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
             formFields: {
                 name: '',
                 description: '',
-                inviteUsername: ''
+                addUsername: ''
             },
             isSubmitting: false,
             isInviting: false
@@ -91,7 +91,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     formFields: {
                         name: response.name,
                         description: '', // TODO: Change database to support description
-                        inviteUsername: ''
+                        addUsername: ''
                     }
                 });
             })
@@ -111,30 +111,80 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
         this.props.hideManageBoardModal();
     }
 
-    async inviteUser() {
+    async addUser() {
 
         this.props.hideAlert();
         this.setState({ isInviting: true });
 
         const data = {
-            username: this.state.formFields.inviteUsername
+            username: this.state.formFields.addUsername
         };
 
-        await this.httpService.postWithAuthorization(`/boards/${this.state.board.id}/invite-user`, JSON.stringify(data)).then((r) => {
-            this.props.showAlert(AlertType.Success, `${this.state.formFields.inviteUsername} has been invited to ${this.state.board.name}.`);
-        })
-        .catch((error) => {
-            if (error.status == 0) {
-                this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
-                return;
-            }
+        await this.httpService.postWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users`, JSON.stringify(data))
+            .then((boardUsers: Array<BoardUserViewModel>) => {
+                this.props.showAlert(AlertType.Success, `${this.state.formFields.addUsername} has been added to ${this.state.board.name}.`);
 
-            error.responseJSON.message != null
-                ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
-                : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
-        });
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        board: {
+                            ...prevState.board,
+                            users: boardUsers
+                        }
+                    }
+                });
+            })
+            .catch((error) => {
+                if (error.status == 0) {
+                    this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                    return;
+                }
 
-        this.setState({ isInviting: false });
+                error.responseJSON.message != null
+                    ? this.props.showAlert(AlertType.Warning, error.responseJSON.message)
+                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+            })
+            .finally(() => {
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        isInviting: false,
+                        formFields: {
+                            ...prevState.formFields,
+                            addUsername: ''
+                        }
+                    }
+                });
+            });
+    }
+
+    async removeUser(userId: string, username: string) {
+        this.props.hideAlert();
+
+        await this.httpService.deleteWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users/${userId}`)
+            .then((boardUsers: Array<BoardUserViewModel>) => {
+                this.props.showAlert(AlertType.Success, `${username} has been removed from ${this.state.board.name}.`);
+
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        board: {
+                            ...prevState.board,
+                            users: boardUsers
+                        }
+                    }
+                });
+            })
+            .catch((error) => {
+                if (error.status == 0) {
+                    this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                    return;
+                }
+
+                error.responseJSON.message != null
+                    ? this.props.showAlert(AlertType.Warning, error.responseJSON.message)
+                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+            });
     }
 
     render() {
@@ -160,35 +210,40 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     </div>
                     <div className="modal-body">
                         <h4 className="mt-0">Users</h4>
-                        <table className="table table-sm table-bordered table-full">
-                            <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Added on</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.board.users?.map((user: any, index: any) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{user.userId}</td>
-                                            <td>...</td>
-                                            <td>
-                                                <button className="button button-red button-small">Remove</button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                        {this.state.board.users?.length > 0
+                            ?
+                            <table className="table table-sm table-bordered table-full">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Added on</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.board.users?.map((boardUser: BoardUserViewModel, index: any) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{boardUser.username}</td>
+                                                <td>{dateToReadableString(boardUser.createdAt)}</td>
+                                                <td>
+                                                    <button type="button" className="button button-red button-small" onClick={() => this.removeUser(boardUser.id, boardUser.username)}>Remove</button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+
+                            : <p>No users added to this board.</p>
+                        }
                     </div>
                     <div className="modal-body">
                         <FormGroup>
                             <h4 className="mt-0">Invite user</h4>
                             <div className="input-group">
-                                <FormInput type="text" name="inviteUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.inviteUsername || ''} onChange={this.handleInputChange} />
-                                <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.inviteUser()}>Invite</Button>
+                                <FormInput type="text" name="addUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
+                                <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.addUser()}>Invite</Button>
                             </div>
                         </FormGroup>
                     </div>

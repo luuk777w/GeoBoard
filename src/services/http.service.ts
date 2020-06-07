@@ -118,11 +118,12 @@ export class HttpService {
         });
     }
 
-    public async deleteWithAuthorization(url: string) {
+    public async deleteWithAuthorization<T>(url: string, data: any = null): Promise<T> {
         const token = this.jwtService.getToken();
 
         return await $.ajax({
             type: "delete",
+            data: data,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             },
