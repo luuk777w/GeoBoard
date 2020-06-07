@@ -13,6 +13,7 @@ interface ModalProps extends BaseModelProps {
     title: string;
     subtitle?: string;
     closable?: boolean;
+    size?: 'normal' | 'large';
 }
 export class Modal extends Component<ModalProps> {
     constructor(props: ModalProps) {
@@ -24,10 +25,12 @@ export class Modal extends Component<ModalProps> {
             return (<></>)
         }
 
+        const classes = (this.props.size && this.props.size != 'normal') ? `modal-content modal-${this.props.size}` : "modal-content";
+
         return (
-            <div id={this.props.id} className="modal show">
+            <div id={this.props.id} className="modal">
                 <div className="modal-dialog">
-                    <div className="modal-content animated fadeInDown">
+                    <div className={`${classes} animated fadeInDown`}>
                         {(this.props.title || this.props.closable) &&
                             <div className="modal-header">
                                 <div className="modal-meta">

@@ -2,7 +2,7 @@
 @import "src/css/variables";
 
 .modal {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -11,10 +11,6 @@
     background-color: rgba(0, 0, 0, 0.7);
     transition: background-color 250ms;
     z-index: 9999;
-
-    &.show {
-        display: block;
-    }
 
     .modal-dialog {
         display: flex;
@@ -25,8 +21,12 @@
     .modal-content {
         background: white;
         width: 100%;
-        max-width: 80rem;
+        max-width: 50rem;
         border-radius: $border-radius;
+
+        &.modal-large {
+            max-width: 80rem;
+        }
 
         .modal-header {
             display: flex;
