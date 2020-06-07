@@ -1,5 +1,6 @@
 import { BoardElementViewModel } from "./BoardElementViewModel";
 import { UserViewModel } from "./UserViewModel";
+import { BoardUserViewModel } from "./BoardUserViewModel";
 
 export class BoardViewModel {
     /**
@@ -36,4 +37,9 @@ export class BoardViewModel {
      * The collection of elements on this board.
      */
     elements: Array<BoardElementViewModel>;
+
+    /**
+     * The collection of users who are part of this board.
+     */
+    users: Array<BoardUserViewModel>;
 }

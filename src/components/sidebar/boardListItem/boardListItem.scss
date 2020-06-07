@@ -46,14 +46,18 @@
         }
     }
 
-    .is-owner {
+    .manage-board {
         display: flex;
         align-items: center;
         position: absolute;
         top: 0;
         bottom: 0;
         right: 3.5rem;
-        color: $amber800;
+        color: $gray400;
+
+        &:hover {
+            color: $amber800;
+        }
     }
 
     .remove-board {

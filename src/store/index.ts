@@ -9,6 +9,7 @@ import { announcementReducer } from "./announcement/reducers";
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { manageBoardModalReducer } from "./modals/manageBoardModal/reducers";
 
 const persistConfig = {
     key: 'root',
@@ -21,7 +22,10 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     activeBoard: boardReducer,
     alert: alertReducer,
-    announcement: announcementReducer
+    announcement: announcementReducer,
+
+    // Modals
+    manageBoardModal: manageBoardModalReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

@@ -6,9 +6,12 @@ import './base.scss';
 import { SystemState } from 'store/system/types';
 import { AppState } from 'store';
 import { connect } from 'react-redux';
+import ManageBoardModal from 'components/modal/manageBoardModal/manageBoardModal';
+import { ManageBoardModalState } from 'store/modals/manageBoardModal/types';
 
 interface BaseContainerProps {
     system: SystemState;
+    manageBoardModal: ManageBoardModalState;
     children: any;
     history: any;
 }
@@ -26,6 +29,9 @@ class BaseContainer extends React.Component<BaseContainerProps> {
                 <Announcement />
                 <Sidebar />
                 {this.props.children}
+
+                {/* Modals */}
+                <ManageBoardModal />
             </div>
         )
     }
@@ -33,6 +39,7 @@ class BaseContainer extends React.Component<BaseContainerProps> {
 
 const mapStateToProps = (state: AppState) => ({
     system: state.system,
+    manageBoardModal: state.manageBoardModal
 })
 
 export default connect(mapStateToProps, {})(BaseContainer);

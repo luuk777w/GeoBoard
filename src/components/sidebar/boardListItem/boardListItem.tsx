@@ -8,8 +8,8 @@ import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { container } from 'tsyringe';
 import { dateToReadableString } from 'helpers/helpers';
+import { showManageBoardModal } from 'store/modals/manageBoardModal/actions';
 import { BoardHubService } from 'services/hubs/boardHub.service';
-import { BoardViewModel } from 'models/BoardViewModel';
 
 interface BoardListItemProps {
     /**
@@ -27,6 +27,8 @@ interface BoardListItemProps {
     activeBoardState: BoardState;
     setActiveBoard: typeof setActiveBoard;
     setJoinedUsers: typeof setJoinedUsers;
+
+    showManageBoardModal: typeof showManageBoardModal;
 }
 
 interface BoardListItemState {
@@ -77,8 +79,7 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                 } else {
                     this.props.setActiveBoard(boardToSwitchTo, this.props.boardName);
                 }
-            })
-        ;
+            });
     }
 
     promptRemoveBoard() {
@@ -112,7 +113,7 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                 <li className={isActive ? "board-list-item active" : "board-list-item"} onClick={() => this.toggleBoard(event)}>
                     {this.props.boardName}
                     {isOwner &&
-                        <i title="You own this bord" className="fas fa-crown is-owner fa-fw ml-1"></i>
+                        <i title="Manage board and users" className="fas fa-cog manage-board fa-fw ml-1" onClick={() => this.props.showManageBoardModal(this.props.boardId)}></i>
                     }
 
                     {isOwner &&
@@ -143,9 +144,6 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                         : <div className="board-list-item-description">Created by {this.props.username}</div>
                     }
                 </li>
-
-
-
             </>
         )
     }
@@ -156,4 +154,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoardState: state.activeBoard
 })
 
-export default connect(mapStateToProps, { setActiveBoard, setJoinedUsers })(BoardListItem)
+export default connect(mapStateToProps, { setActiveBoard, setJoinedUsers, showManageBoardModal })(BoardListItem)
