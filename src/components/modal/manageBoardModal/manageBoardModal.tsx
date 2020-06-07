@@ -41,6 +41,7 @@ interface ManageBoardModelState {
     }
 
     isSubmitting: boolean;
+    isInviting: boolean;
 }
 
 class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModelState> {
@@ -58,7 +59,8 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 description: '',
                 inviteUsername: ''
             },
-            isSubmitting: false
+            isSubmitting: false,
+            isInviting: false
         }
 
         this.httpService = container.resolve(HttpService);
@@ -110,7 +112,29 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
     }
 
     async inviteUser() {
-        this.props.showAlert(AlertType.Success, `${this.state.formFields.inviteUsername} has been invited to ${this.state.board.name}.`)
+
+        this.props.hideAlert();
+        this.setState({ isInviting: true });
+
+        const data = {
+            username: this.state.formFields.inviteUsername
+        };
+
+        await this.httpService.postWithAuthorization(`/boards/${this.state.board.id}/invite-user`, JSON.stringify(data)).then((r) => {
+            this.props.showAlert(AlertType.Success, `${this.state.formFields.inviteUsername} has been invited to ${this.state.board.name}.`);
+        })
+        .catch((error) => {
+            if (error.status == 0) {
+                this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                return;
+            }
+
+            error.responseJSON.message != null
+                ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
+                : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+        });
+
+        this.setState({ isInviting: false });
     }
 
     render() {
@@ -129,7 +153,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                         <FormGroup>
                             <FormLabel htmlFor="description">Description</FormLabel>
-                            <FormInput type="text" id="description" name="description" placeholder={`Optional description of '${this.state.formFields.name}'.`} onChange={this.handleInputChange} value={this.state.formFields.description} />
+                            <FormInput type="text" id="description" name="description" placeholder="Optional description" onChange={this.handleInputChange} value={this.state.formFields.description} />
 
                             <FormFieldValidationErrors field="Description" errors={this.state.errors} />
                         </FormGroup>
@@ -147,7 +171,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                             <h4 className="mt-0">Invite user</h4>
                             <div className="input-group">
                                 <input type="text" name="inviteUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.inviteUsername} onChange={this.handleInputChange} />
-                                <Button type="button" isLoading={this.state.isSubmitting} className="button button-small button-blue" onClick={() => this.inviteUser()}>Invite</Button>
+                                <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.inviteUser()}>Invite</Button>
                             </div>
                         </FormGroup>
                     </div>
