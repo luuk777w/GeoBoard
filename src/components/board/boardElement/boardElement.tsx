@@ -7,8 +7,6 @@ import { dateToReadableString } from 'helpers/helpers';
 import { Config } from 'util/config';
 import { container } from 'tsyringe';
 import { HttpService } from 'services/http.service';
-import { SlideDown } from 'react-slidedown'
-import 'react-slidedown/lib/slidedown.css'
 
 import $ from 'jquery'
 import { CSSTransition } from 'react-transition-group';
