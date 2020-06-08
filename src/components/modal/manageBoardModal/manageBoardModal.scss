@@ -1,4 +1,66 @@
+@import "src/css/colors";
+@import "src/css/variables";
+
 #manageBoardModal .modal-footer {
     display: flex;
     justify-content: flex-end;
 }
+
+#manageBoardModal {
+    .grayedOut {
+        opacity: 0.1;
+    }
+
+    .modal-meta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .edit-title {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        color: $gray500;
+    }
+
+    .add-user-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .addUserButton {
+        height: 2.5rem;
+    }
+
+    .no-users-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 4rem);
+        height: 22rem;
+        margin: 2rem;
+        border: 2px solid $gray100;
+        border-radius: $border-radius;
+    }
+
+    .no-users {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 9rem;
+            height: 9rem;
+        }
+
+        .no-users-section {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+    }
+
+}
+

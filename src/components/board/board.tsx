@@ -14,6 +14,7 @@ import { setActiveBoard } from 'store/board/actions';
 
 import './board.scss'
 import { mapToType } from 'helpers/helpers';
+import { TransitionGroup } from 'react-transition-group';
 
 interface BoardProps {
     activeBoardState: BoardState;
@@ -134,6 +135,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                         <h1>Please select or create a board.</h1>
                     </div>
                 }
+
             </>
         )
     }

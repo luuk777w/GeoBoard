@@ -10,9 +10,10 @@ export interface BaseModelProps {
 
 interface ModalProps extends BaseModelProps {
     id: string;
-    title: string;
+    title?: string;
     subtitle?: string;
     closable?: boolean;
+    customHeader?: boolean;
     size?: 'normal' | 'large';
 }
 export class Modal extends Component<ModalProps> {
@@ -21,7 +22,7 @@ export class Modal extends Component<ModalProps> {
     }
 
     render() {
-        if (! this.props.isOpen) {
+        if (!this.props.isOpen) {
             return (<></>)
         }
 
@@ -31,7 +32,7 @@ export class Modal extends Component<ModalProps> {
             <div id={this.props.id} className="modal">
                 <div className="modal-dialog">
                     <div className={`${classes} animated fadeInDown`}>
-                        {(this.props.title || this.props.closable) &&
+                        {((this.props.title || this.props.closable) && !this.props.customHeader) &&
                             <div className="modal-header">
                                 <div className="modal-meta">
                                     {this.props.title && <h3 className="modal-title">{this.props.title}</h3>}

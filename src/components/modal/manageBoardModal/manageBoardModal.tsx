@@ -95,11 +95,11 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     }
                 });
             })
-            .catch((e) => {
-                //
+                .catch((e) => {
+                    //
 
-                console.warn(e);
-            });
+                    console.warn(e);
+                });
         }
     }
 
@@ -189,10 +189,22 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
     render() {
         return (
-            <Modal id="manageBoardModal" isOpen={this.props.manageBoardModal.isOpen} title="Edit board information" subtitle={this.state.board.name}  onModalClose={() => this.props.hideManageBoardModal()} closable>
+            <Modal id="manageBoardModal" isOpen={this.props.manageBoardModal.isOpen} onModalClose={() => null} customHeader>
+
+                <div className="modal-header">
+                    <div className="modal-meta">
+                        <h3 className="modal-title">{this.state.board.name}</h3>
+                        <i className="fas fa-pen fa-fw edit-title"></i>
+                    </div>
+                    <button type="button" className="modal-close-button" onClick={() => this.props.hideManageBoardModal()}>
+                        <i title="Close dialog" className="fa fa-times fa-fw"></i>
+                    </button>
+                </div>
+
                 <form method="post" onSubmit={(event) => this.onSubmit(event)}>
-                    <div className="modal-body">
-                        <Alert slideIn={true} />
+                    <Alert slideIn={true} />
+
+                    {/* <div className="modal-body">
 
                         <FormGroup>
                             <FormLabel htmlFor="name">Name</FormLabel>
@@ -207,9 +219,17 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                             <FormFieldValidationErrors field="Description" errors={this.state.errors} />
                         </FormGroup>
-                    </div>
+                    </div> */}
                     <div className="modal-body">
-                        <h4 className="mt-0">Users</h4>
+                        <div className="add-user-section">
+                            <h3 className="m-0">Users</h3>
+
+                            {this.state.board.users?.length > 0 &&
+                                <button type="button" className="button button-green button-small addUserButton">Add user</button>
+                            }
+
+                        </div>
+
                         {this.state.board.users?.length > 0
                             ?
                             <table className="table table-sm table-bordered table-full">
@@ -221,6 +241,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     {this.state.board.users?.map((boardUser: BoardUserViewModel, index: any) => {
                                         return (
                                             <tr key={index}>
@@ -234,11 +255,22 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                     })}
                                 </tbody>
                             </table>
+                            :
 
-                            : <p>No users added to this board.</p>
+                            <div className="no-users-container">
+                                <div className="no-users">
+                                    <img src="/assets/media/add.svg" alt="" />
+
+                                    <h2>No users added to {this.state.board.name}.</h2>
+                                    <button type="button" className="button button-green button-small">Add user</button>
+                                </div>
+                            </div>
+
                         }
+
+
                     </div>
-                    <div className="modal-body">
+                    {/* <div className="modal-body">
                         <FormGroup>
                             <h4 className="mt-0">Invite user</h4>
                             <div className="input-group">
@@ -246,7 +278,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                 <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.addUser()}>Invite</Button>
                             </div>
                         </FormGroup>
-                    </div>
+                    </div> */}
                     <div className="modal-footer">
                         <button type="submit" className="button button-green button-small">Save</button>
                     </div>

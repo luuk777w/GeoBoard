@@ -7,9 +7,11 @@ import { dateToReadableString } from 'helpers/helpers';
 import { Config } from 'util/config';
 import { container } from 'tsyringe';
 import { HttpService } from 'services/http.service';
-import { CSSTransition, Transition } from 'react-transition-group';
+import { SlideDown } from 'react-slidedown'
+import 'react-slidedown/lib/slidedown.css'
 
 import $ from 'jquery'
+import { CSSTransition } from 'react-transition-group';
 
 interface BoardElementProps {
     id: string;
@@ -22,7 +24,11 @@ interface BoardElementProps {
     createdAt: Date;
 }
 
-export class BoardElement extends React.Component<BoardElementProps> {
+interface BoardElementState {
+    show: boolean;
+}
+
+export class BoardElement extends React.Component<BoardElementProps, BoardElementState> {
 
     private config: Config;
     private httpService: HttpService;
@@ -31,9 +37,9 @@ export class BoardElement extends React.Component<BoardElementProps> {
     constructor(props: BoardElementProps) {
         super(props);
 
+
         this.state = {
             show: false,
-            height: 0
         }
 
         this.config = container.resolve(Config);
@@ -55,7 +61,7 @@ export class BoardElement extends React.Component<BoardElementProps> {
     }
 
     removeElement() {
-        $(this.ref).slideUp(200);
+        //$(this.ref).slideUp(200);
 
         setTimeout(() => {
             this.httpService.deleteWithAuthorization(`/boards/elements/${this.props.id}`).then(() => {
@@ -68,41 +74,48 @@ export class BoardElement extends React.Component<BoardElementProps> {
 
     componentDidMount() {
         setTimeout(() => {
-            $(this.ref).slideDown(200);
+            this.setState(() => ({
+                show: true
+            }));
         }, 500);
     }
 
     render() {
 
-        let style: any = { display: "none" };
-
         return (
 
-            <div ref={element => this.ref = element} style={style}>
-                <div className="board-element" data-element-id={this.props.id}>
-                    <div className="board-element-header">
-                        <span className="board-element-number">{this.props.number}</span>
-                        <span className="board-element-creator">{this.props.user.username}</span>
-                        <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
-                    </div>
-                    <div className="board-element-body">
-                        {this.props.imageId
-                            ? <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.imageId}`} />
-                            : <p className="board-element-message">{this.props.note}</p>
-                        }
-                    </div>
-                    <div className="board-element-footer">
+            <CSSTransition in={this.state.show} timeout={200} classNames={{
+                enter: 'animation-height',
+                enterDone: 'animation-height',
+                exit: ''
+            }}>
+                <div className="animation-wrapper animation-height-0">
+                    <div className="board-element" data-element-id={this.props.id}>
+                        <div className="board-element-header">
+                            <span className="board-element-number">{this.props.number}</span>
+                            <span className="board-element-creator">{this.props.user.username}</span>
+                            <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
+                        </div>
+                        <div className="board-element-body">
+                            {this.props.imageId
+                                ? <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.imageId}`} />
+                                : <p className="board-element-message">{this.props.note}</p>
+                            }
+                        </div>
+                        <div className="board-element-footer">
 
-                        {this.props.direction &&
-                            <div className="board-element-direction">
-                                <i className="fas fa-location-arrow direction mr-2"></i>{this.getReadableDirection(this.props.direction)}
-                            </div>
-                        }
+                            {this.props.direction &&
+                                <div className="board-element-direction">
+                                    <i className="fas fa-location-arrow direction mr-2"></i>{this.getReadableDirection(this.props.direction)}
+                                </div>
+                            }
 
-                        <time className="board-element-timestamp" dateTime={this.props.createdAt.toString()}>{dateToReadableString(this.props.createdAt)}</time>
+                            <time className="board-element-timestamp" dateTime={this.props.createdAt.toString()}>{dateToReadableString(this.props.createdAt)}</time>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </CSSTransition >
 
         )
     }
