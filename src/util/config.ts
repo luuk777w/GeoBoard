@@ -8,6 +8,8 @@ export class Config {
     /**
      * API URL without trailing slash.
      */
-    apiUrl = "https://localhost:5001";
+    // apiUrl = "https://localhost:5001";
     // apiUrl = "https://api.geoboard.ga";
+
+    apiUrl = process.env.API_URL;
 }
