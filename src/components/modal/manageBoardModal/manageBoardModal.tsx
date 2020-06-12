@@ -193,8 +193,8 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                 <div className="modal-header">
                     <div className="modal-meta">
-                        <h3 className="modal-title">{this.state.board.name}</h3>
-                        <i className="fas fa-pen fa-fw edit-title"></i>
+                        <h3 className="modal-title">{this.state.board.name}<i className="fas fa-pen fa-fw edit-title ml-2"></i></h3>
+                        <small className="modal-subtitle">Edit board</small>
                     </div>
                     <button type="button" className="modal-close-button" onClick={() => this.props.hideManageBoardModal()}>
                         <i title="Close dialog" className="fa fa-times fa-fw"></i>
@@ -221,18 +221,14 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                         </FormGroup>
                     </div> */}
                     <div className="modal-body">
-                        <div className="add-user-section">
-                            <h3 className="m-0">Users</h3>
-
-                            {this.state.board.users?.length > 0 &&
+                        {this.state.board.users?.length > 0 &&
+                            <div className="add-user-section">
                                 <button type="button" className="button button-green button-small addUserButton">Add user</button>
-                            }
-
-                        </div>
+                            </div>
+                        }
 
                         {this.state.board.users?.length > 0
-                            ?
-                            <table className="table table-sm table-bordered table-full">
+                        ?   <table className="table table-sm table-bordered table-full">
                                 <thead>
                                     <tr>
                                         <th>Username</th>
@@ -255,14 +251,14 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                     })}
                                 </tbody>
                             </table>
-                            :
 
-                            <div className="no-users-container">
+                        :   <div className="no-users-container">
                                 <div className="no-users">
-                                    <img src="/assets/media/add.svg" alt="" />
+                                    {/* <img src="/assets/media/add.svg" alt="" /> */}
+                                    <i className="icon icon-user-add icon-8x"></i>
 
-                                    <h2>No users added to {this.state.board.name}.</h2>
-                                    <button type="button" className="button button-green button-small">Add user</button>
+                                    <h2>No users added to '{this.state.board.name}'</h2>
+                                    <button type="button" className="button button-green button-small mt-4">Add user</button>
                                 </div>
                             </div>
 
@@ -279,9 +275,9 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                             </div>
                         </FormGroup>
                     </div> */}
-                    <div className="modal-footer">
+                    {/* <div className="modal-footer">
                         <button type="submit" className="button button-green button-small">Save</button>
-                    </div>
+                    </div> */}
                 </form>
             </Modal>
         )
