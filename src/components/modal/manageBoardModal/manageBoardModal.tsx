@@ -10,8 +10,6 @@ import { connect } from "react-redux";
 import { hideManageBoardModal } from "store/modals/manageBoardModal/actions";
 import { HttpService } from "services/http.service";
 import { container } from "tsyringe";
-import { FormGroup } from "components/form/formGroup";
-import { FormLabel } from "components/form/formLabel";
 import { FormInput } from 'components/form/formInput';
 import { FormFieldValidationErrors } from "components/formFieldValidationErrors/formFieldValidationErrors";
 import { mapToType, dateToReadableString } from "helpers/helpers";
@@ -21,14 +19,17 @@ import { showAlert, hideAlert } from "store/alert/actions";
 import { BoardUserViewModel } from "models/BoardUserViewModel";
 import { Button } from "components/button/button";
 import { AlertType } from "store/alert/types";
-import { throws } from "assert";
+import { setActiveBoard } from "store/board/actions";
+import { BoardState } from "store/board/types";
 
 interface ManageBoardModalProps {
     manageBoardModal: ManageBoardModalState,
+    activeBoard: BoardState;
 
     hideManageBoardModal: typeof hideManageBoardModal,
     showAlert: typeof showAlert;
     hideAlert: typeof hideAlert;
+    setActiveBoard: typeof setActiveBoard;
 }
 
 interface ManageBoardModelState {
@@ -133,6 +134,9 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     }
                 })
 
+                if (this.props.activeBoard.boardId == response.id) {
+                    this.props.setActiveBoard(response.id, response.name);
+                }
             })
             .catch((error) => {
                 if (error.status == 0) {
@@ -145,10 +149,8 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
             })
             .finally(() => {
-                this.setState({ isSubmitting: true });
+                this.setState({ isSubmitting: false });
             });
-
-        console.log('Submit');
     }
 
     async addUser() {
@@ -253,9 +255,10 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 </div>
 
                 <form method="post" onSubmit={(event) => this.onSubmit(event)}>
-                    <Alert slideIn={true} />
 
                     <div className="modal-body">
+                    <Alert slideIn={true} />
+
                         {this.state.board.users?.length > 0 &&
                             <div className="add-user-section">
                                 <button type="button" className="button button-green button-small addUserButton">Add user</button>
@@ -305,7 +308,8 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 }
 
 const mapStateToProps = (state: AppState) => ({
-    manageBoardModal: state.manageBoardModal
+    manageBoardModal: state.manageBoardModal,
+    activeBoard: state.activeBoard
 })
 
-export default connect(mapStateToProps, { hideManageBoardModal, showAlert, hideAlert })(ManageBoardModal);
+export default connect(mapStateToProps, { hideManageBoardModal, showAlert, hideAlert, setActiveBoard })(ManageBoardModal);
