@@ -23,6 +23,31 @@
         color: $gray500;
     }
 
+    .edit-board-name {
+        border: none;
+        background: none;
+        padding: 0;
+
+        &:hover, &:focus {
+            cursor: pointer;
+            border: none;
+            outline: none;
+
+            .fas {
+                color: $blue500;
+            }
+        }
+    }
+
+    .edit-board-name-form {
+        display: flex;
+
+        .edit-board-name:hover .fas,
+        .edit-board-name:focus .fas {
+            color: $green500;
+        }
+    }
+
     .add-user-section {
         display: flex;
         justify-content: space-between;

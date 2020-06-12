@@ -21,6 +21,7 @@ import { showAlert, hideAlert } from "store/alert/actions";
 import { BoardUserViewModel } from "models/BoardUserViewModel";
 import { Button } from "components/button/button";
 import { AlertType } from "store/alert/types";
+import { throws } from "assert";
 
 interface ManageBoardModalProps {
     manageBoardModal: ManageBoardModalState,
@@ -41,7 +42,8 @@ interface ManageBoardModelState {
     }
 
     isSubmitting: boolean;
-    isInviting: boolean;
+    isAddingUser: boolean;
+    isEditingName: boolean;
 }
 
 class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModelState> {
@@ -60,7 +62,8 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 addUsername: ''
             },
             isSubmitting: false,
-            isInviting: false
+            isAddingUser: false,
+            isEditingName: false
         }
 
         this.httpService = container.resolve(HttpService);
@@ -85,16 +88,17 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
     async componentDidUpdate(prevProps: ManageBoardModalProps) {
 
         if ((this.props.manageBoardModal.boardId != null) && (this.props.manageBoardModal.boardId != prevProps.manageBoardModal.boardId)) {
-            await this.httpService.getWithAuthorization<BoardViewModel>(`/boards/${this.props.manageBoardModal.boardId}`).then((response: BoardViewModel) => {
-                this.setState({
-                    board: response,
-                    formFields: {
-                        name: response.name,
-                        description: '', // TODO: Change database to support description
-                        addUsername: ''
-                    }
-                });
-            })
+            await this.httpService.getWithAuthorization<BoardViewModel>(`/boards/${this.props.manageBoardModal.boardId}`)
+                .then((response: BoardViewModel) => {
+                    this.setState({
+                        board: response,
+                        formFields: {
+                            name: response.name,
+                            description: '', // TODO: Change database to support description
+                            addUsername: ''
+                        }
+                    });
+                })
                 .catch((e) => {
                     //
 
@@ -103,18 +107,53 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
         }
     }
 
+    toggleBoardNameForm() {
+        this.setState({ isEditingName: ! this.state.isEditingName });
+    }
+
     async onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        this.setState({ isSubmitting: true });
+
+        const data = {
+            name: this.state.formFields.name
+        };
+
+        await this.httpService.putWithAuthorization<BoardViewModel>(`/boards/${this.state.board.id}`, JSON.stringify(data))
+            .then((response: BoardViewModel) => {
+                this.toggleBoardNameForm();
+
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        board: {
+                            ...prevState.board,
+                            name: response.name
+                        }
+                    }
+                })
+
+            })
+            .catch((error) => {
+                if (error.status == 0) {
+                    this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                    return;
+                }
+
+                error.responseJSON.message != null
+                    ? this.props.showAlert(AlertType.Warning, error.responseJSON.message)
+                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+            })
+            .finally(() => {
+                this.setState({ isSubmitting: true });
+            });
 
         console.log('Submit');
-
-        this.props.hideManageBoardModal();
     }
 
     async addUser() {
-
         this.props.hideAlert();
-        this.setState({ isInviting: true });
+        this.setState({ isAddingUser: true });
 
         const data = {
             username: this.state.formFields.addUsername
@@ -148,7 +187,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 this.setState(prevState => {
                     return {
                         ...prevState,
-                        isInviting: false,
+                        isAddingUser: false,
                         formFields: {
                             ...prevState.formFields,
                             addUsername: ''
@@ -193,7 +232,19 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                 <div className="modal-header">
                     <div className="modal-meta">
-                        <h3 className="modal-title">{this.state.board.name}<i className="fas fa-pen fa-fw edit-title ml-2"></i></h3>
+
+                        {this.state.isEditingName
+                        ?
+                            <form method="post" className="edit-board-name-form" onSubmit={(event) => this.onSubmit(event)}>
+                                <FormInput type="text" id="name" name="name" className="m-0" placeholder="Name this board" onChange={this.handleInputChange} value={this.state.formFields.name} autoFocus />
+                                <FormFieldValidationErrors field="Name" errors={this.state.errors} />
+
+                                <Button type="submit" isLoading={this.state.isSubmitting} className="edit-board-name ml-2" title="Save name"><i className="fas fa-check fa-fw"></i></Button>
+                            </form>
+                        :
+                            <h3 className="modal-title">{this.state.board.name}<button type="button" className="edit-board-name" onClick={() => this.toggleBoardNameForm()} title="Rename board"><i className="fas fa-pen fa-fw ml-2"></i></button></h3>
+                    }
+
                         <small className="modal-subtitle">Edit board</small>
                     </div>
                     <button type="button" className="modal-close-button" onClick={() => this.props.hideManageBoardModal()}>
@@ -204,22 +255,6 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 <form method="post" onSubmit={(event) => this.onSubmit(event)}>
                     <Alert slideIn={true} />
 
-                    {/* <div className="modal-body">
-
-                        <FormGroup>
-                            <FormLabel htmlFor="name">Name</FormLabel>
-                            <FormInput type="text" id="name" name="name" placeholder="Choose a cool name for this board." onChange={this.handleInputChange} value={this.state.formFields.name} autoFocus />
-
-                            <FormFieldValidationErrors field="Name" errors={this.state.errors} />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <FormLabel htmlFor="description">Description</FormLabel>
-                            <FormInput type="text" id="description" name="description" placeholder="Optional description" onChange={this.handleInputChange} value={this.state.formFields.description} />
-
-                            <FormFieldValidationErrors field="Description" errors={this.state.errors} />
-                        </FormGroup>
-                    </div> */}
                     <div className="modal-body">
                         {this.state.board.users?.length > 0 &&
                             <div className="add-user-section">
@@ -254,7 +289,6 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                         :   <div className="no-users-container">
                                 <div className="no-users">
-                                    {/* <img src="/assets/media/add.svg" alt="" /> */}
                                     <i className="icon icon-user-add icon-8x"></i>
 
                                     <h2>No users added to '{this.state.board.name}'</h2>
@@ -263,21 +297,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                             </div>
 
                         }
-
-
                     </div>
-                    {/* <div className="modal-body">
-                        <FormGroup>
-                            <h4 className="mt-0">Invite user</h4>
-                            <div className="input-group">
-                                <FormInput type="text" name="addUsername" placeholder="Type the name of the user you want to invite" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
-                                <Button type="button" isLoading={this.state.isInviting} className="button button-small button-blue" onClick={() => this.addUser()}>Invite</Button>
-                            </div>
-                        </FormGroup>
-                    </div> */}
-                    {/* <div className="modal-footer">
-                        <button type="submit" className="button button-green button-small">Save</button>
-                    </div> */}
                 </form>
             </Modal>
         )
