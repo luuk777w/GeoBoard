@@ -1,2 +1,5 @@
 // The border radius for rounded elements accross the website.
 $border-radius: .25rem;
+
+// The minimal (default) size of a custom icon. This size is used to calculate the size factors (2x, 3x, 4x).
+$icon-base-size: 1rem;

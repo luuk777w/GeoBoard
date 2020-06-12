@@ -1,3 +1,5 @@
+@import "src/css/icons";
+
 .emailConfirmation-container {
     width: 22rem;
     margin-top: 6rem;
@@ -5,10 +7,6 @@
     .panel-body, .form-panel {
         display: flex;
         justify-content: space-around;
-
-        img {
-            width: 18rem;
-        }
     }
 
     .panel-footer{

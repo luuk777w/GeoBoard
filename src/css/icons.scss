@@ -1,0 +1,25 @@
+@import "src/css/variables";
+
+$sizes: 2, 3, 4, 6, 8, 10;
+
+.icon {
+    width: $icon-base-size;
+    height: $icon-base-size;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@each $size in $sizes {
+    .icon-#{$size}x {
+        width: $icon-base-size * $size;
+        height: $icon-base-size * $size;
+    }
+}
+
+.icon-email {
+    background-image: url('/assets/media/email.svg');
+}
+
+.icon-user-add {
+    background-image: url('/assets/media/add.svg');
+}
