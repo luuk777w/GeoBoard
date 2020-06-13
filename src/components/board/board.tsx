@@ -52,14 +52,14 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             await this.loadBoardElements();
         }
 
-        this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel) => {
+        this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel | null) => {
+            console.log(response);
+
             this.setState({
-                boardElements: response.elements
+                boardElements: (response) ? response.elements : []
             });
 
-            console.log('SwitchedBoard', this.props.activeBoardState);
-
-            this.updateSiteTitle();
+            this.updateSiteTitle(response);
         });
 
         this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
@@ -97,9 +97,9 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             .catch((e) => console.warn(e));
     }
 
-    private updateSiteTitle() {
-        if (this.props.activeBoardState.boardId != null) {
-            document.title = `${this.props.activeBoardState.name} | ${this.config.siteName}`;
+    private updateSiteTitle(board: BoardViewModel | null) {
+        if (board != null) {
+            document.title = `${board.name} | ${this.config.siteName}`;
         }
         else {
             document.title = this.config.siteName;
