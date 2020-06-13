@@ -42,7 +42,7 @@ interface ManageBoardModelState {
         addUsername: string;
     }
 
-    isSubmitting: boolean;
+    isSubmittingNameChange: boolean;
     isAddingUser: boolean;
     isEditingName: boolean;
 }
@@ -61,7 +61,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 name: '',
                 addUsername: ''
             },
-            isSubmitting: false,
+            isSubmittingNameChange: false,
             isAddingUser: false,
             isEditingName: false
         }
@@ -110,9 +110,9 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
         this.setState({ isEditingName: ! this.state.isEditingName });
     }
 
-    async onSubmit(event: FormEvent<HTMLFormElement>) {
+    async onNameChangeSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        this.setState({ isSubmitting: true });
+        this.setState({ isSubmittingNameChange: true });
 
         const data = {
             name: this.state.formFields.name
@@ -147,11 +147,12 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
             })
             .finally(() => {
-                this.setState({ isSubmitting: false });
+                this.setState({ isSubmittingNameChange: false });
             });
     }
 
-    async addUser() {
+    async submitAddUser(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         this.props.hideAlert();
 
         const data = {
@@ -244,11 +245,11 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
                         {this.state.isEditingName
                         ?
-                            <form method="post" className="edit-board-name-form" onSubmit={(event) => this.onSubmit(event)}>
+                            <form method="post" className="edit-board-name-form" onSubmit={(event) => this.onNameChangeSubmit(event)}>
                                 <FormInput type="text" id="name" name="name" className="m-0" placeholder="Name this board" onChange={this.handleInputChange} value={this.state.formFields.name} autoFocus />
                                 <FormFieldValidationErrors field="Name" errors={this.state.errors} />
 
-                                <Button type="submit" isLoading={this.state.isSubmitting} className="edit-board-name ml-2" title="Save name"><i className="fas fa-check fa-fw"></i></Button>
+                                <Button type="submit" isLoading={this.state.isSubmittingNameChange} className="edit-board-name ml-2" title="Save name"><i className="fas fa-check fa-fw"></i></Button>
                             </form>
                         :
                             <h3 className="modal-title">{this.state.board.name}<button type="button" className="edit-board-name" onClick={() => this.toggleBoardNameForm()} title="Rename board"><i className="fas fa-pen fa-fw ml-2"></i></button></h3>
@@ -268,7 +269,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     ?   <>
                             <div className="manage-users-header">
                                 <h4>Manage users</h4>
-                                <p>Add or remove users from '{this.state.board.name}'. Users have immediate access after you you had them.</p>
+                                <p>Add or remove users from '{this.state.board.name}'. Users have immediate access after you add them.</p>
                             </div>
                             <table className="table table-sm table-bordered table-full">
                                 <thead>
@@ -300,12 +301,14 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                 <i className="icon icon-user-add icon-8x"></i>
 
                                 <h2>No users added to '{this.state.board.name}'</h2>
-                                <div className="input-group">
-                                    <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
-                                    <FormFieldValidationErrors field="Name" errors={this.state.errors} />
+                                <form method="post" onSubmit={(event) => this.submitAddUser(event)}>
+                                    <div className="input-group">
+                                        <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
+                                        <FormFieldValidationErrors field="Name" errors={this.state.errors} />
 
-                                    <Button type="button" isLoading={this.state.isAddingUser} className="button button-small button-blue" onClick={() => this.addUser()}>Add user</Button>
-                                </div>
+                                        <Button type="submit" isLoading={this.state.isAddingUser} className="button button-small button-blue">Add user</Button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
