@@ -20,7 +20,9 @@ interface BoardListItemProps {
     userId: string;
     username: string;
     timestamp: Date;
-    onRemoveBoard: Function;
+
+    onBoardRemove: Function;
+    onBoardLeave: Function;
     /**
      * The currently shown board.
      */
@@ -34,6 +36,8 @@ interface BoardListItemProps {
 interface BoardListItemState {
     removeBoardIsOpen: boolean;
     removeBoardName: string;
+
+    leaveBoardIsOpen: boolean;
 }
 
 class BoardListItem extends React.Component<BoardListItemProps, BoardListItemState> {
@@ -46,7 +50,9 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
 
         this.state = {
             removeBoardIsOpen: false,
-            removeBoardName: ''
+            removeBoardName: '',
+
+            leaveBoardIsOpen: false
         }
 
         this.jwtService = container.resolve(JWTService);
@@ -85,7 +91,7 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
     promptRemoveBoard() {
         this.setState((state) => ({
             removeBoardIsOpen: !state.removeBoardIsOpen
-        }))
+        }));
     }
 
     removeBoard() {
@@ -94,7 +100,33 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
             removeBoardName: ''
         }));
 
-        this.props.onRemoveBoard(this.props.boardId);
+        this.props.onBoardRemove(this.props.boardId);
+    }
+
+    promptLeaveBoard() {
+        this.setState((state) => ({
+            leaveBoardIsOpen: !state.leaveBoardIsOpen
+        }));
+    }
+
+    leaveBoard() {
+        this.setState(() => ({
+            leaveBoardIsOpen: false
+        }));
+
+        this.props.onBoardLeave(this.props.boardId, this.props.boardName);
+
+        if (this.props.activeBoardState.boardId == this.props.boardId) {
+            // Simulate a toggle to deselect the board.
+            this.boardHubService.getConnection().invoke('SwitchBoard', this.props.boardId, this.props.boardId)
+                .then(() => {
+                    // Don't set any board active.
+                    this.props.setActiveBoard(null, null);
+
+                    // Empty the joined users list.
+                    this.props.setJoinedUsers([]);
+                });
+        }
     }
 
     handleInputChange(event: any) {
@@ -116,8 +148,9 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                         <i title="Manage board and users" className="fas fa-cog manage-board fa-fw ml-1" onClick={() => this.props.showManageBoardModal(this.props.boardId)}></i>
                     }
 
-                    {isOwner &&
-                        <i title="Remove board" className="fas fa-trash remove-board fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+                    {isOwner
+                        ? <i title="Remove board" className="fas fa-trash remove-board fa-fw ml-1" onClick={() => this.promptRemoveBoard()}></i>
+                        : <i title={`Leave '${this.props.boardName}'`} className="fas fa-sign-out-alt leave-board fa-fw" onClick={() => this.promptLeaveBoard()}></i>
                     }
 
                     {this.state.removeBoardIsOpen &&
@@ -135,6 +168,22 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
 
                                 <button className="button button-red button-small" onClick={() => this.removeBoard()}
                                     disabled={this.props.boardName !== this.state.removeBoardName}>Remove board</button>
+                            </div>
+                        </div>
+                    }
+
+                    {this.state.leaveBoardIsOpen &&
+                        <div className="leave-board-prompt">
+
+                            <div className="leave-board-prompt-header">
+                                <div className="leave-board-prompt-header-title">Are you sure you want to leave {this.props.boardName}?</div>
+                                <i title="Cancel" className="fas fa-times cancel fa-fw ml-1" onClick={() => this.promptLeaveBoard()}></i>
+                            </div>
+
+                            <div className="leave-board-prompt-body">
+                                <div className="leave-board-prompt-text mb-1">You will no longer have access to this board.</div>
+
+                                <button className="button button-red button-small" onClick={() => this.leaveBoard()}>Leave board</button>
                             </div>
                         </div>
                     }

@@ -17,6 +17,7 @@ import { AlertType } from 'store/alert/types';
 import CreateBoard from './createBoard/createBoard';
 import { mapToType } from 'helpers/helpers';
 import { BoardState } from 'store/board/types';
+import { JWTService } from 'services/jwt.service';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
@@ -33,11 +34,13 @@ interface LocalSidebarState {
 class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
     private httpService: HttpService;
+    private jwtService: JWTService;
 
     constructor(props: SidebarProps) {
         super(props);
 
         this.httpService = container.resolve(HttpService);
+        this.jwtService = container.resolve(JWTService);
 
         this.state = {
             playerBoards: []
@@ -45,6 +48,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
         this.addBoard = this.addBoard.bind(this);
         this.removeBoard = this.removeBoard.bind(this);
+        this.leaveBoard = this.leaveBoard.bind(this);
     }
 
     addBoard(board: BoardViewModel) {
@@ -83,6 +87,36 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
                 }, 2000);
             });
 
+    }
+
+    leaveBoard(boardId: string, boardName: string) {
+        let boards = this.state.playerBoards;
+        let board = mapToType<BoardViewModel>(boards.find(x => x.id === boardId));
+
+        const userId = this.jwtService.getUserId();
+
+        this.httpService.deleteWithAuthorization(`/boards/${boardId}/users/${userId}`)
+            .then((response) => {
+                boards.splice(boards.indexOf(board), 1);
+
+                this.setState(() => ({
+                    playerBoards: boards
+                }));
+
+                this.props.showAlert(AlertType.Success, `You have left ${boardName}`);
+
+                setTimeout(() => {
+                    this.props.hideAlert();
+                }, 2000);
+            })
+            .catch((e) => {
+
+                this.props.showAlert(AlertType.Error, e.status);
+
+                setTimeout(() => {
+                    this.props.hideAlert();
+                }, 2000);
+            });
     }
 
     toggleSidebar() {
@@ -141,7 +175,8 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
                                             userId={board.userId}
                                             username={board.owner.username}
                                             timestamp={board.createdAt}
-                                            onRemoveBoard={this.removeBoard}
+                                            onBoardRemove={this.removeBoard}
+                                            onBoardLeave={this.leaveBoard}
                                         />)
                                     })
 

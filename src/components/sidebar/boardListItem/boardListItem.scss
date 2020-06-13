@@ -60,7 +60,7 @@
         }
     }
 
-    .remove-board {
+    .remove-board, .leave-board {
         display: flex;
         align-items: center;
         position: absolute;
@@ -76,7 +76,7 @@
     }
 }
 
-.remove-board-prompt {
+.remove-board-prompt, .leave-board-prompt {
     position: absolute;
     right: 0.825rem;
     top: 4rem;
@@ -99,34 +99,34 @@
     }
 
 
-    .remove-board-prompt-header {
+    &-header {
         display: flex;
         align-items: center;
         padding: 0.5rem 1rem;
         background-color: $gray300;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
+
+        &-title {
+            color: $gray900;
+            font-weight: 600;
+        }
     }
 
-    .remove-board-prompt-header-title {
-        color: $gray900;
-        font-weight: 600;
-    }
-
-    .remove-board-prompt-body {
+    &-body {
         display: flex;
         flex-direction: column;
         cursor: auto;
         padding: 0.5rem 1rem;
 
-        .remove-board-prompt-text {
-            font-weight: normal;
-        }
-
         .cancel {
             cursor: pointer;
             font-size: 1.25rem;
         }
+    }
+
+    &-text {
+        font-weight: normal;
     }
 }
 
