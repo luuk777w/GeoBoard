@@ -42,9 +42,11 @@ interface ManageBoardModelState {
         addUsername: string;
     }
 
-    isSubmittingNameChange: boolean;
-    isAddingUser: boolean;
     isEditingName: boolean;
+    isAddingUser: boolean;
+
+    isSubmittingNameChange: boolean;
+    isSubmittingUserAdd: boolean;
 }
 
 class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModelState> {
@@ -57,13 +59,17 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
         this.state = {
             board: new BoardViewModel(),
             errors: {},
+
             formFields: {
                 name: '',
                 addUsername: ''
             },
-            isSubmittingNameChange: false,
+
+            isEditingName: false,
             isAddingUser: false,
-            isEditingName: false
+
+            isSubmittingNameChange: false,
+            isSubmittingUserAdd: false
         }
 
         this.httpService = container.resolve(HttpService);
@@ -108,6 +114,10 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
     toggleBoardNameForm() {
         this.setState({ isEditingName: ! this.state.isEditingName });
+    }
+
+    toggleAddUserForm() {
+        this.setState({ isAddingUser: ! this.state.isAddingUser });
     }
 
     async onNameChangeSubmit(event: FormEvent<HTMLFormElement>) {
@@ -165,7 +175,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
             return;
         }
 
-        this.setState({ isAddingUser: true });
+        this.setState({ isSubmittingUserAdd: true });
 
         await this.httpService.postWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users`, JSON.stringify(data))
             .then((boardUsers: Array<BoardUserViewModel>) => {
@@ -195,6 +205,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                 this.setState(prevState => {
                     return {
                         ...prevState,
+                        isSubmittingUserAdd: false,
                         isAddingUser: false,
                         formFields: {
                             ...prevState.formFields,
@@ -276,7 +287,20 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                     <tr>
                                         <th>Username</th>
                                         <th>Added on</th>
-                                        <th><button type="button" className="button button-green add-user"><i className="fas fa-plus fa-fw mr-1"></i>Add user</button></th>
+                                        <th>
+                                            {this.state.isAddingUser
+                                            ?   <form method="post" onSubmit={(event) => this.submitAddUser(event)}>
+                                                    <div className="input-group input-group-small m-0">
+                                                        <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} autoFocus />
+                                                        <FormFieldValidationErrors field="Name" errors={this.state.errors} />
+
+                                                        <Button type="submit" isLoading={this.state.isSubmittingUserAdd} className="button button-small button-blue">Add user</Button>
+                                                    </div>
+                                                </form>
+                                            :
+                                                <button type="button" className="button button-green add-user" onClick={() => this.toggleAddUserForm()}><i className="fas fa-plus fa-fw mr-1"></i>Add user</button>
+                                            }
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -306,7 +330,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                         <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
                                         <FormFieldValidationErrors field="Name" errors={this.state.errors} />
 
-                                        <Button type="submit" isLoading={this.state.isAddingUser} className="button button-small button-blue">Add user</Button>
+                                        <Button type="submit" isLoading={this.state.isSubmittingUserAdd} className="button button-small button-blue">Add user</Button>
                                     </div>
                                 </form>
                             </div>
