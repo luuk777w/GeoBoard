@@ -4,7 +4,7 @@
 .button {
     border: none;
     color: white;
-    padding: 0.9rem 1rem;
+    padding: .7rem 1rem;
     text-align: center;
     text-decoration: none;
     font-size: 1rem;
@@ -17,7 +17,7 @@
 a.button {
     display: inline-block;
     font-family: 'Open Sans', sans-serif;
-    padding: 0.9rem 0;
+    padding: .7rem 1rem;
 }
 
 .button[disabled] {
@@ -188,6 +188,6 @@ a.button {
  * Button sizes
  */
 .button-small {
-    padding: .7rem 1rem !important;
+    padding: .4rem .6rem !important;
     font-size: .9em;
 }

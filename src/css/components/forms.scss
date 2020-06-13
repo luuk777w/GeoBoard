@@ -82,6 +82,12 @@ input[type=text], input[type=password], input[type=email] {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
+
+    &-small {
+        input {
+            padding: .4rem .6rem;
+        }
+    }
 }
 
 /*
