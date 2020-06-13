@@ -82,9 +82,13 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
         await this.authorizeService.register(registerData)
             .then((response: any) => {
+                this.setState({isSubmitting: false});
+
                 this.props.history.push(`/register/email-confirmation?email=${registerData.email}`);
             })
             .catch((error) => {
+                this.setState({isSubmitting: false});
+
                 if (error.status == 0) {
                     this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
                     return;
@@ -100,10 +104,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
-            })
-            .finally(() => {
-                this.setState({isSubmitting: false});
-            });;
+            });
     }
 
     handleInputChange(event: React.ChangeEvent<any>) {

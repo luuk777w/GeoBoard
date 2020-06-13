@@ -67,9 +67,13 @@ class Login extends React.Component<LoginProps, LoginState> {
         await this.authorizeService.login(loginData)
             .then((response: any) => {
                 this.jwtService.setToken(response.token);
+                this.setState({isSubmitting: false});
+
                 this.props.history.push("/");
             })
             .catch((error) => {
+                this.setState({isSubmitting: false});
+
                 if (error.status == 0) {
                     this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
                     return;
@@ -78,9 +82,6 @@ class Login extends React.Component<LoginProps, LoginState> {
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
                     : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
-            })
-            .finally(() => {
-                this.setState({isSubmitting: false});
             });
     }
 
