@@ -54,8 +54,20 @@
         align-items: center;
     }
 
-    .addUserButton {
-        height: 2.5rem;
+    .add-user {
+        display: block;
+        margin-left: auto;
+        padding: .4rem .6rem !important
+    }
+
+    .remove-user {
+        color: $gray400;
+        transition: color 250ms;
+
+        &:hover {
+            cursor: pointer;
+            color: $red400;
+        }
     }
 
     .no-users-container {
@@ -78,6 +90,17 @@
             display: flex;
             flex-flow: column;
             align-items: center;
+        }
+    }
+
+    .manage-users-header {
+        h4 {
+            margin: 0;
+        }
+
+        p {
+            margin-top: 0;
+            color: $gray500;
         }
     }
 

@@ -21,6 +21,7 @@ import { Button } from "components/button/button";
 import { AlertType } from "store/alert/types";
 import { setActiveBoard } from "store/board/actions";
 import { BoardState } from "store/board/types";
+import { FormGroup } from "components/form/formGroup";
 
 interface ManageBoardModalProps {
     manageBoardModal: ManageBoardModalState,
@@ -38,7 +39,6 @@ interface ManageBoardModelState {
 
     formFields: {
         name: string;
-        description: string;
         addUsername: string;
     }
 
@@ -59,7 +59,6 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
             errors: {},
             formFields: {
                 name: '',
-                description: '',
                 addUsername: ''
             },
             isSubmitting: false,
@@ -95,7 +94,6 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                         board: response,
                         formFields: {
                             name: response.name,
-                            description: '', // TODO: Change database to support description
                             addUsername: ''
                         }
                     });
@@ -155,15 +153,22 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
     async addUser() {
         this.props.hideAlert();
-        this.setState({ isAddingUser: true });
 
         const data = {
             username: this.state.formFields.addUsername
         };
 
+        if (data.username.trim() == "") {
+            this.props.showAlert(AlertType.Error, "Please enter a username.")
+
+            return;
+        }
+
+        this.setState({ isAddingUser: true });
+
         await this.httpService.postWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users`, JSON.stringify(data))
             .then((boardUsers: Array<BoardUserViewModel>) => {
-                this.props.showAlert(AlertType.Success, `${this.state.formFields.addUsername} has been added to ${this.state.board.name}.`);
+                this.props.showAlert(AlertType.Success, `${this.state.formFields.addUsername} has been added to '${this.state.board.name}'.`);
 
                 this.setState(prevState => {
                     return {
@@ -200,32 +205,34 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
     }
 
     async removeUser(userId: string, username: string) {
-        this.props.hideAlert();
+        if (confirm(`Are you sure you want to remove ${username} from '${this.state.board.name}'?`)) {
+            this.props.hideAlert();
 
-        await this.httpService.deleteWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users/${userId}`)
-            .then((boardUsers: Array<BoardUserViewModel>) => {
-                this.props.showAlert(AlertType.Success, `${username} has been removed from ${this.state.board.name}.`);
+            await this.httpService.deleteWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users/${userId}`)
+                .then((boardUsers: Array<BoardUserViewModel>) => {
+                    this.props.showAlert(AlertType.Success, `${username} has been removed from '${this.state.board.name}'.`);
 
-                this.setState(prevState => {
-                    return {
-                        ...prevState,
-                        board: {
-                            ...prevState.board,
-                            users: boardUsers
+                    this.setState(prevState => {
+                        return {
+                            ...prevState,
+                            board: {
+                                ...prevState.board,
+                                users: boardUsers
+                            }
                         }
+                    });
+                })
+                .catch((error) => {
+                    if (error.status == 0) {
+                        this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
+                        return;
                     }
-                });
-            })
-            .catch((error) => {
-                if (error.status == 0) {
-                    this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
-                    return;
-                }
 
-                error.responseJSON.message != null
-                    ? this.props.showAlert(AlertType.Warning, error.responseJSON.message)
-                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
-            });
+                    error.responseJSON.message != null
+                        ? this.props.showAlert(AlertType.Warning, error.responseJSON.message)
+                        : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+                });
+        }
     }
 
     render() {
@@ -254,24 +261,21 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                     </button>
                 </div>
 
-                <form method="post" onSubmit={(event) => this.onSubmit(event)}>
-
-                    <div className="modal-body">
+                <div className="modal-body">
                     <Alert slideIn={true} />
 
-                        {this.state.board.users?.length > 0 &&
-                            <div className="add-user-section">
-                                <button type="button" className="button button-green button-small addUserButton">Add user</button>
+                    {this.state.board.users?.length > 0
+                    ?   <>
+                            <div className="manage-users-header">
+                                <h4>Manage users</h4>
+                                <p>Add or remove users from '{this.state.board.name}'. Users have immediate access after you you had them.</p>
                             </div>
-                        }
-
-                        {this.state.board.users?.length > 0
-                        ?   <table className="table table-sm table-bordered table-full">
+                            <table className="table table-sm table-bordered table-full">
                                 <thead>
                                     <tr>
                                         <th>Username</th>
                                         <th>Added on</th>
-                                        <th></th>
+                                        <th><button type="button" className="button button-green add-user"><i className="fas fa-plus fa-fw mr-1"></i>Add user</button></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -282,26 +286,31 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                                 <td>{boardUser.username}</td>
                                                 <td>{dateToReadableString(boardUser.createdAt)}</td>
                                                 <td>
-                                                    <button type="button" className="button button-red button-small" onClick={() => this.removeUser(boardUser.id, boardUser.username)}>Remove</button>
+                                                    <i title={`Remove ${boardUser.username} from '${this.state.board.name}'`} className="fas fa-trash remove-user fa-fw mr-1" onClick={() => this.removeUser(boardUser.id, boardUser.username)}></i>
                                                 </td>
                                             </tr>
                                         );
                                     })}
                                 </tbody>
                             </table>
+                        </>
 
-                        :   <div className="no-users-container">
-                                <div className="no-users">
-                                    <i className="icon icon-user-add icon-8x"></i>
+                    :   <div className="no-users-container">
+                            <div className="no-users">
+                                <i className="icon icon-user-add icon-8x"></i>
 
-                                    <h2>No users added to '{this.state.board.name}'</h2>
-                                    <button type="button" className="button button-green button-small mt-4">Add user</button>
+                                <h2>No users added to '{this.state.board.name}'</h2>
+                                <div className="input-group">
+                                    <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
+                                    <FormFieldValidationErrors field="Name" errors={this.state.errors} />
+
+                                    <Button type="button" isLoading={this.state.isAddingUser} className="button button-small button-blue" onClick={() => this.addUser()}>Add user</Button>
                                 </div>
                             </div>
+                        </div>
 
-                        }
-                    </div>
-                </form>
+                    }
+                </div>
             </Modal>
         )
     }

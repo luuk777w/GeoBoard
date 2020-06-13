@@ -40,13 +40,14 @@ input[type=text], input[type=password], input[type=email] {
  */
 .input-group {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     width: 100%;
     margin: 1rem 0;
 
     input {
         margin: 0;
+        flex: 1 0;
     }
 
     .input-prefix {
