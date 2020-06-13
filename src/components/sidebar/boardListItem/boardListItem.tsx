@@ -75,6 +75,8 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
         this.boardHubService.getConnection().invoke('SwitchBoard', boardToSwitchFrom, boardToSwitchTo)
             .then(() => {
 
+                console.log('Switched succesfuly!')
+
                 if (boardToSwitchFrom == boardToSwitchTo) {
                     // Don't set any board active.
                     this.props.setActiveBoard(null, null);
@@ -85,6 +87,9 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                 } else {
                     this.props.setActiveBoard(boardToSwitchTo, this.props.boardName);
                 }
+            })
+            .catch((e) => {
+                console.warn(e);
             });
     }
 
