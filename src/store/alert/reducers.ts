@@ -3,7 +3,8 @@ import { SHOW_ALERT, HIDE_ALERT, SET_ALERT_TYPE, SET_ALERT_BODY, AlertState, Ale
 const initialState: AlertState = {
     show: false,
     type: AlertType.Info,
-    body: ''
+    body: '',
+    timeout: 0
 }
 
 export function alertReducer(state = initialState, action: AlertActionTypes): AlertState {
@@ -13,7 +14,8 @@ export function alertReducer(state = initialState, action: AlertActionTypes): Al
                 ...state,
                 show: true,
                 type: action.payload.type,
-                body: action.payload.body
+                body: action.payload.body,
+                timeout: action.payload.timeout
             };
         }
         case HIDE_ALERT: {

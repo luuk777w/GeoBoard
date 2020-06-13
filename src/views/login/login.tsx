@@ -51,8 +51,6 @@ class Login extends React.Component<LoginProps, LoginState> {
         event.preventDefault();
         this.props.hideAlert();
 
-        this.setState({ isSubmitting: true });
-
         const loginData: LoginViewModel = {
             username: this.state.username.trim(),
             password: this.state.password,
@@ -60,9 +58,11 @@ class Login extends React.Component<LoginProps, LoginState> {
         }
 
         if (loginData.username == "" || loginData.password == "") {
-            this.props.showAlert(AlertType.Warning, "Username or password not filled in.");
+            this.props.showAlert(AlertType.Warning, "Username or password not filled in.", 5000);
             return;
         }
+
+        this.setState({ isSubmitting: true });
 
         await this.authorizeService.login(loginData)
             .then((response: any) => {

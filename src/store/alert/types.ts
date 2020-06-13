@@ -2,6 +2,7 @@ export interface AlertState {
     show: boolean;
     type: AlertType;
     body: string;
+    timeout: number;
 }
 
 export const SHOW_ALERT = "SHOW_ALERT";

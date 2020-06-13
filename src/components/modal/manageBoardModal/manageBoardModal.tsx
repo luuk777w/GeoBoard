@@ -179,7 +179,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
         await this.httpService.postWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users`, JSON.stringify(data))
             .then((boardUsers: Array<BoardUserViewModel>) => {
-                this.props.showAlert(AlertType.Success, `${this.state.formFields.addUsername} has been added to '${this.state.board.name}'.`);
+                this.props.showAlert(AlertType.Success, `${this.state.formFields.addUsername} has been added to '${this.state.board.name}'.`, 3000);
 
                 this.setState(prevState => {
                     return {
@@ -222,7 +222,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
 
             await this.httpService.deleteWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users/${userId}`)
                 .then((boardUsers: Array<BoardUserViewModel>) => {
-                    this.props.showAlert(AlertType.Success, `${username} has been removed from '${this.state.board.name}'.`);
+                    this.props.showAlert(AlertType.Success, `${username} has been removed from '${this.state.board.name}'.`, 3000);
 
                     this.setState(prevState => {
                         return {

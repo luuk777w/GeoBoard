@@ -4,10 +4,13 @@ import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { AppState } from 'store';
 import { AlertState, AlertType } from 'store/alert/types';
+import { hideAlert } from 'store/alert/actions';
 
 interface AlertProps {
     slideIn: boolean;
     alert: AlertState;
+
+    hideAlert: typeof hideAlert;
 }
 
 class Alert extends React.Component<AlertProps> {
@@ -18,6 +21,21 @@ class Alert extends React.Component<AlertProps> {
 
     constructor(props: AlertProps) {
         super(props);
+    }
+
+    componentDidUpdate(prevProps: AlertProps) {
+        if (
+            (prevProps.alert.type == this.props.alert.type) &&
+            (prevProps.alert.body == this.props.alert.body)
+        )
+            return;
+
+        if (this.props.alert.timeout > 0) {
+            setTimeout(() => {
+                this.props.hideAlert();
+            },
+            this.props.alert.timeout)
+        }
     }
 
     getTypeIcon(type: AlertType) {
@@ -63,4 +81,4 @@ const mapStateToProps = (state: AppState) => ({
     alert: state.alert,
 })
 
-export default connect(mapStateToProps, {})(Alert);
+export default connect(mapStateToProps, { hideAlert })(Alert);
