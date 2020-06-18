@@ -3,7 +3,7 @@ import { BoardUserViewModel } from "models/BoardUserViewModel";
 export interface BoardState {
     boardId: string | null;
     name: string | null;
-    joinedUsers: Array<BoardUserViewModel>
+    joinedUsers: Array<BoardUserViewModel>;
 }
 
 export const SET_ACTIVE_BOARD = "SET_ACTIVE_BOARD";

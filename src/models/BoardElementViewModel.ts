@@ -44,7 +44,7 @@ export class BoardElementViewModel {
     user: UserViewModel;
 
     /**
-     * The date and time of when this board was created.
+     * The date and time of when this boardElement was created.
      */
     createdAt: Date;
 }

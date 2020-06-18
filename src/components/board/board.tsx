@@ -11,6 +11,7 @@ import { BoardViewModel } from 'models/BoardViewModel';
 import { BoardElement } from './boardElement/boardElement';
 import { HttpService } from 'services/http.service';
 import { setActiveBoard } from 'store/board/actions';
+import { motion, AnimatePresence } from "framer-motion";
 
 import './board.scss'
 import { mapToType } from 'helpers/helpers';
@@ -37,7 +38,6 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 
         this.config = container.resolve(Config);
         this.boardHubService = container.resolve(BoardHubService);
-
         this.httpService = container.resolve(HttpService);
 
         this.state = {
@@ -55,32 +55,35 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         this.boardHubService.getConnection().on('SwitchedBoard', (response: BoardViewModel | null) => {
             console.log(response);
 
-            this.setState({
-                boardElements: (response) ? response.elements : []
-            });
+            this.setState(() => ({
+                boardElements: []
+            }));
+
+            setTimeout(() => {
+                this.setState(() => ({
+                    boardElements: (response) ? response.elements : []
+                }));
+            }, 250);
 
             this.updateSiteTitle(response);
         });
 
         this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
-
             let elements = this.state.boardElements;
-            elements.unshift(response);
 
             this.setState(() => ({
-                boardElements: elements
-            }))
+                boardElements: [response, ...elements]
+            }));
         });
 
         this.boardHubService.getConnection().on('RemoveElement', (response: string) => {
 
-            let elements = this.state.boardElements;
-            let element = mapToType<BoardElementViewModel>(elements.find(x => x.id === response));
-            elements.splice(elements.indexOf(element), 1);
+            let newArray = [...this.state.boardElements];
+            newArray.splice(newArray.findIndex(e => e.id === response), 1);
 
             this.setState(() => ({
-                boardElements: elements
-            }))
+                boardElements: newArray
+            }));
         });
     }
 
@@ -88,11 +91,12 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
      * Load the elements from the board that was already active on page load.
      */
     private async loadBoardElements() {
+
         await this.httpService.getWithAuthorization<Array<BoardElementViewModel>>(`/boards/${this.props.activeBoardState.boardId}/elements`)
             .then((response: Array<BoardElementViewModel>) => {
-                this.setState({
+                this.setState(() => ({
                     boardElements: response
-                });
+                }));
             })
             .catch((e) => console.warn(e));
     }
@@ -113,21 +117,24 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                     ?
                     <div className="board-elements">
 
-                        {this.state.boardElements.map((element: BoardElementViewModel, index) => {
-                            return (
-                                <BoardElement
-                                    key={index}
-                                    id={element.id}
-                                    // TODO: Use number from server
-                                    number={element.elementNumber}
-                                    user={element.user}
-                                    direction={element.direction}
-                                    note={element.note}
-                                    imageId={element.imageId}
-                                    createdAt={element.createdAt}
-                                />
-                            )
-                        })}
+                        <AnimatePresence initial={false}>
+                            {this.state.boardElements.map((element: BoardElementViewModel) => {
+                                return (
+                                    <motion.div className="board-element"
+                                        key={element.id}
+                                        positionTransition
+                                        initial={{ opacity: 0, y: 50, scale: 0.3 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                                    >
+                                        <BoardElement
+                                            element={element}
+                                        />
+                                    </motion.div>
+                                )
+                            })}
+                        </AnimatePresence>
+
                     </div>
 
                     :

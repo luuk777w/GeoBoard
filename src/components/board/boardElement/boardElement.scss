@@ -160,24 +160,6 @@
     }
 }
 
-.animation-wrapper {
-    transition: max-height 200ms ease-out;
-}
-
-.animation-height-0 {
-    max-height: 0;
-    overflow: hidden;
-}
-
-.animation-height {
-    max-height: 40rem;
-}
-
-.animation-invisable{
-    visibility: hidden;
-}
-
-
 /**
  * Dark theme
  */
