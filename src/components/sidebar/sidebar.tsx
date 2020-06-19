@@ -18,6 +18,8 @@ import CreateBoard from './createBoard/createBoard';
 import { mapToType } from 'helpers/helpers';
 import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
+import { motion } from 'framer-motion';
+import { SidebarToggle } from './sidebarToggle/sidebarToggle';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
@@ -142,59 +144,85 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
     render() {
 
+        const sidebar = {
+            open: (height = 1000) => ({
+                clipPath: `circle(${height * 2 + 200}px at 22rem 3rem)`,
+                transition: {
+                    type: "spring",
+                    stiffness: 20,
+                    restDelta: 2
+                }
+            }),
+            closed: {
+                clipPath: "circle(2rem at 22rem 3rem)",
+                transition: {
+                    delay: 0.5,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 40
+                }
+            }
+        };
+
+        const variants = {
+            open: {
+                transition: { staggerChildren: 0.07, delayChildren: 0.2 }
+            },
+            closed: {
+                transition: { staggerChildren: 0.05, staggerDirection: -1 }
+            }
+        };
+
         return (
 
-            <CSSTransition in={this.props.sidebar.isOpen} unmountOnExit={true} timeout={300} classNames={{
-                enter: 'animated slideInRight',
-                exit: 'animated slideOutRight'
-            }}>
-                <aside className="sidebar">
-                    <div className="sidebar-header">
-                        <h4 className="m-0">Menu</h4>
-                        <span className="close-sidebar" title="Close sidebar" onClick={() => this.toggleSidebar()}>
-                            <i className="fas fa-times fa-lg"></i>
-                        </span>
-                    </div>
+            <motion.aside className="sidebar"
+                initial={false}
+                animate={this.props.sidebar.isOpen ? "open" : "closed"}
+                variants={sidebar}
+            >
+                <div className="sidebar-header">
+                    <h4 className="m-0">Menu</h4>
+                    <SidebarToggle toggle={() => this.toggleSidebar()} />
+                </div>
 
-                    <div className="sidebar-body">
-                        <Alert slideIn={true} />
+                <div className="sidebar-body">
+                    <Alert slideIn={true} />
 
-                        <div className="sidebar-section">
-                            <div className="section-header">
-                                <CreateBoard onBoardCreated={this.addBoard} />
-                            </div>
-
-                            <ul className="board-list">
-
-                                {this.state.playerBoards.length > 0
-                                    ? this.state.playerBoards.map((board: BoardViewModel, index) => {
-                                        return (<BoardListItem
-                                            key={index}
-                                            boardId={board.id}
-                                            boardName={board.name}
-                                            userId={board.userId}
-                                            username={board.owner.username}
-                                            timestamp={board.createdAt}
-                                            onBoardRemove={this.removeBoard}
-                                            onBoardLeave={this.leaveBoard}
-                                        />)
-                                    })
-
-                                    : <p className="sidebar-text">You don't own any boards. Create one!</p>
-                                }
-                            </ul>
+                    <div className="sidebar-section">
+                        <div className="section-header">
+                            <CreateBoard onBoardCreated={this.addBoard} />
                         </div>
 
-                        <div className="sidebar-section">
-                            <div className="section-header">
-                                <h3 className="sidebar-section-title">My snapshots</h3>
-                            </div>
+                        <motion.ul className="board-list" variants={variants}>
 
-                            <p className="sidebar-text">No snapshots available.</p>
-                        </div>
+                            {this.state.playerBoards.length > 0
+                                ? this.state.playerBoards.map((board: BoardViewModel) => {
+                                    return (<BoardListItem
+                                        key={board.id}
+                                        boardId={board.id}
+                                        boardName={board.name}
+                                        userId={board.userId}
+                                        username={board.owner.username}
+                                        timestamp={board.createdAt}
+                                        onBoardRemove={this.removeBoard}
+                                        onBoardLeave={this.leaveBoard}
+                                    />)
+                                })
+
+                                : <p className="sidebar-text">You don't own any boards. Create one!</p>
+                            }
+                        </motion.ul>
                     </div>
-                </aside>
-            </CSSTransition>
+
+                    <div className="sidebar-section">
+                        <div className="section-header">
+                            <h3 className="sidebar-section-title">My snapshots</h3>
+                        </div>
+
+                        <p className="sidebar-text">No snapshots available.</p>
+                    </div>
+                </div>
+            </motion.aside>
         )
     }
 }

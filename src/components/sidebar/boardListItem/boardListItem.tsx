@@ -10,6 +10,7 @@ import { container } from 'tsyringe';
 import { dateToReadableString } from 'helpers/helpers';
 import { showManageBoardModal } from 'store/modals/manageBoardModal/actions';
 import { BoardHubService } from 'services/hubs/boardHub.service';
+import { motion } from 'framer-motion';
 
 interface BoardListItemProps {
     /**
@@ -145,9 +146,27 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
         const isActive = this.props.activeBoardState.boardId == this.props.boardId ? true : false
         const isOwner = this.props.userId == this.jwtService.getUserId();
 
+        const variants = {
+            open: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                    y: { stiffness: 1000, velocity: -100 }
+                }
+            },
+            closed: {
+                y: 50,
+                opacity: 0,
+                transition: {
+                    y: { stiffness: 1000 }
+                }
+            }
+        };
+
         return (
             <>
-                <li className={isActive ? "board-list-item active" : "board-list-item"} onClick={() => this.toggleBoard(event)}>
+                <motion.li className={isActive ? "board-list-item active" : "board-list-item"} onClick={() => this.toggleBoard(event)} variants={variants}
+                >
                     {this.props.boardName}
                     {isOwner &&
                         <i title="Manage board and users" className="fas fa-cog manage-board fa-fw ml-1" onClick={() => this.props.showManageBoardModal(this.props.boardId)}></i>
@@ -197,7 +216,7 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
                         ? <div className="board-list-item-description">Created at <time dateTime={this.props.timestamp.toString()}>{dateToReadableString(this.props.timestamp)}</time></div>
                         : <div className="board-list-item-description">Created by {this.props.username}</div>
                     }
-                </li>
+                </motion.li>
             </>
         )
     }

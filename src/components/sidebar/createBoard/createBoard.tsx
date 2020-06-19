@@ -38,7 +38,7 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
 
     toggleCreateBoard() {
         this.setState(state => ({
-            isOpen: ! state.isOpen
+            isOpen: !state.isOpen
         }));
 
         this.props.hideAlert();
@@ -86,9 +86,9 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
                 this.props.showAlert(AlertType.Error, "Something went wrong. Please try again.");
             }
         })
-        .finally(() => {
-            this.setState({isSubmitting: false});
-        });
+            .finally(() => {
+                this.setState({ isSubmitting: false });
+            });
     }
 
     render() {

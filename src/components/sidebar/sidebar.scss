@@ -31,6 +31,19 @@
             }
         }
 
+        .sidebarToggle {
+            outline: none;
+            border: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            cursor: pointer;
+            border-radius: 50%;
+            background: transparent;
+            margin-top: 1.2rem;
+            margin-right: 0.25rem;
+        }
+
         h4 {
             color: $gray500;
         }

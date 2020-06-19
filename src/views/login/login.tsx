@@ -67,12 +67,12 @@ class Login extends React.Component<LoginProps, LoginState> {
         await this.authorizeService.login(loginData)
             .then((response: any) => {
                 this.jwtService.setToken(response.token);
-                this.setState({isSubmitting: false});
+                this.setState({ isSubmitting: false });
 
                 this.props.history.push("/");
             })
             .catch((error) => {
-                this.setState({isSubmitting: false});
+                this.setState({ isSubmitting: false });
 
                 if (error.status == 0) {
                     this.props.showAlert(AlertType.Error, "Could not reach the server. Please try again later.");
@@ -105,7 +105,6 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                     <div className="panel">
                         <div className="panel-header">Login to GeoBoard</div>
-
                         <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
                             <div className="panel-body">
                                 <div className="form-group">
