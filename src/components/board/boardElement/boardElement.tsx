@@ -21,6 +21,7 @@ interface BoardElementProps {
 
 interface BoardElementState {
     show: boolean;
+    imageNotFound: boolean;
 }
 
 export class BoardElement extends React.Component<BoardElementProps, BoardElementState> {
@@ -32,11 +33,14 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         super(props);
 
         this.state = {
-            show: false
+            show: false,
+            imageNotFound: false
         }
 
         this.config = container.resolve(Config);
         this.httpService = container.resolve(HttpService);
+
+        this.getImage = this.getImage.bind(this);
     }
 
     getReadableDirection(direction: Direction) {
@@ -61,6 +65,27 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         });
     }
 
+    onImageError() {
+        this.setState({
+            imageNotFound: true
+        });
+    }
+
+    getImage() {
+        if (this.state.imageNotFound) {
+            return (
+                <div className="board-element-image-error">
+                    <i className="icon icon-image icon-8x"></i>
+                    <span className="board-element-image-error-message">Image not available</span>
+                </div>
+            )
+        }
+
+        return (
+            <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.element.imageId}`} onError={() => this.onImageError()} />
+        );
+    }
+
     render() {
 
         return (
@@ -72,7 +97,7 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
                 </div>
                 <div className="board-element-body">
                     {this.props.element.imageId
-                        ? <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.element.imageId}`} />
+                        ? this.getImage()
                         : <p className="board-element-message">{this.props.element.note}</p>
                     }
                 </div>

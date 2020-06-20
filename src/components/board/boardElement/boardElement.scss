@@ -1,5 +1,6 @@
 @import "src/css/colors";
 @import "src/css/variables";
+@import "src/css/icons";
 
 .board-element {
     width: 24rem;
@@ -73,11 +74,24 @@
 
         .board-element-image {
             display: block;
-            width: 24rem;
+            // width: 24rem;
             object-fit: cover;
             background-repeat: no-repeat;
-            max-height: 25rem;
+            // max-height: 25rem;
             margin: 0;
+        }
+
+        .board-element-image-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0;
+            margin: 0;
+            color: $gray400;
+            font-weight: 600;
+            background: $gray200;
+            user-select: none;
         }
     }
 
