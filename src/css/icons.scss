@@ -3,6 +3,7 @@
 $sizes: 2, 3, 4, 6, 8, 10;
 
 .icon {
+    display: block;
     width: $icon-base-size;
     height: $icon-base-size;
     background-size: 100%;
@@ -17,9 +18,13 @@ $sizes: 2, 3, 4, 6, 8, 10;
 }
 
 .icon-email {
-    background-image: url('/assets/media/email.svg');
+    background-image: url('/assets/media/icons/email.svg');
 }
 
 .icon-user-add {
-    background-image: url('/assets/media/add.svg');
+    background-image: url('/assets/media/icons/add.svg');
+}
+
+.icon-image {
+    background-image: url('/assets/media/icons/image.svg');
 }
