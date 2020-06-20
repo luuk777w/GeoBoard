@@ -1,11 +1,9 @@
 import { BoardState, BoardActionTypes, SET_ACTIVE_BOARD, SET_JOINED_USERS } from "./types";
-import { BoardUserViewModel } from "models/BoardUserViewModel";
-import { BoardElementViewModel } from "models/BoardElementViewModel";
 
 const initialState: BoardState = {
     boardId: null,
     name: null,
-    joinedUsers: [],
+    joinedUsers: []
 }
 
 export function boardReducer(state = initialState, action: BoardActionTypes): BoardState {

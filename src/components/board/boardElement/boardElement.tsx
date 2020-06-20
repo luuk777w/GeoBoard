@@ -20,7 +20,6 @@ interface BoardElementProps {
 }
 
 interface BoardElementState {
-    animate: boolean;
     show: boolean;
 }
 
@@ -33,8 +32,7 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         super(props);
 
         this.state = {
-            show: false,
-            animate: false
+            show: false
         }
 
         this.config = container.resolve(Config);
