@@ -14,8 +14,6 @@ import { setActiveBoard } from 'store/board/actions';
 import { motion, AnimatePresence } from "framer-motion";
 
 import './board.scss'
-import { mapToType } from 'helpers/helpers';
-import { TransitionGroup } from 'react-transition-group';
 
 interface BoardProps {
     activeBoardState: BoardState;
@@ -72,17 +70,18 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             let elements = this.state.boardElements;
 
             this.setState(() => ({
+                // Put the received element on first place of the array and put the older elements behind it.
                 boardElements: [response, ...elements]
             }));
         });
 
-        this.boardHubService.getConnection().on('RemoveElement', (response: string) => {
+        this.boardHubService.getConnection().on('RemoveElement', (removedElementId: string) => {
 
-            let newArray = [...this.state.boardElements];
-            newArray.splice(newArray.findIndex(e => e.id === response), 1);
+            let elementsLeftOver = this.state.boardElements;
+            elementsLeftOver.splice(elementsLeftOver.findIndex(e => e.id === removedElementId), 1);
 
             this.setState(() => ({
-                boardElements: newArray
+                boardElements: elementsLeftOver
             }));
         });
     }
