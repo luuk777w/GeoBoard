@@ -70,7 +70,8 @@ module.exports = (env) => {
                             }
                         },
                         'css-loader',
-                        'sass-loader',
+                        "postcss-loader",
+                        'sass-loader'
                     ]
                 }
             ],
@@ -93,7 +94,8 @@ module.exports = (env) => {
         devServer: {
             historyApiFallback: true,
             contentBase: path.resolve(__dirname, 'public'),
-            port: 8888
+            port: 8888,
+            stats: "errors-warnings",
         }
     };
 }

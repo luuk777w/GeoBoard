@@ -22,6 +22,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
+    "autoprefixer": "^9.8.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.1",
     "css-loader": "^3.5.3",
@@ -30,6 +31,7 @@
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.2",
     "ts-loader": "^7.0.4",
     "typed-css-modules": "^0.6.4",
@@ -59,5 +61,17 @@
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.3.0",
     "framer-motion": "1.11.0"
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "last 2 version",
+    "iOS >= 9",
+    "safari 5",
+    "ie 8",
+    "ie 9"
+  ]
 }
