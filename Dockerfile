@@ -18,7 +18,7 @@ WORKDIR /app/
 
 COPY --from=0 /usr/src/app .
 
-COPY dist /var/www
+COPY ./dist /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
