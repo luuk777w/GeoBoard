@@ -14,7 +14,7 @@ CMD [ "npm", "run build" ]
 FROM nginx:1.15.2-alpine
 WORKDIR /app
 
-COPY /usr/src/app .
+COPY --from=0 /usr/src/app .
 
 COPY dist /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
