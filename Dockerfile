@@ -12,9 +12,9 @@ CMD [ "npm", "run build" ]
 
 # serve app
 FROM nginx:1.15.2-alpine
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . .
+COPY /usr/src/app .
 
 COPY dist /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
