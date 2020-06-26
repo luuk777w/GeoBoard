@@ -1,3 +1,4 @@
+# Build app
 FROM node:10
 WORKDIR /usr/src/app
 
@@ -7,12 +8,14 @@ RUN npm install
 
 COPY . .
 
-RUN mkdir dist
-
 CMD [ "npm", "run build" ]
 
+# serve app
 FROM nginx:1.15.2-alpine
+WORKDIR /usr/src/app
+
 COPY dist /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 ENTRYPOINT ["nginx","-g","daemon off;"]
