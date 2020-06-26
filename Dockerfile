@@ -8,11 +8,13 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir dist
+
 CMD [ "npm", "run build" ]
 
 # serve app
 FROM nginx:1.15.2-alpine
-WORKDIR /app
+WORKDIR /app/
 
 COPY --from=0 /usr/src/app .
 
