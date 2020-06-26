@@ -7,6 +7,8 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir dist
+
 CMD [ "npm", "run build" ]
 
 FROM nginx:1.15.2-alpine
