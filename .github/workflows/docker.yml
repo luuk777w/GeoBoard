@@ -40,7 +40,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Build, Tag, Push
-            uses: craftech-io/package-action@v3.1.0
+      uses: craftech-io/package-action@v3.1.0
       with:
         image_name: geoboard-react
         tags: latest
