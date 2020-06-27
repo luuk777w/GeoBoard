@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN mkdir dist
+
 CMD [ "npm", "run build" ]
 
 # serve app
