@@ -12,7 +12,7 @@ RUN mkdir dist
 
 CMD [ "npm", "run build" ]
 
-# serve app
+# serve app with nginx
 FROM nginx:1.15.2-alpine
 WORKDIR /app/
 
