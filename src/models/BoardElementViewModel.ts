@@ -47,4 +47,6 @@ export class BoardElementViewModel {
      * The date and time of when this boardElement was created.
      */
     createdAt: Date;
+
+    textOnly: boolean;
 }

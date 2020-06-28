@@ -14,10 +14,16 @@ import { setActiveBoard } from 'store/board/actions';
 import { motion, AnimatePresence } from "framer-motion";
 
 import './board.scss'
+import { BoardElementState } from 'store/boardElement/types';
+import { setTempImageBlob } from 'store/boardElement/actions';
+import { JWTService } from 'services/jwt.service';
+import { BoardElementMutateModel } from 'models/BoardElementMutateModel';
 
 interface BoardProps {
     activeBoardState: BoardState;
     setActiveBoard: typeof setActiveBoard;
+    boardElementState: BoardElementState;
+    setTempImageBlob: typeof setTempImageBlob;
 }
 
 interface LocalBoardState {
@@ -30,6 +36,8 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 
     private httpService: HttpService;
     private boardHubService: BoardHubService;
+    private JWTService: JWTService;
+    public imageBlob: string;
 
     constructor(props: any) {
         super(props);
@@ -37,6 +45,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         this.config = container.resolve(Config);
         this.boardHubService = container.resolve(BoardHubService);
         this.httpService = container.resolve(HttpService);
+        this.JWTService = container.resolve(JWTService);
 
         this.state = {
             boardElements: []
@@ -66,8 +75,40 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             this.updateSiteTitle(response);
         });
 
+        this.boardHubService.getConnection().on('ReceiveImage', (response: BoardElementViewModel) => {
+            let elements = this.state.boardElements;
+            let index = elements.findIndex(x => x.id == response.id);
+            elements[index].imageId = response.imageId;
+
+            this.setState(() => ({
+                boardElements: elements
+            }));
+        });
+
         this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
             let elements = this.state.boardElements;
+
+            let isFromSelf = this.JWTService.getUserId() == response.userId;
+
+            if (this.props.boardElementState.tempImageBlob != "" && isFromSelf) {
+
+                let dataObject: BoardElementMutateModel = {
+                    BoardElementId: response.id,
+                    Image: this.props.boardElementState.tempImageBlob
+                }
+
+                setTimeout(() => {
+                    this.httpService.postWithAuthorizationAndProgress<BoardElementViewModel>("/boards/elements/uploadimage", JSON.stringify(dataObject))
+                        .then((response: BoardElementViewModel) => {
+
+                        }, error => {
+
+                        })
+                }, 1000);
+
+                this.props.setTempImageBlob("");
+            }
+
 
             this.setState(() => ({
                 // Put the received element on first place of the array and put the older elements behind it.
@@ -149,7 +190,8 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    activeBoardState: state.activeBoard
+    activeBoardState: state.activeBoard,
+    boardElementState: state.boardElement
 });
 
-export default connect(mapStateToProps, { setActiveBoard })(Board);
+export default connect(mapStateToProps, { setActiveBoard, setTempImageBlob })(Board);

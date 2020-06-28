@@ -1,5 +1,7 @@
 export class BoardElementMutateModel {
 
+    BoardElementId?: string;
+
     /**
      * The path to the image when available.
      */

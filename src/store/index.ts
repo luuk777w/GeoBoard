@@ -6,6 +6,7 @@ import { systemReducers } from "./system/reducers";
 import { boardReducer } from "./board/reducers";
 import { alertReducer } from "./alert/reducers";
 import { announcementReducer } from "./announcement/reducers";
+import { boardElementReducer } from "./boardElement/reducers";
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     activeBoard: boardReducer,
     alert: alertReducer,
     announcement: announcementReducer,
+    boardElement: boardElementReducer,
 
     // Modals
     manageBoardModal: manageBoardModalReducer

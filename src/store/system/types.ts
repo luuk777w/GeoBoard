@@ -10,6 +10,3 @@ interface ToggleDarkThemeAction {
 }
 
 export type SystemActionTypes = ToggleDarkThemeAction;
-
-//Wanneer er meer actions zijn defineer je dat alsvolgt:
-//export type SidebarActioTypes = ToggleSidebarAction | ANDER_INTERFACE HIER | ETC

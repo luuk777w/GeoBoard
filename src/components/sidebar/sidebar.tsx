@@ -202,7 +202,7 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
                                         boardId={board.id}
                                         boardName={board.name}
                                         userId={board.userId}
-                                        username={board.owner.username}
+                                        username={board.owner.userName}
                                         timestamp={board.createdAt}
                                         onBoardRemove={this.removeBoard}
                                         onBoardLeave={this.leaveBoard}

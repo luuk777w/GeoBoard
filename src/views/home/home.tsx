@@ -6,12 +6,18 @@ import { HttpService } from 'services/http.service';
 import './home.scss';
 import { container } from 'tsyringe';
 import { BoardElementMutateModel } from 'models/BoardElementMutateModel';
+import { AppState } from 'store';
+import { connect } from 'react-redux';
+import { BoardElementState } from 'store/boardElement/types';
+import { setTempImageBlob } from 'store/boardElement/actions';
 
 interface HomeProps {
     history: any;
+    boardElementState: BoardElementState;
+    setTempImageBlob: typeof setTempImageBlob;
 }
 
-export class Home extends React.Component<HomeProps> {
+class Home extends React.Component<HomeProps> {
 
     private httpService: HttpService;
 
@@ -37,11 +43,9 @@ export class Home extends React.Component<HomeProps> {
 
                 reader.onload = function (event: any) {
 
-                    let dataObject: BoardElementMutateModel = {
-                        Image: event.target.result.split("base64,")[1]
-                    }
+                    home.props.setTempImageBlob(event.target.result.split("base64,")[1]);
 
-                    home.httpService.postWithAuthorizationAndProgress<BoardElementMutateModel>(`/boards/elements/`, JSON.stringify(dataObject)).then(() => {
+                    home.httpService.postWithAuthorization<BoardElementMutateModel>(`/boards/elements/`, JSON.stringify({ Image: '' })).then(() => {
                         console.log("success!");
                     }, (e) => {
                         console.log(e);
@@ -67,3 +71,9 @@ export class Home extends React.Component<HomeProps> {
     }
 
 }
+
+const mapStateToProps = (state: AppState) => ({
+    boardElementState: state.boardElement
+});
+
+export default connect(mapStateToProps, { setTempImageBlob })(Home);

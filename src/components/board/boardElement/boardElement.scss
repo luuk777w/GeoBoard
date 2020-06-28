@@ -174,6 +174,37 @@
     }
 }
 
+.progress-bar-container {
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.progress-bar {
+    width: 90%;
+    height: 2rem;
+    border-radius: 1.5rem;
+    border: 2px $gray200 solid;
+    overflow: hidden;
+}
+
+.progress-bar-inner{
+    height: 2rem;
+    width: 20%;
+    background-color: $blue500;
+    transition: ease-in-out width 200ms;
+}
+
+.progress-bar-precentage{
+    position: relative;
+    top: -1.7rem;
+    text-align: right;
+    right: 1rem;
+}
+
 /**
  * Dark theme
  */

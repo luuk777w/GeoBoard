@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/main.scss';
 import './index.scss';
-import { Home } from './views/home/home'
+import Home from './views/home/home'
 import {
     BrowserRouter as Router,
     Switch,

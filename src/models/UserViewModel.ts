@@ -7,7 +7,7 @@ export class UserViewModel {
     /**
      * The unique name of this user.
      */
-    username: string;
+    userName: string;
 
     /**
      * The user's email address used to login.

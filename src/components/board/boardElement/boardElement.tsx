@@ -1,5 +1,4 @@
 import React from 'react';
-import { UserViewModel } from 'models/UserViewModel';
 import { Direction } from 'models/Direction';
 
 import './boardElement.scss';
@@ -8,19 +7,14 @@ import { Config } from 'util/config';
 import { container } from 'tsyringe';
 import { HttpService } from 'services/http.service';
 
-import $ from 'jquery'
-import { CSSTransition } from 'react-transition-group';
 import { BoardElementViewModel } from 'models/BoardElementViewModel';
-import { AppState } from 'store';
-import { BoardState } from 'store/board/types';
-import { connect } from 'react-redux';
+import { JWTService } from 'services/jwt.service';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
 }
 
 interface BoardElementState {
-    show: boolean;
     imageNotFound: boolean;
 }
 
@@ -28,17 +22,18 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
 
     private config: Config;
     private httpService: HttpService;
+    private JWTService: JWTService;
 
     constructor(props: BoardElementProps) {
         super(props);
 
         this.state = {
-            show: false,
             imageNotFound: false
         }
 
         this.config = container.resolve(Config);
         this.httpService = container.resolve(HttpService);
+        this.JWTService = container.resolve(JWTService);
 
         this.getImage = this.getImage.bind(this);
     }
@@ -86,19 +81,48 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         );
     }
 
+    getProgressBar() {
+
+        if (this.JWTService.getUserId() == this.props.element.userId) {
+
+            return (
+                <div className="progress-bar-container">
+                    <p>Uploading image...</p>
+                    <div className="progress-bar">
+                        <div className="progress-bar-inner"></div>
+                        <div className="progress-bar-precentage">20%</div>
+                    </div>
+                </div>
+            )
+
+        } else {
+            return (
+                <div className="progress-bar-container">
+                    <p>Uploading image...</p>
+                    <p>W.I.P.</p>
+                </div>
+            )
+        }
+    }
+
+
     render() {
 
         return (
             <>
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
-                    <span className="board-element-creator">{this.props.element.user.username}</span>
+                    <span className="board-element-creator">{this.props.element.user.userName}</span>
                     <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
                 </div>
                 <div className="board-element-body">
-                    {this.props.element.imageId
-                        ? this.getImage()
-                        : <p className="board-element-message">{this.props.element.note}</p>
+
+                    {this.props.element.textOnly
+                        ? <p className="board-element-message">{this.props.element.note}</p>
+
+                        : this.props.element.imageId
+                            ? this.getImage()
+                            : this.getProgressBar()
                     }
                 </div>
                 <div className="board-element-footer">
