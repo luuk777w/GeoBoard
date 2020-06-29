@@ -75,7 +75,7 @@ export class HttpService {
         });
     }
 
-    public async postWithAuthorizationAndProgress<T>(url: string, data: any = null): Promise<T> {
+    public async postWithAuthorizationAndProgress<T>(url: string, data: any = null, callback: any, context: any): Promise<T> {
         const token = this.jwtService.getToken();
 
         return await $.ajax({
@@ -87,7 +87,7 @@ export class HttpService {
                         let percentComplete: number = evt.loaded / evt.total;
                         percentComplete = percentComplete * 100;
 
-                        console.log(percentComplete);
+                        callback(percentComplete, context);
                     }
                 }, false);
 

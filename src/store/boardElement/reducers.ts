@@ -1,7 +1,8 @@
-import { BoardElementActionTypes, SET_TEMP_IMAGE_BLOB, BoardElementState } from "./types";
+import { BoardElementActionTypes, SET_TEMP_IMAGE_BLOB, BoardElementState, SET_IMAGE_UPLOAD_PRECENTAGE } from "./types";
 
 const initialState: BoardElementState = {
-    tempImageBlob: ""
+    tempImageBlob: "",
+    imageUploadPrecentage: 0
 }
 
 export function boardElementReducer(state = initialState, action: BoardElementActionTypes): BoardElementState {
@@ -10,6 +11,12 @@ export function boardElementReducer(state = initialState, action: BoardElementAc
             return {
                 ...state,
                 tempImageBlob: action.payload.tempImageBlob
+            }
+        }
+        case SET_IMAGE_UPLOAD_PRECENTAGE: {
+            return {
+                ...state,
+                imageUploadPrecentage: action.payload.imageUploadPrecentage
             }
         }
         default:

@@ -37,6 +37,12 @@ class Home extends React.Component<HomeProps> {
             let item = items[index];
 
             if (item.kind === 'file') {
+
+                if (this.props.boardElementState.tempImageBlob != "") {
+
+                    return;
+                }
+
                 hasFile = true;
                 let blob = item.getAsFile();
                 let reader = new FileReader();

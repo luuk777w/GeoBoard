@@ -8,14 +8,14 @@ import { BoardState } from 'store/board/types';
 import { BoardHubService } from 'services/hubs/boardHub.service';
 import { BoardElementViewModel } from 'models/BoardElementViewModel';
 import { BoardViewModel } from 'models/BoardViewModel';
-import { BoardElement } from './boardElement/boardElement';
+import BoardElement from './boardElement/boardElement';
 import { HttpService } from 'services/http.service';
 import { setActiveBoard } from 'store/board/actions';
 import { motion, AnimatePresence } from "framer-motion";
 
 import './board.scss'
 import { BoardElementState } from 'store/boardElement/types';
-import { setTempImageBlob } from 'store/boardElement/actions';
+import { setTempImageBlob, setImageUploadPrecentage } from 'store/boardElement/actions';
 import { JWTService } from 'services/jwt.service';
 import { BoardElementMutateModel } from 'models/BoardElementMutateModel';
 
@@ -24,6 +24,7 @@ interface BoardProps {
     setActiveBoard: typeof setActiveBoard;
     boardElementState: BoardElementState;
     setTempImageBlob: typeof setTempImageBlob;
+    setImageUploadPrecentage: typeof setImageUploadPrecentage;
 }
 
 interface LocalBoardState {
@@ -76,13 +77,22 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
         });
 
         this.boardHubService.getConnection().on('ReceiveImage', (response: BoardElementViewModel) => {
-            let elements = this.state.boardElements;
-            let index = elements.findIndex(x => x.id == response.id);
-            elements[index].imageId = response.imageId;
 
-            this.setState(() => ({
-                boardElements: elements
-            }));
+            setTimeout(() => {
+                let elements = this.state.boardElements;
+                let index = elements.findIndex(x => x.id == response.id);
+                elements[index].imageId = response.imageId;
+
+                this.setState(() => ({
+                    boardElements: elements
+                }));
+
+                if (this.JWTService.getUserId() == response.userId) {
+                    this.props.setImageUploadPrecentage(0);
+                } else {
+                    this.props.setImageUploadPrecentage(this.props.boardElementState.imageUploadPrecentage);
+                }
+            }, 200);
         });
 
         this.boardHubService.getConnection().on('ReceiveElement', (response: BoardElementViewModel) => {
@@ -97,16 +107,12 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                     Image: this.props.boardElementState.tempImageBlob
                 }
 
-                setTimeout(() => {
-                    this.httpService.postWithAuthorizationAndProgress<BoardElementViewModel>("/boards/elements/uploadimage", JSON.stringify(dataObject))
-                        .then((response: BoardElementViewModel) => {
+                this.httpService.postWithAuthorizationAndProgress<BoardElementViewModel>("/boards/elements/uploadimage", JSON.stringify(dataObject), this.setImageUploadPrecentage, this)
+                    .then((response: BoardElementViewModel) => {
+                        this.props.setTempImageBlob("");
+                    }, error => {
 
-                        }, error => {
-
-                        })
-                }, 1000);
-
-                this.props.setTempImageBlob("");
+                    })
             }
 
 
@@ -125,6 +131,10 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                 boardElements: elementsLeftOver
             }));
         });
+    }
+
+    private setImageUploadPrecentage(precentage: number, thiz: any) {
+        thiz.props.setImageUploadPrecentage(precentage);
     }
 
     /**
@@ -194,4 +204,4 @@ const mapStateToProps = (state: AppState) => ({
     boardElementState: state.boardElement
 });
 
-export default connect(mapStateToProps, { setActiveBoard, setTempImageBlob })(Board);
+export default connect(mapStateToProps, { setActiveBoard, setTempImageBlob, setImageUploadPrecentage })(Board);

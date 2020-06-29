@@ -9,16 +9,21 @@ import { HttpService } from 'services/http.service';
 
 import { BoardElementViewModel } from 'models/BoardElementViewModel';
 import { JWTService } from 'services/jwt.service';
+import { connect } from 'react-redux';
+import { AppState } from 'store';
+import { BoardElementState } from 'store/boardElement/types';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
+    boardElementState: BoardElementState;
 }
 
-interface BoardElementState {
+interface LocalBoardElementState {
     imageNotFound: boolean;
 }
 
-export class BoardElement extends React.Component<BoardElementProps, BoardElementState> {
+class BoardElement extends React.Component<BoardElementProps, LocalBoardElementState> {
 
     private config: Config;
     private httpService: HttpService;
@@ -81,25 +86,35 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         );
     }
 
-    getProgressBar() {
+    getProgressBar(precentage: number) {
 
         if (this.JWTService.getUserId() == this.props.element.userId) {
+
+            let roundedPrecentage = Math.round(precentage);
 
             return (
                 <div className="progress-bar-container">
                     <p>Uploading image...</p>
                     <div className="progress-bar">
-                        <div className="progress-bar-inner"></div>
-                        <div className="progress-bar-precentage">20%</div>
+                        <div className="progress-bar-inner" style={{ width: roundedPrecentage + "%" }}></div>
+                        <div className="progress-bar-precentage">{roundedPrecentage}%</div>
                     </div>
                 </div>
             )
 
         } else {
             return (
-                <div className="progress-bar-container">
-                    <p>Uploading image...</p>
-                    <p>W.I.P.</p>
+                <div className="progress-bar-container" style={{ height: "9rem" }}>
+                    <p className="mt-0">Uploading image...</p>
+                    <motion.div className="icon icon-rocket icon-6x"
+                        animate={{
+                            x: [-1, 1, -1]
+                        }}
+                        transition={{
+                            duration: 0.2,
+                            loop: Infinity
+                        }}
+                    ></motion.div>
                 </div>
             )
         }
@@ -115,15 +130,27 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
                     <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
                 </div>
-                <div className="board-element-body">
+                <div className="board-element-body" style={{ overflow: "hidden" }}>
+                    <AnimatePresence initial={false} >
 
-                    {this.props.element.textOnly
-                        ? <p className="board-element-message">{this.props.element.note}</p>
+                        {this.props.element.textOnly
+                            ? <p className="board-element-message">{this.props.element.note}</p>
+                            : this.props.element.imageId
+                                ? <motion.div
+                                    key={0}
+                                    initial={{ y: 100 }}
+                                    animate={{ y: 0 }}
+                                    transition={{ duration: 1 }}
+                                >{this.getImage()} </motion.div>
+                                : <motion.div
+                                    key={1}
+                                    exit={{ y: -200, height: 0 }}
+                                    transition={{ duration: 1 }}
+                                >{this.getProgressBar(this.props.boardElementState.imageUploadPrecentage)}</motion.div>
+                        }
 
-                        : this.props.element.imageId
-                            ? this.getImage()
-                            : this.getProgressBar()
-                    }
+                    </AnimatePresence>
+
                 </div>
                 <div className="board-element-footer">
 
@@ -139,3 +166,9 @@ export class BoardElement extends React.Component<BoardElementProps, BoardElemen
         )
     }
 }
+
+const mapStateToProps = (state: AppState) => ({
+    boardElementState: state.boardElement
+});
+
+export default connect(mapStateToProps, {})(BoardElement);
