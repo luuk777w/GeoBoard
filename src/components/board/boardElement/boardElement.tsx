@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { AppState } from 'store';
 import { BoardElementState } from 'store/boardElement/types';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LargeImage } from '../largeImage/largeImage';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
@@ -21,6 +22,7 @@ interface BoardElementProps {
 
 interface LocalBoardElementState {
     imageNotFound: boolean;
+    showLargeImage: boolean;
 }
 
 class BoardElement extends React.Component<BoardElementProps, LocalBoardElementState> {
@@ -28,12 +30,14 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
     private config: Config;
     private httpService: HttpService;
     private JWTService: JWTService;
+    private ref: any;
 
     constructor(props: BoardElementProps) {
         super(props);
 
         this.state = {
-            imageNotFound: false
+            imageNotFound: false,
+            showLargeImage: false
         }
 
         this.config = container.resolve(Config);
@@ -41,6 +45,7 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         this.JWTService = container.resolve(JWTService);
 
         this.getImage = this.getImage.bind(this);
+        this.closeLargeImage = this.closeLargeImage.bind(this);
     }
 
     getReadableDirection(direction: Direction) {
@@ -81,8 +86,21 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
             )
         }
 
+        let zoom = false
+
         return (
-            <img className="board-element-image" src={`${this.config.apiUrl}/content/${this.props.element.imageId}`} onError={() => this.onImageError()} />
+            <div className={this.state.showLargeImage ? "large-image-container" : "large-image-container-closed"}
+                onClick={() => this.closeLargeImage(event)}>
+                <motion.img
+                    layoutTransition={{
+                        damping: 30,
+                        stiffness: 200
+                    }}
+                    className={this.state.showLargeImage ? "large-image" : "board-element-image"}
+                    src={`${this.config.apiUrl}/content/${this.props.element.imageId}`}
+                    onError={() => this.onImageError()}
+                    ref={(ref) => this.ref = ref} />
+            </div>
         );
     }
 
@@ -120,17 +138,48 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         }
     }
 
+    showLargeImage(event: any) {
+
+        if (this.state.showLargeImage == true) return;
+
+        if (event.target.className.includes("large-image-container")) return;
+        this.setState(() => ({
+            showLargeImage: true
+        }))
+    }
+
+    closeLargeImage(event: any) {
+        if (event.target.localName == "img") return;
+
+        this.setState(() => ({
+            showLargeImage: false
+        }))
+    }
 
     render() {
 
+        let style = {};
+
+        if (this.state.showLargeImage) {
+            style = { height: this.ref.height }
+        }
+
+
         return (
             <>
+                {/* <LargeImage
+                    imageUrl={`${this.config.apiUrl}/content/${this.props.element.imageId}`}
+                    show={this.state.showLargeImage}
+                    onClose={this.closeLargeImage} /> */}
+
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
                     <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
                 </div>
-                <div className="board-element-body" style={{ overflow: "hidden" }}>
+                <div className="board-element-body"
+                    style={{ overflow: "hidden", ...style }}
+                    onClick={() => this.showLargeImage(event)}>
                     <AnimatePresence initial={false} >
 
                         {this.props.element.textOnly
@@ -140,12 +189,12 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                                     key={0}
                                     initial={{ y: 100 }}
                                     animate={{ y: 0 }}
-                                    transition={{ duration: 1 }}
+                                    transition={{ duration: 0.5 }}
                                 >{this.getImage()} </motion.div>
                                 : <motion.div
                                     key={1}
                                     exit={{ y: -200, height: 0 }}
-                                    transition={{ duration: 1 }}
+                                    transition={{ duration: 0.5 }}
                                 >{this.getProgressBar(this.props.boardElementState.imageUploadPrecentage)}</motion.div>
                         }
 
