@@ -19,7 +19,7 @@ interface BoardListItemProps {
     boardId: string;
     boardName: string;
     userId: string;
-    username: string;
+    userName: string;
     timestamp: Date;
 
     onBoardRemove: Function;
@@ -214,7 +214,7 @@ class BoardListItem extends React.Component<BoardListItemProps, BoardListItemSta
 
                     {isOwner
                         ? <div className="board-list-item-description">Created at <time dateTime={this.props.timestamp.toString()}>{dateToReadableString(this.props.timestamp)}</time></div>
-                        : <div className="board-list-item-description">Created by {this.props.username}</div>
+                        : <div className="board-list-item-description">Created by {this.props.userName}</div>
                     }
                 </motion.li>
             </>

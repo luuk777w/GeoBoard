@@ -22,7 +22,7 @@ interface LoginProps {
 }
 
 interface LoginState {
-    username: string;
+    userName: string;
     password: string;
     remember: boolean;
     isSubmitting: boolean;
@@ -37,7 +37,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         super(props);
 
         this.state = {
-            username: '',
+            userName: '',
             password: '',
             remember: false,
             isSubmitting: false
@@ -52,12 +52,12 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.props.hideAlert();
 
         const loginData: LoginViewModel = {
-            username: this.state.username.trim(),
+            userName: this.state.userName.trim(),
             password: this.state.password,
             rememberMe: this.state.remember
         }
 
-        if (loginData.username == "" || loginData.password == "") {
+        if (loginData.userName == "" || loginData.password == "") {
             this.props.showAlert(AlertType.Warning, "Username or password not filled in.", 5000);
             return;
         }
@@ -66,7 +66,9 @@ class Login extends React.Component<LoginProps, LoginState> {
 
         await this.authorizeService.login(loginData)
             .then((response: any) => {
-                this.jwtService.setToken(response.token);
+                this.jwtService.setAccessToken(response.accessToken);
+                this.jwtService.setRefreshToken(response.refreshToken)
+
                 this.setState({ isSubmitting: false });
 
                 this.props.history.push("/");
@@ -112,9 +114,9 @@ class Login extends React.Component<LoginProps, LoginState> {
                                         <div className="input-prefix">
                                             <i className="fa fa-user"></i>
                                         </div>
-                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="username" name="username" placeholder="Username" autoFocus />
+                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" placeholder="Username" autoFocus />
                                     </div>
-                                    <div className="validation-error" data-field="username"></div>
+                                    <div className="validation-error" data-field="userName"></div>
                                 </div>
 
                                 <div className="form-group">

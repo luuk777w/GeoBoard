@@ -19,7 +19,7 @@ export abstract class SignalRClient {
         this.jwtService = container.resolve(JWTService);
 
         const apiUrl = this.config.apiUrl;
-        const loginToken = this.jwtService.getToken();
+        const loginToken = this.jwtService.getAccessToken();
 
         this.connection = new SignalR.HubConnectionBuilder()
             .withUrl(`${apiUrl}/${hubName}${params}`, { accessTokenFactory: () => loginToken } as IHttpConnectionOptions)

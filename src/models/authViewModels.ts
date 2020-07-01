@@ -1,11 +1,16 @@
 export interface LoginViewModel {
-    username: string;
+    userName: string;
     password: string;
     rememberMe: boolean;
 }
 
 export interface RegisterViewModel {
-    username: string;
+    userName: string;
     email: string;
     password: string;
+}
+
+export interface AuthenticationResultViewModel {
+    accessToken: string;
+    refreshToken: string;
 }

@@ -166,11 +166,11 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
         this.props.hideAlert();
 
         const data = {
-            username: this.state.formFields.addUsername
+            userName: this.state.formFields.addUsername
         };
 
-        if (data.username.trim() == "") {
-            this.props.showAlert(AlertType.Error, "Please enter a username.")
+        if (data.userName.trim() == "") {
+            this.props.showAlert(AlertType.Error, "Please enter a userName.")
 
             return;
         }
@@ -216,13 +216,13 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
             });
     }
 
-    async removeUser(userId: string, username: string) {
-        if (confirm(`Are you sure you want to remove ${username} from '${this.state.board.name}'?`)) {
+    async removeUser(userId: string, userName: string) {
+        if (confirm(`Are you sure you want to remove ${userName} from '${this.state.board.name}'?`)) {
             this.props.hideAlert();
 
             await this.httpService.deleteWithAuthorization<Array<BoardUserViewModel>>(`/boards/${this.state.board.id}/users/${userId}`)
                 .then((boardUsers: Array<BoardUserViewModel>) => {
-                    this.props.showAlert(AlertType.Success, `${username} has been removed from '${this.state.board.name}'.`, 3000);
+                    this.props.showAlert(AlertType.Success, `${userName} has been removed from '${this.state.board.name}'.`, 3000);
 
                     this.setState(prevState => {
                         return {
@@ -291,7 +291,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                             {this.state.isAddingUser
                                             ?   <form method="post" onSubmit={(event) => this.submitAddUser(event)}>
                                                     <div className="input-group input-group-small m-0">
-                                                        <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} autoFocus />
+                                                        <input type="text" name="addUsername" placeholder="Add a new user by userName" value={this.state.formFields.addUsername} onChange={this.handleInputChange} autoFocus />
                                                         <FormFieldValidationErrors field="Name" errors={this.state.errors} />
 
                                                         <Button type="submit" isLoading={this.state.isSubmittingUserAdd} className="button button-small button-blue">Add user</Button>
@@ -308,10 +308,10 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                     {this.state.board.users?.map((boardUser: BoardUserViewModel, index: any) => {
                                         return (
                                             <tr key={index}>
-                                                <td>{boardUser.username}</td>
+                                                <td>{boardUser.userName}</td>
                                                 <td>{dateToReadableString(boardUser.createdAt)}</td>
                                                 <td>
-                                                    <i title={`Remove ${boardUser.username} from '${this.state.board.name}'`} className="fas fa-trash remove-user fa-fw mr-1" onClick={() => this.removeUser(boardUser.id, boardUser.username)}></i>
+                                                    <i title={`Remove ${boardUser.userName} from '${this.state.board.name}'`} className="fas fa-trash remove-user fa-fw mr-1" onClick={() => this.removeUser(boardUser.id, boardUser.userName)}></i>
                                                 </td>
                                             </tr>
                                         );
@@ -327,7 +327,7 @@ class ManageBoardModal extends Component<ManageBoardModalProps, ManageBoardModel
                                 <h2>No users added to '{this.state.board.name}'</h2>
                                 <form method="post" onSubmit={(event) => this.submitAddUser(event)}>
                                     <div className="input-group">
-                                        <input type="text" name="addUsername" placeholder="Add a new user by username" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
+                                        <input type="text" name="addUsername" placeholder="Add a new user by userName" value={this.state.formFields.addUsername} onChange={this.handleInputChange} />
                                         <FormFieldValidationErrors field="Name" errors={this.state.errors} />
 
                                         <Button type="submit" isLoading={this.state.isSubmittingUserAdd} className="button button-small button-blue">Add user</Button>

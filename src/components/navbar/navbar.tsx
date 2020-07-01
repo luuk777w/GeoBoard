@@ -14,11 +14,15 @@ import { Avatar } from 'components/avatar/avatar';
 import { BoardHubService } from 'services/hubs/boardHub.service';
 import { BoardUserViewModel } from 'models/BoardUserViewModel';
 import { setJoinedUsers } from 'store/board/actions';
+import { AuthorizeService } from 'services/authorize.service';
+import { showAnnouncement } from 'store/announcement/actions';
+import { AnnouncementType } from 'store/announcement/types';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
     setJoinedUsers: typeof setJoinedUsers;
+    showAnnouncement: typeof showAnnouncement;
     system: SystemState;
     activeBoard: BoardState;
     history: any;
@@ -26,13 +30,17 @@ interface NavbarProps {
 
 class Navbar extends React.Component<NavbarProps> {
 
-    private JWTService: JWTService;
+    private jwtService: JWTService;
+    private authorizeService: AuthorizeService;
+
     private boardHubService: BoardHubService;
 
     constructor(props: NavbarProps) {
         super(props);
 
-        this.JWTService = container.resolve(JWTService);
+        this.jwtService = container.resolve(JWTService);
+        this.authorizeService = container.resolve(AuthorizeService);
+
         this.boardHubService = container.resolve(BoardHubService);
     }
 
@@ -46,9 +54,15 @@ class Navbar extends React.Component<NavbarProps> {
         });
     }
 
-    handleLogout() {
-        this.JWTService.clearToken();
-        this.props.history.push("/login");
+    async handleLogout() {
+        await this.authorizeService.logout()
+            .catch(() => {
+                this.props.showAnnouncement(AnnouncementType.Warning, "Something went wrong while logging you out. Please refresh the page and try again.");
+            })
+            .finally(() => {
+                this.jwtService.clearTokens();
+                this.props.history.push("/login");
+            });
     }
 
     toggleSidebar() {
@@ -78,7 +92,7 @@ class Navbar extends React.Component<NavbarProps> {
 
                 <div className="active-board-users">
                     {this.props.activeBoard.joinedUsers?.map((user: BoardUserViewModel, index: any) => {
-                        return <Avatar key={index} username={user.username} animated={true} />
+                        return <Avatar key={index} userName={user.userName} animated={true} />
                     })}
                 </div>
 
@@ -96,11 +110,11 @@ class Navbar extends React.Component<NavbarProps> {
                 <div className="dropdown user-dropdown">
                     <button className="dropdown-toggle">
                         <div className="avatar-wrapper ml-2">
-                            <Avatar size="sm" username={this.JWTService.getUsername()} />{this.JWTService.getUsername()}
+                            <Avatar size="sm" userName={this.jwtService.getUsername()} />{this.jwtService.getUsername()}
                         </div>
                     </button>
                     <ul className="dropdown-content">
-                        <li className="dropdown-item" onClick={() => this.handleLogout()}><i className="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</li>
+                        <li className="dropdown-item" onClick={async () => await this.handleLogout()}><i className="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</li>
                     </ul>
                 </div>
             </nav>
@@ -113,4 +127,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoard: state.activeBoard
 });
 
-export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers })(Navbar);
+export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers, showAnnouncement })(Navbar);

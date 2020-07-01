@@ -25,7 +25,7 @@ interface RegisterProps {
 }
 
 interface RegisterState {
-    username: string;
+    userName: string;
     email: string;
     password: string;
     passwordConfirm: string;
@@ -42,7 +42,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         super(props);
 
         this.state = {
-            username: '',
+            userName: '',
             email: '',
             password: '',
             passwordConfirm: '',
@@ -75,7 +75,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         this.setState({ isSubmitting: true });
 
         const registerData: RegisterViewModel = {
-            username: this.state.username.trim(),
+            userName: this.state.userName.trim(),
             email: this.state.email.trim(),
             password: this.state.password
         };
@@ -132,8 +132,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                         <Form method="post" id="registerForm" onSubmit={(event) => this.onSubmit(event)}>
                             <div className="panel-body">
                                 <FormGroup>
-                                    <FormLabel htmlFor="username">Username</FormLabel>
-                                    <FormInput type="text" onChange={this.handleInputChange} id="username" name="username" placeholder="Choose a unique username" autoFocus />
+                                    <FormLabel htmlFor="userName">Username</FormLabel>
+                                    <FormInput type="text" onChange={this.handleInputChange} id="userName" name="userName" placeholder="Choose a unique userName" autoFocus />
 
                                     <FormFieldValidationErrors field="Username" errors={this.state.errors} />
                                 </FormGroup>

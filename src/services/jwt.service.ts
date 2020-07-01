@@ -1,21 +1,34 @@
 import { singleton } from "tsyringe";
+import { AppState, store } from "store";
+import { updateAccessToken, updateRefreshToken } from "store/system/actions";
 @singleton()
 export class JWTService {
 
-    public setToken(token: string) {
-        localStorage.setItem("token", token);
+    public setAccessToken(token: string) {
+        store.store.dispatch(updateAccessToken(token));
     }
 
-    public getToken() {
-        return localStorage.getItem("token");
+    public setRefreshToken(token: string) {
+        store.store.dispatch(updateRefreshToken(token));
     }
 
-    public clearToken() {
-        localStorage.removeItem("token");
+    public getAccessToken() {
+        const state: AppState = store.store.getState();
+        return state.system.accessToken;
+    }
+
+    public getRefreshToken() {
+        const state: AppState = store.store.getState();
+        return state.system.refreshToken;
+    }
+
+    public clearTokens() {
+        store.store.dispatch(updateAccessToken(null));
+        store.store.dispatch(updateRefreshToken(null));
     }
 
     public parseToken() {
-        let token = this.getToken();
+        let token = this.getAccessToken();
 
         if (token == null || token == "")
             return;
@@ -28,6 +41,15 @@ export class JWTService {
 
         return JSON.parse(jsonPayload);
     };
+
+    public getJwtId() {
+        let jwt = this.parseToken();
+
+        if (jwt == null || jwt == "")
+            return [];
+
+        return jwt["jti"];
+    }
 
     public getUserRole() {
         let jwt = this.parseToken();
@@ -56,7 +78,7 @@ export class JWTService {
         return jwt["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
     }
 
-    public isTokenExpired() {
+    public isAccessTokenExpired() {
         let jwt = this.parseToken();
 
         if (jwt == null || jwt == "")

@@ -6,9 +6,9 @@ export class BoardUserViewModel {
     id: string;
 
     /**
-     * The user's username.
+     * The user's userName.
      */
-    username: string;
+    userName: string;
 
     /**
      * The creation date and time of when the user joined the board.
