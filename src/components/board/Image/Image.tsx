@@ -59,7 +59,9 @@ export class Image extends Component<ImageProps, ImageState> {
     }
 
     componentWillUnmount() {
-        this.ref.removeEventListener('mousewheel', this.listenToScroll)
+        if (this.ref != null && this.ref != undefined) {
+            this.ref.removeEventListener('mousewheel', this.listenToScroll)
+        }
     }
 
     listenToScroll(e: any) {
