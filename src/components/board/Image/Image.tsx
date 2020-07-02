@@ -67,14 +67,14 @@ export class Image extends Component<ImageProps, ImageState> {
 
         if (e.deltaY == -100) {
             if (zoom < 2) {
-                zoom += 0.1;
+                zoom += 0.25;
                 this.setState({
                     zoom: zoom
                 })
             }
         } else if (e.deltaY == 100) {
             if (zoom > 1) {
-                zoom -= 0.1;
+                zoom -= 0.25;
                 this.setState({
                     zoom: zoom
                 })
