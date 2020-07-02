@@ -73,6 +73,7 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
     showLargeImage(event: any) {
         if (this.state.showLargeImage == true) return;
         if (event.target.className.includes("large-image-container")) return;
+        if (this.props.element.imageId == "" || this.props.element.imageId == null) return;
 
         this.overflowStlyle = { overflow: "" };
 
