@@ -103,9 +103,9 @@ class Navbar extends React.Component<NavbarProps> {
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
                     </li>
-                    <li className="nav-link sidebar-link mr-2" onClick={() => this.toggleSidebar()}>
+                    {/* <li className="nav-link sidebar-link mr-2" onClick={() => this.toggleSidebar()}>
                         <i className="fas fa-bars fa-lg fa-fw"></i>
-                    </li>
+                    </li> */}
                 </ul>
                 <div className="dropdown user-dropdown">
                     <button className="dropdown-toggle">

@@ -13,7 +13,8 @@ import { connect } from 'react-redux';
 import { AppState } from 'store';
 import { BoardElementState } from 'store/boardElement/types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LargeImage } from '../largeImage/largeImage';
+import { Image } from '../Image/Image';
+import { ProgressBar } from '../progressBar/progressBar';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
@@ -21,7 +22,6 @@ interface BoardElementProps {
 }
 
 interface LocalBoardElementState {
-    imageNotFound: boolean;
     showLargeImage: boolean;
 }
 
@@ -31,21 +31,21 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
     private httpService: HttpService;
     private JWTService: JWTService;
     private ref: any;
+    private overflowStlyle = { overflow: "hidden" };
 
     constructor(props: BoardElementProps) {
         super(props);
 
         this.state = {
-            imageNotFound: false,
-            showLargeImage: false
+            showLargeImage: false,
         }
 
         this.config = container.resolve(Config);
         this.httpService = container.resolve(HttpService);
         this.JWTService = container.resolve(JWTService);
 
-        this.getImage = this.getImage.bind(this);
         this.closeLargeImage = this.closeLargeImage.bind(this);
+        this.setRef = this.setRef.bind(this);
     }
 
     getReadableDirection(direction: Direction) {
@@ -70,82 +70,15 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         });
     }
 
-    onImageError() {
-        this.setState({
-            imageNotFound: true
-        });
-    }
-
-    getImage() {
-        if (this.state.imageNotFound) {
-            return (
-                <div className="board-element-image-error">
-                    <i className="icon icon-image icon-8x"></i>
-                    <span className="board-element-image-error-message">Image not available</span>
-                </div>
-            )
-        }
-
-        let zoom = false
-
-        return (
-            <div className={this.state.showLargeImage ? "large-image-container" : "large-image-container-closed"}
-                onClick={() => this.closeLargeImage(event)}>
-                <motion.img
-                    layoutTransition={{
-                        damping: 30,
-                        stiffness: 200
-                    }}
-                    className={this.state.showLargeImage ? "large-image" : "board-element-image"}
-                    src={`${this.config.apiUrl}/content/${this.props.element.imageId}`}
-                    onError={() => this.onImageError()}
-                    ref={(ref) => this.ref = ref} />
-            </div>
-        );
-    }
-
-    getProgressBar(precentage: number) {
-
-        if (this.JWTService.getUserId() == this.props.element.userId) {
-
-            let roundedPrecentage = Math.round(precentage);
-
-            return (
-                <div className="progress-bar-container">
-                    <p>Uploading image...</p>
-                    <div className="progress-bar">
-                        <div className="progress-bar-inner" style={{ width: roundedPrecentage + "%" }}></div>
-                        <div className="progress-bar-precentage">{roundedPrecentage}%</div>
-                    </div>
-                </div>
-            )
-
-        } else {
-            return (
-                <div className="progress-bar-container" style={{ height: "9rem" }}>
-                    <p className="mt-0">Uploading image...</p>
-                    <motion.div className="icon icon-rocket icon-6x"
-                        animate={{
-                            x: [-1, 1, -1]
-                        }}
-                        transition={{
-                            duration: 0.2,
-                            loop: Infinity
-                        }}
-                    ></motion.div>
-                </div>
-            )
-        }
-    }
-
     showLargeImage(event: any) {
-
         if (this.state.showLargeImage == true) return;
-
         if (event.target.className.includes("large-image-container")) return;
+
+        this.overflowStlyle = { overflow: "" };
+
         this.setState(() => ({
             showLargeImage: true
-        }))
+        }));
     }
 
     closeLargeImage(event: any) {
@@ -156,6 +89,10 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         }))
     }
 
+    setRef(ref: any) {
+        this.ref = ref;
+    }
+
     render() {
 
         let style = {};
@@ -164,21 +101,15 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
             style = { height: this.ref.height }
         }
 
-
         return (
             <>
-                {/* <LargeImage
-                    imageUrl={`${this.config.apiUrl}/content/${this.props.element.imageId}`}
-                    show={this.state.showLargeImage}
-                    onClose={this.closeLargeImage} /> */}
-
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
                     <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
                 </div>
                 <div className="board-element-body"
-                    style={{ overflow: "hidden", ...style }}
+                    style={{ ...this.overflowStlyle, ...style }}
                     onClick={() => this.showLargeImage(event)}>
                     <AnimatePresence initial={false} >
 
@@ -190,12 +121,27 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                                     initial={{ y: 100 }}
                                     animate={{ y: 0 }}
                                     transition={{ duration: 0.5 }}
-                                >{this.getImage()} </motion.div>
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <Image
+                                        imageUrl={`${this.config.apiUrl}/content/${this.props.element.imageId}`}
+                                        showLargeImage={this.state.showLargeImage}
+                                        onLargeImageClose={this.closeLargeImage}
+                                        setRef={this.setRef}
+                                    />
+
+                                </motion.div>
                                 : <motion.div
                                     key={1}
                                     exit={{ y: -200, height: 0 }}
                                     transition={{ duration: 0.5 }}
-                                >{this.getProgressBar(this.props.boardElementState.imageUploadPrecentage)}</motion.div>
+                                >
+                                    <ProgressBar
+                                        userId={this.JWTService.getUserId()}
+                                        elementUserId={this.props.element.userId}
+                                        precentage={this.props.boardElementState.imageUploadPrecentage}
+                                    />
+                                </motion.div>
                         }
 
                     </AnimatePresence>
