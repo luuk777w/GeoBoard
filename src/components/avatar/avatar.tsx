@@ -19,6 +19,11 @@ export class Avatar extends Component<AvatarProps> {
     }
 
     getNameAbbreviation(): string {
+
+        if (this.props.userName == undefined) {
+            return "X";
+        }
+
         return this.props.userName[0]?.toUpperCase();
     }
 
