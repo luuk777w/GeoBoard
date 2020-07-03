@@ -76,7 +76,7 @@ export const ClearBoard = () => {
                         <svg className="clear-board-progress" viewBox="0 0 44 44" x="0px" y="0px" width="70" height="70">
                             <motion.path
                                 fill="none"
-                                strokeWidth="4"
+                                strokeWidth={3}
                                 stroke="white"
                                 strokeDasharray="0 1"
                                 d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
@@ -104,10 +104,6 @@ export const ClearBoard = () => {
                     }
 
                 </AnimatePresence>
-
-                <div>
-                </div>
-
 
             </div>
         </>
