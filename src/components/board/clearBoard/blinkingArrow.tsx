@@ -14,6 +14,8 @@ export class BlinkingArrow extends Component<BlinkingArrowProps> {
 
         return (
             <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}>
                 <motion.svg x="0px" y="0px" viewBox="0 0 490.688 490.688" className="clear-board-arrows" width="45" height="45"

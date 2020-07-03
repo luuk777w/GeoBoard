@@ -28,6 +28,7 @@ class Home extends React.Component<HomeProps> {
     }
 
     onPaste(event: any) {
+
         let home = this;
         let e = event;
         let hasFile = false;
@@ -68,11 +69,13 @@ class Home extends React.Component<HomeProps> {
 
     render() {
         return (
-            <BaseContainer history={this.props.history} >
-                <div className="board-container" onPaste={() => this.onPaste(event)}>
-                    <Board />
-                </div>
-            </BaseContainer>
+            <div onPaste={() => this.onPaste(event)} style={{ height: "100%" }}>
+                <BaseContainer history={this.props.history}>
+                    <div className="board-container" >
+                        <Board />
+                    </div>
+                </BaseContainer>
+            </div>
         )
     }
 

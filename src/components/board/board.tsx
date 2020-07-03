@@ -118,7 +118,6 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                     })
             }
 
-
             this.setState(() => ({
                 // Put the received element on first place of the array and put the older elements behind it.
                 boardElements: [response, ...elements]
@@ -132,6 +131,12 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
 
             this.setState(() => ({
                 boardElements: elementsLeftOver
+            }));
+        });
+
+        this.boardHubService.getConnection().on('Clear', () => {
+            this.setState(() => ({
+                boardElements: []
             }));
         });
     }
