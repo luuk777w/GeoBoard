@@ -1,7 +1,7 @@
 import { Component, useRef } from "react";
 import React from "react";
 
-import './image.scss';
+import './Image.scss';
 import { motion, useElementScroll } from "framer-motion";
 
 interface ImageProps {
