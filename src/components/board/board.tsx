@@ -18,6 +18,7 @@ import { BoardElementState } from 'store/boardElement/types';
 import { setTempImageBlob, setImageUploadPrecentage } from 'store/boardElement/actions';
 import { JWTService } from 'services/jwt.service';
 import { BoardElementMutateModel } from 'models/BoardElementMutateModel';
+import { ClearBoard } from './clearBoard/clearBoard';
 
 interface BoardProps {
     activeBoardState: BoardState;
@@ -166,6 +167,8 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                 {this.props.activeBoardState.boardId != null
                     ?
                     <div className="board-elements">
+
+                        <ClearBoard />
 
                         <AnimatePresence initial={false}>
                             {this.state.boardElements.map((element: BoardElementViewModel) => {
