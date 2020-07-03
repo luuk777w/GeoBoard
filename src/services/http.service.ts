@@ -14,12 +14,14 @@ export class HttpService {
         this.config = container.resolve(Config);
         this.jwtService = container.resolve(JWTService);
 
-        $.ajaxPrefilter((options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => {
+        // SRC: https://stackoverflow.com/a/12446363/3625118
+        $.ajaxPrefilter((options: any, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => {
             // Ignore the refresh and logout URL.
-            if (options.url == `${this.config.apiUrl}/account/refresh` || `${this.config.apiUrl}/account/logout`) {
+            if (options.refreshRequest == true || options.url == `${this.config.apiUrl}/account/logout`) {
                 return;
             }
 
+            // our own deferred object to handle done/fail callbacks
             let dfd = $.Deferred();
 
             // if the request works, return normally
@@ -44,8 +46,14 @@ export class HttpService {
 
                                 // retry with a copied originalOpts with refreshRequest.
                                 var newOpts = $.extend({}, originalOptions, {
-                                    refreshRequest: true
+                                    refreshRequest: true,
+
+                                    // Update the Authorization header.
+                                    beforeSend: (xhr: JQuery.jqXHR) => {
+                                        xhr.setRequestHeader('Authorization', `Bearer ${response.accessToken}`);
+                                    }
                                 });
+
                                 // pass this one on to our deferred pass or fail.
                                 $.ajax(newOpts).then(dfd.resolve, dfd.reject);
                             })
