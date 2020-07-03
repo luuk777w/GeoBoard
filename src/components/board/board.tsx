@@ -19,6 +19,7 @@ import { setTempImageBlob, setImageUploadPrecentage } from 'store/boardElement/a
 import { JWTService } from 'services/jwt.service';
 import { BoardElementMutateModel } from 'models/BoardElementMutateModel';
 import { ClearBoard } from './clearBoard/clearBoard';
+import { isString } from 'util';
 
 interface BoardProps {
     activeBoardState: BoardState;
@@ -57,6 +58,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
     async componentDidMount() {
         // If there was any active board on page load...
         if (this.props.activeBoardState.boardId) {
+            this.updateSiteTitle(this.props.activeBoardState.name);
 
             await this.loadBoardElements();
         }
@@ -152,12 +154,20 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
             .catch((e) => console.warn(e));
     }
 
-    private updateSiteTitle(board: BoardViewModel | null) {
-        if (board != null) {
-            document.title = `${board.name} | ${this.config.siteName}`;
+    private updateSiteTitle(board: BoardViewModel | string | null) {
+        if (board == null || board == "") {
+            document.title = this.config.siteName;
+
+            return;
+        }
+
+        if (typeof board === "string") {
+            document.title = `${board} | ${this.config.siteName}`;
         }
         else {
-            document.title = this.config.siteName;
+            if (board != null) {
+                document.title = `${board.name} | ${this.config.siteName}`;
+            }
         }
     }
 
