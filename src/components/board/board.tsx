@@ -190,9 +190,7 @@ class Board extends React.Component<BoardProps, LocalBoardState> {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                                     >
-                                        <BoardElement
-                                            element={element}
-                                        />
+                                        <BoardElement element={element} />
                                     </motion.div>
                                 )
                             })}

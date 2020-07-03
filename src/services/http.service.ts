@@ -17,7 +17,7 @@ export class HttpService {
         // SRC: https://stackoverflow.com/a/12446363/3625118
         $.ajaxPrefilter((options: any, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => {
             // Ignore the refresh and logout URL.
-            if (options.refreshRequest == true || options.url == `${this.config.apiUrl}/account/logout`) {
+            if (options.refreshRequest == true) {
                 return;
             }
 

@@ -1,4 +1,5 @@
 @import "src/css/colors";
+@import "src/css/variables";
 
 .large-image-container-closed{
     width: 100%;
@@ -23,7 +24,7 @@
         margin-top: -9rem;
         max-width: 70%;
         max-height: 70%;
-        border-radius: 2rem;
+        border-radius: $border-radius;
         box-shadow: 1px 1px 7px 1px black;
         background-color: white;
         cursor: default;
