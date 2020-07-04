@@ -15,7 +15,7 @@ export class HttpService {
         this.jwtService = container.resolve(JWTService);
 
         // SRC: https://stackoverflow.com/a/12446363/3625118
-        $.ajaxPrefilter((options: any, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => {
+        $.ajaxPrefilter((options: any, originalOptions: any, jqXHR: any) => {
             // Ignore the refresh and logout URL.
             if (options.refreshRequest == true) {
                 return;
@@ -64,6 +64,9 @@ export class HttpService {
                     })
                 }
             });
+
+            // NOW override the jqXHR's promise functions with our deferred
+            return dfd.promise(jqXHR);
         });
     }
 
