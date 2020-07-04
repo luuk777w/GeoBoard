@@ -23,6 +23,7 @@ interface BoardElementProps {
 
 interface LocalBoardElementState {
     showLargeImage: boolean;
+    zIndex: object;
 }
 
 class BoardElement extends React.Component<BoardElementProps, LocalBoardElementState> {
@@ -38,6 +39,7 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
 
         this.state = {
             showLargeImage: false,
+            zIndex: { zIndex: 0 }
         }
 
         this.config = container.resolve(Config);
@@ -78,6 +80,7 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         this.overflowStlyle = { overflow: "" };
 
         this.setState(() => ({
+            zIndex: { zIndex: 2 },
             showLargeImage: true
         }));
     }
@@ -87,7 +90,13 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
 
         this.setState(() => ({
             showLargeImage: false
-        }))
+        }));
+
+        setTimeout(() => {
+            this.setState(() => ({
+                zIndex: { zIndex: 0 },
+            }));
+        }, 500);
     }
 
     setRef(ref: any) {
@@ -129,6 +138,7 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                                         showLargeImage={this.state.showLargeImage}
                                         onLargeImageClose={this.closeLargeImage}
                                         setRef={this.setRef}
+                                        zIndexStyle={this.state.zIndex}
                                     />
 
                                 </motion.div>

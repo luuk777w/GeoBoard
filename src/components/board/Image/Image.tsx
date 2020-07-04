@@ -9,6 +9,7 @@ interface ImageProps {
     showLargeImage: boolean;
     setRef: any;
     onLargeImageClose: any;
+    zIndexStyle: any;
 }
 
 interface ImageState {
@@ -45,9 +46,9 @@ export class Image extends Component<ImageProps, ImageState> {
             zoom: 1.0
         });
 
-        let time = 20;
-        if (zoom > 1.0 && zoom < 2.0) { time = parseInt(zoom.toString()[2]) * 20; }
-        if (zoom > 1.9) { time = 200 }
+        let time = 75;
+        if (zoom > 1.25 && zoom < 2.0) { time = parseInt(zoom.toString()[2]) * 20; }
+        if (zoom > 1.75) { time = 200 }
 
         setTimeout(() => {
             this.props.onLargeImageClose(event);
@@ -68,7 +69,7 @@ export class Image extends Component<ImageProps, ImageState> {
         let zoom = this.state.zoom;
 
         if (e.deltaY == -100) {
-            if (zoom < 2) {
+            if (zoom < 3) {
                 zoom += 0.25;
                 this.setState({
                     zoom: zoom
@@ -85,12 +86,20 @@ export class Image extends Component<ImageProps, ImageState> {
     }
 
     zoomUpdate() {
-        if (this.prevZoom == this.state.zoom || this.state.zoom == 2.0 || this.state.zoom == 1.0) {
+
+        console.log(this.prevZoom, this.state.zoom);
+
+        if (this.prevZoom == this.state.zoom || this.state.zoom == 1.0) {
+            console.log(false)
+            this.prevZoom = this.state.zoom;
             return false;
-        } else {
+        }
+        else {
             this.prevZoom = this.state.zoom;
             return true;
         }
+
+
     }
 
     render() {
@@ -119,6 +128,7 @@ export class Image extends Component<ImageProps, ImageState> {
                     className={this.props.showLargeImage ? "large-image-container-open" : "large-image-container-closed"}
                     onClick={() => this.close(event)}
                     ref={(ref) => this.ref = ref}
+                    style={{ ...this.props.zIndexStyle }}
                 >
                     <motion.img
                         layoutTransition={this.zoomUpdate() ? false : {
@@ -129,7 +139,8 @@ export class Image extends Component<ImageProps, ImageState> {
                         className={this.props.showLargeImage ? "large-image" : "board-element-image"}
                         src={this.props.imageUrl}
                         onError={() => this.onImageError()}
-                        ref={(ref) => this.props.setRef(ref)} />
+                        ref={(ref) => this.props.setRef(ref)}
+                    />
                 </div>
 
             </>
