@@ -23,4 +23,12 @@
             cursor: pointer;
         }
     }
+
+    .version{
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        color: white;
+        margin-bottom: 0;
+    }
 }

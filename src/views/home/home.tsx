@@ -17,7 +17,7 @@ interface HomeProps {
     setTempImageBlob: typeof setTempImageBlob;
 }
 
-class Home extends React.Component<HomeProps> {
+class Home extends React.Component<HomeProps, any> {
 
     private httpService: HttpService;
 
@@ -25,6 +25,10 @@ class Home extends React.Component<HomeProps> {
         super(props);
 
         this.httpService = container.resolve(HttpService);
+
+        this.state = {
+            version: "0"
+        }
     }
 
     onPaste(event: any) {
@@ -67,6 +71,16 @@ class Home extends React.Component<HomeProps> {
         }
     }
 
+    componentWillMount() {
+        this.httpService.get("/").then((response: any) => {
+            this.setState({
+                version: JSON.parse(response).version
+            })
+        }, error => {
+            console.error(error);
+        })
+    }
+
     render() {
         return (
             <div onPaste={() => this.onPaste(event)} style={{ height: "100%" }}>
@@ -74,6 +88,8 @@ class Home extends React.Component<HomeProps> {
                     <div className="board-container" >
                         <Board />
                     </div>
+
+                    <code className="version">{this.state.version} - Made with ❤️ by LuxMatter</code>
                 </BaseContainer>
             </div>
         )
