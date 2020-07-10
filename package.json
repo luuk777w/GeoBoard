@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --progress --env.ENVIRONMENT=production",
+    "dev": "webpack-dev-server --progress --env.ENVIRONMENT=development"
   },
   "contributors": [
     "luuk777w",
@@ -15,21 +16,62 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "gulp": "^4.0.2",
-    "gulp-declare": "^0.3.0",
-    "gulp-flatmap": "^1.0.2",
-    "gulp-handlebars": "^5.0.2",
-    "gulp-sass": "^4.0.2",
-    "gulp-uglifyjs": "^0.6.2",
-    "gulp-wrap": "^0.15.0",
-    "merge-stream": "^2.0.0"
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "autoprefixer": "^9.8.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.0.1",
+    "css-loader": "^3.5.3",
+    "dotenv": "^8.2.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.2",
+    "ts-loader": "^7.0.4",
+    "typed-css-modules": "^0.6.4",
+    "typescript": "^3.9.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "gulp-babel": "^8.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-order": "^1.2.0",
-    "handlebars": "^4.7.6"
-  }
+    "@microsoft/signalr": "^3.1.4",
+    "@types/jquery": "^3.3.38",
+    "@types/node": "^14.0.5",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-transition-group": "^4.2.4",
+    "@types/signalr": "^2.2.36",
+    "@types/uuid": "^7.0.3",
+    "jquery": "^3.5.1",
+    "query-string": "^6.12.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-transition-group": "^4.4.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.3.0",
+    "framer-motion": "1.11.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "last 2 version",
+    "iOS >= 9",
+    "safari 5",
+    "ie 8",
+    "ie 9"
+  ]
 }

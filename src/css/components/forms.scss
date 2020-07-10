@@ -1,0 +1,207 @@
+@import "../variables";
+@import "../colors";
+
+input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: .5rem 1rem;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    display: inline-block;
+    border: 1px solid $gray200;
+    border-radius: $border-radius;
+    transition: all 100ms ease-in-out;
+    color: $gray900;
+
+    color: $gray900;
+
+    &:focus, &:active {
+        outline: none;
+        border-color: $blue200;
+    }
+}
+
+/*
+ * Form group
+ */
+.form-group {
+    &:not(:first-child) {
+        margin-top: .6rem;
+    }
+
+    label {
+        font-size: .9rem;
+        font-weight: 600;
+    }
+}
+
+/*
+ * Input group
+ */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+
+    input {
+        margin: 0;
+        flex: 1 0;
+    }
+
+    .input-prefix {
+        position: absolute;
+        padding: .75rem 1rem;
+        color: $gray900;
+
+        + input[type=text],
+        + input[type=password],
+        + input[type=email] {
+            padding-left: 3rem;
+        }
+    }
+
+    input[type=text]:nth-child(1),
+    input[type=password]:nth-child(1),
+    input[type=email]:nth-child(1)
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+    }
+
+    .button:nth-child(1)
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .button:nth-child(2)
+    {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &-small {
+        input {
+            padding: .4rem 1rem;
+        }
+    }
+}
+
+/*
+ * Validation error
+ */
+.validation-error {
+    color: $red600;
+    font-size: .9rem;
+    margin-bottom: .5rem;
+    padding-left: 1rem;
+
+    > ul {
+        padding-left: 1.4em;
+        list-style-type: square;
+    }
+}
+
+.checkbox + .validation-error {
+    margin-top: .25rem;
+    padding-left: 2rem;
+}
+
+.has-error {
+    border: 1.25px solid $red600 !important;
+}
+
+/*
+ * Checkbox
+ */
+ .checkbox input {
+    position: absolute; // take it out of document flow
+    opacity: 0; // hide it
+
+    & + label {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        // Box
+        &:before {
+            content: '';
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: text-top;
+            width: 18px;
+            height: 18px;
+            background: transparent;
+            border: 1px solid $gray200;
+            border-radius: $border-radius;
+            transition: background 200ms, border-color 200ms;
+        }
+    }
+
+    // Box checked
+    &:checked {
+        // Checked box background
+        & + label:before {
+            background: $blue600;
+            border-color: $blue600;
+        }
+
+        // Checkback
+        & + label:after {
+            content: '\f00c';
+            color: white;
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: .8em;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            position: absolute;
+            left: 4px;
+            top: 4px;
+        }
+    }
+
+    // Disabled state label.
+    &:disabled {
+        // Disabled label.
+        & + label {
+            color: $gray400;
+            cursor: auto;
+        }
+
+        // Disabled box.
+        & + label:before {
+            box-shadow: none;
+            background: $gray200;
+        }
+    }
+
+    // Indeterminate checked box
+    &:indeterminate {
+
+        // Box indeterminate checked
+        & + label:before {
+            background: $blue400;
+            border-color: $blue400;
+        }
+
+        // Indeterminate checkbox (dash)
+        & + label:after {
+            content: '';
+            width: 12px;
+            height: 4px;
+            background: white;
+            position: absolute;
+            border-radius: .1rem;
+            left: 4px;
+            top: 8px;
+        }
+    }
+}

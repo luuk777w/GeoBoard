@@ -1,0 +1,133 @@
+@import "src/css/colors";
+@import "src/css/variables";
+
+.sidebar {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 4.5rem;
+    z-index: 10;
+    background: white;
+    width: 25rem;
+    height: calc(100% - 4.5rem);
+    // box-shadow: 0px 12px 12px 2px $gray900;
+    box-shadow: 0px 8px 12px -8px $gray900;
+    animation-duration: 0.3s;
+    transition: background 250ms;
+
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: $gray100;
+        padding: 1rem 1.5rem;
+        transition: background 250ms;
+
+        .close-sidebar {
+            color: $gray400;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .sidebarToggle {
+            outline: none;
+            border: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            cursor: pointer;
+            border-radius: 50%;
+            background: transparent;
+            margin-top: 1.2rem;
+            margin-right: 0.25rem;
+        }
+
+        h4 {
+            color: $gray500;
+        }
+    }
+
+    .sidebar-body {
+        padding: 1rem;
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-bottom: 2px solid $gray100;
+            padding: .5rem;
+            margin-bottom: .5rem;
+            transition: border-color 250ms;
+
+            .sidebar-section-title {
+                margin: 0;
+                color: $geoboard-dark;
+            }
+
+            .section-header-section {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+
+                .create-board-button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+        .sidebar-text {
+            padding: .5rem;
+            color: $gray500;
+            margin-top: 0;
+        }
+
+        .board-list {
+            list-style: none;
+            padding: .5rem;
+            margin-top: 0;
+            border-radius: $border-radius;
+        }
+    }
+}
+
+.create-board-height-animation-wrapper{
+    transition: height 200ms ease-out;
+}
+
+.create-board-animation-height-0 {
+    height: 0;
+    overflow: hidden;
+}
+
+.create-board-animation-height-3 {
+    height: 3.4rem;
+}
+
+/**
+ * Dark theme
+ */
+.home-container.dark-theme {
+    .sidebar {
+        background: $geoboard-dark;
+        color: white;
+
+        .sidebar-header {
+            background-color: darken($geoboard-dark, 5%);
+        }
+
+        .sidebar-body {
+            .section-header {
+                border-color: darken($geoboard-dark, 5%);
+
+                .sidebar-section-title {
+                    color: white;
+                }
+            }
+        }
+    }
+}

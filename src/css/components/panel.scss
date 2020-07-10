@@ -1,0 +1,38 @@
+@import "../variables";
+@import "../colors";
+
+.panel {
+    background: white;
+    border-radius: $border-radius;
+
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.05);
+
+    .panel-header {
+        color: $gray900;
+        font-weight: bold;
+        padding: 1rem 2rem;
+        background-color: $gray100;
+
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+    }
+
+    .panel-body, .form-panel {
+        padding: 2rem;
+
+        + .panel-body, .form-panel {
+            border-top: 1px solid $gray100;
+        }
+    }
+
+    .panel-footer {
+        padding: 1rem 2rem;
+        background-color: $gray100;
+
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+    }
+}

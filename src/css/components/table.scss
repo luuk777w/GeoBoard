@@ -1,0 +1,43 @@
+@import "css/colors";
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+
+    th, td {
+        padding: 1rem;
+    }
+}
+
+.table-sm {
+    th, td {
+        padding: .5rem 1rem;
+    }
+}
+
+.table-full {
+    width: 100%;
+}
+
+.table-bordered {
+    thead {
+        tr {
+            th,
+            td {
+                border-bottom: 2px solid $gray200;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            &:not(:last-child) {
+                th,
+                td {
+                    border-bottom: 1px solid $gray200;
+                }
+            }
+        }
+    }
+}

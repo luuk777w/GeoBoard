@@ -1,0 +1,36 @@
+@import "colors";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+html {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+:root {
+    --blue500: $blue500;
+    --green500: $green500;
+    --amber500: $amber500;
+    --red700: $red700;
+    --gray50: $gray50;
+}
+
+hr {
+    border-style: solid;
+    border-color: $gray100;
+}
+
+a, .link {
+    color: $blue700;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        color: $blue900;
+    }
+}

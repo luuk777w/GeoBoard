@@ -1,0 +1,112 @@
+@import "src/css/colors";
+@import "src/css/variables";
+@import "src/css/icons";
+
+#manageBoardModal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#manageBoardModal {
+    .grayedOut {
+        opacity: 0.1;
+    }
+
+    .modal-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .edit-title {
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        color: $gray500;
+    }
+
+    .edit-board-name {
+        border: none;
+        background: none;
+        padding: 0;
+
+        &:hover, &:focus {
+            cursor: pointer;
+            border: none;
+            outline: none;
+
+            .fas {
+                color: $blue500;
+            }
+        }
+    }
+
+    .edit-board-name-form {
+        display: flex;
+
+        .edit-board-name:hover .fas,
+        .edit-board-name:focus .fas {
+            color: $green500;
+        }
+    }
+
+    .add-user-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .add-user {
+        display: block;
+        margin-left: auto;
+        padding: .4rem .6rem !important
+    }
+
+    .remove-user {
+        color: $gray400;
+        transition: color 250ms;
+
+        &:hover {
+            cursor: pointer;
+            color: $red400;
+        }
+    }
+
+    .no-users-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+        margin: 1rem 0;
+        border: 2px solid $gray100;
+        border-radius: $border-radius;
+    }
+
+    .no-users {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+
+        .no-users-section {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+
+        form {
+            width: 100%;
+        }
+    }
+
+    .manage-users-header {
+        h4 {
+            margin: 0;
+        }
+
+        p {
+            margin-top: 0;
+            color: $gray500;
+        }
+    }
+
+}
+

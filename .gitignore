@@ -68,7 +68,6 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -120,3 +119,6 @@ temp/
 .history
 
 # End of https://www.gitignore.io/api/node,visualstudiocode
+
+# Development environment
+.env.development

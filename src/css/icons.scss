@@ -1,0 +1,42 @@
+@import "src/css/variables";
+
+$sizes: 2, 3, 4, 6, 8, 10;
+
+.icon {
+    display: block;
+    width: $icon-base-size;
+    height: $icon-base-size;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@each $size in $sizes {
+    .icon-#{$size}x {
+        width: $icon-base-size * $size;
+        height: $icon-base-size * $size;
+    }
+}
+
+.icon-email {
+    background-image: url('/assets/media/icons/email.svg');
+}
+
+.icon-user-add {
+    background-image: url('/assets/media/icons/add.svg');
+}
+
+.icon-image {
+    background-image: url('/assets/media/icons/image.svg');
+}
+
+.icon-rocket {
+    background-image: url('/assets/media/icons/rocket.svg');
+}
+
+.icon-cancel {
+    background-image: url('/assets/media/icons/cancel.svg');
+}
+
+.icon-delete {
+    background-image: url('/assets/media/icons/delete.svg');
+}

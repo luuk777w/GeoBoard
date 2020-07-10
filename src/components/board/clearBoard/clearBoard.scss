@@ -1,0 +1,43 @@
+@import "src/css/colors";
+
+.clear-board-container {
+    position: absolute;
+    right: 6rem;
+    width: 5rem;
+    height: 11rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clear-board-button {
+    width: 4rem;
+    height: 4rem;
+    background: $red500;
+    background: linear-gradient(90deg, $red500 50%, $red600 50%);
+    border-radius: 2rem;
+    margin-left: 0.05rem;
+    cursor: n-resize;
+}
+
+.clear-board-button-icon {
+    width: 4rem;
+    height: 4rem;
+    background-image: url('/assets/media/icons/delete.svg');
+    background-size: 2.3rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.clear-board-arrows {
+    // background-image: url('/assets/media/icons/arrow.svg');
+    width: 3rem;
+    height: 3rem;
+}
+
+.clear-board-progress {
+    margin-top: -5px;
+    margin-left: -5px;
+}

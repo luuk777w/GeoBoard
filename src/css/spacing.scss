@@ -1,0 +1,86 @@
+$spacer: 1rem;
+$sizes: 0, $spacer * .25, $spacer * .5, $spacer, $spacer * 1.5, $spacer * 3;
+
+@each $size in $sizes {
+
+    /* Padding #{index($sizes, $size) - 1} (#{$size} rem) */
+
+  .p-#{index($sizes, $size) - 1} {
+    padding: $size !important;
+  }
+
+  .pt-#{index($sizes, $size) - 1} {
+    padding-top: $size !important;
+  }
+
+  .pb-#{index($sizes, $size) - 1} {
+    padding-bottom: $size !important;
+  }
+
+  .pl-#{index($sizes, $size) - 1} {
+    padding-left: $size !important;
+  }
+
+  .pr-#{index($sizes, $size) - 1} {
+    padding-right: $size !important;
+  }
+
+  .px-#{index($sizes, $size) - 1} {
+    padding-left: $size !important;
+    padding-right: $size !important;
+  }
+
+  .py-#{index($sizes, $size) - 1} {
+    padding-top: $size !important;
+    padding-bottom: $size !important;
+  }
+
+    /* Margin #{index($sizes, $size) - 1} (#{$size} rem) */
+
+  .m-#{index($sizes, $size) - 1} {
+    margin: $size !important;
+  }
+
+  .mt-#{index($sizes, $size) - 1} {
+    margin-top: $size !important;
+  }
+
+  .mb-#{index($sizes, $size) - 1} {
+    margin-bottom: $size !important;
+  }
+
+  .ml-#{index($sizes, $size) - 1} {
+    margin-left: $size !important;
+  }
+
+  .mr-#{index($sizes, $size) - 1} {
+    margin-right: $size !important;
+  }
+
+  .mx-#{index($sizes, $size) - 1} {
+    margin-left: $size !important;
+    margin-right: $size !important;
+  }
+
+  .my-#{index($sizes, $size) - 1} {
+    margin-top: $size !important;
+    margin-bottom: $size !important;
+  }
+}
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+.mr-auto  {
+    margin-right: auto !important;
+}
+
+.m-auto {
+    margin: auto !important;
+}
+
+.mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
