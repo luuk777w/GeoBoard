@@ -43,6 +43,6 @@ jobs:
       uses: craftech-io/package-action@v3.1.0
       with:
         image_name: geoboard-react
-        tags: latest
+        tags: 0.4
         access_token: ${{ secrets.GITHUB_TOKEN }}
 
