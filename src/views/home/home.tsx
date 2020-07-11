@@ -73,8 +73,10 @@ class Home extends React.Component<HomeProps, any> {
 
     componentWillMount() {
         this.httpService.get("/").then((response: any) => {
+            console.log(response);
+
             this.setState({
-                version: JSON.parse(response).version
+                version: response.version ?? "Unknown version"
             })
         }, error => {
             console.error(error);
