@@ -2,11 +2,12 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { showAlert, hideAlert } from 'store/alert/actions'
-import { AlertType } from 'store/alert/types';
+import { AlertType, AlertState } from 'store/alert/types';
 import { HttpService } from 'services/http.service';
 import { container } from 'tsyringe';
 import { BoardViewModel } from 'models/BoardViewModel';
 import { Button } from 'components/button/button';
+import { AppState } from 'store';
 
 interface CreateBoardState {
     isOpen: boolean;
@@ -15,6 +16,7 @@ interface CreateBoardState {
 }
 
 interface CreateBoardProps {
+    alert: AlertState;
     showAlert: typeof showAlert;
     hideAlert: typeof showAlert;
     onBoardCreated: Function;
@@ -48,6 +50,10 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
         this.setState(() => ({
             boardName: event.target.value
         }));
+
+        if (this.props.alert.show) {
+            this.props.hideAlert();
+        }
     }
 
     createBoard() {
@@ -122,4 +128,8 @@ class CreateBoard extends React.Component<CreateBoardProps, CreateBoardState> {
     }
 }
 
-export default connect(null, { showAlert, hideAlert })(CreateBoard);
+const mapStateToProps = (state: AppState) => ({
+    alert: state.alert
+})
+
+export default connect(mapStateToProps, { showAlert, hideAlert })(CreateBoard);
