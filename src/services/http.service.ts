@@ -67,10 +67,10 @@ export class HttpService {
                     // reject with the original 401 data
                     dfd.rejectWith(jqXHR, args);
                 }
-            });
 
-            // NOW override the jqXHR's promise functions with our deferred
-            return dfd.promise(jqXHR);
+                // NOW override the jqXHR's promise functions with our deferred
+                return dfd.promise(jqXHR);
+            });
         });
     }
 
