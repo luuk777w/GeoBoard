@@ -71,7 +71,7 @@ class Home extends React.Component<HomeProps, any> {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.httpService.get("/").then((response: any) => {
             console.log(response);
 
