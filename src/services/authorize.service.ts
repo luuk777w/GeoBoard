@@ -73,13 +73,17 @@ export class AuthorizeService {
                             .catch(async (error: any) => {
                                 console.log('Something went wrong while refreshing the token');
 
-                                // Log the user out.
-                                await this.logout().finally(() => {
-                                    this.jwtService.clearTokens();
-                                });
-
                                 // TODO: Set session ended message.
                                 store.store.dispatch(showAlert(AlertType.Warning, "Session expired. Please log in again."));
+
+                                // Log the user out.
+                                await this.logout()
+                                    .catch(() => {
+                                        //
+                                    })
+                                    .finally(() => {
+                                        this.jwtService.clearTokens();
+                                    });
                             });
                     }
                 }
@@ -87,7 +91,6 @@ export class AuthorizeService {
                 // The user does not seem to have a valid role or one of the tokens is not valid.
                 // Log the user out just in case something got corrupted.
                 reject(false);
-
             }
 
             // The access token is not expired. The user is authenticated.
