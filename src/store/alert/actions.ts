@@ -1,6 +1,6 @@
 import { SHOW_ALERT, HIDE_ALERT, SET_ALERT_TYPE, SET_ALERT_BODY, AlertType } from "./types";
 
-export function showAlert(type?: AlertType, body?: string, timeout?: number) {
+export function showAlert(type?: AlertType, body?: string, timeout: number = 0) {
     return {
         type: SHOW_ALERT,
         payload: {
