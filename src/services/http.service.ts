@@ -71,6 +71,9 @@ export class HttpService {
                 // NOW override the jqXHR's promise functions with our deferred
                 return dfd.promise(jqXHR);
             });
+
+            // NOW override the jqXHR's promise functions with our deferred
+            return dfd.promise(jqXHR);
         });
     }
 
