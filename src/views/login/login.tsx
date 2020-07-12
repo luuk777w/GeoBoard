@@ -114,7 +114,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                                         <div className="input-prefix">
                                             <i className="fa fa-user"></i>
                                         </div>
-                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" placeholder="Username" autoFocus />
+                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" placeholder="Username" autoFocus autoComplete="username" />
                                     </div>
                                     <div className="validation-error" data-field="userName"></div>
                                 </div>
@@ -124,7 +124,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                                         <div className="input-prefix">
                                             <i className="fa fa-lock"></i>
                                         </div>
-                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Password" />
+                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Password" autoComplete="current-password" />
                                     </div>
                                     <div className="validation-error" data-field="password"></div>
                                 </div>

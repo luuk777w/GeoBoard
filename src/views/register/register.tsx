@@ -133,7 +133,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                             <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="userName">Username</FormLabel>
-                                    <FormInput type="text" onChange={this.handleInputChange} id="userName" name="userName" placeholder="Choose a unique userName" autoFocus />
+                                    <FormInput type="text" onChange={this.handleInputChange} id="userName" name="userName" placeholder="Choose a unique userName" autoFocus autoComplete="off" />
 
                                     <FormFieldValidationErrors field="Username" errors={this.state.errors} />
                                 </FormGroup>
@@ -149,14 +149,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                             <div className="panel-body">
                                 <FormGroup>
                                     <FormLabel htmlFor="password">Password</FormLabel>
-                                    <FormInput type="password" onChange={this.handleInputChange} id="password" name="password" placeholder="Choose a strong password" />
+                                    <FormInput type="password" onChange={this.handleInputChange} id="password" name="password" placeholder="Choose a strong password" autoComplete="new-password" />
 
                                     <FormFieldValidationErrors field="Password" errors={this.state.errors} />
                                 </FormGroup>
 
                                 <FormGroup>
                                     <FormLabel htmlFor="password-confirm">Confirm password</FormLabel>
-                                    <FormInput type="password" onChange={this.handleInputChange} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" />
+                                    <FormInput type="password" onChange={this.handleInputChange} id="password-confirm" name="passwordConfirm" placeholder="Confirm your passsword" autoComplete="new-password" />
 
                                     <FormFieldValidationErrors field="PasswordConfirm" errors={this.state.errors} />
                                 </FormGroup>
