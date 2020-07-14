@@ -20,11 +20,24 @@ import { BoardState } from 'store/board/types';
 import { JWTService } from 'services/jwt.service';
 import { motion } from 'framer-motion';
 import { SidebarToggle } from './sidebarToggle/sidebarToggle';
+import { BoardHubService } from 'services/hubs/boardHub.service';
+import { showAnnouncement, hideAnnouncement } from 'store/announcement/actions';
+import { AnnouncementType } from 'store/announcement/types';
+import { BoardMembershipChangedViewModel } from 'models/BoardMembershipChangedViewModel';
+import { setJoinedUsers, setActiveBoard } from 'store/board/actions';
 
 interface SidebarProps {
     toggleSidebar: typeof toggleSidebar;
+
     showAlert: typeof showAlert;
     hideAlert: typeof hideAlert;
+
+    showAnnouncement: typeof showAnnouncement;
+    hideAnnouncement: typeof hideAnnouncement;
+
+    setActiveBoard: typeof setActiveBoard;
+    setJoinedUsers: typeof setJoinedUsers;
+
     sidebar: SidebarState;
     activeBoard: BoardState;
 }
@@ -37,12 +50,14 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
 
     private httpService: HttpService;
     private jwtService: JWTService;
+    private boardHubService: BoardHubService;
 
     constructor(props: SidebarProps) {
         super(props);
 
         this.httpService = container.resolve(HttpService);
         this.jwtService = container.resolve(JWTService);
+        this.boardHubService = container.resolve(BoardHubService);
 
         this.state = {
             playerBoards: []
@@ -127,8 +142,46 @@ class Sidebar extends React.Component<SidebarProps, LocalSidebarState> {
         }
     }
 
-    componentDidMount() {
-        this.httpService.getWithAuthorization<Array<BoardViewModel>>('/player-boards')
+    async componentDidMount() {
+
+        this.boardHubService.getConnection().on('AddedToBoard', async (response: BoardMembershipChangedViewModel) => {
+            await this.loadPlayerBoards();
+
+            this.props.showAnnouncement(AnnouncementType.Success, `You have been added to the '${response.boardName}' board by ${response.mutatedBy}.`);
+
+            setTimeout(() => this.props.hideAnnouncement(), 6000);
+        });
+
+        this.boardHubService.getConnection().on('RemovedFromBoard', async (response: BoardMembershipChangedViewModel) => {
+
+            if (this.props.activeBoard.boardId == response.boardId) {
+
+                // Simulate a toggle to deselect the board.
+                this.boardHubService.getConnection().invoke('SwitchBoard', response.boardId, response.boardId)
+                    .then(() => {
+                        // Don't set any board active.
+                        this.props.setActiveBoard(null, null);
+
+                        // Empty the joined users list.
+                        this.props.setJoinedUsers([]);
+                    });
+
+            }
+
+            await this.loadPlayerBoards();
+
+            this.props.showAnnouncement(AnnouncementType.Warning, `You have been removed from the '${response.boardName}' board by ${response.mutatedBy}.`);
+
+            setTimeout(() => this.props.hideAnnouncement(), 6000);
+        });
+
+        await this.loadPlayerBoards();
+    }
+
+    async loadPlayerBoards() {
+        console.log('Loading boards')
+
+        await this.httpService.getWithAuthorization<Array<BoardViewModel>>('/player-boards')
             .then((response: Array<BoardViewModel>) => {
 
                 this.setState({
@@ -232,5 +285,5 @@ const mapStateToProps = (state: AppState) => ({
     activeBoard: state.activeBoard
 })
 
-export default connect(mapStateToProps, { toggleSidebar, showAlert, hideAlert })(Sidebar);
+export default connect(mapStateToProps, { toggleSidebar, showAlert, hideAlert, showAnnouncement, hideAnnouncement, setActiveBoard, setJoinedUsers })(Sidebar);
 
