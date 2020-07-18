@@ -28,6 +28,10 @@
             max-width: 80rem;
         }
 
+        &.modal-extra-large {
+            max-width: 100rem;
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;

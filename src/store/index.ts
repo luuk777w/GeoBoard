@@ -11,6 +11,7 @@ import { boardElementReducer } from "./boardElement/reducers";
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { manageBoardModalReducer } from "./modals/manageBoardModal/reducers";
+import { BackgroundSwitchModalReducer } from "./modals/backgroundSwitchModal/reducers";
 
 const persistConfig = {
     key: 'root',
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
     boardElement: boardElementReducer,
 
     // Modals
-    manageBoardModal: manageBoardModalReducer
+    manageBoardModal: manageBoardModalReducer,
+    backgroundSwitchModal: BackgroundSwitchModalReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

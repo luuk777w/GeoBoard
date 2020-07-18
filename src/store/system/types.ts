@@ -1,12 +1,19 @@
 export interface SystemState {
+    backgroundImageUrl: string | null;
     darkThemeIsActive: boolean;
     accessToken: string | null;
     refreshToken: string | null;
 }
 
+export const SET_BACKGROUND_IMAGE_URL = "SET_BACKGROUND_IMAGE_URL";
 export const TOGGLE_DARK_THEME = "TOGGLE_DARK_THEME";
 export const UPDATE_ACCESS_TOKEN = "UPDATE_ACCESS_TOKEN";
 export const UPDATE_REFRESH_TOKEN = "UPDATE_REFRESH_TOKEN";
+
+interface SetBackgroundImageUrl {
+    type: typeof SET_BACKGROUND_IMAGE_URL;
+    payload: SystemState;
+}
 
 interface ToggleDarkThemeAction {
     type: typeof TOGGLE_DARK_THEME;
@@ -23,4 +30,4 @@ interface UpdateRefreshTokenAction {
     payload: SystemState;
 }
 
-export type SystemActionTypes = ToggleDarkThemeAction | UpdateAccessTokenAction | UpdateRefreshTokenAction;
+export type SystemActionTypes = SetBackgroundImageUrl | ToggleDarkThemeAction | UpdateAccessTokenAction | UpdateRefreshTokenAction;

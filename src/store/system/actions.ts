@@ -1,4 +1,13 @@
-import { TOGGLE_DARK_THEME, UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN } from "./types";
+import { TOGGLE_DARK_THEME, UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, SET_BACKGROUND_IMAGE_URL } from "./types";
+
+export function setBackgroundImageUrl(url: string | null) {
+    return {
+        type: SET_BACKGROUND_IMAGE_URL,
+        payload: {
+            backgroundImageUrl: url
+        }
+    }
+}
 
 export function toggleDarkTheme() {
     return {

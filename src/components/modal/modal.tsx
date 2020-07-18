@@ -14,7 +14,7 @@ interface ModalProps extends BaseModelProps {
     subtitle?: string;
     closable?: boolean;
     customHeader?: boolean;
-    size?: 'normal' | 'large';
+    size?: 'normal' | 'large' | 'extra-large';
 }
 export class Modal extends Component<ModalProps> {
     constructor(props: ModalProps) {

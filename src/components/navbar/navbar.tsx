@@ -17,12 +17,14 @@ import { setJoinedUsers } from 'store/board/actions';
 import { AuthorizeService } from 'services/authorize.service';
 import { showAnnouncement } from 'store/announcement/actions';
 import { AnnouncementType } from 'store/announcement/types';
+import { showBackgroundSwitchModal } from 'store/modals/backgroundSwitchModal/actions';
 
 interface NavbarProps {
     toggleDarkTheme: typeof toggleDarkTheme;
     toggleSidebar: typeof toggleSidebar;
     setJoinedUsers: typeof setJoinedUsers;
     showAnnouncement: typeof showAnnouncement;
+    showBackgroundSwitchModal: typeof showBackgroundSwitchModal;
     system: SystemState;
     activeBoard: BoardState;
     history: any;
@@ -65,12 +67,6 @@ class Navbar extends React.Component<NavbarProps> {
             });
     }
 
-    toggleSidebar() {
-        if (this.props.activeBoard.boardId != null) {
-            this.props.toggleSidebar();
-        }
-    }
-
     render() {
         return (
             <nav className="navbar">
@@ -103,9 +99,9 @@ class Navbar extends React.Component<NavbarProps> {
                             : <i className="fas fa-moon fa-lg fa-fw"></i>
                         }
                     </li>
-                    {/* <li className="nav-link sidebar-link mr-2" onClick={() => this.toggleSidebar()}>
-                        <i className="fas fa-bars fa-lg fa-fw"></i>
-                    </li> */}
+                    <li className="nav-link mr-2" onClick={() => this.props.showBackgroundSwitchModal()}>
+                        <i className="fas fa-images fa-lg fa-fw"></i>
+                    </li>
                 </ul>
                 <div className="dropdown user-dropdown">
                     <button className="dropdown-toggle">
@@ -127,4 +123,4 @@ const mapStateToProps = (state: AppState) => ({
     activeBoard: state.activeBoard
 });
 
-export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers, showAnnouncement })(Navbar);
+export default connect(mapStateToProps, { toggleDarkTheme, toggleSidebar, setJoinedUsers, showAnnouncement, showBackgroundSwitchModal })(Navbar);
