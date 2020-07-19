@@ -8,45 +8,49 @@ import { hideBackgroundSwitchModal } from "store/modals/backgroundSwitchModal/ac
 import { Modal } from "../modal";
 
 import './backgroundSwitchModal.scss';
-import { setBackgroundImageUrl } from "store/system/actions";
+import { setBackgroundImage } from "store/system/actions";
+import { FileViewModel } from "models/FileViewModel";
+import { HttpService } from "services/http.service";
+import { container } from "tsyringe";
+import { Config } from "util/config";
 
 interface BackgroundSwitchModalProps {
     backgroundSwitchModal: BackgroundSwitchModalState;
     system: SystemState;
 
-    setBackgroundImageUrl: typeof setBackgroundImageUrl;
+    setBackgroundImage: typeof setBackgroundImage;
     hideBackgroundSwitchModal: typeof hideBackgroundSwitchModal;
 }
 
 class BackgroundSwitchModal extends Component<BackgroundSwitchModalProps> {
 
-    private listOfImages: Array<any> = [];
+    private listOfImages: Array<FileViewModel> = [];
+
+    private config: Config;
+    private httpService: HttpService;
 
     constructor(props: BackgroundSwitchModalProps) {
         super(props);
+
+        this.config = container.resolve(Config);
+        this.httpService = container.resolve(HttpService);
     }
 
-    importAll(r: any): any {
-        return r.keys().map(r);
+    async componentDidMount() {
+
+        await this.httpService.get<Array<FileViewModel>>('/content/static/backgrounds')
+            .then((response: Array<FileViewModel>) => {
+                this.listOfImages = response;
+            })
+            .catch(() => {
+                console.warn('Something went wrong while fetching the available backgrounds');
+            });
+
     }
 
-    componentDidMount() {
-        // this.listOfImages = this.importAll(require.context('./assets/media/backgrounds/', false, /\.(png|jpe?g|svg)$/));
-
-        // const images = this.importAll(require.context('/media/backgrounds', false, /\.(png|jpe?g|svg)$/));
-
-        // console.log(images);
-
-        this.listOfImages = [
-            "bi1", "bi2", "bi3", "bi4", "bi5", "bi6", "bi7", "bi8", "bi9", "bi10", "bi11"
-        ];
-
-        console.log('Current image', this.props.system.backgroundImageUrl);
-    }
-
-    backgroundImageStyle(imageName: string): CSSProperties {
+    backgroundImageStyle(imagePath: string): CSSProperties {
         return {
-            backgroundImage: `url('assets/media/backgrounds/${imageName}.jpg')`
+            backgroundImage: `url('${this.config.apiUrl}${imagePath}')`
         }
     }
 
@@ -65,22 +69,22 @@ class BackgroundSwitchModal extends Component<BackgroundSwitchModalProps> {
                 <div className="modal-body">
                     <div className="backgrounds">
 
-                        {this.props.system.backgroundImageUrl == undefined || this.props.system.backgroundImageUrl == null
+                        {this.props.system.backgroundImage == undefined || this.props.system.backgroundImage == null
                             ?   <div className="no-background-image selected">
                                     <i className="fas fa-ban fa-10x"></i>
                                 </div>
 
                             :   <div className="no-background-image">
-                                    <i className="fas fa-ban fa-10x" onClick={() => this.props.setBackgroundImageUrl(null)}></i>
+                                    <i className="fas fa-ban fa-10x" onClick={() => this.props.setBackgroundImage(null)}></i>
                                 </div>
                         }
 
-                        {this.listOfImages.map((path, index) => {
-                            if (this.props.system.backgroundImageUrl == path) {
-                                return (<div key={index} className="background-image selected" style={this.backgroundImageStyle(path)}></div>);
+                        {this.listOfImages.map((file, index) => {
+                            if (this.props.system.backgroundImage == file.name) {
+                                return (<div key={index} className="background-image selected" style={this.backgroundImageStyle(file.path)}></div>);
                             }
 
-                            return (<div key={index} className="background-image" style={this.backgroundImageStyle(path)} onClick={() => this.props.setBackgroundImageUrl(path)}></div>);
+                            return (<div key={index} className="background-image" style={this.backgroundImageStyle(file.path)} onClick={() => this.props.setBackgroundImage(file.name)}></div>);
                         })}
                     </div>
                 </div>
@@ -96,4 +100,4 @@ const mapStateToProps = (state: AppState) => ({
     system: state.system
 })
 
-export default connect(mapStateToProps, { hideBackgroundSwitchModal, setBackgroundImageUrl })(BackgroundSwitchModal);
+export default connect(mapStateToProps, { hideBackgroundSwitchModal, setBackgroundImage: setBackgroundImage })(BackgroundSwitchModal);

@@ -1,10 +1,10 @@
 import { TOGGLE_DARK_THEME, UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, SET_BACKGROUND_IMAGE_URL } from "./types";
 
-export function setBackgroundImageUrl(url: string | null) {
+export function setBackgroundImage(url: string | null) {
     return {
         type: SET_BACKGROUND_IMAGE_URL,
         payload: {
-            backgroundImageUrl: url
+            backgroundImage: url
         }
     }
 }

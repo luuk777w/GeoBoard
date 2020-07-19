@@ -1,7 +1,7 @@
 import { TOGGLE_DARK_THEME, SystemState, SystemActionTypes, UPDATE_ACCESS_TOKEN, UPDATE_REFRESH_TOKEN, SET_BACKGROUND_IMAGE_URL } from "./types";
 
 const initialState: SystemState = {
-    backgroundImageUrl: null,
+    backgroundImage: null,
     darkThemeIsActive: false,
     accessToken: null,
     refreshToken: null
@@ -12,7 +12,7 @@ export function systemReducers(state = initialState, action: SystemActionTypes):
         case SET_BACKGROUND_IMAGE_URL: {
             return {
                 ...state,
-                backgroundImageUrl: action.payload.backgroundImageUrl
+                backgroundImage: action.payload.backgroundImage
             };
         }
         case TOGGLE_DARK_THEME: {

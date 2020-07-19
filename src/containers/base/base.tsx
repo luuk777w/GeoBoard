@@ -13,6 +13,8 @@ import { ManageBoardModalState } from 'store/modals/manageBoardModal/types';
 import '../../css/components/forms.scss';
 import '../../css/components/panel.scss';
 import '../../css/components/table.scss';
+import { Config } from 'util/config';
+import { container } from 'tsyringe';
 
 interface BaseContainerProps {
     system: SystemState;
@@ -22,16 +24,20 @@ interface BaseContainerProps {
 
 class BaseContainer extends React.Component<BaseContainerProps> {
 
+    private config: Config;
+
     constructor(props: BaseContainerProps) {
         super(props);
+
+        this.config = container.resolve(Config);
 
         this.getBackgroundImageStyle = this.getBackgroundImageStyle.bind(this);
     }
 
     getBackgroundImageStyle(): CSSProperties {
-        if (this.props.system.backgroundImageUrl != undefined && this.props.system.backgroundImageUrl != null) {
+        if (this.props.system.backgroundImage != undefined && this.props.system.backgroundImage != null) {
             return {
-                backgroundImage: `url('/assets/media/backgrounds/${this.props.system.backgroundImageUrl}.jpg')`
+                backgroundImage: `url('${this.config.apiUrl}/content/static/backgrounds/${this.props.system.backgroundImage}')`
             }
         }
 
