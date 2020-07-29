@@ -5,6 +5,7 @@ import { JWTService } from "./jwt.service";
 import { store } from "store";
 import { showAlert } from "store/alert/actions";
 import { AlertType } from "store/alert/types";
+import { RequestPasswordResetViewModel, PasswordResetViewModel } from "models/passwordViewModels";
 
 @singleton()
 export class AuthorizeService {
@@ -41,6 +42,14 @@ export class AuthorizeService {
 
     public async refreshAccessToken(accessToken: string, refreshToken: string): Promise<AuthenticationResultViewModel> {
         return await this.httpService.post<AuthenticationResultViewModel>('/account/refresh', JSON.stringify({ accessToken, refreshToken }));
+    }
+
+    public async requestPasswordReset(data: RequestPasswordResetViewModel) {
+        return await this.httpService.post('/account/request-password-reset', JSON.stringify(data));
+    }
+
+    public async resetPassword(data: PasswordResetViewModel) {
+        return await this.httpService.post('/account/reset-password', JSON.stringify(data));
     }
 
     public hasRole(role: string) {

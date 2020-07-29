@@ -26,6 +26,14 @@
         + .panel-body, .form-panel {
             border-top: 1px solid $gray100;
         }
+
+        p {
+            color: $gray800;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
     }
 
     .panel-footer {

@@ -1,4 +1,5 @@
 import React, { FormEvent } from 'react';
+import queryString from 'query-string'
 import { Link } from 'react-router-dom';
 import { container } from 'tsyringe';
 import { connect } from 'react-redux';
@@ -6,72 +7,87 @@ import { connect } from 'react-redux';
 import { AuthContainer } from '../../containers/auth/auth';
 import { AuthorizeService } from '../../services/authorize.service';
 import { mapToType } from 'helpers/helpers';
-import { LoginViewModel } from 'models/authViewModels';
 import Alert from 'components/alert/alert';
 import { showAlert, hideAlert } from 'store/alert/actions';
 import { AlertType } from 'store/alert/types';
 import { JWTService } from 'services/jwt.service';
 
-import './login.scss';
+import './reset-password.scss';
 import { Button } from 'components/button/button';
-
-interface LoginProps {
+import { PasswordResetViewModel } from 'models/passwordViewModels';
+interface ResetPasswordProps {
     showAlert: typeof showAlert;
     hideAlert: typeof hideAlert;
+    location: any;
     history: any;
 }
 
-interface LoginState {
-    userName: string;
+interface ResetPasswordState {
+    email: any;
     password: string;
-    remember: boolean;
+    passwordConfirm: string;
+
     isSubmitting: boolean;
 }
 
-class Login extends React.Component<LoginProps, LoginState> {
+class ResetPassword extends React.Component<ResetPasswordProps, ResetPasswordState> {
 
     private authorizeService: AuthorizeService;
-    private jwtService: JWTService;
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            userName: '',
+            email: '',
             password: '',
-            remember: false,
+            passwordConfirm: '',
             isSubmitting: false
         }
 
         this.authorizeService = container.resolve(AuthorizeService);
-        this.jwtService = container.resolve(JWTService);
+    }
+
+    componentDidMount() {
+        const params = queryString.parse(this.props.location.search);
+
+        const email = params.email || '';
+        const token = params.token || '';
+
+        if (email == undefined || email == '' || token == undefined || token == '') {
+            this.props.history.push('/login');
+            return;
+        }
+
+        this.setState({ email: email })
     }
 
     async onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         this.props.hideAlert();
 
-        const loginData: LoginViewModel = {
-            userName: this.state.userName.trim(),
+        const params = queryString.parse(this.props.location.search);
+
+        const data: PasswordResetViewModel = {
+            email: this.state.email.trim(),
             password: this.state.password,
-            rememberMe: this.state.remember
+            token: params.token
         }
 
-        if (loginData.userName == "" || loginData.password == "") {
-            this.props.showAlert(AlertType.Warning, "Username or password not filled in.", 5000);
+        if (this.state.password != this.state.passwordConfirm) {
+            // TODO: Change to field error.
+            this.props.showAlert(AlertType.Warning, "The confirmed password does not match the passsword.");
             return;
         }
 
         this.setState({ isSubmitting: true });
 
-        await this.authorizeService.login(loginData)
+        await this.authorizeService.resetPassword(data)
             .then((response: any) => {
-                this.jwtService.setAccessToken(response.accessToken);
-                this.jwtService.setRefreshToken(response.refreshToken)
-
                 this.setState({ isSubmitting: false });
 
-                this.props.history.push("/");
+                this.props.showAlert(AlertType.Success, `Your password has been reset succesfully.`);
+
+                this.props.history.push('/');
             })
             .catch((error) => {
                 this.setState({ isSubmitting: false });
@@ -83,7 +99,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                 error.responseJSON.message != null
                     ? this.props.showAlert(AlertType.Error, error.responseJSON.message)
-                    : this.props.showAlert(AlertType.Error, "An unknown error occurred. Please try again.");
+                    : this.props.showAlert(AlertType.Error, "Something went wrong while resetting a password reset. Please try again.");
             });
     }
 
@@ -93,7 +109,7 @@ class Login extends React.Component<LoginProps, LoginState> {
         const name = target.name;
 
         this.setState(() => (
-            mapToType<LoginState>({
+            mapToType<ResetPasswordState>({
                 [name]: value
             })
         ));
@@ -102,21 +118,21 @@ class Login extends React.Component<LoginProps, LoginState> {
     render() {
         return (
             <AuthContainer>
-                <div className="login-container animated fadeInDown">
+                <div className="reset-password-container animated fadeInDown">
                     <Alert />
 
                     <div className="panel">
-                        <div className="panel-header">Login to GeoBoard</div>
-                        <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
+                        <div className="panel-header">Reset your password</div>
+                        <form method="post" id="resetPasswordForm" onSubmit={(event) => this.onSubmit(event)}>
                             <div className="panel-body">
                                 <div className="form-group">
                                     <div className="input-group">
                                         <div className="input-prefix">
-                                            <i className="fa fa-user"></i>
+                                            <i className="fa fa-envelope"></i>
                                         </div>
-                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" placeholder="Username" autoFocus autoComplete="username" />
+                                        <input type="email" onChange={(e) => this.handleInputChange(e)} id="email" value={this.state.email} name="email" placeholder="your-name@domain.com" autoComplete="email" />
                                     </div>
-                                    <div className="validation-error" data-field="userName"></div>
+                                    <div className="validation-error" data-field="email"></div>
                                 </div>
 
                                 <div className="form-group">
@@ -124,14 +140,19 @@ class Login extends React.Component<LoginProps, LoginState> {
                                         <div className="input-prefix">
                                             <i className="fa fa-lock"></i>
                                         </div>
-                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Password" autoComplete="current-password" />
+                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" placeholder="Choose a strong password" autoFocus autoComplete="new-password" />
                                     </div>
                                     <div className="validation-error" data-field="password"></div>
                                 </div>
 
-                                <div className="remember checkbox">
-                                    <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
-                                    <label htmlFor="remember">Remember me</label>
+                                <div className="form-group">
+                                    <div className="input-group">
+                                        <div className="input-prefix">
+                                            <i className="fa fa-lock"></i>
+                                        </div>
+                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="passwordConfirm" name="passwordConfirm" placeholder="Confirm your new password" autoComplete="new-password" />
+                                    </div>
+                                    <div className="validation-error" data-field="passwordConfirm"></div>
                                 </div>
 
                                 <div className="validation-error"></div>
@@ -139,11 +160,8 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                             <div className="panel-footer">
                                 <div className="button-group">
-                                    <Button isLoading={this.state.isSubmitting} type="submit" className="button button-green button-pd-2">Login</Button>
-                                    <Link to="/forgot-password" className="button button-link button-pd-2">Forgot password</Link>
+                                    <Button isLoading={this.state.isSubmitting} type="submit" className="button button-green button-pd-2">Reset password</Button>
                                 </div>
-
-                                <p className="register-information pt-1">No account yet? <Link to="/register">Create one here</Link></p>
                             </div>
                         </form>
                     </div>
@@ -153,4 +171,4 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 }
 
-export default connect(null, { showAlert, hideAlert })(Login);
+export default connect(null, { showAlert, hideAlert })(ResetPassword);

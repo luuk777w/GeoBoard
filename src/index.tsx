@@ -19,6 +19,8 @@ import { UnAuthorizedOnlyRoute } from "components/Route/unauthorizedOnlyRoute";
 import { NotFound } from "views/errors/notFound/notFound";
 import EmailConfirmation from "views/register/emailConfirmation/emailConfirmation";
 import Activate from "views/register/activate/activate";
+import ForgotPassword from "views/forgot-password/forgot-password";
+import ResetPassword from "views/reset-password/reset-password";
 
 
 class App extends Component {
@@ -36,6 +38,9 @@ class App extends Component {
                             <AuthorizedRoute exact path="/" component={Home} />
                             <UnAuthorizedOnlyRoute path="/login" component={Login} />
                             <UnAuthorizedOnlyRoute exact path="/register" component={Register} />
+
+                            <UnAuthorizedOnlyRoute path="/forgot-password" component={ForgotPassword} />
+                            <UnAuthorizedOnlyRoute path="/reset-password" component={ResetPassword} />
 
                             <UnAuthorizedOnlyRoute path="/register/email-confirmation" component={EmailConfirmation} />
                             <UnAuthorizedOnlyRoute path="/register/activate" component={Activate} />
