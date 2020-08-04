@@ -1,9 +1,133 @@
 @import "src/css/colors";
 
 .login-container {
-    width: 33rem; // 500px / 15px (base font size) = 33,333333333333333333333333333333‬
-    margin-top: 5rem;
+    margin-top: 10vh;
 }
+
+.login-panel {
+    width: 65rem;
+    height: 40rem;
+    display: grid;
+    grid-template-columns: minmax(150px, 30%) 1fr;
+
+    .panel-left {
+        background-color: $gray200;
+        border-radius: 1rem 0 0 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        .logo-container {
+            width: 100%;
+            text-align: center;
+
+            img {
+                width: 70%;
+            }
+
+            h1 {
+                color: $gray800;
+                font-size: 3rem;
+                margin: 0;
+            }
+        }
+
+        .about{
+            font-size: 1.12rem;
+        }
+
+        .register {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.12rem;
+
+            a:hover {
+                color: white;
+                background-position: right center;
+            }
+
+            .register-button {
+                background-image: linear-gradient(to right, #f953c6 0%, #b91d73 51%, #b91d73 100%);
+                background-size: 200% auto;
+                width: 10rem;
+                height: 3rem;
+                font-size: 2rem;
+                font-weight: 600;
+                border-radius: 0;
+                border-top-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+                letter-spacing: 1.5px;
+                box-shadow: 4px 4px 8px 0px $gray400;
+                margin: auto;
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .panel-right {
+        border-radius: 0 1rem 1rem 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+            font-size: 5rem;
+            margin-top: 1rem;
+            background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        form {
+            align-self: center;
+            width: 80%;
+
+            .group {
+                margin-bottom: 1rem;
+
+                .input-group {
+                    margin-top: 0.5rem;
+                }
+            }
+
+            .login-button-container{
+                display: flex;
+                flex-direction: column;
+
+                .login-button{
+                    background-image: linear-gradient(to right, #00d2ff 0%, #3a47d5 51%, #3a47d5 100%);
+                    background-size: 200% auto;
+                    width: 15rem;
+                    height: 5rem;
+                    font-size: 3rem;
+                    font-weight: 600;
+                    border-radius: 0;
+                    border-top-left-radius: 1rem;
+                    border-bottom-right-radius: 1rem;
+                    letter-spacing: 1.5px;
+                    box-shadow: 4px 4px 6px 0px $gray300;
+                    margin-top: 0.5rem;
+                    margin-left: auto;
+                    transition: 0.5s;
+                }
+
+                .login-button:hover{
+                    background-position: right center;
+                }
+
+                .forgot-password {
+                    width: 10rem;
+                    margin-left: auto;
+                    margin-top: 1rem;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+
 
 .remember {
     margin: 1.25rem 0;

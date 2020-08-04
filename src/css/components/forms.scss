@@ -8,7 +8,7 @@ input[type=text], input[type=password], input[type=email] {
     box-sizing: border-box;
     font-size: 1rem;
     display: inline-block;
-    border: 1px solid $gray200;
+    border: 1px solid $gray300;
     border-radius: $border-radius;
     transition: all 100ms ease-in-out;
     color: $gray900;
@@ -137,7 +137,7 @@ input[type=text], input[type=password], input[type=email] {
             width: 18px;
             height: 18px;
             background: transparent;
-            border: 1px solid $gray200;
+            border: 1px solid $gray300;
             border-radius: $border-radius;
             transition: background 200ms, border-color 200ms;
         }
