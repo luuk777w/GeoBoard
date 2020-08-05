@@ -4,7 +4,7 @@
     margin-top: 10vh;
 }
 
-$left-panel-text-color: $gray800;
+$left-panel-text-color: white;
 
 $right-panel-bg-color: white;
 
@@ -15,30 +15,38 @@ $right-panel-bg-color: white;
     height: 40rem;
     display: grid;
     grid-template-columns: minmax(150px, 35%) 1fr;
+    box-shadow: 0px 0px 16px -10px $gray800;
+    border-radius: .5rem;
+    overflow: hidden;
 
     .panel-left {
-        //background-image: linear-gradient( 109.5deg,  rgba(76,221,242,1) 11.2%, rgba(92,121,255,1) 91.1% );
+        background-image: linear-gradient( 45deg, rgba(92,121,255,1) 11.2%, rgba(76,221,242,1) 70% );
         background-color: $gray100;
+        text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
 
-        border-radius: 1rem 0 0 1rem;
+        // border-radius: 1rem 0 0 1rem;
         padding: 2rem;
         display: flex;
         flex-direction: column;
-        clip-path: inset(-20px -2px -20px -20px);
-        box-shadow: 1px 0px 15px 2px $blue600;
+        justify-content: space-between;
+        // clip-path: inset(-20px -2px -20px -20px);
+        // box-shadow: 1px 0px 15px 2px $blue600;
 
         .logo-container {
             width: 100%;
             text-align: center;
+            // text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
 
-            img {
+            svg {
                 width: 60%;
+                filter: drop-shadow( 0px 0px 15px rgba(117, 117, 117, 0.3));
             }
 
             h1 {
                 color: $left-panel-text-color;
                 font-size: 3rem;
                 margin: 0;
+                font-family: 'Alata';
             }
         }
 
@@ -51,7 +59,7 @@ $right-panel-bg-color: white;
         .register {
             display: flex;
             flex-direction: column;
-            font-size: 1.12rem;
+            // font-size: 1.12rem;
             color: $left-panel-text-color;
 
             a:hover {
@@ -62,28 +70,24 @@ $right-panel-bg-color: white;
             .register-button {
                 background-image: linear-gradient(to right, #f953c6 0%, #b91d73 51%, #b91d73 100%);
                 background-size: 200% auto;
-                width: calc(100% - 2rem);
-                height: 2rem;
-                font-size: 1.5rem;
+                font-size: 1.25rem;
                 font-weight: 600;
-                border-radius: 2rem;
-                letter-spacing: 1.5px;
-                box-shadow: 4px 4px 8px 0px $gray500;
-                margin: auto;
+                border-radius: 1.5rem;
+                box-shadow: 0px 0px 16px -10px $gray800;
                 transition: 0.5s;
             }
         }
     }
 
     .panel-right {
-        border-radius: 0 1rem 1rem 0;
+        // border-radius: 0 1rem 1rem 0;
         background-color: $right-panel-bg-color;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        clip-path: inset(-20px -20px -20px 0px);
-        box-shadow: 1px 0px 15px 2px $blue600;
+        // clip-path: inset(-20px -20px -20px 0px);
+        // box-shadow: 1px 0px 15px 2px $blue600;
 
         h1 {
             text-align: center;
@@ -116,11 +120,10 @@ $right-panel-bg-color: white;
                     .login-button{
                         width: 100%;
                         height: 3rem;
-                        font-size: 1.5rem;
+                        font-size: 1.25rem;
                         font-weight: 600;
                         border-radius: 1.5rem;
-                        letter-spacing: 1.5px;
-                        box-shadow: 4px 4px 6px 0px $gray300;
+                        box-shadow: 0px 0px 16px -10px $gray800;
                         margin-top: 0.5rem;
                         margin-left: auto;
                         background-color: $blue500;
@@ -131,9 +134,8 @@ $right-panel-bg-color: white;
                     }
 
                     .forgot-password {
-                        width: 10rem;
-                        margin-top: 0.5rem;
-                        text-align: left;
+                        margin-top: 1rem;
+                        text-align: center;
                     }
                 }
             }
