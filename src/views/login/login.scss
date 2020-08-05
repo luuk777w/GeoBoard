@@ -1,14 +1,11 @@
 @import "src/css/colors";
 
+$left-panel-text-color: white;
+$right-panel-bg-color: white;
+
 .login-container {
     margin-top: 10vh;
 }
-
-$left-panel-text-color: white;
-
-$right-panel-bg-color: white;
-
-
 
 .login-panel {
     width: 65rem;
@@ -20,22 +17,17 @@ $right-panel-bg-color: white;
     overflow: hidden;
 
     .panel-left {
-        background-image: linear-gradient( 45deg, rgba(92,121,255,1) 11.2%, rgba(76,221,242,1) 70% );
-        background-color: $gray100;
-        text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
-
-        // border-radius: 1rem 0 0 1rem;
         padding: 2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        // clip-path: inset(-20px -2px -20px -20px);
-        // box-shadow: 1px 0px 15px 2px $blue600;
+        background-color: $gray100;
+        background-image: linear-gradient( 45deg, rgba(92,121,255,1) 11.2%, rgba(76,221,242,1) 70% );
+        text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
 
         .logo-container {
             width: 100%;
             text-align: center;
-            // text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
 
             svg {
                 width: 60%;
@@ -50,16 +42,14 @@ $right-panel-bg-color: white;
             }
         }
 
-        .about{
+        .about {
             font-size: 1.12rem;
             color: $left-panel-text-color;
-
         }
 
         .register {
             display: flex;
             flex-direction: column;
-            // font-size: 1.12rem;
             color: $left-panel-text-color;
 
             a:hover {
@@ -80,14 +70,11 @@ $right-panel-bg-color: white;
     }
 
     .panel-right {
-        // border-radius: 0 1rem 1rem 0;
         background-color: $right-panel-bg-color;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        // clip-path: inset(-20px -20px -20px 0px);
-        // box-shadow: 1px 0px 15px 2px $blue600;
 
         h1 {
             text-align: center;
@@ -113,11 +100,11 @@ $right-panel-bg-color: white;
                     }
                 }
 
-                .login-button-container{
+                .login-button-container {
                     display: flex;
                     flex-direction: column;
 
-                    .login-button{
+                    .login-button {
                         width: 100%;
                         height: 3rem;
                         font-size: 1.25rem;
