@@ -1,8 +1,14 @@
 @import "src/css/colors";
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
+@font-face {
+    font-family: Oxygen-Regular;
+    src: url("/assets/media/fonts/Oxygen-Regular.ttf");
+  }
+
 html{
-    font-family: 'Open Sans', sans-serif;
+    //font-family: 'Open Sans', sans-serif;
+    font-family: "Oxygen-Regular";
     font-size: 15px;
 }
 

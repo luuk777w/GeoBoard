@@ -105,8 +105,11 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                 <div className="login-container">
                     <Alert />
+
                     <div className="login-panel">
+
                         <div className="panel-left">
+
                             <div className="logo-container">
                                 <img src="/assets/media/favicons/android-chrome-512x512.png" alt="" />
                                 <h1>GeoBoard</h1>
@@ -123,48 +126,49 @@ class Login extends React.Component<LoginProps, LoginState> {
 
                             </div>
 
-
                         </div>
                         <div className="panel-right">
-                            <h1>LOGIN</h1>
 
-                            <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
+                            <div className="inner">
 
-                                <div className="group">
-                                    <label htmlFor="userName">Username</label>
-                                    <div className="input-group">
-                                        <div className="input-prefix">
-                                            <i className="fa fa-user"></i>
+                                <h1>Login to GeoBoard</h1>
+
+                                <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
+
+                                    <div className="group">
+                                        <label htmlFor="userName">Username</label>
+                                        <div className="input-group">
+                                            <div className="input-prefix">
+                                                <i className="fa fa-user"></i>
+                                            </div>
+                                            <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" autoFocus autoComplete="username" />
                                         </div>
-                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" autoFocus autoComplete="username" />
+                                        <div className="validation-error" data-field="userName"></div>
                                     </div>
-                                    <div className="validation-error" data-field="userName"></div>
-                                </div>
 
-                                <div className="group">
-                                    <label htmlFor="password">Password</label>
-                                    <div className="input-group">
-                                        <div className="input-prefix">
-                                            <i className="fa fa-lock"></i>
+                                    <div className="group">
+                                        <label htmlFor="password">Password</label>
+                                        <div className="input-group">
+                                            <div className="input-prefix">
+                                                <i className="fa fa-lock"></i>
+                                            </div>
+                                            <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" autoComplete="current-password" />
                                         </div>
-                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" autoComplete="current-password" />
+                                        <div className="validation-error" data-field="password"></div>
                                     </div>
-                                    <div className="validation-error" data-field="password"></div>
-                                </div>
 
-                                <div className="remember checkbox">
-                                    <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
-                                    <label htmlFor="remember">Remember me</label>
-                                </div>
-                                <div className="validation-error"></div>
+                                    <div className="remember checkbox">
+                                        <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
+                                        <label htmlFor="remember">Remember me</label>
+                                    </div>
+                                    <div className="validation-error"></div>
 
-                                <div className="login-button-container">
-                                    <Button isLoading={this.state.isSubmitting} type="submit" className="button login-button">LOGIN</Button>
-                                    <Link to="/forgot-password" className="button button-link button-pd-2 forgot-password">Forgot password?</Link>
-                                </div>
-
-                            </form>
-
+                                    <div className="login-button-container">
+                                        <Button isLoading={this.state.isSubmitting} type="submit" className="button login-button">Login</Button>
+                                        <Link to="/forgot-password" className="button button-link button-pd-2 forgot-password">Forgot password?</Link>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
