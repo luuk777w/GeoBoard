@@ -117,7 +117,7 @@ class ResetPassword extends React.Component<ResetPasswordProps, ResetPasswordSta
 
     render() {
         return (
-            <AuthContainer>
+            <AuthContainer pageType="password-reset">
                 <div className="reset-password-container animated fadeInDown">
                     <Alert />
 

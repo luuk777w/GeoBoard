@@ -101,12 +101,12 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     render() {
         return (
-            <AuthContainer>
+            <AuthContainer pageType="login">
 
-                <div className="login-container">
+                <div className="auth-panel-wrapper">
                     <Alert />
 
-                    <div className="login-panel">
+                    <div className="auth-panel">
 
                         <div className="panel-left">
 
@@ -120,57 +120,53 @@ class Login extends React.Component<LoginProps, LoginState> {
                                 </p>
                             </div>
 
-                            <div className="register">
+                            <div className="left-panel-footer">
 
                                 <p>No account yet?</p>
 
-                                <Link to="/register" className="button register-button">Register</Link>
+                                <Link to="/register" className="button sidebar-button">Register</Link>
 
                             </div>
 
                         </div>
                         <div className="panel-right">
+                            <h1>Login to GeoBoard</h1>
 
-                            <div className="inner">
+                            <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
 
-                                <h1>Login to GeoBoard</h1>
-
-                                <form method="post" id="loginForm" onSubmit={(event) => this.onSubmit(event)}>
-
-                                    <div className="group">
-                                        <label htmlFor="userName">Username</label>
-                                        <div className="input-group">
-                                            <div className="input-prefix">
-                                                <i className="fa fa-user"></i>
-                                            </div>
-                                            <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" autoFocus autoComplete="username" />
+                                <div className="form-group">
+                                    <label htmlFor="userName">Username</label>
+                                    <div className="input-group">
+                                        <div className="input-prefix">
+                                            <i className="fa fa-user"></i>
                                         </div>
-                                        <div className="validation-error" data-field="userName"></div>
+                                        <input type="text" onChange={(e) => this.handleInputChange(e)} id="userName" name="userName" autoFocus autoComplete="username" />
                                     </div>
+                                    <div className="validation-error" data-field="userName"></div>
+                                </div>
 
-                                    <div className="group">
-                                        <label htmlFor="password">Password</label>
-                                        <div className="input-group">
-                                            <div className="input-prefix">
-                                                <i className="fa fa-lock"></i>
-                                            </div>
-                                            <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" autoComplete="current-password" />
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <div className="input-group">
+                                        <div className="input-prefix">
+                                            <i className="fa fa-lock"></i>
                                         </div>
-                                        <div className="validation-error" data-field="password"></div>
+                                        <input type="password" onChange={(e) => this.handleInputChange(e)} id="password" name="password" autoComplete="current-password" />
                                     </div>
+                                    <div className="validation-error" data-field="password"></div>
+                                </div>
 
-                                    <div className="remember checkbox">
-                                        <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
-                                        <label htmlFor="remember">Remember me</label>
-                                    </div>
-                                    <div className="validation-error"></div>
+                                <div className="remember checkbox">
+                                    <input id="remember" type="checkbox" name="remember" onChange={(e) => this.handleInputChange(e)} />
+                                    <label htmlFor="remember">Remember me</label>
+                                </div>
+                                <div className="validation-error"></div>
 
-                                    <div className="login-button-container">
-                                        <Button isLoading={this.state.isSubmitting} type="submit" className="button login-button">Login</Button>
-                                        <Link to="/forgot-password" className="button button-link button-pd-2 forgot-password">Forgot password?</Link>
-                                    </div>
-                                </form>
-                            </div>
+                                <div className="submit-button-container">
+                                    <Button isLoading={this.state.isSubmitting} type="submit" className="button submit-button">Login</Button>
+                                    <Link to="/forgot-password" className="button button-link button-pd-2 mt-3">Forgot password?</Link>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

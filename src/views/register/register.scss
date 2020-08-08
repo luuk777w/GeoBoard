@@ -1,5 +1,24 @@
 @import "src/css/colors";
 
+.auth-container.register {
+    .panel-left {
+        background-image: linear-gradient( 45deg, rgb(165, 92, 255) 11.2%, rgb(242, 76, 237) 70% );
+    }
+
+    .sidebar-button {
+        color: white;
+        background-image: linear-gradient(to right, rgba(76,221,242,1) 0%, #1d4db9 51%, rgba(92,121,255,1) 100%);
+    }
+
+    .submit-button {
+        background-color: $pink500;
+
+        &:hover {
+            background-color: $pink600;
+        }
+    }
+}
+
 .register-container {
     width: 33rem; // 500px / 15px (base font size) = 33,333333333333333333333333333333‬
     margin-top: 5rem;

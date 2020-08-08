@@ -10,6 +10,14 @@
     &.dark-theme {
         background-color: lighten($geoboard-dark, 10%);
     }
+
+    .footer {
+        padding: 1.5rem;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
 }
 
 .notification {
@@ -20,12 +28,4 @@
     text-align: center;
     font-weight: 600;
     box-shadow: 0px 6px 12px -12px $gray900;
-}
-
-.footer {
-    padding: 1.5rem;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
 }

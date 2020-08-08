@@ -3,6 +3,16 @@
 
 #app {
 
+    .home-container {
+        .version{
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            color: white;
+            margin-bottom: 0;
+        }
+    }
+
     .board-container {
         overflow: auto;
         display: flex;
@@ -22,13 +32,5 @@
             color: $blue700;
             cursor: pointer;
         }
-    }
-
-    .version{
-        position: fixed;
-        bottom: 1rem;
-        left: 1rem;
-        color: white;
-        margin-bottom: 0;
     }
 }
