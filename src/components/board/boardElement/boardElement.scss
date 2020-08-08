@@ -39,6 +39,16 @@
             }
         }
 
+        .menu-overlay {
+            position: absolute;
+            width: 10rem;
+            height: 5rem;
+            z-index: 6;
+            top: 1rem;
+            left: 23rem;
+            background-color: rgba($color: black, $alpha: 0.2);
+        }
+
         .board-element-creator {
             font-weight: 600;
         }
@@ -136,6 +146,7 @@
 
     .board-element-header {
         border-radius: 0;
+
     }
 
     .board-element-body {

@@ -15,6 +15,7 @@ import { BoardElementState } from 'store/boardElement/types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image } from '../Image/Image';
 import { ProgressBar } from '../progressBar/progressBar';
+import { Menu } from './menu/menu';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
@@ -24,6 +25,7 @@ interface BoardElementProps {
 interface LocalBoardElementState {
     showLargeImage: boolean;
     zIndex: object;
+    menuVisable: boolean;
 }
 
 class BoardElement extends React.Component<BoardElementProps, LocalBoardElementState> {
@@ -39,7 +41,8 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
 
         this.state = {
             showLargeImage: false,
-            zIndex: { zIndex: 0 }
+            zIndex: { zIndex: 0 },
+            menuVisable: false
         }
 
         this.config = container.resolve(Config);
@@ -103,6 +106,18 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         this.ref = ref;
     }
 
+    displayMenu() {
+        this.setState(() => ({
+            menuVisable: true
+        }));
+    }
+
+    hideMenu() {
+        this.setState(() => ({
+            menuVisable: false
+        }));
+    }
+
     render() {
 
         let style = {};
@@ -116,7 +131,12 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
-                    <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
+
+                    <i className="fas fa-ellipsis-v delete-icon ml-auto" onMouseEnter={() => this.displayMenu()}></i>
+                    {this.state.menuVisable &&
+                        <div className="menu-overlay" onMouseLeave={() => this.hideMenu()}></div>
+                    }
+                    <Menu visable={this.state.menuVisable} />
                 </div>
                 <div className="board-element-body"
                     style={{ ...this.overflowStlyle, ...style }}
