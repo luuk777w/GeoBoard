@@ -49,31 +49,31 @@ export class Menu extends React.Component<MenuProps> {
                     variants={menuAnimation}>
 
                     <ul>
-                        <li onClick={() => { removeAction(this.props.element.id) }}>
-                            <div className="icon"><i className="fas fa-trash fa-fw"></i></div> {/* Verwijderen verzoeken als dit niet het element van de gebruiker is. */}
+                        <li onClick={() => { removeAction(this.props.element.id) }} title="Remove this element">
+                            <div className="icon"><i className="fas fa-trash fa-fw delete-icon"></i></div> {/* Verwijderen verzoeken als dit niet het element van de gebruiker is. */}
                             <div className="body">Remove</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Edit this element">
                             <div className="icon"><i className="fas fa-pen fa-fw"></i></div>
                             <div className="body">Edit</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Move this element to another board">
                             <div className="icon"><i className="fas fa-share fa-fw"></i></div>
                             <div className="body">Move</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Copy this element to another board">
                             <div className="icon"><i className="fas fa-copy fa-fw"></i></div>
                             <div className="body">Copy</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Pin this element to the top of this board">
                             <div className="icon"><i className="fas fa-thumbtack fa-fw"></i></div>
                             <div className="body">Pin</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Move this element">
                             <div className="icon"><i className="fas fa-arrows-alt fa-fw"></i></div>
                             <div className="body">Move on board</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }}>
+                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Give this element attention to other players">
                             <div className="icon"><i className="fas fa-bell fa-fw"></i></div>
                             <div className="body">Alert</div>
                         </li>
