@@ -1,12 +1,54 @@
+@import "src/css/colors";
+
 .board-element-header {
+    position: relative;
     .menu {
         position: absolute;
-        width: 10rem;
-        height: 5rem;
         background-color: white;
         z-index: 5;
-        top: 1rem;
-        left: 27rem;
+        width: 12rem;
+        top: -0.5rem;
+        left: 26rem;
+        border-radius: 0.5rem;
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            box-shadow: 1px 1px 17px 1px $gray800;
+
+            li {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                border-bottom: solid $gray200 1px;
+                cursor: pointer;
+
+                div {
+                    padding: 0.5rem;
+                }
+
+                .icon {
+                    margin-left: 0.5rem;
+                }
+
+                &:first-child {
+                    border-top-left-radius: 0.5rem;
+                    border-top-right-radius: 0.5rem;
+                }
+
+                &:last-child {
+                    border-bottom-left-radius: 0.5rem;
+                    border-bottom-right-radius: 0.5rem;
+                    border-bottom: none;
+                }
+
+                &:hover {
+                    background-color: $gray200;
+                }
+            }
+
+        }
+
     }
 
     .hidden {

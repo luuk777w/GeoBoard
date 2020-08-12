@@ -39,14 +39,13 @@
             }
         }
 
-        .menu-overlay {
-            position: absolute;
-            width: 10rem;
-            height: 5rem;
-            z-index: 6;
-            top: 1rem;
-            left: 23rem;
-            background-color: rgba($color: black, $alpha: 0.2);
+        .menu-overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 2;
         }
 
         .board-element-creator {
@@ -61,8 +60,11 @@
             }
         }
 
-        .delete-icon {
-            color: $red400;
+        .menu-icon {
+            color: $blue500;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-right: -0.5rem;
 
             &:hover {
                 cursor: pointer;

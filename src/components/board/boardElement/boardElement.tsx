@@ -67,14 +67,6 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         }
     }
 
-    removeElement() {
-        this.httpService.deleteWithAuthorization(`/boards/elements/${this.props.element.id}`).then(() => {
-
-        }, (error) => {
-            console.warn(error);
-        });
-    }
-
     showLargeImage(event: any) {
         if (this.state.showLargeImage == true) return;
         if (event.target.className.includes("large-image-container")) return;
@@ -106,15 +98,9 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         this.ref = ref;
     }
 
-    displayMenu() {
-        this.setState(() => ({
-            menuVisable: true
-        }));
-    }
-
-    hideMenu() {
-        this.setState(() => ({
-            menuVisable: false
+    toggleMenu() {
+        this.setState((state) => ({
+            menuVisable: !state.menuVisable
         }));
     }
 
@@ -132,11 +118,13 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
 
-                    <i className="fas fa-ellipsis-v delete-icon ml-auto" onMouseEnter={() => this.displayMenu()}></i>
+                    <i className="fas fa-ellipsis-v menu-icon ml-auto" onClick={() => this.toggleMenu()}></i>
+
                     {this.state.menuVisable &&
-                        <div className="menu-overlay" onMouseLeave={() => this.hideMenu()}></div>
+                        <div className="menu-overlay" onClick={() => this.toggleMenu()}></div>
                     }
-                    <Menu visable={this.state.menuVisable} />
+
+                    <Menu visable={this.state.menuVisable} hideMenu={() => this.toggleMenu()} element={this.props.element} />
                 </div>
                 <div className="board-element-body"
                     style={{ ...this.overflowStlyle, ...style }}
