@@ -3,7 +3,7 @@ import React from 'react';
 import './menu.scss';
 import { motion } from 'framer-motion';
 import { BoardElementViewModel } from 'models/BoardElementViewModel';
-import { removeElement } from './menuAction/removeAction';
+import { removeAction } from './menuAction/removeAction';
 
 interface MenuProps {
     visable: boolean;
@@ -49,31 +49,31 @@ export class Menu extends React.Component<MenuProps> {
                     variants={menuAnimation}>
 
                     <ul>
-                        <li onClick={() => { removeElement(this.props.element.id) }}>
+                        <li onClick={() => { removeAction(this.props.element.id) }}>
                             <div className="icon"><i className="fas fa-trash fa-fw"></i></div> {/* Verwijderen verzoeken als dit niet het element van de gebruiker is. */}
                             <div className="body">Remove</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-pen fa-fw"></i></div>
                             <div className="body">Edit</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-share fa-fw"></i></div>
                             <div className="body">Move</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-copy fa-fw"></i></div>
                             <div className="body">Copy</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-thumbtack fa-fw"></i></div>
                             <div className="body">Pin</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-arrows-alt fa-fw"></i></div>
                             <div className="body">Move on board</div>
                         </li>
-                        <li>
+                        <li onClick={() => { console.warn("Not implemented yet.") }}>
                             <div className="icon"><i className="fas fa-bell fa-fw"></i></div>
                             <div className="body">Alert</div>
                         </li>

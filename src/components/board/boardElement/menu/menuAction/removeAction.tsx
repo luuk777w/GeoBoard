@@ -1,7 +1,7 @@
 import { HttpService } from 'services/http.service';
 import { container } from 'tsyringe';
 
-export function removeElement(elementId: string) {
+export function removeAction(elementId: string) {
 
     const httpService = container.resolve(HttpService);
 
