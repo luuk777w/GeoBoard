@@ -86,11 +86,7 @@ export class Image extends Component<ImageProps, ImageState> {
     }
 
     zoomUpdate() {
-
-        console.log(this.prevZoom, this.state.zoom);
-
         if (this.prevZoom == this.state.zoom || this.state.zoom == 1.0) {
-            console.log(false)
             this.prevZoom = this.state.zoom;
             return false;
         }

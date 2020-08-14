@@ -15,6 +15,7 @@ import { BoardElementState } from 'store/boardElement/types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image } from '../Image/Image';
 import { ProgressBar } from '../progressBar/progressBar';
+import { Menu } from './menu/menu';
 
 interface BoardElementProps {
     element: BoardElementViewModel;
@@ -24,6 +25,7 @@ interface BoardElementProps {
 interface LocalBoardElementState {
     showLargeImage: boolean;
     zIndex: object;
+    menuVisable: boolean;
 }
 
 class BoardElement extends React.Component<BoardElementProps, LocalBoardElementState> {
@@ -39,7 +41,8 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
 
         this.state = {
             showLargeImage: false,
-            zIndex: { zIndex: 0 }
+            zIndex: { zIndex: 0 },
+            menuVisable: false
         }
 
         this.config = container.resolve(Config);
@@ -62,14 +65,6 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
             case Direction.West: return 'West';
             case Direction.NorthWest: return 'Noordwest';
         }
-    }
-
-    removeElement() {
-        this.httpService.deleteWithAuthorization(`/boards/elements/${this.props.element.id}`).then(() => {
-
-        }, (error) => {
-            console.warn(error);
-        });
     }
 
     showLargeImage(event: any) {
@@ -103,6 +98,12 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
         this.ref = ref;
     }
 
+    toggleMenu() {
+        this.setState((state) => ({
+            menuVisable: !state.menuVisable
+        }));
+    }
+
     render() {
 
         let style = {};
@@ -116,7 +117,14 @@ class BoardElement extends React.Component<BoardElementProps, LocalBoardElementS
                 <div className="board-element-header">
                     <span className="board-element-number">{this.props.element.elementNumber}</span>
                     <span className="board-element-creator">{this.props.element.user.userName}</span>
-                    <i className="fas fa-trash ml-auto delete-icon" onClick={() => this.removeElement()}></i>
+
+                    <i className="fas fa-ellipsis-v menu-icon ml-auto" onClick={() => this.toggleMenu()}></i>
+
+                    {this.state.menuVisable &&
+                        <div className="menu-overlay" onClick={() => this.toggleMenu()}></div>
+                    }
+
+                    <Menu visable={this.state.menuVisable} hideMenu={() => this.toggleMenu()} element={this.props.element} />
                 </div>
                 <div className="board-element-body"
                     style={{ ...this.overflowStlyle, ...style }}
