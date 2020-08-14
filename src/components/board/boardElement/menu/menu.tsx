@@ -53,27 +53,27 @@ export class Menu extends React.Component<MenuProps> {
                             <div className="icon"><i className="fas fa-trash fa-fw delete-icon"></i></div> {/* Verwijderen verzoeken als dit niet het element van de gebruiker is. */}
                             <div className="body">Remove</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Edit this element">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Edit this element" >
                             <div className="icon"><i className="fas fa-pen fa-fw"></i></div>
                             <div className="body">Edit</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Move this element to another board">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Move this element to another board" >
                             <div className="icon"><i className="fas fa-share fa-fw"></i></div>
                             <div className="body">Move</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Copy this element to another board">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Copy this element to another board">
                             <div className="icon"><i className="fas fa-copy fa-fw"></i></div>
                             <div className="body">Copy</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Pin this element to the top of this board">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Pin this element to the top of this board">
                             <div className="icon"><i className="fas fa-thumbtack fa-fw"></i></div>
                             <div className="body">Pin</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Move this element">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Move this element">
                             <div className="icon"><i className="fas fa-arrows-alt fa-fw"></i></div>
                             <div className="body">Move on board</div>
                         </li>
-                        <li onClick={() => { console.warn("Not implemented yet.") }} title="Give this element attention to other players">
+                        <li onClick={() => { console.warn("Not implemented yet.") }} className="notImplemented" title="Give this element attention to other players">
                             <div className="icon"><i className="fas fa-bell fa-fw"></i></div>
                             <div className="body">Alert</div>
                         </li>

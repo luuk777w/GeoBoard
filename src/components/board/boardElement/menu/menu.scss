@@ -50,6 +50,11 @@
                 &:hover {
                     background-color: $gray200;
                 }
+
+                &.notImplemented {
+                    color: $gray300;
+                    text-decoration: line-through;
+                }
             }
 
         }
