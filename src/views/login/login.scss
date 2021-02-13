@@ -3,7 +3,12 @@
 .auth-container.login {
     .sidebar-button {
         color: white;
-        background-image: linear-gradient(to right, rgb(242, 76, 237) 0%, #b91d73 51%, rgb(165, 92, 255) 100%);
+        background-image: linear-gradient(
+            to right,
+            rgb(242, 76, 237) 0%,
+            #b91d73 51%,
+            rgb(165, 92, 255) 100%
+        );
     }
 
     .submit-button {

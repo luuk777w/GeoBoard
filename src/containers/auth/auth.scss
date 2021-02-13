@@ -7,9 +7,10 @@ $right-panel-bg-color: white;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 10rem;
     //background-color: #0093E9;
-    background-image: linear-gradient(45deg, #685cff 11.2%, #00bee9  70%);
+    background-image: linear-gradient(45deg, #4e342e 11.2%, #2e7d32 70%);
 
     background-image: url("/assets/media/images/background.jpg");
     background-size: cover;
@@ -20,14 +21,16 @@ $right-panel-bg-color: white;
         color: $blue600 !important;
     }
 
-    input[type=text], input[type=password], input[type=email] {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
         border: 1px solid $gray300;
     }
 
     .auth-panel-wrapper {
-        margin-top: 10vh;
+        margin-top: 12vh;
 
         .alert {
             box-shadow: 0px 0px 16px -10px $gray800;
@@ -40,7 +43,7 @@ $right-panel-bg-color: white;
         display: grid;
         grid-template-columns: minmax(150px, 35%) 1fr;
         box-shadow: 0px 0px 16px -10px $gray800;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         overflow: hidden;
 
         .panel-left {
@@ -49,7 +52,11 @@ $right-panel-bg-color: white;
             flex-direction: column;
             justify-content: space-between;
             background-color: $gray100;
-            background-image: linear-gradient( 45deg, rgba(92,121,255,1) 11.2%, rgba(76,221,242,1) 70% );
+            background-image: linear-gradient(
+                45deg,
+                #388e3c 11.2%,
+                #4e342e 70%
+            );
             text-shadow: 0px 0px 16px rgba(117, 117, 117, 0.4);
 
             .logo-container {
@@ -58,14 +65,14 @@ $right-panel-bg-color: white;
 
                 svg {
                     width: 60%;
-                    filter: drop-shadow( 0px 0px 15px rgba(117, 117, 117, 0.3));
+                    filter: drop-shadow(0px 0px 15px rgba(117, 117, 117, 0.3));
                 }
 
                 h1 {
                     color: $left-panel-text-color;
                     font-size: 3rem;
                     margin: 0;
-                    font-family: 'Alata';
+                    font-family: "Alata";
                 }
             }
 
@@ -97,7 +104,6 @@ $right-panel-bg-color: white;
             }
 
             form {
-
                 width: 60%;
 
                 .form-group {
@@ -137,13 +143,15 @@ $right-panel-bg-color: white;
             border-radius: 1.5rem;
             box-shadow: 0px 0px 16px -10px $gray800;
             transition: 0.5s;
-            padding: .6rem 2rem;
+            padding: 0.6rem 2rem;
         }
     }
 
     .footer {
         color: white;
         margin-top: 1rem;
+        width: 65rem;
+        text-align: center;
 
         code {
             text-shadow: 0px 0px 2px rgba(117, 117, 117, 0.8);
